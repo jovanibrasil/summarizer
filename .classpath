@@ -36,5 +36,6 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="lib" path="libs/rouge-calculator-1.2.1-shaded.jar"/>
+	<classpathentry kind="lib" path="libs/jFuzzyLogic.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
