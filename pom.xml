@@ -4,4 +4,13 @@
   <artifactId>com.fuzzy.summ</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <name>fuzzy-summ</name>
+  
+  <dependencies>
+  	<dependency>
+	  <groupId>org.apache.opennlp</groupId>
+	  <artifactId>opennlp-tools</artifactId>
+	  <version>1.9.1</version>
+	</dependency>
+  </dependencies>
+   
 </project>
