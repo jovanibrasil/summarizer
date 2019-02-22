@@ -3,6 +3,7 @@ package main;
 import java.util.stream.Stream;
 
 import fuzzy.FuzzySystem;
+import model.Text;
 import nlp.preprocesing.Preprocessing;
 import utils.Utils;
 
@@ -14,12 +15,27 @@ public class Main {
 		//FuzzySystem fs = new FuzzySystem();
 		
 		// Stream of lines, that is equivalent to paragraphs.
-		String text = Utils.readFile("ce94ab10-a.txt");
-		
-		Preprocessing pp = new Preprocessing(text);
+		Text text = Utils.readFile("ce94ab10-a.txt");
 		
 		
+		if(text != null) {
+			Preprocessing pp = new Preprocessing(text);
+			
+		}
 		
+		// palavras devem ser armazenadas também em um vetor, para possibilitar contagem e analise de ordem 
+		// eliminar linhas vazias
+		// eliminar espaços antes e depois dos termos
+		// computar features
+		
+		
+		// integrar com o sistema fuzzy
+		
+		// gerar sumario
+		
+		// avaliar
+		
+		// otimizações
 		
 	}
 
