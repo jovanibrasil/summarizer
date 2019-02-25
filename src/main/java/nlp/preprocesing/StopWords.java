@@ -3,6 +3,7 @@ package nlp.preprocesing;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
@@ -30,10 +31,10 @@ public class StopWords {
 		try {
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {
-					Map<String, Word> words = new HashMap<>();
-					sentence.getWords().values().forEach(word -> {
+					ArrayList<Word> words = new ArrayList<Word>();
+					sentence.getWords().forEach(word -> {
 						if(!StopWords.isStopWord(word.getRawWord())){
-							words.put(word.getRawWord(), new Word(word.getRawWord()));
+							words.add(new Word(word.getRawWord()));
 						}
 					});
 					sentence.setWords(words);

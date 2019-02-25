@@ -2,6 +2,7 @@ package nlp.preprocesing;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -22,9 +23,9 @@ public class Tokenization {
 			
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {
-					Map<String , Word> words = new HashMap<>();
+					ArrayList<Word> words = new ArrayList<Word>();
 					for (String s : tk.tokenize(sentence.getEditedSentence())) {
-						words.put(s, new Word(s));
+						words.add(new Word(s));
 					}
 					sentence.setWords(words);
 				});

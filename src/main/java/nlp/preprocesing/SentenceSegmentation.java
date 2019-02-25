@@ -21,8 +21,17 @@ public class SentenceSegmentation {
 			
 			text.getParagraphs().forEach( paragraph -> {
 				ArrayList<Sentence> sentences = new ArrayList<>();
+				int pos = 0;
 				for (String s : sd.sentDetect(paragraph.getRawParagraph())) {
-					sentences.add(new Sentence(s));
+					
+					Sentence sentence = new Sentence(s);
+					sentence.setPos(pos++);
+					
+					if(paragraph.getPos() == 0) {
+						sentence.setTitle(true);
+					}
+					
+					sentences.add(sentence);
 				}
 				paragraph.setSentences(sentences);
 			});

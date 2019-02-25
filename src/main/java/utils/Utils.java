@@ -4,10 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
 import java.util.ArrayList;
-import java.util.stream.Collectors;
-
 import model.Paragraph;
-import model.Sentence;
 import model.Text;
 
 public class Utils {
@@ -23,11 +20,19 @@ public class Utils {
 			String rawText = "";
 			ArrayList<Paragraph> paragraphs = new ArrayList<>();
 			String line = null;
+
+			res = new Text(rawText);
+			
+//			line = br.readLine();
+//			res.setTitle(line);
+			
+			int pos = 0;
 			while((line = br.readLine()) != null) {
-				paragraphs.add(new Paragraph(line));
+				Paragraph p = new Paragraph(line);
+				p.setPos(pos++);
+				paragraphs.add(p);
 				rawText += line;
 			}
-			res = new Text(rawText);
 			res.setParagraphs(paragraphs);			
 		} catch (Exception e) {
 			e.printStackTrace();

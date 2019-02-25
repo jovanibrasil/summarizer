@@ -1,8 +1,6 @@
 package main;
 
-import java.util.stream.Stream;
-
-import fuzzy.FuzzySystem;
+import features.Features;
 import model.Text;
 import nlp.preprocesing.Preprocessing;
 import utils.Utils;
@@ -23,11 +21,11 @@ public class Main {
 			
 		}
 		
-		// palavras devem ser armazenadas também em um vetor, para possibilitar contagem e analise de ordem 
+		// V palavras devem ser armazenadas também em um vetor, para possibilitar contagem e analise de ordem 
 		// eliminar linhas vazias
 		// eliminar espaços antes e depois dos termos
 		// computar features
-		
+		Features f = new Features(text);
 		
 		// integrar com o sistema fuzzy
 		

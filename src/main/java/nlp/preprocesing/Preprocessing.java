@@ -24,21 +24,21 @@ public class Preprocessing {
 		StopWords sw = new StopWords("resources/stopwords-pt-br.txt");
 		text = StopWords.removeStopWords(text);
 		
-		text.getParagraphs().forEach(p -> {
-			
-			System.out.println("----------------");
-			System.out.println(p);
-			
-			p.getSentences().forEach(s -> {
-				
-				System.out.println("row sentence: " + s.getRawSentence());
-				System.out.println("edited sentence: " + s.getEditedSentence());
-				System.out.println("valid words" + s.getWords().toString());
-				
-			});
-			
-			
-		});
+//		text.getParagraphs().forEach(p -> {
+//			
+//			System.out.println("----------------");
+//			System.out.println(p);
+//			
+//			p.getSentences().forEach(s -> {
+//				
+//				System.out.println("row sentence: " + s.getRawSentence());
+//				System.out.println("edited sentence: " + s.getEditedSentence());
+//				System.out.println("valid words" + s.getWords().toString());
+//				
+//			});
+//			
+//			
+//		});
 		
 	}
 	
