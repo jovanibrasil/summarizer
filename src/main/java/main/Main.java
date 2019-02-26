@@ -2,16 +2,17 @@ package main;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 import features.Features;
 import fuzzy.FuzzySystem;
+import model.Sentence;
+import model.Summary;
 import model.Text;
 import nlp.preprocesing.Preprocessing;
-
-import utils.Utils;
 import utils.Tuple;
+import utils.Utils;
 
 public class Main {
 
@@ -31,6 +32,8 @@ public class Main {
 		// Fuzzy system integration
 		FuzzySystem fs = new FuzzySystem("flc/fb2015.flc");
 		
+		ArrayList<Tuple<Integer, Double>> outList = new ArrayList<>();
+		
 		text.getParagraphs().forEach(p -> {
 			p.getSentences().forEach(s -> {
 				
@@ -40,12 +43,26 @@ public class Main {
 				
 				List<Tuple<String, Double>> inputVariables = new ArrayList<>(Arrays.asList(tfIsf, locLen, titleWords));
 				Double out = fs.run(inputVariables, "informatividade");
-		
+				outList.add(new Tuple<>(s.getId(), out));
+				
 			});
 		});
 	
+		Collections.sort(outList);
 		
-		// gerar sumario
+		// Generate the summary
+		Summary summary = new Summary();
+		int summarySize = (int)(0.3 * text.getTotalSentence());
+		int count = 0;
+		for (Tuple<Integer, Double> t : outList) {
+			Sentence sentence = text.getSentenceById(t.x);
+			summary.addSentence(sentence);
+			if(count == summarySize) {
+				break;
+			}
+			count++;
+		}
+		System.out.println(summary);
 		
 		// avaliar
 		//Evaluation evaluation = new Evaluation();

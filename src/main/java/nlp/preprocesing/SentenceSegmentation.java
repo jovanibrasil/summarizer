@@ -18,15 +18,15 @@ public class SentenceSegmentation {
 			SentenceModel sm = new SentenceModel(model);
 			// uses maximum entropy model 
 			SentenceDetectorME sd = new SentenceDetectorME(sm);
-			
+			var wrapper = new Object() { int globalPos = 0; };
 			text.getParagraphs().forEach( paragraph -> {
 				ArrayList<Sentence> sentences = new ArrayList<>();
-				int pos = 0;
+				int localPos = 0;
 				for (String s : sd.sentDetect(paragraph.getRawParagraph())) {
 					
 					Sentence sentence = new Sentence(s);
-					sentence.setPos(pos++);
-					
+					sentence.setPos(localPos++);
+					sentence.setId(wrapper.globalPos++);
 					if(paragraph.getPos() == 0) {
 						sentence.setTitle(true);
 					}

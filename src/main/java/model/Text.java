@@ -10,8 +10,6 @@ public class Text {
 	
 	private HashMap<String, Object> features;
 
-	private Sentence title;
-
 	public Text(String rawText) {
 		this.rawText = rawText;
 		this.paragraphs = new ArrayList<>();
@@ -45,10 +43,25 @@ public class Text {
 	public Sentence getTitle() {
 		return this.paragraphs.get(0).getSentences().get(0);
 	}
-
-//	public void setTitle(Text rawTitle) {
-//		this.title =;
-//	}
+	
+	public Sentence getSentenceById(int id) {
+		for (Paragraph paragraph : paragraphs) {
+			for(Sentence sentence : paragraph.getSentences()) {
+				if(sentence.getId() == id) {
+					return sentence;
+				}				
+			}
+		}
+		return null;
+	}
+	
+	public int getTotalSentence() {
+		int total = 0;
+		for (Paragraph paragraph : paragraphs) {
+			total += paragraph.getSentences().size();
+		}
+		return total;
+	}
 	
 	@Override
 	public String toString() {

@@ -6,7 +6,8 @@ import java.util.Map;
 
 public class Sentence {
 
-	private int pos;
+	private int id;
+	private int pos; // relative position to paragraph  	
 
 	private String rawSentence;
 	private String editedSentence;
@@ -97,6 +98,14 @@ public class Sentence {
 	
 	public void setTitle(Boolean isTitle) {
 		this.isTitle =isTitle;
+	}
+	
+	public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
 	}
 	
 	@Override
