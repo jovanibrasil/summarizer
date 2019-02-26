@@ -9,27 +9,18 @@ import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
 import model.Sentence;
 import model.Text;
+import model.Word;
 
 public class Features {
 
 	public Features(Text text) {
 		
-		// ok location
-		//this.location(text);
-		
-		// length
-		//this.length(text);
-		
-		// localen
-		//this.locLen(text);
-		
-		// tf
+		this.location(text);
+		this.length(text);
+		this.locLen(text);
 		this.tf(text);
-		// isf
 		this.isf(text);
-		// tfisf
 		this.tfIsf(text);
-		// title words
 		this.titleWords(text);
 		
 		//System.out.println(text);
@@ -148,17 +139,28 @@ public class Features {
 		HashMap<String, Double> isf = (HashMap<String, Double>) text.getFeature("isf");
 		
 		var wrapper = new Object() { Double maxRes = 0.0; };
-			Map<String, Double> tfisf = rtf.entrySet().stream()
-				.collect(Collectors.toMap(e -> e.getKey(), e -> {
-					Double res = (double)e.getValue() / isf.get(e.getKey());
-					if(res > wrapper.maxRes)
-						wrapper.maxRes = res;
-					return res;
-				}));
+		
+		Map<String, Double> tfisf = rtf.entrySet().stream()
+			.collect(Collectors.toMap(e -> e.getKey(), e -> {
+				Double res = (double)e.getValue() / isf.get(e.getKey());
+				if(res > wrapper.maxRes)
+					wrapper.maxRes = res;
+				return res;
+			}));
 		
 		tfisf.keySet().forEach(key -> {
 			tfisf.put(key, tfisf.get(key) / wrapper.maxRes);
 			//System.out.println(key + " tf-isf = " + tfisf.get(key) + " tf = " + rtf.get(key));
+		});
+		
+		text.getParagraphs().forEach(p -> {
+			p.getSentences().forEach(s -> {
+				wrapper.maxRes = .0;
+				s.getWords().forEach(w -> {
+					wrapper.maxRes += tfisf.get(w.getRawWord());
+				});
+				s.addFeature("tf-isf", wrapper.maxRes / s.getLength());
+			});
 		});
 		
 		text.addFeature("tf-isf", tfisf);
