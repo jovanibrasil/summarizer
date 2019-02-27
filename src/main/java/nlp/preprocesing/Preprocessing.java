@@ -1,45 +1,40 @@
 package nlp.preprocesing;
 
+import java.util.List;
+
 import model.Text;
 
 public class Preprocessing {
 	
-	public Preprocessing(Text text) {
+
+	public Text execute(Text text, OperationTypes op) {
+		
+		switch (op) {
+			case PARAGRAPH_SEGMENTATION:
+				return SentenceSegmentation.segmentTextParagraphs(text);
+			case REMOVE_PUNCTUATION:
+				return Utils.removePunctuation(text);
+			case TO_LOWER_CASE:
+				return Utils.convertToLowerCase(text);
+			case SENTENCE_TOKENIZATION:
+				return Tokenization.tokenizeTextSentences(text);	
+			case REMOVE_STOPWORDS:
+				return StopWords.removeStopWords(text);
+			default:
+				break;
+		}
+		return null;
+		
+	}
+	
+	
+	public Preprocessing(Text text, List<OperationTypes> operations) {
 		
 		// procurar padrão de projetos para pipeline
-		
-		// sentence segmentation
-		text = SentenceSegmentation.segmentTextParagraphs(text);
-		
-		// TODO punctuation remotion
-		text = Utils.removePunctuation(text);
-		
-		// TODO convert to lower case
-		text = Utils.convertToLowerCase(text);
-		
-		// TODO word segmentation (tokenization)
-		text = Tokenization.tokenizeTextSentences(text);
+		for (OperationTypes op : operations) {
+			text = this.execute(text, op);		
+		}
 	
-		// TODO stop words removing
-		StopWords sw = new StopWords("resources/stopwords-pt-br.txt");
-		text = StopWords.removeStopWords(text);
-		
-//		text.getParagraphs().forEach(p -> {
-//			
-//			System.out.println("----------------");
-//			System.out.println(p);
-//			
-//			p.getSentences().forEach(s -> {
-//				
-//				System.out.println("row sentence: " + s.getRawSentence());
-//				System.out.println("edited sentence: " + s.getEditedSentence());
-//				System.out.println("valid words" + s.getWords().toString());
-//				
-//			});
-//			
-//			
-//		});
-		
 	}
 	
 }

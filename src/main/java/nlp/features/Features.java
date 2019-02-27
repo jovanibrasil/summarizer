@@ -1,4 +1,4 @@
-package features;
+package nlp.features;
 
 import java.util.HashMap;
 import java.util.HashSet;
@@ -326,11 +326,9 @@ public class Features {
 					Map<String, Double> tfIsf = (Map<String, Double>) text.getFeature("tf-isf");
 					s.getWords().forEach(w -> {
 						if(title.containsWord(w)) {
-							
 							wrapper.wordCount++;
 							Double weight = tfIsf.get(w.getRawWord());
 							wrapper.summation += Math.pow(weight, 2);
-							
 						}
 					});
 					

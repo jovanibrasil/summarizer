@@ -17,10 +17,6 @@ public class StopWords {
 	private static HashSet<String> stopWords = new HashSet<String>();
 	//static Logger logger = Logger.getLogger(StopWordsHandler.class);
 
-	public StopWords(String stopFile) {
-		loadStopWords(stopFile);
-	}
-
 	public static boolean isStopWord(String str) {
 		if (stopWords.contains(str))
 			return true;
@@ -28,6 +24,10 @@ public class StopWords {
 	}
 	
 	public static Text removeStopWords(Text text) {
+		
+		if(StopWords.stopWords == null) {
+			loadStopWords("resources/stopwords-pt-br.txt");
+		}
 		try {
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {

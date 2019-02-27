@@ -25,6 +25,10 @@ public class Paragraph {
 	public void setSentences(ArrayList<Sentence> sentences) {
 		this.sentences = sentences;
 	}
+	
+	public void addSentence(Sentence sentence) {
+		this.sentences.add(sentence);
+	}
 
 	public String getRawParagraph() {
 		return rawParagraph;

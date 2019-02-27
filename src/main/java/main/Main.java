@@ -5,12 +5,19 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
-import features.Features;
-import fuzzy.FuzzySystem;
+import ai.fuzzy.FuzzySystem;
+import model.Paragraph;
 import model.Sentence;
 import model.Summary;
 import model.Text;
+import nlp.evaluation.Evaluation;
+import nlp.evaluation.EvaluationTypes;
+import nlp.features.Features;
+import nlp.preprocesing.OperationTypes;
 import nlp.preprocesing.Preprocessing;
+import nlp.preprocesing.SentenceSegmentation;
+import nlp.preprocesing.StopWords;
+import nlp.preprocesing.Tokenization;
 import utils.Tuple;
 import utils.Utils;
 
@@ -18,10 +25,16 @@ public class Main {
 
 	public static void main(String[] args) {
 		
-		Text text = Utils.readFile("ce94ab10-a.txt");
+		Text text = Utils.loadText("full-texts/ce94ab10-a.txt");
+		
+		List<OperationTypes> operations = new ArrayList<OperationTypes>(Arrays.asList(
+				OperationTypes.PARAGRAPH_SEGMENTATION, OperationTypes.SENTENCE_TOKENIZATION,
+				OperationTypes.TO_LOWER_CASE, OperationTypes.REMOVE_PUNCTUATION,
+				OperationTypes.REMOVE_STOPWORDS));
+		
 		
 		if(text != null) {
-			Preprocessing pp = new Preprocessing(text);
+			Preprocessing pp = new Preprocessing(text, operations);
 		}
 		
 		// eliminar linhas vazias
@@ -51,24 +64,33 @@ public class Main {
 		Collections.sort(outList);
 		
 		// Generate the summary
-		Summary summary = new Summary();
+		Text generatedSummary = new Text("");
+		Paragraph paragraph = new Paragraph(""); // TODO where is the full paragraph text? Is it necessary?
 		int summarySize = (int)(0.3 * text.getTotalSentence());
 		int count = 0;
 		for (Tuple<Integer, Double> t : outList) {
 			Sentence sentence = text.getSentenceById(t.x);
-			summary.addSentence(sentence);
+			paragraph.addSentence(sentence);
 			if(count == summarySize) {
 				break;
 			}
 			count++;
 		}
-		System.out.println(summary);
+		generatedSummary.addParagraph(paragraph);
+		System.out.println(generatedSummary);
+		
+		
+		Text referenceSummary = Utils.loadText("summaries/reference/automatic/ce94ab10-a.0.ref.txt");
+		operations = new ArrayList<OperationTypes>(Arrays.asList(
+				OperationTypes.PARAGRAPH_SEGMENTATION, OperationTypes.SENTENCE_TOKENIZATION));
+		Preprocessing pp = new Preprocessing(referenceSummary, operations);
 		
 		// avaliar
 		//Evaluation evaluation = new Evaluation();
+		Evaluation.evaluate(generatedSummary, referenceSummary, EvaluationTypes.OVERLAP);
 		
 		// otimizações
-	
+		
 		
 	}
 

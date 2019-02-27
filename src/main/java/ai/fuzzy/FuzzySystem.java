@@ -1,4 +1,4 @@
-package fuzzy;
+package ai.fuzzy;
 
 import java.util.ArrayList;
 import java.util.Arrays;

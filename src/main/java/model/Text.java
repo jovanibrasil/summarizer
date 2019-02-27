@@ -20,8 +20,8 @@ public class Text {
 		return paragraphs;
 	}
 
-	public void setParagraphs(ArrayList<Paragraph> paragraphs) {
-		this.paragraphs = paragraphs;
+	public void addParagraph(Paragraph paragraph) {
+		this.paragraphs.add(paragraph);
 	}
 
 	public String getRawText() {
@@ -42,6 +42,17 @@ public class Text {
 	
 	public Sentence getTitle() {
 		return this.paragraphs.get(0).getSentences().get(0);
+	}
+	
+	public boolean containsSentence(Sentence sentence) {
+		for (Paragraph paragraph : paragraphs) {
+			for (Sentence s : paragraph.getSentences()) {
+				if(s.getRawSentence().equals(sentence.getRawSentence())) {
+					return true;
+				}
+			}
+		}
+		return false;
 	}
 	
 	public Sentence getSentenceById(int id) {
