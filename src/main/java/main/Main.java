@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 
 import ai.fuzzy.FuzzySystem;
+import ai.fuzzy.optimization.Optimization;
 import model.Paragraph;
 import model.Sentence;
 import model.Summary;
@@ -92,6 +93,8 @@ public class Main {
 		Evaluation.evaluate(generatedSummary, referenceSummary, EvaluationTypes.ROUGE);
 		// otimizações
 		
+		String[] varNames = { "k1", "k2", "loc_len" };
+		Optimization optmization = new Optimization("flc/fb2015.flc", varNames);
 		
 	}
 
