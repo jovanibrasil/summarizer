@@ -28,10 +28,10 @@ public class Main {
 		Text text = Utils.loadText("full-texts/ce94ab10-a.txt");
 		
 		List<OperationTypes> operations = new ArrayList<OperationTypes>(Arrays.asList(
-				OperationTypes.PARAGRAPH_SEGMENTATION, OperationTypes.SENTENCE_TOKENIZATION,
+				OperationTypes.PARAGRAPH_SEGMENTATION, OperationTypes.TOKENIZATION,
+				OperationTypes.NER, OperationTypes.POS,
 				OperationTypes.TO_LOWER_CASE, OperationTypes.REMOVE_PUNCTUATION,
 				OperationTypes.REMOVE_STOPWORDS));
-		
 		
 		if(text != null) {
 			Preprocessing pp = new Preprocessing(text, operations);
@@ -39,6 +39,7 @@ public class Main {
 		
 		// eliminar linhas vazias
 		// eliminar espaços antes e depois dos termos
+		// tratar títulos
 		Features f = new Features(text);
 		// TODO seletor do pipeline de features
 		
@@ -80,15 +81,15 @@ public class Main {
 		System.out.println(generatedSummary);
 		
 		
-		Text referenceSummary = Utils.loadText("summaries/reference/automatic/ce94ab10-a.0.ref.txt");
+		Text referenceSummary = Utils.loadText("summaries/reference/automatic/ce94ab10-a_reference1.txt");
 		operations = new ArrayList<OperationTypes>(Arrays.asList(
-				OperationTypes.PARAGRAPH_SEGMENTATION, OperationTypes.SENTENCE_TOKENIZATION));
+				OperationTypes.PARAGRAPH_SEGMENTATION, OperationTypes.TOKENIZATION));
 		Preprocessing pp = new Preprocessing(referenceSummary, operations);
 		
 		// avaliar
 		//Evaluation evaluation = new Evaluation();
 		Evaluation.evaluate(generatedSummary, referenceSummary, EvaluationTypes.OVERLAP);
-		
+		Evaluation.evaluate(generatedSummary, referenceSummary, EvaluationTypes.ROUGE);
 		// otimizações
 		
 		

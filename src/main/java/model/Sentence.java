@@ -55,6 +55,14 @@ public class Sentence {
 	//		return this.wordsDic.get(key);
 	//	}
 	
+	public String[] getRawWords() {
+		String words[] = new String[this.words.size()];
+		for (int index = 0; index < this.words.size(); index++) {
+			words[index] = this.words.get(index).getRawWord();
+		}
+		return words;
+	}
+	
 	public boolean containsWord(Word word) {
 		//return this.words.contains(word);
 		return this.words.stream().filter(w -> w.getRawWord().equals(word.getRawWord())).findFirst().isPresent();

@@ -1,5 +1,5 @@
 ROUGE-Type,Task Name,System Name,Avg_Recall,Avg_Precision,Avg_F-Score,Num Reference Summaries
-ROUGE-1+StopWordRemoval+Stemming,CE94AB10-A,SYSTEM1.TXT,0,38415,0,31980,0,34903,1
+ROUGE-1+StopWordRemoval,CE94AB10-A,SYSTEM1.TXT,0,53371,0,48223,0,50667,1
 
-ROUGE-2+StopWordRemoval+Stemming,CE94AB10-A,SYSTEM1.TXT,0,07143,0,05946,0,06490,1
+ROUGE-2+StopWordRemoval,CE94AB10-A,SYSTEM1.TXT,0,35928,0,32432,0,34091,1
 

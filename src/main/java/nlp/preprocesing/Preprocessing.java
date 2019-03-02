@@ -16,10 +16,14 @@ public class Preprocessing {
 				return Utils.removePunctuation(text);
 			case TO_LOWER_CASE:
 				return Utils.convertToLowerCase(text);
-			case SENTENCE_TOKENIZATION:
-				return Tokenization.tokenizeTextSentences(text);	
+			case TOKENIZATION:
+				return Tokenization.tokenization(text);	
 			case REMOVE_STOPWORDS:
 				return StopWords.removeStopWords(text);
+			case POS:
+				return POS.pos(text);
+			case NER:
+				return NER.ner(text);
 			default:
 				break;
 		}
