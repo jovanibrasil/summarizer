@@ -25,10 +25,12 @@ public class Utils {
 			
 			int pos = 0;
 			while((line = br.readLine()) != null) {
-				Paragraph p = new Paragraph(line);
-				p.setPos(pos++);
-				text.addParagraph(p);
-				rawText += line;
+				if(!line.isEmpty()) {
+					Paragraph p = new Paragraph(line);
+					p.setPos(pos++);
+					text.addParagraph(p);
+					rawText += line;
+				}
 			}	
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -79,7 +81,8 @@ public class Utils {
 		return summary;
 	}
 	
-		
-	
+	public static boolean isNumeric(String str) {
+	  return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+	}
 	
 }

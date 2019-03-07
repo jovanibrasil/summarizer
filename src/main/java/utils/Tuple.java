@@ -13,9 +13,9 @@ public class Tuple<X, Y> implements Comparable<Tuple<X, Y>> {
 	@Override
 	public int compareTo(Tuple<X, Y> o) {
 		if((double)o.y < (double)this.y) {
-			return 1;
-		}else if((double)o.y > (double)this.y) {
 			return -1;
+		}else if((double)o.y > (double)this.y) {
+			return 1;
 		}else {
 			return 0;
 		}

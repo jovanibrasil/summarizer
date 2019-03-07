@@ -2,6 +2,7 @@ package model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Sentence {
@@ -114,6 +115,18 @@ public class Sentence {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public String toString(List<String> features) {
+		StringBuilder sb = new StringBuilder();
+		
+		features.forEach(featureName -> {
+			sb.append(String.format("{ %s: %s }", featureName,
+					this.features.get(featureName)).toString());
+		});
+		
+		return this.rawSentence + "\n	" + 
+				sb.toString() + "\n";
 	}
 	
 	@Override

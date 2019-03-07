@@ -24,6 +24,8 @@ public class Preprocessing {
 				return POS.pos(text);
 			case NER:
 				return NER.ner(text);
+			case IDENTIFY_TITLES:
+				return Titles.identifyTitles(text);
 			default:
 				break;
 		}

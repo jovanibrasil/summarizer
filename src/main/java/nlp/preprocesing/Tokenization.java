@@ -28,11 +28,13 @@ public class Tokenization {
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {
 					ArrayList<Word> words = new ArrayList<Word>();
-					for (String s : tk.tokenize(sentence.getEditedSentence())) {
+					String tokenizedWords[] = tk.tokenize(sentence.getEditedSentence());
+					for (String s : tokenizedWords) {
 						words.add(new Word(s));
 					}
 					sentence.setWords(words);
 				});
+				
 			});
 			
 		} catch (Exception e) {

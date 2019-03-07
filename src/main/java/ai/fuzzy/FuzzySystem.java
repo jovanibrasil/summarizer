@@ -19,14 +19,24 @@ public class FuzzySystem {
 	public FuzzySystem(String fileName) {
 		
 		this.fis = FIS.load(fileName, true);
-		
 		if(this.fis == null) {
 			System.err.println("Can't load file: '" + fileName + "'");
 	        return;
 		}
-		
 		this.functionBlock = this.fis.getFunctionBlock(null);
+	}
+	
+	public void showFuzzySystem() {
 		JFuzzyChart.get().chart(functionBlock); // show fuzzy system
+	}
+	
+	public void updateSystem() {
+		
+		// adicionar um bloco de função
+		// 
+		
+		
+		//this.fis.addFunctionBlock(name, functionBlock);
 		
 	}
 	

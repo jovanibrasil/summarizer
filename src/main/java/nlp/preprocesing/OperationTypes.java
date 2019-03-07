@@ -7,5 +7,6 @@ public enum OperationTypes {
 	TOKENIZATION,
 	REMOVE_STOPWORDS,
 	NER,
-	POS
+	POS,
+	IDENTIFY_TITLES
 }
