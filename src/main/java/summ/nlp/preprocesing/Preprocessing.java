@@ -10,7 +10,7 @@ public class Preprocessing {
 	public Text execute(Text text, OperationTypes op) {
 		
 		switch (op) {
-			case PARAGRAPH_SEGMENTATION:
+			case SENTENCE_SEGMENTATION:
 				return SentenceSegmentation.segmentTextParagraphs(text);
 			case REMOVE_PUNCTUATION:
 				return Utils.removePunctuation(text);

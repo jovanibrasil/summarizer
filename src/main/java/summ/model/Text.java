@@ -5,6 +5,8 @@ import java.util.HashMap;
 
 public class Text {
 
+	private String name;
+
 	private ArrayList<Paragraph> paragraphs;
 	private String rawText; 
 	
@@ -72,6 +74,15 @@ public class Text {
 			total += paragraph.getSentences().size();
 		}
 		return total;
+	}
+	
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 	
 	@Override

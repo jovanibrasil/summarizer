@@ -1,3 +1,77 @@
+FUNCTION_BLOCK fb2015
+
+VAR_INPUT
+	k1 : REAL;
+	k2 : REAL;
+	loc_len : REAL;
+END_VAR
+
+VAR_OUTPUT
+	informatividade : REAL;
+END_VAR
+
+FUZZIFY k1
+	TERM alto := GBELL 0.889 0.318 3.465;
+	TERM baixo := GBELL 0.008 0.244 2.41;
+	TERM medio := GBELL 0.411 0.159 2.675;
+END_FUZZIFY
+
+FUZZIFY k2
+	TERM alto := GBELL 0.952 0.318 2.814;
+	TERM baixo := GBELL 0.008 0.258 2.409;
+	TERM medio := GBELL 0.456 0.186 1.983;
+END_FUZZIFY
+
+FUZZIFY loc_len
+	TERM alto := GBELL 1.03 0.387 3.118;
+	TERM baixo := GBELL 0.046 0.241 2.04;
+	TERM medio := GBELL 0.462 0.173 2.81;
+END_FUZZIFY
+
+DEFUZZIFY informatividade
+	TERM alto := GBELL 0.975 0.305 4.56;
+	TERM baixo := GBELL 0.029 0.253 4.16;
+	TERM medio := GBELL 0.47 0.195 3.117;
+	METHOD : COG;
+	DEFAULT := 0.0;
+	RANGE := (0.0 .. 1.0);
+END_DEFUZZIFY
+
+RULEBLOCK No1
+	ACT : MIN;
+	ACCU : MAX;
+	AND : MIN;
+	RULE 1 : IF ((loc_len IS baixo) AND (k1 IS baixo)) AND (k2 IS baixo) THEN informatividade IS baixo;
+	RULE 2 : IF ((loc_len IS baixo) AND (k1 IS baixo)) AND (k2 IS medio) THEN informatividade IS baixo;
+	RULE 3 : IF ((loc_len IS baixo) AND (k1 IS baixo)) AND (k2 IS alto) THEN informatividade IS baixo;
+	RULE 4 : IF ((loc_len IS baixo) AND (k1 IS medio)) AND (k2 IS baixo) THEN informatividade IS baixo;
+	RULE 5 : IF ((loc_len IS baixo) AND (k1 IS medio)) AND (k2 IS medio) THEN informatividade IS medio;
+	RULE 6 : IF ((loc_len IS baixo) AND (k1 IS medio)) AND (k2 IS alto) THEN informatividade IS medio;
+	RULE 7 : IF ((loc_len IS baixo) AND (k1 IS alto)) AND (k2 IS baixo) THEN informatividade IS medio;
+	RULE 8 : IF ((loc_len IS baixo) AND (k1 IS alto)) AND (k2 IS medio) THEN informatividade IS medio;
+	RULE 9 : IF ((loc_len IS baixo) AND (k1 IS alto)) AND (k2 IS alto) THEN informatividade IS medio;
+	RULE 10 : IF ((loc_len IS medio) AND (k1 IS baixo)) AND (k2 IS baixo) THEN informatividade IS baixo;
+	RULE 11 : IF ((loc_len IS medio) AND (k1 IS baixo)) AND (k2 IS medio) THEN informatividade IS medio;
+	RULE 12 : IF ((loc_len IS medio) AND (k1 IS baixo)) AND (k2 IS alto) THEN informatividade IS medio;
+	RULE 13 : IF ((loc_len IS medio) AND (k1 IS medio)) AND (k2 IS baixo) THEN informatividade IS baixo;
+	RULE 14 : IF ((loc_len IS medio) AND (k1 IS medio)) AND (k2 IS medio) THEN informatividade IS medio;
+	RULE 15 : IF ((loc_len IS medio) AND (k1 IS medio)) AND (k2 IS alto) THEN informatividade IS alto;
+	RULE 16 : IF ((loc_len IS medio) AND (k1 IS alto)) AND (k2 IS baixo) THEN informatividade IS medio;
+	RULE 17 : IF ((loc_len IS medio) AND (k1 IS alto)) AND (k2 IS medio) THEN informatividade IS alto;
+	RULE 18 : IF ((loc_len IS medio) AND (k1 IS alto)) AND (k2 IS alto) THEN informatividade IS alto;
+	RULE 19 : IF ((loc_len IS alto) AND (k1 IS baixo)) AND (k2 IS baixo) THEN informatividade IS medio;
+	RULE 20 : IF ((loc_len IS alto) AND (k1 IS baixo)) AND (k2 IS medio) THEN informatividade IS medio;
+	RULE 21 : IF ((loc_len IS alto) AND (k1 IS baixo)) AND (k2 IS alto) THEN informatividade IS alto;
+	RULE 22 : IF ((loc_len IS alto) AND (k1 IS medio)) AND (k2 IS baixo) THEN informatividade IS medio;
+	RULE 23 : IF ((loc_len IS alto) AND (k1 IS medio)) AND (k2 IS medio) THEN informatividade IS alto;
+	RULE 24 : IF ((loc_len IS alto) AND (k1 IS medio)) AND (k2 IS alto) THEN informatividade IS alto;
+	RULE 25 : IF ((loc_len IS alto) AND (k1 IS alto)) AND (k2 IS baixo) THEN informatividade IS alto;
+	RULE 26 : IF ((loc_len IS alto) AND (k1 IS alto)) AND (k2 IS medio) THEN informatividade IS alto;
+	RULE 27 : IF ((loc_len IS alto) AND (k1 IS alto)) AND (k2 IS alto) THEN informatividade IS alto;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK
+
 RULEBLOCK No1
 	ACT : MIN;
 	ACCU : MAX;

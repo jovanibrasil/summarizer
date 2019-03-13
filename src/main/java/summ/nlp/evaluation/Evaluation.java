@@ -1,24 +1,25 @@
 package summ.nlp.evaluation;
 
+import java.util.HashMap;
+
 import summ.model.Text;
 
 public class Evaluation {
 
 	public Evaluation() {}
 	
-	public static void evaluate(Text generatedSummary, Text referenceSummary, EvaluationTypes evaluationType) {
+	public static HashMap<String, HashMap<String, Object>>  evaluate(Text generatedSummary, 
+			Text referenceSummary, EvaluationTypes evaluationType) {
 		
 		switch (evaluationType) {
 			case ROUGE:
-				Rouge.evaluate(generatedSummary, referenceSummary);
-				break;
+				return Rouge.evaluate(generatedSummary, referenceSummary);
 			case OVERLAP:
-				Overlap.evaluate(generatedSummary, referenceSummary);
-				break;
+				return Overlap.evaluate(generatedSummary, referenceSummary);
 			default:
 				break;
 		}
-		
+		return null;
 	}
 	
 }

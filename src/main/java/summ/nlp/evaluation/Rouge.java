@@ -10,7 +10,7 @@ import summ.model.Text;
 
 public class Rouge {
 
-	public static void evaluate(Text generatedSummary, Text referenceSummary) {
+	public static HashMap<String, HashMap<String, Object>> evaluate(Text generatedSummary, Text referenceSummary) {
 
 		ROUGESettings settings = new ROUGESettings();
 		SettingsUtil.loadProps(settings);
@@ -19,6 +19,8 @@ public class Rouge {
 //		settings.REMOVE_STOP_WORDS = true;
 		HashMap<String, HashMap<String, Object>> result = ROUGECalculator.computeRouge(settings);
 		formatRougeResult(result);
+		return result;
+		
 	}
 	
 	public static void formatRougeResult(HashMap<String, HashMap<String, Object>> result) {
@@ -42,8 +44,6 @@ public class Rouge {
 			System.out.println(resultStr);
 			
 		});
-		
-		
 		
 	}
 	

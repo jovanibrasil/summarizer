@@ -1,7 +1,7 @@
 package summ.nlp.preprocesing;
 
 public enum OperationTypes {
-	PARAGRAPH_SEGMENTATION, 
+	SENTENCE_SEGMENTATION, 
 	REMOVE_PUNCTUATION, 
 	TO_LOWER_CASE, 
 	TOKENIZATION,

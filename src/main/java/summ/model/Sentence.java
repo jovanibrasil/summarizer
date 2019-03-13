@@ -125,13 +125,14 @@ public class Sentence {
 					this.features.get(featureName)).toString());
 		});
 		
-		return this.rawSentence + "\n	" + 
+		return this.rawSentence + "\n\t" + 
 				sb.toString() + "\n";
 	}
 	
 	@Override
 	public String toString() {
-		return this.rawSentence + "\n	" + 
+		return this.rawSentence + "\n\t" + 
+				this.words + "\n\t" +
 				this.features.toString() + "\n";
 	}
 	

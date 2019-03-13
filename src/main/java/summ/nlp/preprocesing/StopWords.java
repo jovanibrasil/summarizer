@@ -12,7 +12,7 @@ import summ.model.Word;
 
 public class StopWords {
 
-	private static HashSet<String> stopWords = new HashSet<String>();
+	private static HashSet<String> stopWords = null;
 	//static Logger logger = Logger.getLogger(StopWordsHandler.class);
 
 	public static boolean isStopWord(String str) {
@@ -46,6 +46,7 @@ public class StopWords {
 
 	private static void loadStopWords(String stopFile) {
 
+		stopWords = new HashSet<String>();
 		try (Stream<String> stream = Files.lines(Paths.get(stopFile))) {
 			stream.forEach(line -> {
 				String stopWord = line.trim().toLowerCase();

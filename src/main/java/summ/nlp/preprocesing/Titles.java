@@ -14,6 +14,7 @@ public class Titles {
 		
 		text.getParagraphs().forEach( paragraph -> {
 			paragraph.getSentences().forEach(sentence -> {
+				// TODO sentença pode não ter valores após o pre-processamento
 				String firstWord = sentence.getWords().get(0).getRawWord();
 				int maxSentenceLength = 5; // TODO calculate dynamically the sentence length BEFORE the execution of this method
 				if(Utils.isNumeric(firstWord) || 

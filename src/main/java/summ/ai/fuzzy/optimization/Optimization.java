@@ -6,13 +6,16 @@ import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import net.sourceforge.jFuzzyLogic.Gpr;
 import net.sourceforge.jFuzzyLogic.optimization.OptimizationDeltaJump;
+import net.sourceforge.jFuzzyLogic.optimization.OptimizationGradient;
+import net.sourceforge.jFuzzyLogic.optimization.OptimizationPartialDerivate;
 import net.sourceforge.jFuzzyLogic.optimization.Parameter;
 import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
+import summ.model.Text;
 
 
 public class Optimization {
 
-	public Optimization(String fileName, String[] varNames) {
+	public Optimization(String fileName, String[] varNames, Text originalText, Text referenceSummary) {
 		
 		FIS fis = FIS.load(fileName);
 		FunctionBlock functionBlock = fis.getFunctionBlock(null);
@@ -29,26 +32,30 @@ public class Optimization {
 //	    for( Iterator it = fuzzyRuleSet.getRules().iterator(); it.hasNext(); ) {
 //	      Rule rule = (Rule) it.next();
 //	      Parameter.parameterListAddRule(parameterList, rule);
-//	    }
-		
-		
+//	    }		
 		//		//		for (Rule rule : ruleBlock.getRules())
 		//			parameterList.addAll(Parameter.parametersRuleWeight(rule));
-		//
-		//
 
 		// Error function to be optimized
-		ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(); 
+		ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(fileName, originalText, referenceSummary); 
 		
-		// OptimizationGradient and Optimization Partial Derivative
+		// OptimizationGradient Optimization Partial Derivative Optimization Gradient
 		OptimizationDeltaJump optimizationDeltaJump = new OptimizationDeltaJump(ruleBlock, errorFunction, parameterList); 
+
+		//OptimizationGradient 
+		//OptimizationGradient optimizationDeltaJump = new OptimizationGradient(ruleBlock, errorFunction, parameterList); 
+
+		//OptimizationPartialDerivate
+		//OptimizationPartialDerivate optimizationDeltaJump = new OptimizationPartialDerivate(ruleBlock, errorFunction, parameterList); 
+
+		
 		optimizationDeltaJump.setMaxIterations(20);
 		optimizationDeltaJump.setVerbose(true);
 		optimizationDeltaJump.optimize(); // optimize using delta jump method
 		
 		// save optimized result
 		System.out.println(ruleBlock.toStringFcl());
-	    Gpr.toFile("flc/fb2015_optimized.flc", ruleBlock.toStringFcl());
+	    Gpr.toFile("flc/fb2015_optimized.flc", ruleBlock.getFunctionBlock().toString() + ruleBlock.toString() );
 		
 	    // functionBlock.reset();
 	    // JFuzzyChart.get().chart(functionBlock);

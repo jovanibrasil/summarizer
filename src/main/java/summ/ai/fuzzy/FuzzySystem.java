@@ -4,11 +4,12 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import summ.utils.Tuple;
+
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
-import summ.utils.Tuple;
 
 public class FuzzySystem {
 	
@@ -29,14 +30,11 @@ public class FuzzySystem {
 		JFuzzyChart.get().chart(functionBlock); // show fuzzy system
 	}
 	
-	public void updateSystem() {
-		
-		// adicionar um bloco de função
-		// 
-		
-		
-		//this.fis.addFunctionBlock(name, functionBlock);
-		
+	/*
+	 * Update fuzzy system rule block.
+	 */
+	public void updateSystem(FunctionBlock functionBlock) {
+		this.fis.addFunctionBlock(functionBlock.getName(), functionBlock);
 	}
 	
 	public static void tipperSystem() {
