@@ -7,13 +7,11 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.stream.Collectors;
 
 import summ.model.Paragraph;
-import summ.model.Summary;
 import summ.model.Text;
 
 public class Utils {
@@ -77,7 +75,11 @@ public class Utils {
 	}
 	
 	public static boolean isNumeric(String str) {
-	  return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+		return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+	}
+	
+	public static double convertCosineToAngle(double consine) {
+		return Math.acos(consine);
 	}
 	
 }

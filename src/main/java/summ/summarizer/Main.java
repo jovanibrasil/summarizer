@@ -32,9 +32,9 @@ public class Main {
 		
 		
 		
-		// invokeGUI();
+		invokeGUI();
 		
-		Summarizer.summarizeTexts();
+		//Summarizer.summarizeTexts();
 		
 		//Summarizer.summarizationText("mu94de14-a.txt");
 		
