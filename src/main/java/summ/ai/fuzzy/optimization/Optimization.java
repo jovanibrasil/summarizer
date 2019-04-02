@@ -2,6 +2,8 @@ package summ.ai.fuzzy.optimization;
 
 import java.util.ArrayList;
 
+import org.apache.commons.math3.genetics.GeneticAlgorithm;
+
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import net.sourceforge.jFuzzyLogic.Gpr;
@@ -10,6 +12,7 @@ import net.sourceforge.jFuzzyLogic.optimization.OptimizationGradient;
 import net.sourceforge.jFuzzyLogic.optimization.OptimizationPartialDerivate;
 import net.sourceforge.jFuzzyLogic.optimization.Parameter;
 import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
+import summ.ai.fuzzy.optimization.crossover.SimpleMean;
 import summ.model.Text;
 
 
@@ -39,19 +42,21 @@ public class Optimization {
 		// Error function to be optimized
 		ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(fileName, originalText, referenceSummary); 
 		
+		// Define the crossover operator
+		SimpleMean sm = new SimpleMean();
+		
 		// OptimizationGradient Optimization Partial Derivative Optimization Gradient
-		OptimizationDeltaJump optimizationDeltaJump = new OptimizationDeltaJump(ruleBlock, errorFunction, parameterList); 
-
+		//OptimizationDeltaJump optimization = new OptimizationDeltaJump(ruleBlock, errorFunction, parameterList); 
+		OptimizationGenetic optimization = new OptimizationGenetic(ruleBlock, errorFunction, parameterList, sm);
 		//OptimizationGradient 
-		//OptimizationGradient optimizationDeltaJump = new OptimizationGradient(ruleBlock, errorFunction, parameterList); 
+		//OptimizationGradient optimization = new OptimizationGradient(ruleBlock, errorFunction, parameterList); 
 
 		//OptimizationPartialDerivate
-		//OptimizationPartialDerivate optimizationDeltaJump = new OptimizationPartialDerivate(ruleBlock, errorFunction, parameterList); 
-
+		//OptimizationPartialDerivate optimization = new OptimizationPartialDerivate(ruleBlock, errorFunction, parameterList); 
 		
-		optimizationDeltaJump.setMaxIterations(20);
-		optimizationDeltaJump.setVerbose(true);
-		optimizationDeltaJump.optimize(); // optimize using delta jump method
+		optimization.setMaxIterations(20);
+		optimization.setVerbose(true);
+		optimization.optimize(); // optimize using delta jump method
 		
 		// save optimized result
 		System.out.println(ruleBlock.toStringFcl());

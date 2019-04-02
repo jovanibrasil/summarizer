@@ -1,10 +1,12 @@
 package summ.nlp.preprocesing;
 
-public enum OperationTypes {
+public enum PreProcessingTypes {
 	SENTENCE_SEGMENTATION, 
 	REMOVE_PUNCTUATION, 
 	TO_LOWER_CASE, 
-	TOKENIZATION,
+	SIMPLE_TOKENIZATION,
+	WHITE_SPACE_TOKENIZATION,
+	NEURAL_TOKENIZATION,
 	REMOVE_STOPWORDS,
 	NER,
 	POS,

@@ -1,9 +1,10 @@
 package summ.nlp.preprocesing;
 
 import summ.model.Text;
+import summ.utils.Pipe;
 import summ.utils.Utils;
 
-public class Titles {
+public class Titles implements Pipe<Text> {
 
 	/*
 	 * Verify if a sentence is a title. A sentence is a title if it begins with number OR if sentence length is less 
@@ -27,6 +28,11 @@ public class Titles {
 		});
 		
 		return text;
+	}
+
+	@Override
+	public Text process(Text text) {
+		return identifyTitles(text);
 	}
 	
 }

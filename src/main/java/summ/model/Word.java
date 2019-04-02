@@ -6,7 +6,7 @@ import java.util.Map;
 public class Word implements Comparable<Word> {
 	
 	private String rawWord;
-	private Map<String, Float> features;
+	private Map<String, Double> features;
 	
 	public Word(String rawWord) {
 		this.rawWord = rawWord;
@@ -21,11 +21,11 @@ public class Word implements Comparable<Word> {
 		this.rawWord = rawWord;
 	}
 
-	public void addFeature(String key, Float value) {
+	public void addFeature(String key, Double value) {
 		this.features.put(key, value);
 	}
 	
-	public Float getFeature(String key) {
+	public Double getFeature(String key) {
 		if(this.features.containsKey(key)) {
 			return this.features.get(key);
 		}

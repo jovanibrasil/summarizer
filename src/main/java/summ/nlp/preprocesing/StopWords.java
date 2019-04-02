@@ -9,21 +9,22 @@ import java.util.stream.Stream;
 
 import summ.model.Text;
 import summ.model.Word;
+import summ.utils.Pipe;
 
-public class StopWords {
+public class StopWords implements Pipe<Text> {
 
-	private static HashSet<String> stopWords = null;
+	private HashSet<String> stopWords = null;
 	//static Logger logger = Logger.getLogger(StopWordsHandler.class);
 
-	public static boolean isStopWord(String str) {
-		if (stopWords.contains(str))
+	public boolean isStopWord(String str) {
+		if (this.stopWords.contains(str))
 			return true;
 		return false;
 	}
 	
-	public static Text removeStopWords(Text text) {
+	public Text removeStopWords(Text text) {
 		
-		if(StopWords.stopWords == null) {
+		if(this.stopWords == null) {
 			loadStopWords("resources/stopwords-pt-br.txt");
 		}
 		try {
@@ -31,7 +32,7 @@ public class StopWords {
 				paragraph.getSentences().forEach(sentence -> {
 					ArrayList<Word> words = new ArrayList<Word>();
 					sentence.getWords().forEach(word -> {
-						if(!StopWords.isStopWord(word.getRawWord())){
+						if(!this.isStopWord(word.getRawWord())){
 							words.add(new Word(word.getRawWord()));
 						}
 					});
@@ -44,7 +45,7 @@ public class StopWords {
 		return text;
 	}
 
-	private static void loadStopWords(String stopFile) {
+	private void loadStopWords(String stopFile) {
 
 		stopWords = new HashSet<String>();
 		try (Stream<String> stream = Files.lines(Paths.get(stopFile))) {
@@ -57,6 +58,11 @@ public class StopWords {
 //			logger.warn("Problem with stopwords file: " + e.getMessage());
 //			logger.warn("If you want to use stop words, please fix this issue first before proceeding.");
 		}
+	}
+
+	@Override
+	public Text process(Text text) {
+		return this.removeStopWords(text);
 	}
 
 }

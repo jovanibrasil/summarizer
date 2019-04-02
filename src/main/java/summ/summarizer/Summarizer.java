@@ -1,5 +1,6 @@
 package summ.summarizer;
 
+import java.io.Console;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -19,32 +20,40 @@ import summ.model.Sentence;
 import summ.model.Text;
 import summ.nlp.evaluation.Evaluation;
 import summ.nlp.evaluation.EvaluationTypes;
-import summ.nlp.features.Features;
-import summ.nlp.preprocesing.OperationTypes;
-import summ.nlp.preprocesing.Preprocessing;
+import summ.nlp.features.FeatureType;
+import summ.nlp.features.Frequency;
+import summ.nlp.features.Length;
+import summ.nlp.features.LocLen;
+import summ.nlp.features.Location;
+import summ.nlp.features.TextRank;
+import summ.nlp.features.Title;
+import summ.nlp.preprocesing.General;
+import summ.nlp.preprocesing.PreProcessingTypes;
+import summ.nlp.preprocesing.SentenceSegmentation;
+import summ.nlp.preprocesing.StopWords;
+import summ.nlp.preprocesing.Titles;
+import summ.nlp.preprocesing.Tokenization;
+import summ.utils.Pipeline;
 import summ.utils.Tuple;
 import summ.utils.Utils;
 
 public class Summarizer {
-
-	private static List<OperationTypes> preProcessingOperations = new ArrayList<OperationTypes>(
-			Arrays.asList(OperationTypes.SENTENCE_SEGMENTATION, OperationTypes.TOKENIZATION));
 	
-	public static Text preProcessing(Text text, List<OperationTypes> preProcessingOperations) {
-
-		if (text != null) {
-			Preprocessing pp = new Preprocessing(text, preProcessingOperations);
-		}
-		return text;
+	public static Pipeline<Text> getSummaryPreProcessingPipeline() {
+		return new Pipeline<Text>(new SentenceSegmentation(), new Tokenization(PreProcessingTypes.NEURAL_TOKENIZATION));
 	}
 
+	public static Pipeline<Text> getTextPreProcessingPipeline() {
+		return new Pipeline<Text>(new SentenceSegmentation(), new General(PreProcessingTypes.TO_LOWER_CASE),
+				new General(PreProcessingTypes.REMOVE_PUNCTUATION), new Tokenization(PreProcessingTypes.NEURAL_TOKENIZATION),
+				new Titles(), new StopWords());
+	}
+	
 	public static Text featureComputation(Text text) {
-		// eliminar linhas vazias
-		// eliminar espaços antes e depois dos termos
-		// tratar títulos
-		Features f = new Features(text);
-		// TODO seletor do pipeline de features
-		return text;
+		return new Pipeline<Text>(
+				new Location(), new Length(), new LocLen(), new Frequency(), 
+					new Title(), new TextRank(FeatureType.TFISF)).process(text);
+		
 	}
 
 	public static ArrayList<Tuple<Integer, Double>> computeSentencesInformativity(Text text, FuzzySystem fs) {
@@ -90,15 +99,11 @@ public class Summarizer {
 
 	public static Text summarize(Text text, int summarySize) {
 
-		List<OperationTypes> preProcessingOperations = new ArrayList<OperationTypes>(
-				Arrays.asList(OperationTypes.SENTENCE_SEGMENTATION,
-						// OperationTypes.NER, OperationTypes.POS,
-						OperationTypes.TO_LOWER_CASE, OperationTypes.REMOVE_PUNCTUATION, OperationTypes.TOKENIZATION,
-						OperationTypes.IDENTIFY_TITLES, OperationTypes.REMOVE_STOPWORDS));
-
 		// Pre-processing
-		text = preProcessing(text, preProcessingOperations);
+		text = getTextPreProcessingPipeline().process(text);
 		text = featureComputation(text);
+		
+		System.out.println(text);
 
 		// Summary generation
 		FuzzySystem fs = new FuzzySystem("flc/fb2015.flc");
@@ -115,9 +120,7 @@ public class Summarizer {
 		Text referenceSummary = Utils.loadText("projects/temario-2014/summaries/"
 					+ "reference/automatic/", "po96fe09-b_areference1.txt");
 		
-		
-		Preprocessing pp = new Preprocessing(referenceSummary, preProcessingOperations);
-		
+		referenceSummary = getSummaryPreProcessingPipeline().process(referenceSummary);
 
 		int summarySize = referenceSummary.getTotalSentence();
 		summarize(text, summarySize);
@@ -148,7 +151,7 @@ public class Summarizer {
 				Text referenceSummary = refSummaries.get(entry.getKey());
 				Text originalText = entry.getValue();
 				
-				Preprocessing pp = new Preprocessing(referenceSummary, preProcessingOperations);
+				referenceSummary = getSummaryPreProcessingPipeline().process(referenceSummary);
 				
 				// Summarize
 				int summarySize = referenceSummary.getTotalSentence();
@@ -170,30 +173,29 @@ public class Summarizer {
 		
 	}
 
+	public static Text getTextProcessedText(String filePath, String fileName) {
+		// Load complete text
+		Text text = Utils.loadText(filePath, fileName);
+		// Pre-processing
+		text = getTextPreProcessingPipeline().process(text);
+		text = featureComputation(text);		
+		return text;
+	}
+	
 	public static void fuzzyOptimization() {
 
-		// Load complete text
-		Text text = Utils.loadText("projects/temario-2014/full-texts/", "ce94ab10-a.txt");
-
-		List<OperationTypes> preProcessingOperations = new ArrayList<OperationTypes>(
-				Arrays.asList(OperationTypes.SENTENCE_SEGMENTATION,
-						// OperationTypes.NER, OperationTypes.POS,
-						OperationTypes.TO_LOWER_CASE, OperationTypes.REMOVE_PUNCTUATION, OperationTypes.TOKENIZATION,
-						OperationTypes.IDENTIFY_TITLES, OperationTypes.REMOVE_STOPWORDS));
-
-		// Pre-processing
-		text = preProcessing(text, preProcessingOperations);
-		text = featureComputation(text);
+		Text text =  getTextProcessedText("projects/temario-2014/full-texts/", "ce94ab10-a.txt");
 
 		// Load reference summary
-		Text referenceSummary = Utils.loadText("summaries/reference/automatic/", 
-				"ce94ab10-a_reference1.txt");
-		Preprocessing pp = new Preprocessing(referenceSummary, preProcessingOperations);
+		Text referenceSummary = Utils.loadText("projects/temario-2014/summaries/"
+				+ "reference/automatic/", "ce94ab10-a_areference1.txt");
+	
+		referenceSummary = getSummaryPreProcessingPipeline().process(referenceSummary);
 
 		// Optimization
 		String[] varNames = { "k1", "k2", "loc_len", "informatividade" };
 		Optimization optmization = new Optimization("flc/fb2015.flc", varNames, text, referenceSummary);
 
 	}
-	
+		
 }

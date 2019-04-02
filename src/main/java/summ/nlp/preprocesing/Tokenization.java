@@ -8,16 +8,23 @@ import java.util.Map;
 
 import summ.model.Text;
 import summ.model.Word;
+import summ.utils.Pipe;
 import opennlp.tools.tokenize.SimpleTokenizer;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 import opennlp.tools.tokenize.WhitespaceTokenizer;
 
-public class Tokenization {
+public class Tokenization implements Pipe<Text> {
 
-	/*
+	private PreProcessingTypes tokenizationType;
+	
+	public Tokenization(PreProcessingTypes tokenizationType) {
+		this.tokenizationType = tokenizationType;
+	}
+	
+	/**
 	 */
-	public static Text tokenization(Text text) {
+	public Text tokenization(Text text) {
 		InputStream model = null;
 		try {
 			model = new FileInputStream("resources/models/pt-token.bin");
@@ -51,10 +58,10 @@ public class Tokenization {
 		return text;
 	}
 	
-	/*
+	/**
 	 * Sentence tokenization based only on whitespace characters as delimiters. 
 	 */
-	public static Text whiteSpaceTokenization(Text text) {
+	public Text whiteSpaceTokenization(Text text) {
 		
 		WhitespaceTokenizer tk = WhitespaceTokenizer.INSTANCE;
 		
@@ -71,10 +78,10 @@ public class Tokenization {
 		return text;
 	}
 	
-	/*
+	/**
 	 * Sentence tokenization that splits sentence into numbers, words and punctuation.
 	 */
-	public static Text simpleTokenization(Text text) {
+	public  Text simpleTokenization(Text text) {
 		
 		SimpleTokenizer tk = SimpleTokenizer.INSTANCE;
 		
@@ -90,6 +97,18 @@ public class Tokenization {
 		
 		return text;
 	}
-	
+
+	@Override
+	public Text process(Text text) {
+		switch (this.tokenizationType) {
+			case WHITE_SPACE_TOKENIZATION:
+				return this.whiteSpaceTokenization(text);
+			case SIMPLE_TOKENIZATION:
+				return this.simpleTokenization(text);
+			case NEURAL_TOKENIZATION:
+				return this.tokenization(text);
+		}
+		return text;
+	}
 	
 }

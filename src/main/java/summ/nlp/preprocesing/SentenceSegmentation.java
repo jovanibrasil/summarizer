@@ -6,12 +6,13 @@ import java.util.ArrayList;
 
 import summ.model.Sentence;
 import summ.model.Text;
+import summ.utils.Pipe;
 import opennlp.tools.sentdetect.SentenceDetectorME;
 import opennlp.tools.sentdetect.SentenceModel;
 
-public class SentenceSegmentation {
+public class SentenceSegmentation implements Pipe<Text> {
 
-	public static Text segmentTextParagraphs(Text text) {
+	public Text segmentTextParagraphs(Text text) {
 		InputStream model = null;
 		try {
 			model = new FileInputStream("resources/models/pt-sent.bin");
@@ -48,6 +49,11 @@ public class SentenceSegmentation {
 			}
 		}
 		return text;
+	}
+
+	@Override
+	public Text process(Text text) {
+		return this.segmentTextParagraphs(text);
 	}
 	
 }

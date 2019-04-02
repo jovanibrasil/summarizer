@@ -1,43 +1,91 @@
 package summ.nlp.features;
 
+import java.util.HashSet;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.atomic.DoubleAdder;
 
 import org.apache.commons.text.similarity.CosineSimilarity;
 
-public class Similarity {
+import summ.model.Sentence;
+import summ.model.Text;
+import summ.utils.Pipe;
 
-	/*
-	 * Calculate cosine similarity between two vectors of double values. The
+public class Similarity implements Pipe<Text> {
+
+    /**
+     * Returns a set with strings common to the two given maps.
+     *
+     * @param leftVector left vector map
+     * @param rightVector right vector map
+     * @return common strings
+     */
+    private static Set<CharSequence> getIntersection(final Map<CharSequence, Double> leftVector,
+            final Map<CharSequence, Double> rightVector) {
+        final Set<CharSequence> intersection = new HashSet<>(leftVector.keySet());
+        intersection.retainAll(rightVector.keySet());
+        return intersection;
+    }
+
+    /**
+     * Computes the dot product of two vectors. It ignores remaining elements. It means
+     * that if a vector is longer than other, then a smaller part of it will be used to compute
+     * the dot product.
+     *
+     * @param leftVector left vector
+     * @param rightVector right vector
+     * @param intersection common elements
+     * @return the dot product
+     */
+    private static double dot(final Map<CharSequence, Double> leftVector, final Map<CharSequence, Double> rightVector,
+            final Set<CharSequence> intersection) {
+        long dotProduct = 0;
+        for (final CharSequence key : intersection) {
+            dotProduct += leftVector.get(key) * rightVector.get(key);
+        }
+        return dotProduct;
+    }
+	
+	/**
+	 * Calculates the cosine similarity between two vectors of double values. The
 	 * two vectors must have the same size.
 	 * 
 	 * Similarity = cosine(angle) = (A . B)/(||A|| . ||b||) 
 	 * 
 	 * @param a is a vector of double values
 	 * @param b is a vector of double values
-	 * @return similarity between the vectors
+	 * @return a cosine similarity vector between the vectors
 	 * 
 	 */
-	public static Double calculateSimilarity(double a[], double b[]) {
-		// TODO throw exception when different vectors size
+	public static Double calculateSimilarity(final Map<CharSequence, Double> a, final Map<CharSequence, Double> b) {
+		if (a == null || b == null) {
+            throw new IllegalArgumentException("Vectors must not be null");
+        }
 		
-		double numeratorSummation = 0.0;
-		double a1PowerSummation = 0.0;
-		double a2PowerSummation = 0.0;
+		double dotProduct = 0.0, d1 = 0.0, d2 = 0.0;
 		
-		for (int i = 0; i < b.length; i++) {
-			numeratorSummation += a[i] * b[i]; 
-			a1PowerSummation += Math.pow(a[i], 2);
-			a2PowerSummation += Math.pow(b[i], 2);
+        final Set<CharSequence> intersection = getIntersection(a, b);
+        dotProduct = dot(a, b, intersection);
+
+		for (final Double value : a.values()) {
+			 d1 += Math.pow(value, 2);
+        }
+        for (final Double value : b.values()) {
+        	d2 += Math.pow(value, 2);
+        }
+		
+		double similarity = 0.0;
+		
+		if(d1 >= 0 && d2 >= 0) {
+			similarity = dotProduct / 
+					( Math.sqrt(d1) * Math.sqrt(d2) );	
 		}
 		
-		double similarity = numeratorSummation / 
-				( Math.sqrt(a1PowerSummation) * Math.sqrt(a2PowerSummation) );
-		
 		return similarity;
-	}
+	}	
 	
-	/*
-	 * Calculate cosine similarity between two vectors of strings.
+	/**
+	 * Calculates cosine similarity between two vectors of strings.
 	 * 
 	 * @param leftVector
 	 * @param rightVector
@@ -45,28 +93,25 @@ public class Similarity {
 	 * @return
 	 * 
 	 */
-	public static Double calculateCharSequenceSimilarity(Map<CharSequence, Integer> leftVector, 
-			Map<CharSequence, Integer> rightVector, ImplementationType implType) {
-		
-		if(implType.equals(ImplementationType.APACHE_COMMONS)) {
-			CosineSimilarity cosineSimilarity = new CosineSimilarity();
-			return cosineSimilarity.cosineSimilarity(leftVector, rightVector);	
-		}else {
-			//return calculateSimilarity(a.values().toArray(), b.values().toArray());
-			// TODO como tratar sentenças com tamanhos diferentes? HOW?
-			return 0.0;
-		}
-		
+	public static Double calculateCharSequenceSimilarity(Map<CharSequence, Double> leftVector, 
+			Map<CharSequence, Double> rightVector) {
+			return calculateSimilarity(rightVector, leftVector);
 	}
 	
-//	String s1 = "..."; String s2 = "...";
-//    Map<CharSequence, Integer> leftVector =
-//	        Arrays.stream(s1.split(""))
-//	        .collect(Collectors.toMap(c -> c, c -> 1, Integer::sum));
-//	    Map<CharSequence, Integer> rightVector =
-//	        Arrays.stream(s2.split(""))
-//	        .collect(Collectors.toMap(c -> c, c -> 1, Integer::sum));
+	public static Double calculateApacheCharSequenceSimilarity(Map<CharSequence, Integer> leftVector, 
+			Map<CharSequence, Integer> rightVector) {
+			CosineSimilarity cosineSimilarity = new CosineSimilarity();
+			return cosineSimilarity.cosineSimilarity(leftVector, rightVector);	
+	}
 
-	
+	@Override
+	public Text process(Text text) {
+//		double ranks[] = this.calculateTextRank(text, null);
+//		for (Sentence sentence : text.getSentences()) {
+//			sentence.addFeature("text-rank", ranks[sentence.getId()]);
+//		}
+		return null;
+	}
+
 
 }

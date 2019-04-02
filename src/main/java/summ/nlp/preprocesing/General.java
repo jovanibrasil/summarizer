@@ -1,11 +1,17 @@
 package summ.nlp.preprocesing;
 
 import summ.model.Text;
+import summ.utils.Pipe;
 
-public class Utils {
+public class General implements Pipe<Text> {
 	
-	public static Text removePunctuation(Text text) {
-		
+	private PreProcessingTypes preProcessingType;
+	
+	public General(PreProcessingTypes preProcessingType) {
+		this.preProcessingType = preProcessingType;
+	}
+	
+	public Text removePunctuation(Text text) {
 		try {
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {
@@ -19,7 +25,7 @@ public class Utils {
 		return text;
 	}
 	
-	public static Text convertToLowerCase(Text text) {
+	public Text convertToLowerCase(Text text) {
 		
 		try {
 			text.getParagraphs().forEach( paragraph -> {
@@ -31,6 +37,17 @@ public class Utils {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} 
+		return text;
+	}
+
+	@Override
+	public Text process(Text text) {
+		switch (this.preProcessingType) {
+			case REMOVE_PUNCTUATION:
+				return removePunctuation(text);
+			case TO_LOWER_CASE:
+				return convertToLowerCase(text);
+		}
 		return text;
 	}
 	

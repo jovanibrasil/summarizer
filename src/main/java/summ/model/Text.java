@@ -2,6 +2,7 @@ package summ.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 
 public class Text {
 
@@ -76,6 +77,16 @@ public class Text {
 		return total;
 	}
 	
+	public Sentence[] getSentences(){
+		Sentence[] sentences = new Sentence[this.getTotalSentence()];
+		int i = 0;
+		for (Paragraph p : this.paragraphs) {
+			for (Sentence s: p.getSentences()) {
+				sentences[i++] = s;
+			}
+		}
+		return sentences;
+	}
 
 	public String getName() {
 		return name;
