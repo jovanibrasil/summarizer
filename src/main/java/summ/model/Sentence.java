@@ -15,7 +15,6 @@ public class Sentence {
 	private Map<String, Object> features; 
 	
 	private ArrayList<Word> words;
-	//private HashMap<String, Word> wordsDic;
 	
 	private Boolean isTitle;
 	
@@ -26,7 +25,6 @@ public class Sentence {
 		this.features = new HashMap<>();
 		
 		this.words = new ArrayList<>();
-		//this.wordsDic = new HashMap<>();
 		this.isTitle = false;
 		
 	}
@@ -47,15 +45,6 @@ public class Sentence {
 		this.words = words;
 	}
 	
-	//	public void addWords(Word word) {
-	//		this.words.add(word);
-	//		this.wordsDic.put(word.getRawWord(), word);
-	//	}
-	//	
-	//	public Word Word(String key) {
-	//		return this.wordsDic.get(key);
-	//	}
-	
 	public String[] getRawWords() {
 		String words[] = new String[this.words.size()];
 		for (int index = 0; index < this.words.size(); index++) {
@@ -65,7 +54,6 @@ public class Sentence {
 	}
 	
 	public boolean containsWord(Word word) {
-		//return this.words.contains(word);
 		return this.words.stream().filter(w -> w.getRawWord().equals(word.getRawWord())).findFirst().isPresent();
 	}
 	
@@ -91,6 +79,10 @@ public class Sentence {
 	
 	public Object getFeature(String key) {
 		return this.features.get(key);
+	}
+	
+	public Map<String, Object> getFeatures() {
+		return this.features;
 	}
 	
 	public int getEditedSentenceLength() {

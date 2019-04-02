@@ -33,6 +33,7 @@ import summ.nlp.preprocesing.SentenceSegmentation;
 import summ.nlp.preprocesing.StopWords;
 import summ.nlp.preprocesing.Titles;
 import summ.nlp.preprocesing.Tokenization;
+import summ.utils.ExportCSV;
 import summ.utils.Pipeline;
 import summ.utils.Tuple;
 import summ.utils.Utils;
@@ -129,7 +130,7 @@ public class Summarizer {
 //		return Evaluation.evaluate(generatedSummary, 
 //				referenceSummary, EvaluationTypes.OVERLAP);
 //		
-		
+		ExportCSV.exportFeaturesValues(text);
 	}
 
 	public static void summarizeTexts() {

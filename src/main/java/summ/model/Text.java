@@ -43,6 +43,10 @@ public class Text {
 		return this.features.get(key);
 	}
 	
+	public HashMap<String, Object> getFeatures(){
+		return this.features;
+	}
+	
 	public Sentence getTitle() {
 		return this.paragraphs.get(0).getSentences().get(0);
 	}
