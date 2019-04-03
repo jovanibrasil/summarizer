@@ -3,9 +3,6 @@ package summ.ai.fuzzy.optimization;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.commons.math3.linear.ArrayRealVector;
-import org.apache.commons.math3.linear.RealVector;
-
 /*
  * This class encapsulates an candidate solution and the fitness value. 
  */

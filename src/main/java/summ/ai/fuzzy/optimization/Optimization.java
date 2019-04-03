@@ -1,6 +1,7 @@
 package summ.ai.fuzzy.optimization;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import org.apache.commons.math3.genetics.GeneticAlgorithm;
 
@@ -47,7 +48,8 @@ public class Optimization {
 		
 		// OptimizationGradient Optimization Partial Derivative Optimization Gradient
 		//OptimizationDeltaJump optimization = new OptimizationDeltaJump(ruleBlock, errorFunction, parameterList); 
-		OptimizationGenetic optimization = new OptimizationGenetic(ruleBlock, errorFunction, parameterList, sm);
+		OptimizationGenetic optimization = new OptimizationGenetic(ruleBlock, errorFunction,
+				parameterList, sm, Arrays.asList("k1", "k2", "loc_len", "informatividade"));
 		//OptimizationGradient 
 		//OptimizationGradient optimization = new OptimizationGradient(ruleBlock, errorFunction, parameterList); 
 

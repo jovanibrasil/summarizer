@@ -29,18 +29,18 @@ public class SimpleMean implements Crossover {
 		List<CustomVariable> p2Variables = parent2.getVariables();
 
 		for (int i = 0; i < p1Variables.size(); i++) {
-			CustomVariable variable = new CustomVariable(); 
+			CustomVariable variable = new CustomVariable(p1Variables.get(i).getName()); 
 			List<CustomLinguisticTerm> p1Terms = p1Variables.get(i).getLinguisticTerms();
 			List<CustomLinguisticTerm> p2Terms = p2Variables.get(i).getLinguisticTerms();
 			for (int j = 0; j < p1Terms.size(); j++) {
-				CustomLinguisticTerm term = new CustomLinguisticTerm();
-				term.setTermName(p1Terms.get(j).getTermName());
+				CustomLinguisticTerm term = new CustomLinguisticTerm(p1Terms.get(j)
+						.getParametersLength(), p1Terms.get(j).getTermName());
 				
 				// simple mean ((varp1[idx] + varp2[idx])/2)
 				RealVector result = p1Terms.get(j).getParameters()
 					.add(p2Terms.get(j).getParameters()).mapDivide(2);
 				
-				term.appendParameter(result);
+				term.setParameters(result);
 				variable.addLinguisticTerm(term);
 			}
 			child.addGene(variable);

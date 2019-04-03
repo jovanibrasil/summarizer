@@ -36,9 +36,9 @@ public class Main {
 		
 		//Summarizer.summarizeTexts();
 		
-		Summarizer.summarizationText("mu94de14-a.txt");
+		//Summarizer.summarizationText("mu94de14-a.txt");
 		
-		//Summarizer.fuzzyOptimization();
+		Summarizer.fuzzyOptimization();
 	}
 
 }

@@ -56,6 +56,13 @@ public class TextRank implements Pipe<Text> {
 				if(i != j) {
 					weight = Similarity.calculateCharSequenceSimilarity(getVector(sentences[i], featureType), 
 						getVector(sentences[j], featureType));
+					
+//					if(weight > 0) {
+//						System.out.println("Similaridade: " + weight);
+//						System.out.println("Left vector: " + sentences[i].getWords());
+//						System.out.println("Right vector: " + sentences[j].getWords());
+//					}
+					
 				}
 				similarityMatrix[i][j] = weight;
 				weight = 0;

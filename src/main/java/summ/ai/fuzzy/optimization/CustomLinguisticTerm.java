@@ -4,21 +4,19 @@ import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;
 
 public class CustomLinguisticTerm {
-	public String termName; 
-	public RealVector parameters;
 	
-	public CustomLinguisticTerm() {
-		this.parameters = new ArrayRealVector();
+	private String termName; 
+	private RealVector parameters;
+	
+	public CustomLinguisticTerm(Integer termSize, String name) {
+		this.parameters = new ArrayRealVector(termSize);
+		this.termName = name;
 	}
 
 	public String getTermName() {
 		return termName;
 	}
-
-	public void setTermName(String termName) {
-		this.termName = termName;
-	}
-
+	
 	public RealVector getParameters() {
 		return parameters;
 	}
@@ -27,14 +25,17 @@ public class CustomLinguisticTerm {
 		this.parameters = parameters;
 	}
 	
-	public void appedParameter(double parameter) {
-		this.parameters.append(parameter);
+	public void setParameter(int index, double value) {
+		this.parameters.setEntry(index, value);
 	}
 	
-	public void appendParameter(RealVector parameters) {
-		this.parameters.append(parameters);
+	public double getParameter(int index) {
+		return this.parameters.getEntry(index);
 	}
-
+	
+	public int getParametersLength() {
+		return this.parameters.getDimension();
+	}
 	
 }
 

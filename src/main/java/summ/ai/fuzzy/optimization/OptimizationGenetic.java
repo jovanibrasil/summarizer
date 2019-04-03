@@ -1,15 +1,12 @@
 package summ.ai.fuzzy.optimization;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.Map.Entry;
 import java.util.Random;
 
-import org.apache.commons.math3.linear.ArrayRealVector;
-import org.apache.commons.math3.linear.RealVector;
-
-import net.sourceforge.jFuzzyLogic.FunctionBlock;
 import net.sourceforge.jFuzzyLogic.membership.MembershipFunction;
 import net.sourceforge.jFuzzyLogic.optimization.ErrorFunction;
 import net.sourceforge.jFuzzyLogic.optimization.OptimizationMethod;
@@ -31,27 +28,18 @@ public class OptimizationGenetic extends OptimizationMethod {
     public Crossover crossoverOperator;
 	public Mutation mutationOperator;
     
-	
     public Random rand;
 	
-	public void setMfParameter(String variableName, String linguisticTermName, 
-			int mfParameterId, double mfParameterValue) {
-		this.fuzzyRuleSet.getVariable(variableName).getLinguisticTerm(linguisticTermName)
-			.getMembershipFunction().setParameter(mfParameterId, mfParameterValue);
-	}
-	
+    List<String> parameters;
+    	
 	public CustomVariable convertVariableToCustomVariable(Variable variable) {
-		CustomVariable cv = new CustomVariable();
+		CustomVariable cv = new CustomVariable(variable.getName());
 		for (Entry<String, LinguisticTerm> linguisticTerm : variable.getLinguisticTerms().entrySet()) {
-			CustomLinguisticTerm lt = new CustomLinguisticTerm();
-			lt.setTermName(linguisticTerm.getKey());
-			RealVector parameters = new ArrayRealVector();
 			MembershipFunction mf = linguisticTerm.getValue().getMembershipFunction();
+			CustomLinguisticTerm lt = new CustomLinguisticTerm(mf.getParametersLength(), linguisticTerm.getKey());
 			for (int i = 0; i < mf.getParametersLength(); i++) {
-				parameters.append(mf.getParameter(i));
+				lt.setParameter(i, mf.getParameter(i));
 			}
-			lt.setTermName(mf.getName());
-			lt.setParameters(parameters);
 			cv.addLinguisticTerm(lt);
 		}
 		return cv;
@@ -62,41 +50,42 @@ public class OptimizationGenetic extends OptimizationMethod {
 		
 		// Instantiate the candidate solution matrix 
 		this.currentPopulation = new ArrayList<>();
-		FunctionBlock fb = this.fuzzyRuleSet.getFunctionBlock();
 		
 		// Create the first Solution. The first Solution is a copy of the initial solution.
-		Chromosome Solution = new Chromosome();
-		for (Parameter parameter : this.parameterList) {
-			Variable referenceVariable = this.fuzzyRuleSet.getVariable(parameter.getName());
-			Solution.addGene(convertVariableToCustomVariable(referenceVariable));	
+		Chromosome chromosome = new Chromosome();
+		for (String parameterName : this.parameters) {
+			Variable referenceVariable = this.fuzzyRuleSet.getVariable(parameterName);
+			chromosome.addGene(convertVariableToCustomVariable(referenceVariable));	
 		}
-		
+		this.currentPopulation.add(chromosome);
 		for (int i = 1; i < this.populationSize; i++) {
-			Solution = new Chromosome();
-			for (Parameter parameter : this.parameterList) {	
-				CustomVariable variable = new CustomVariable();
-				Variable referenceVariable = this.fuzzyRuleSet.getVariable(parameter.getName());
+			chromosome = new Chromosome();
+			for (String parameterName : this.parameters) {	
+				Variable referenceVariable = this.fuzzyRuleSet.getVariable(parameterName);
+				CustomVariable customVariable = new CustomVariable(referenceVariable.getName());
 				for (Entry<String, LinguisticTerm> linguisticTerm : referenceVariable.getLinguisticTerms().entrySet()) {
-					CustomLinguisticTerm lt = new CustomLinguisticTerm();
-					lt.setTermName(linguisticTerm.getKey());		
-					lt.parameters.append(BellFunction.getAleatoryFeasibleValue(0));
-					lt.parameters.append(BellFunction.getAleatoryFeasibleValue(1));
-					lt.parameters.append(BellFunction.getAleatoryFeasibleValue(2));
+					CustomLinguisticTerm lt = new CustomLinguisticTerm(3, linguisticTerm.getKey());
+					lt.setParameter(0, BellFunction.getAleatoryFeasibleValue(0));
+					lt.setParameter(1, BellFunction.getAleatoryFeasibleValue(1));
+					lt.setParameter(2, BellFunction.getAleatoryFeasibleValue(2));
+					customVariable.addLinguisticTerm(lt);
 				}
+				chromosome.addGene(customVariable);
 			}
+			this.currentPopulation.add(chromosome);
 		}
 		System.out.println("End initial population generation ...");
 		
 	}
 	
-	/*
+	/**
 	 * Sort the population by fitness.
 	 */
 	public void rankPopulation() {
 		Collections.sort(this.currentPopulation);
 	}
 	
-	/*
+	/**
 	 * Return the best individual. The best individual is the individual with the best
 	 * fitness in the current generation. 
 	 */
@@ -104,7 +93,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 		return this.currentPopulation.get(0);
 	}
 	
-	/*
+	/**
 	 * Select a random Solution from the population.
 	 */
 	public Chromosome randomSelection() {
@@ -112,7 +101,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 		return this.currentPopulation.get(rand.nextInt(this.populationSize));		
 	}
 	
-	/*
+	/**
 	 * Select a random set of Solutions from the population and return the 
 	 * fittest one.
 	 */
@@ -122,7 +111,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 		return this.currentPopulation.get(0);
 	}
 	 
-	/*
+	/**
 	 * Randomically select a set of Solutions from the population.
 	 */
 	public List<Chromosome> selectSolutions(int selectionSize) {
@@ -143,18 +132,28 @@ public class OptimizationGenetic extends OptimizationMethod {
 		return selectedSolutions;
 	}
 	
+	public void setMfParameter(String variableName, String linguisticTermName, 
+			int mfParameterId, double mfParameterValue) {
+		this.fuzzyRuleSet.getVariable(variableName).getLinguisticTerm(linguisticTermName)
+			.getMembershipFunction().setParameter(mfParameterId, mfParameterValue);
+	}
+	
 	public void evaluatePopulation() {
 		
 		for (Chromosome chromosome : currentPopulation) {
-			
-			
-		
-			//setMfParameter("k1", "baixo", 0, 2);
-			
-			
-			chromosome.fitness = 0.0;
+			for (CustomVariable variable : chromosome.getVariables()) {
+				for (CustomLinguisticTerm term : variable.getLinguisticTerms()) {
+					for (int index = 0; index < term.getParametersLength(); index++) {
+						this.setMfParameter(
+								variable.getName(), 
+								term.getTermName(), 
+								index,
+								term.getParameter(0));		
+					}
+				}
+			}	
+			chromosome.fitness = errorFunction.evaluate(fuzzyRuleSet);
 		}
-		
 		
 	}
 	
@@ -168,7 +167,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 			population.add(elite);
 		}
 		
-		List<Chromosome> chindren = null;
+		List<Chromosome> children = null;
 		while(population.size() < this.populationSize) {
 			
 			// selection
@@ -176,18 +175,21 @@ public class OptimizationGenetic extends OptimizationMethod {
 			Chromosome parent2 = this.tournamentSelection(2);
 			
 			if(this.rand.nextDouble() > this.crossoverProbability) {
-				chindren = this.crossoverOperator.executeCrossover(parent1, parent2);		
+				System.out.println("crossover ...");
+				children = this.crossoverOperator.executeCrossover(parent1, parent2);		
+			}else {
+				children = Arrays.asList(parent1, parent2);
 			}
 			
 			if(this.rand.nextDouble() > this.mutationProbability) {
-				for (int i = 0; i < chindren.size(); i++) {
-					chindren.set(i, this.mutationOperator.executeMutation(chindren.get(i)));
+				for (int i = 0; i < children.size(); i++) {
+					children.set(i, this.mutationOperator.executeMutation(children.get(i)));
 				}
 			}
 		
-			for (int i = 0; i < chindren.size(); i++) {
+			for (int i = 0; i < children.size(); i++) {
 				if(population.size() < this.populationSize) {
-					population.add(chindren.get(i));
+					population.add(children.get(i));
 				}
 			}	
 		}
@@ -195,21 +197,22 @@ public class OptimizationGenetic extends OptimizationMethod {
 		
 	}
 	
-	/*
+	/**
 	 * Genetic optimization constructor.
 	 * 
 	 * @param fuzzyRuleSet is the initial fuzzy rule set
 	 * 
 	 */
 	public OptimizationGenetic(RuleBlock fuzzyRuleSet, ErrorFunction errorFunction, ArrayList<Parameter> parameterList,
-			Crossover crossoverOperator) {
-		super(fuzzyRuleSet, errorFunction, parameterList);
+			Crossover crossoverOperator, List<String> parameters) {
+	 	super(fuzzyRuleSet, errorFunction, parameterList);
 		
 		// function coefficient optimization
 		// rules optimization
 		this.currentPopulation = new ArrayList<>();
 		this.populationSize = 5;
 		this.crossoverOperator = crossoverOperator;
+		this.mutationOperator = new Mutation();
 		
 		this.crossoverProbability = 0.8;
 		this.mutationProbability = 0.2;
@@ -217,7 +220,9 @@ public class OptimizationGenetic extends OptimizationMethod {
 		
         this.rand = new Random();
         
-		// Generate the initial population
+        this.parameters = parameters;
+        
+		// Generate, evaluate and rank the initial population
 		generateFirstPopulation();
 		evaluatePopulation();
 		rankPopulation();	
@@ -226,13 +231,10 @@ public class OptimizationGenetic extends OptimizationMethod {
 
 	@Override
 	public void optimizeIteration(int iterationNum) {
-			
 		// generate new population
 		generateIntermediatePopulation();				
-		// TODO set the fuzzyruleset with the new candidate solution
 		evaluatePopulation();
 		rankPopulation();	
-		
 	}
 
 }

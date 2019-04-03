@@ -104,7 +104,7 @@ public class Summarizer {
 		text = getTextPreProcessingPipeline().process(text);
 		text = featureComputation(text);
 		
-		System.out.println(text);
+		//System.out.println(text);
 
 		// Summary generation
 		FuzzySystem fs = new FuzzySystem("flc/fb2015.flc");

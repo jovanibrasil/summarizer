@@ -13,17 +13,16 @@ public class BlxCrossover implements Crossover {
 
 public CustomLinguisticTerm generateBlxTerm(CustomLinguisticTerm term1, CustomLinguisticTerm term2, double alpha) {
 		
-		CustomLinguisticTerm term = new CustomLinguisticTerm();
-		term.setTermName(term1.getTermName());
+		CustomLinguisticTerm term = new CustomLinguisticTerm(term1.getParametersLength(), term1.getTermName());
 		
 		Random rand = new Random();
-		for (int idx = 0; idx < term1.getParameters().getDimension(); idx++) {
+		for (int idx = 0; idx < term1.getParametersLength(); idx++) {
 			
             // TODO variáveis de tamanho diferente lançam erro
         	// = [varp1[idx] + beta * (varp2[idx] - varp1[idx]) 
             
-			double p1Coef = term1.parameters.getEntry(idx);
-			double p2Coef = term2.parameters.getEntry(idx);
+			double p1Coef = term1.getParameter(idx);
+			double p2Coef = term2.getParameter(idx);
 			
         	double d = Math.abs(p1Coef - p2Coef);
             double rangeMin = Math.min(p1Coef, p2Coef) - alpha * d;
@@ -71,7 +70,7 @@ public CustomLinguisticTerm generateBlxTerm(CustomLinguisticTerm term1, CustomLi
 		List<CustomVariable> p2Variables = parent2.getVariables();
 
 		for (int i = 0; i < p1Variables.size(); i++) {
-			CustomVariable variable = new CustomVariable(); 
+			CustomVariable variable = new CustomVariable(p1Variables.get(i).getName()); 
 			List<CustomLinguisticTerm> p1Terms = p1Variables.get(i).getLinguisticTerms();
 			List<CustomLinguisticTerm> p2Terms = p2Variables.get(i).getLinguisticTerms();
 			for (int j = 0; j < p1Terms.size(); j++) {

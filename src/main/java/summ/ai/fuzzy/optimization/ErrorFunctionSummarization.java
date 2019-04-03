@@ -31,10 +31,11 @@ class ErrorFunctionSummarization extends ErrorFunction {
         Text generatedSummary = Summarizer.generateSummary(originalText, referenceSummary.getTotalSentence(), fs);
         // Evaluate the result and calculate the error
         HashMap<String, HashMap<String, Object>> overlap = Evaluation.evaluate(generatedSummary, referenceSummary, EvaluationTypes.OVERLAP);
-        double error = (referenceSummary.getTotalSentence() - (int)overlap.get("result").get("overlap")) / referenceSummary.getTotalSentence();
+        double error = (double)(referenceSummary.getTotalSentence() - (int)overlap.get("result").get("overlap")) 
+        			/ referenceSummary.getTotalSentence();
         this.counter++;
-        //System.out.println("Iteratation: " + this.counter + " Error value: " + error + 
-        //		" Overlap: " + overlap + " Reference summary size: " + referenceSummary.getTotalSentence());
+        System.out.println("Iteratation: " + this.counter + " Error value: " + error + 
+        		" Overlap: " + overlap + " Reference summary size: " + referenceSummary.getTotalSentence());
         return error ;
     }
     
