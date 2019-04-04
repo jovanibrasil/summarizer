@@ -4,6 +4,7 @@ import java.util.Map;
 
 import summ.model.Sentence;
 import summ.model.Text;
+import summ.model.Word;
 import summ.utils.Pipe;
 
 public class Title implements Pipe<Text> {
@@ -19,42 +20,33 @@ public class Title implements Pipe<Text> {
 		
 		Sentence title = text.getTitle();
 		
-		var wrapper = new Object() { int wordCount = 0; Double summation = 0.0; Double maxSummation = 1.0; };
+		int wordCount = 0; Double summation = 0.0; Double maxSummation = 1.0;
 		
-		text.getParagraphs().forEach(p -> {
-			p.getSentences().forEach(s -> {
-				
-				wrapper.wordCount = 0; 
-				wrapper.summation = 0.0;
-			
+		for (Sentence s : text.getSentences()) {
+				wordCount = 0; 
+				summation = 0.0;
 				if(!s.isTitle()) {
-				
 					Map<String, Double> tfIsf = (Map<String, Double>) text.getFeature("tf-isf");
-					s.getWords().forEach(w -> {
+					for (Word w : s.getWords()) {
 						if(title.containsWord(w)) {
-							wrapper.wordCount++;
-							Double weight = tfIsf.get(w.getRawWord());
-							wrapper.summation += Math.pow(weight, 2);
+							wordCount++;
+							Double weight = tfIsf.get(w.getProcessedToken());
+							summation += Math.pow(weight, 2);
 						}
-					});
+					}
 					
-					if(wrapper.summation > wrapper.maxSummation) {
-						wrapper.maxSummation = wrapper.summation;
+					if(summation > maxSummation) {
+						maxSummation = summation;
 					}
 				
 				}
-			
-				s.addFeature("title-words-counter", wrapper.wordCount);
-				s.addFeature("title-words-relative", wrapper.summation);
-				
-			});
-		});
+				s.addFeature("title-words-counter", wordCount);
+				s.addFeature("title-words-relative", summation);
+		};
 		
-		text.getParagraphs().forEach(p -> {
-			p.getSentences().forEach(s -> {
-				s.addFeature("title-words-relative", (Double)s.getFeature("title-words-relative") / wrapper.maxSummation);
-			});
-		});
+		for (Sentence s : text.getSentences()) {
+			s.addFeature("title-words-relative", (Double)s.getFeature("title-words-relative") / maxSummation);
+		}
 		return text;	
 	}
 

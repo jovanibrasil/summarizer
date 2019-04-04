@@ -1,4 +1,4 @@
-package com.nlp.features;
+package summ.nlp.features;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeAll;

@@ -1,6 +1,7 @@
 package summ.model;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -15,6 +16,7 @@ public class Sentence {
 	private Map<String, Object> features; 
 	
 	private ArrayList<Word> words;
+	//private Map<String, Word> words;
 	
 	private Boolean isTitle;
 	
@@ -25,8 +27,18 @@ public class Sentence {
 		this.features = new HashMap<>();
 		
 		this.words = new ArrayList<>();
+		//this.words = new HashMap<>();
 		this.isTitle = false;
 		
+	}
+	
+	public void addWord(Word word) {
+		//this.words.put(word.getRawWord(), word);
+		this.words.add(word);
+	}
+	
+	public void removeWord(String rawWord) {
+		this.words.remove(rawWord);
 	}
 	
 	public String getRawSentence() {
@@ -40,25 +52,27 @@ public class Sentence {
 	public ArrayList<Word> getWords() {
 		return words;
 	}
-
-	public void setWords(ArrayList<Word> words) {
-		this.words = words;
-	}
 	
 	public String[] getRawWords() {
 		String words[] = new String[this.words.size()];
-		for (int index = 0; index < this.words.size(); index++) {
-			words[index] = this.words.get(index).getRawWord();
+		int index = 0;
+		for (Word word : this.words) {
+			words[index++] = word.getRawWord(); 
 		}
 		return words;
 	}
 	
 	public boolean containsWord(Word word) {
 		return this.words.stream().filter(w -> w.getRawWord().equals(word.getRawWord())).findFirst().isPresent();
+		//return this.words.containsKey(word.getRawWord());
 	}
 	
 	public String getEditedSentence() {
 		return editedSentence;
+	}
+	
+	public Word getFirstWord() {
+		return this.words.get(0);
 	}
 
 	public void setEditedSentence(String editedSentence) {

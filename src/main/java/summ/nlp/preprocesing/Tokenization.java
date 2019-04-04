@@ -23,6 +23,9 @@ public class Tokenization implements Pipe<Text> {
 	}
 	
 	/**
+	 * 
+	 * Considera que não existem palavras tokenizadas, ou seja, lista de palavras é vazia.
+	 * 
 	 */
 	public Text tokenization(Text text) {
 		InputStream model = null;
@@ -34,14 +37,11 @@ public class Tokenization implements Pipe<Text> {
 			
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {
-					ArrayList<Word> words = new ArrayList<Word>();
 					String tokenizedWords[] = tk.tokenize(sentence.getEditedSentence());
 					for (String s : tokenizedWords) {
-						words.add(new Word(s));
+						sentence.addWord(new Word(s));
 					}
-					sentence.setWords(words);
 				});
-				
 			});
 			
 		} catch (Exception e) {
@@ -67,11 +67,9 @@ public class Tokenization implements Pipe<Text> {
 		
 		text.getParagraphs().forEach( paragraph -> {
 			paragraph.getSentences().forEach(sentence -> {
-				ArrayList<Word> words = new ArrayList<Word>();
 				for (String s : tk.tokenize(sentence.getEditedSentence())) {
-					words.add(new Word(s));
+					sentence.addWord(new Word(s));
 				}
-				sentence.setWords(words);
 			});
 		});
 		
@@ -87,11 +85,9 @@ public class Tokenization implements Pipe<Text> {
 		
 		text.getParagraphs().forEach( paragraph -> {
 			paragraph.getSentences().forEach(sentence -> {
-				ArrayList<Word> words = new ArrayList<Word>();
 				for (String s : tk.tokenize(sentence.getEditedSentence())) {
-					words.add(new Word(s));
+					sentence.addWord(new Word(s));
 				}
-				sentence.setWords(words);
 			});
 		});
 		

@@ -30,13 +30,11 @@ public class StopWords implements Pipe<Text> {
 		try {
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {
-					ArrayList<Word> words = new ArrayList<Word>();
 					sentence.getWords().forEach(word -> {
-						if(!this.isStopWord(word.getRawWord())){
-							words.add(new Word(word.getRawWord()));
+						if(this.isStopWord(word.getRawWord())){
+							sentence.removeWord(word.getRawWord());
 						}
 					});
-					sentence.setWords(words);
 				});
 			});
 		} catch (Exception e) {

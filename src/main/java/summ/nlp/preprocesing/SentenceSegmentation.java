@@ -4,6 +4,7 @@ import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 
+import summ.model.Paragraph;
 import summ.model.Sentence;
 import summ.model.Text;
 import summ.utils.Pipe;
@@ -19,15 +20,15 @@ public class SentenceSegmentation implements Pipe<Text> {
 			SentenceModel sm = new SentenceModel(model);
 			// uses maximum entropy model 
 			SentenceDetectorME sd = new SentenceDetectorME(sm);
-			var wrapper = new Object() { int globalPos = 0; };
-			text.getParagraphs().forEach( paragraph -> {
+			int globalPos = 0;
+			for (Paragraph paragraph : text.getParagraphs()) {
 				ArrayList<Sentence> sentences = new ArrayList<>();
 				int localPos = 0;
 				for (String s : sd.sentDetect(paragraph.getRawParagraph())) {
 					
 					Sentence sentence = new Sentence(s);
 					sentence.setPos(localPos++);
-					sentence.setId(wrapper.globalPos++);
+					sentence.setId(globalPos++);
 					if(paragraph.getPos() == 0) {
 						sentence.setTitle(true);
 					}
@@ -35,7 +36,8 @@ public class SentenceSegmentation implements Pipe<Text> {
 					sentences.add(sentence);
 				}
 				paragraph.setSentences(sentences);
-			});
+			}
+			
 			
 		} catch (Exception e) {
 			e.printStackTrace();

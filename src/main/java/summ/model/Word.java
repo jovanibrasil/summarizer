@@ -5,20 +5,31 @@ import java.util.Map;
 
 public class Word implements Comparable<Word> {
 	
-	private String rawWord;
 	private Map<String, Double> features;
+	private String posTag; // morphological class
+	private String rawToken; // (lexeme) the original token text
+	private String processedToken;
 	
 	public Word(String rawWord) {
-		this.rawWord = rawWord;
+		this.rawToken = rawWord;
+		this.processedToken = rawWord;
 		this.features = new HashMap<>();
 	}
 	
+	public String getProcessedToken() {
+		return processedToken;
+	}
+
+	public void setProcessedToken(String processedToken) {
+		this.processedToken = processedToken;
+	}
+	
 	public String getRawWord() {
-		return rawWord;
+		return rawToken;
 	}
 
 	public void setRawWord(String rawWord) {
-		this.rawWord = rawWord;
+		this.rawToken = rawWord;
 	}
 
 	public void addFeature(String key, Double value) {
@@ -31,7 +42,15 @@ public class Word implements Comparable<Word> {
 		}
 		return null;
 	}
-	
+
+	public String getPosTag() {
+		return posTag;
+	}
+
+	public void setPosTag(String posTag) {
+		this.posTag = posTag;
+	}
+
 	@Override
 	public int compareTo(Word w1) {
 		System.out.println("comparing " + w1.getRawWord() + " with " + this.getRawWord());
@@ -40,7 +59,7 @@ public class Word implements Comparable<Word> {
 	
 	@Override
 	public String toString() {
-		return this.rawWord;
+		return this.rawToken;
 	}
 	
 }

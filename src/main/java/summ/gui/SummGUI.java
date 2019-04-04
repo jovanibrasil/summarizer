@@ -137,7 +137,7 @@ public class SummGUI {
 			@Override
 			public void mouseMoved(MouseEvent e) {
 				try {
-					int offset = textArea.viewToModel2D(e.getPoint());
+					int offset = textArea.viewToModel(e.getPoint());
 
 					// System.out.println(offset);
 

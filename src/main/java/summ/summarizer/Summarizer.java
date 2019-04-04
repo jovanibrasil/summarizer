@@ -1,6 +1,5 @@
 package summ.summarizer;
 
-import java.io.Console;
 import java.io.File;
 import java.io.FileWriter;
 import java.util.ArrayList;
@@ -28,6 +27,8 @@ import summ.nlp.features.Location;
 import summ.nlp.features.TextRank;
 import summ.nlp.features.Title;
 import summ.nlp.preprocesing.General;
+import summ.nlp.preprocesing.Lemmatizer;
+import summ.nlp.preprocesing.POSTagger;
 import summ.nlp.preprocesing.PreProcessingTypes;
 import summ.nlp.preprocesing.SentenceSegmentation;
 import summ.nlp.preprocesing.StopWords;
@@ -47,7 +48,7 @@ public class Summarizer {
 	public static Pipeline<Text> getTextPreProcessingPipeline() {
 		return new Pipeline<Text>(new SentenceSegmentation(), new General(PreProcessingTypes.TO_LOWER_CASE),
 				new General(PreProcessingTypes.REMOVE_PUNCTUATION), new Tokenization(PreProcessingTypes.NEURAL_TOKENIZATION),
-				new Titles(), new StopWords());
+				new Titles(), new StopWords(), new POSTagger(), new Lemmatizer(null));
 	}
 	
 	public static Text featureComputation(Text text) {
@@ -104,7 +105,7 @@ public class Summarizer {
 		text = getTextPreProcessingPipeline().process(text);
 		text = featureComputation(text);
 		
-		//System.out.println(text);
+		System.out.println(text);
 
 		// Summary generation
 		FuzzySystem fs = new FuzzySystem("flc/fb2015.flc");

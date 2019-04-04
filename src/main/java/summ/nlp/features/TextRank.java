@@ -28,11 +28,10 @@ public class TextRank implements Pipe<Text> {
 	 * 
 	 */
 	private Map<CharSequence, Double> getVector(Sentence sentence, FeatureType featureType){
-		Map<CharSequence, Double> vector = new HashMap<>() {{
-	        sentence.getWords().forEach(w -> {
-	        	put(w.getRawWord(), w.getFeature("tf-isf"));
-	        });
-	    }};
+		Map<CharSequence, Double> vector = new HashMap<>();
+		sentence.getWords().forEach(w -> {
+        	vector.put(w.getProcessedToken(), w.getFeature("tf-isf"));
+        });
 	    return vector;
 	}
 	

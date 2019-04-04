@@ -3,9 +3,13 @@ package summ.nlp.features;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.stream.Collectors;
 
+import summ.model.Paragraph;
+import summ.model.Sentence;
 import summ.model.Text;
+import summ.model.Word;
 import summ.utils.Pipe;
 
 public class Frequency implements Pipe<Text> {
@@ -26,30 +30,37 @@ public class Frequency implements Pipe<Text> {
 	public void tf(Text text) {
 		
 		HashMap<String, Integer> rtf = new HashMap<String, Integer>(); 
-		var wrapper = new Object() { int count = 0; String maxRtfKey = ""; };
-		rtf.put(wrapper.maxRtfKey, 0);
-		text.getParagraphs().forEach(p -> {
-			p.getSentences().forEach(s -> {
-				s.getWords().forEach(w -> {
+		int count = 0; String maxRtfKey = ""; 
+		rtf.put(maxRtfKey, 0);
+		for (Paragraph p : text.getParagraphs()) {
+			for (Sentence s : p.getSentences()) {
+				for (Word w : s.getWords()) {
 					// increment word counter
-					wrapper.count++;
+					count++;
 					// increment frequency counter
-					String key = w.getRawWord();
+					String key = w.getProcessedToken();
 					int value = rtf.containsKey(key) ? rtf.get(key) + 1 : 1;
 					rtf.put(key, value);
 					// update max frequency
-					wrapper.maxRtfKey = rtf.get(key) > rtf.get(wrapper.maxRtfKey) ? key : wrapper.maxRtfKey; 
-				});
-			});
-		});
+					maxRtfKey = rtf.get(key) > rtf.get(maxRtfKey) ? key : maxRtfKey;	
+				}
+			}
+		}
 		rtf.remove("");
-		Map<String, Double> tfDocLenBased = rtf.entrySet().stream()
-				.collect(Collectors.toMap(e -> e.getKey(), e -> (double)e.getValue() / wrapper.count));
 		
-		Map<String, Double> tfMaxRtfBased = rtf.entrySet().stream()
-				.collect(Collectors.toMap(e -> e.getKey(), e -> (double)e.getValue() / rtf.get(wrapper.maxRtfKey)));
+		Map<String, Double> tfDocLenBased = new HashMap<>();
+		for (Entry<String, Integer> e : rtf.entrySet()) {
+			tfDocLenBased.put(e.getKey(), (double)e.getValue() / count);
+		}
 		
-		text.addFeature("doc-length", wrapper.count); // 
+		
+		Map<String, Double> tfMaxRtfBased = new HashMap<>();
+		for (Entry<String, Integer> e : rtf.entrySet()) {
+			tfMaxRtfBased.put(e.getKey(), (double)e.getValue() / rtf.get(maxRtfKey));
+		}
+		
+		
+		text.addFeature("doc-length", count); // 
 		text.addFeature("rtf", rtf); // register raw frequency		
 		text.addFeature("tf-doc-len-based", tfDocLenBased);
 		text.addFeature("tf-max-rtf-based", tfMaxRtfBased);
@@ -68,14 +79,14 @@ public class Frequency implements Pipe<Text> {
 		
 		// inverted index used for count sentences with term occurrence
 		HashMap<String, HashSet<Integer>> index = new HashMap<>(); 
-		var wrapper = new Object() { int count = 0; };
+		int count = 0;
 		
-		text.getParagraphs().forEach(p -> {
-			p.getSentences().forEach(s -> {
+		for (Paragraph p : text.getParagraphs()) {
+			for (Sentence s : p.getSentences()) {
 				// increment sentence counter
-				wrapper.count++;
+				count++;
 				s.getWords().forEach(w -> {
-					String key = w.getRawWord();
+					String key = w.getProcessedToken();
 					
 					if(index.containsKey(key)) {
 						index.get(key).add(s.getPos());
@@ -86,14 +97,15 @@ public class Frequency implements Pipe<Text> {
 					}
 					
 				});
-			});
-		});
+			}
+		}
 		
-		Map<String, Double> isf = index.entrySet().stream()
-				.collect(Collectors.toMap(e -> e.getKey(),
-						e -> Math.log((double)wrapper.count / e.getValue().size())));
+		Map<String, Double> isf = new HashMap<>();
+		for (Entry<String, HashSet<Integer>> e : index.entrySet()) {
+			isf.put(e.getKey(), Math.log((double)count / e.getValue().size()));
+		}
 		
-		text.addFeature("sentence-counter", wrapper.count);
+		text.addFeature("sentence-counter", count);
 		text.addFeature("isf", isf);
 		
 	}
@@ -111,30 +123,30 @@ public class Frequency implements Pipe<Text> {
 		HashMap<String, Integer> rtf = (HashMap<String, Integer>) text.getFeature("rtf");
 		HashMap<String, Double> isf = (HashMap<String, Double>) text.getFeature("isf");
 		
-		var wrapper = new Object() { Double maxRes = 0.0; };
+		double maxRes = 0.0;
 		
-		Map<String, Double> tfisf = rtf.entrySet().stream()
-			.collect(Collectors.toMap(e -> e.getKey(), e -> {
-				Double res = (double)e.getValue() / isf.get(e.getKey());
-				if(res > wrapper.maxRes)
-					wrapper.maxRes = res;
-				return res;
-			}));
+		Map<String, Double> tfisf = new HashMap<>();
+		for (Entry<String, Integer> e : rtf.entrySet()) {
+			Double res = (double)e.getValue() / isf.get(e.getKey());
+			if(res > maxRes)
+				maxRes = res;
+			tfisf.put(e.getKey(), res);
+		}
 		
-		tfisf.keySet().forEach(key -> {
-			tfisf.put(key, tfisf.get(key) / wrapper.maxRes);
-			//System.out.println(key + " tf-isf = " + tfisf.get(key) + " tf = " + rtf.get(key));
-		});
+		for (String key : tfisf.keySet()) {
+			tfisf.put(key, tfisf.get(key) / maxRes);
+			//System.out.println(key + " tf-isf = " + tfisf.get(key) + " tf = " + rtf.get(key));	
+		}
 		
-		text.getParagraphs().forEach(p -> {
-			p.getSentences().forEach(s -> {
-				wrapper.maxRes = .0;
-				s.getWords().forEach(w -> {
-					wrapper.maxRes += tfisf.get(w.getRawWord());
-				});
-				s.addFeature("tf-isf", wrapper.maxRes / s.getLength());
-			});
-		});
+		for (Paragraph p : text.getParagraphs()) {
+			for (Sentence s : p.getSentences()) {
+				maxRes = .0;
+				for (Word w : s.getWords()) {
+					maxRes += tfisf.get(w.getProcessedToken());
+				}
+				s.addFeature("tf-isf", maxRes / s.getLength());
+			}
+		}
 		
 		text.addFeature("tf-isf", tfisf);
 	
@@ -142,7 +154,7 @@ public class Frequency implements Pipe<Text> {
 			p.getSentences().forEach(s -> {
 				// increment sentence counter
 				s.getWords().forEach(w -> {
-					w.addFeature("tf-isf", tfisf.get(w.getRawWord()));
+					w.addFeature("tf-isf", tfisf.get(w.getProcessedToken()));
 				});
 			});
 		});

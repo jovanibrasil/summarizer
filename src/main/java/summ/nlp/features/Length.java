@@ -2,6 +2,8 @@ package summ.nlp.features;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
 
+import summ.model.Paragraph;
+import summ.model.Sentence;
 import summ.model.Text;
 import summ.utils.Pipe;
 
@@ -26,36 +28,36 @@ public class Length implements Pipe<Text> {
 	 */
 	private Text length(Text text) {
 		
-		var wrapper = new Object() { int maxLength = 0; Double maxRelativeLength = 0.0; };
+		int maxLength = 0; double maxRelativeLength = 0.0; 
 		
-		text.getParagraphs().forEach(p -> {
+		for (Paragraph p : text.getParagraphs()) {
 			int middle = p.getLength() / 2;
 			
 			DescriptiveStatistics ds1 = new DescriptiveStatistics();
 			DescriptiveStatistics ds2 = new DescriptiveStatistics();
 			
-			p.getSentences().forEach(s -> {
-				wrapper.maxLength = s.getEditedSentenceLength() > wrapper.maxLength
-						? s.getEditedSentenceLength() : wrapper.maxLength;	
+			for (Sentence s : text.getSentences()) {
+				maxLength = s.getEditedSentenceLength() > maxLength
+						? s.getEditedSentenceLength() : maxLength;	
 				if(s.getPos() <= middle) {
 					ds1.addValue(s.getEditedSentenceLength());
 				} else {
 					ds2.addValue(s.getEditedSentenceLength());
 				}		
-			});
+			}
 			
 			p.addFeature("tla1", ds1.getMean());
 			p.addFeature("tla2", ds2.getMean());
 			p.addFeature("tal1", ds1.getStandardDeviation());
 			p.addFeature("tal2", ds2.getStandardDeviation());
 			
-		});
+		}
 		
-		text.getParagraphs().forEach(p -> {
-			p.getSentences().forEach(s -> {
+		for (Paragraph p : text.getParagraphs()) {
+			for (Sentence s : p.getSentences()) {
 				int middle = p.getLength() / 2;
 				
-				Double tla, tal;
+				double tla, tal;
 				int tl = s.getEditedSentenceLength();
 				
 				if(s.getPos() <= middle) {
@@ -67,23 +69,21 @@ public class Length implements Pipe<Text> {
 				tal = tal == 0 ? tla : tal;
 				tal = tal == 0 ? 1 : tal;
 				
-				Double relativeLen = Math.log(tla - Math.abs((tla - tl) / tal));
+				double relativeLen = Math.log(tla - Math.abs((tla - tl) / tal));
 				
-				if(relativeLen > wrapper.maxRelativeLength) {
-					wrapper.maxRelativeLength = relativeLen;
+				if(relativeLen > maxRelativeLength) {
+					maxRelativeLength = relativeLen;
 				}
 				
 				s.addFeature("len", s.getLength());
-				s.addFeature("simple-len", (double)s.getEditedSentenceLength() / wrapper.maxLength);
+				s.addFeature("simple-len", (double)s.getEditedSentenceLength() / maxLength);
 				s.addFeature("relative-len", relativeLen);
-			});
-		});
+			}
+		}
 		
-		text.getParagraphs().forEach(p -> {
-			p.getSentences().forEach(s -> {
-				s.addFeature("relative-len", (double)s.getFeature("relative-len") / wrapper.maxRelativeLength);
-			});
-		});
+		for (Sentence s : text.getSentences()) {
+			s.addFeature("relative-len", (double)s.getFeature("relative-len") / maxRelativeLength);	
+		}
 		return text;	
 	}
 
