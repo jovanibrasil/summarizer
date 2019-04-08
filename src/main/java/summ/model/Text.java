@@ -54,7 +54,7 @@ public class Text {
 	public boolean containsSentence(Sentence sentence) {
 		for (Paragraph paragraph : paragraphs) {
 			for (Sentence s : paragraph.getSentences()) {
-				if(s.getRawSentence().equals(sentence.getRawSentence())) {
+				if(s.getInitialValue().equals(sentence.getInitialValue())) {
 					return true;
 				}
 			}

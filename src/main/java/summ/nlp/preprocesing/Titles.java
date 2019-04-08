@@ -16,7 +16,7 @@ public class Titles implements Pipe<Text> {
 		text.getParagraphs().forEach( paragraph -> {
 			paragraph.getSentences().forEach(sentence -> {
 				// TODO sentença pode não ter valores após o pre-processamento
-				String firstWord = sentence.getFirstWord().getRawWord();
+				String firstWord = sentence.getFirstWord().getInitialValue();
 				int maxSentenceLength = 5; // TODO calculate dynamically the sentence length BEFORE the execution of this method
 				if(Utils.isNumeric(firstWord) || 
 						paragraph.getLength() == 1 && sentence.getLength() < maxSentenceLength) {

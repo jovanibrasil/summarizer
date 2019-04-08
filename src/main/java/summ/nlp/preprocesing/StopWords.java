@@ -31,8 +31,8 @@ public class StopWords implements Pipe<Text> {
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {
 					sentence.getWords().forEach(word -> {
-						if(this.isStopWord(word.getRawWord())){
-							sentence.removeWord(word.getRawWord());
+						if(this.isStopWord(word.getInitialValue())){
+							sentence.removeWord(word);
 						}
 					});
 				});

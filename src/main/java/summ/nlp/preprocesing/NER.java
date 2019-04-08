@@ -32,7 +32,7 @@ public class NER {
 					Span[] spans = namefinder.find(s.getRawWords());
 					// return a list with the indices of the tokens which compose named entities in the text 
 					for (Span span : spans) {
-						System.out.println(s.getRawSentence());
+						System.out.println(s.getInitialValue());
 						System.out.println(span);
 					}
 					

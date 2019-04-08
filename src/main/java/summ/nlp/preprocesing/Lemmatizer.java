@@ -21,14 +21,14 @@ public class Lemmatizer implements Pipe<Text> {
 	public void analyzeToken(Word token) {
 
 		String tag = token.getPosTag();
-		String word = token.getRawWord();
+		String word = token.getInitialValue();
 		String[] lemmas = dict.getLemmas(word, tag);
 		if (lemmas == null || lemmas.length == 0) {
 			lemmas = dict.getLemmas(word.toLowerCase(), tag);
 		}
 		
 		if(lemmas != null && lemmas.length != 0) {
-			token.setProcessedToken(lemmas[0]);
+			token.setCurrentValue(lemmas[0]);
 		}
 	}
 

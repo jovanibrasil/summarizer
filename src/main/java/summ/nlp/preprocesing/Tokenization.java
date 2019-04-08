@@ -37,7 +37,7 @@ public class Tokenization implements Pipe<Text> {
 			
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {
-					String tokenizedWords[] = tk.tokenize(sentence.getEditedSentence());
+					String tokenizedWords[] = tk.tokenize(sentence.getCurrentValue());
 					for (String s : tokenizedWords) {
 						sentence.addWord(new Word(s));
 					}
@@ -67,7 +67,7 @@ public class Tokenization implements Pipe<Text> {
 		
 		text.getParagraphs().forEach( paragraph -> {
 			paragraph.getSentences().forEach(sentence -> {
-				for (String s : tk.tokenize(sentence.getEditedSentence())) {
+				for (String s : tk.tokenize(sentence.getCurrentValue())) {
 					sentence.addWord(new Word(s));
 				}
 			});
@@ -85,7 +85,7 @@ public class Tokenization implements Pipe<Text> {
 		
 		text.getParagraphs().forEach( paragraph -> {
 			paragraph.getSentences().forEach(sentence -> {
-				for (String s : tk.tokenize(sentence.getEditedSentence())) {
+				for (String s : tk.tokenize(sentence.getCurrentValue())) {
 					sentence.addWord(new Word(s));
 				}
 			});

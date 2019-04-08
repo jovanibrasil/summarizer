@@ -7,29 +7,29 @@ public class Word implements Comparable<Word> {
 	
 	private Map<String, Double> features;
 	private String posTag; // morphological class
-	private String rawToken; // (lexeme) the original token text
-	private String processedToken;
+	private String initialValue; // (lexeme) the original token text
+	private String currentValue;
 	
-	public Word(String rawWord) {
-		this.rawToken = rawWord;
-		this.processedToken = rawWord;
+	public Word(String initialValue) {
+		this.initialValue = initialValue;
+		this.currentValue = initialValue;
 		this.features = new HashMap<>();
 	}
 	
-	public String getProcessedToken() {
-		return processedToken;
+	public String getCurrentValue() {
+		return currentValue;
 	}
 
-	public void setProcessedToken(String processedToken) {
-		this.processedToken = processedToken;
+	public void setCurrentValue(String currentValue) {
+		this.currentValue = currentValue;
 	}
 	
-	public String getRawWord() {
-		return rawToken;
+	public String getInitialValue() {
+		return initialValue;
 	}
 
-	public void setRawWord(String rawWord) {
-		this.rawToken = rawWord;
+	public void setInitialValue(String initialValue) {
+		this.initialValue = initialValue;
 	}
 
 	public void addFeature(String key, Double value) {
@@ -53,13 +53,12 @@ public class Word implements Comparable<Word> {
 
 	@Override
 	public int compareTo(Word w1) {
-		System.out.println("comparing " + w1.getRawWord() + " with " + this.getRawWord());
-		return w1.getRawWord().compareTo(this.getRawWord());
+		return w1.getInitialValue().compareTo(this.getInitialValue());
 	}
 	
 	@Override
 	public String toString() {
-		return this.rawToken;
+		return this.initialValue;
 	}
 	
 }

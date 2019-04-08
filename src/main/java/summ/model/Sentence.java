@@ -1,7 +1,6 @@
 package summ.model;
 
 import java.util.ArrayList;
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -11,25 +10,19 @@ public class Sentence {
 	private int id;
 	private int pos; // relative position to paragraph  	
 
-	private String rawSentence;
-	private String editedSentence;
+	private String initialValue;
+	private String currentValue;
 	private Map<String, Object> features; 
 	
 	private ArrayList<Word> words;
-	//private Map<String, Word> words;
-	
 	private Boolean isTitle;
 	
-	public Sentence(String rawSentence) {
-		
-		this.rawSentence = rawSentence;
-		this.editedSentence = rawSentence;
+	public Sentence(String initialValue) {
+		this.initialValue = initialValue;
+		this.currentValue = initialValue;
 		this.features = new HashMap<>();
-		
 		this.words = new ArrayList<>();
-		//this.words = new HashMap<>();
 		this.isTitle = false;
-		
 	}
 	
 	public void addWord(Word word) {
@@ -37,16 +30,16 @@ public class Sentence {
 		this.words.add(word);
 	}
 	
-	public void removeWord(String rawWord) {
-		this.words.remove(rawWord);
+	public void removeWord(Word word) {
+		this.words.remove(word);
 	}
 	
-	public String getRawSentence() {
-		return rawSentence;
+	public String getInitialValue() {
+		return initialValue;
 	}
 
-	public void setRawSentence(String rawSentence) {
-		this.rawSentence = rawSentence;
+	public void setInitialValue(String initialValue) {
+		this.initialValue = initialValue;
 	}
 
 	public ArrayList<Word> getWords() {
@@ -57,26 +50,25 @@ public class Sentence {
 		String words[] = new String[this.words.size()];
 		int index = 0;
 		for (Word word : this.words) {
-			words[index++] = word.getRawWord(); 
+			words[index++] = word.getInitialValue(); 
 		}
 		return words;
 	}
 	
 	public boolean containsWord(Word word) {
-		return this.words.stream().filter(w -> w.getRawWord().equals(word.getRawWord())).findFirst().isPresent();
-		//return this.words.containsKey(word.getRawWord());
+		return this.words.stream().filter(w -> w.getInitialValue().equals(word.getInitialValue())).findFirst().isPresent();
 	}
 	
-	public String getEditedSentence() {
-		return editedSentence;
+	public String getCurrentValue() {
+		return currentValue;
 	}
 	
 	public Word getFirstWord() {
 		return this.words.get(0);
 	}
 
-	public void setEditedSentence(String editedSentence) {
-		this.editedSentence = editedSentence;
+	public void setCurrentValue(String editedSentence) {
+		this.currentValue = editedSentence;
 	}
 	
 	public int getPos() {
@@ -131,13 +123,13 @@ public class Sentence {
 					this.features.get(featureName)).toString());
 		});
 		
-		return this.rawSentence + "\n\t" + 
+		return this.initialValue + "\n\t" + 
 				sb.toString() + "\n";
 	}
 	
 	@Override
 	public String toString() {
-		return this.rawSentence + "\n\t" + 
+		return this.initialValue + "\n\t" + 
 				this.words + "\n\t" +
 				this.features.toString() + "\n";
 	}

@@ -38,7 +38,7 @@ public class Frequency implements Pipe<Text> {
 					// increment word counter
 					count++;
 					// increment frequency counter
-					String key = w.getProcessedToken();
+					String key = w.getCurrentValue();
 					int value = rtf.containsKey(key) ? rtf.get(key) + 1 : 1;
 					rtf.put(key, value);
 					// update max frequency
@@ -86,7 +86,7 @@ public class Frequency implements Pipe<Text> {
 				// increment sentence counter
 				count++;
 				s.getWords().forEach(w -> {
-					String key = w.getProcessedToken();
+					String key = w.getCurrentValue();
 					
 					if(index.containsKey(key)) {
 						index.get(key).add(s.getPos());
@@ -142,7 +142,7 @@ public class Frequency implements Pipe<Text> {
 			for (Sentence s : p.getSentences()) {
 				maxRes = .0;
 				for (Word w : s.getWords()) {
-					maxRes += tfisf.get(w.getProcessedToken());
+					maxRes += tfisf.get(w.getCurrentValue());
 				}
 				s.addFeature("tf-isf", maxRes / s.getLength());
 			}
@@ -154,7 +154,7 @@ public class Frequency implements Pipe<Text> {
 			p.getSentences().forEach(s -> {
 				// increment sentence counter
 				s.getWords().forEach(w -> {
-					w.addFeature("tf-isf", tfisf.get(w.getProcessedToken()));
+					w.addFeature("tf-isf", tfisf.get(w.getCurrentValue()));
 				});
 			});
 		});

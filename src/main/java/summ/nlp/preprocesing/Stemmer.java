@@ -26,8 +26,8 @@ public class Stemmer implements Pipe<Text> {
 		
 		for (Sentence sentence : text.getSentences()) {
 			for (Word word : sentence.getWords()) {
-				String stemmedToken = this.stemToken(word.getRawWord());
-				word.setProcessedToken(stemmedToken); // set processed (stemmed) token 
+				String stemmedToken = this.stemToken(word.getInitialValue());
+				word.setCurrentValue(stemmedToken); // set processed (stemmed) token 
 			}
 		}
 		return text;

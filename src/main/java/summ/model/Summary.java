@@ -29,7 +29,7 @@ public class Summary {
 		StringBuilder sb = new StringBuilder();
 		this.paragraphs.forEach(p -> {
 			p.getSentences().forEach(s -> {
-				sb.append(s.getRawSentence());
+				sb.append(s.getInitialValue());
 				sb.append("\n");
 			});
 		});

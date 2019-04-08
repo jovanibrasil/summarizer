@@ -15,8 +15,8 @@ public class General implements Pipe<Text> {
 		try {
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {
-					String editedSentence = sentence.getEditedSentence().replaceAll("\\p{Punct}", "");
-					sentence.setEditedSentence(editedSentence);
+					String editedSentence = sentence.getCurrentValue().replaceAll("\\p{Punct}", "");
+					sentence.setCurrentValue(editedSentence);
 				});
 			});
 		} catch (Exception e) {
@@ -30,8 +30,8 @@ public class General implements Pipe<Text> {
 		try {
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {
-					String editedSentence = sentence.getEditedSentence().toLowerCase();
-					sentence.setEditedSentence(editedSentence);
+					String editedSentence = sentence.getCurrentValue().toLowerCase();
+					sentence.setCurrentValue(editedSentence);
 				});
 			});
 		} catch (Exception e) {

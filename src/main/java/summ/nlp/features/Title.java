@@ -30,7 +30,7 @@ public class Title implements Pipe<Text> {
 					for (Word w : s.getWords()) {
 						if(title.containsWord(w)) {
 							wordCount++;
-							Double weight = tfIsf.get(w.getProcessedToken());
+							Double weight = tfIsf.get(w.getCurrentValue());
 							summation += Math.pow(weight, 2);
 						}
 					}
