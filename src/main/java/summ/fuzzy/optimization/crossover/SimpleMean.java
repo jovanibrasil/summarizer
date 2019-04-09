@@ -1,16 +1,15 @@
-package summ.ai.fuzzy.optimization.crossover;
+package summ.fuzzy.optimization.crossover;
 
 import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.math3.linear.RealVector;
 
-import summ.ai.fuzzy.optimization.CustomLinguisticTerm;
-import summ.ai.fuzzy.optimization.CustomVariable;
-import summ.ai.fuzzy.optimization.Chromosome;
-import summ.utils.MathUtils;
+import summ.fuzzy.optimization.Chromosome;
+import summ.fuzzy.optimization.CustomLinguisticTerm;
+import summ.fuzzy.optimization.CustomVariable;
 
-public class GeometricMean implements Crossover {
+public class SimpleMean implements Crossover {
 
 	/*
 	 * Média simples: Implementação do crossover média (Davis 1991). Dados dois
@@ -35,11 +34,11 @@ public class GeometricMean implements Crossover {
 			List<CustomLinguisticTerm> p2Terms = p2Variables.get(i).getLinguisticTerms();
 			for (int j = 0; j < p1Terms.size(); j++) {
 				CustomLinguisticTerm term = new CustomLinguisticTerm(p1Terms.get(j)
-						.getParameters().getDimension(), p1Terms.get(j).getTermName());
-				// geometric mean math.sqrt(varp1[idx] * varp2[idx])
+						.getParametersLength(), p1Terms.get(j).getTermName());
+				
+				// simple mean ((varp1[idx] + varp2[idx])/2)
 				RealVector result = p1Terms.get(j).getParameters()
-						.ebeMultiply(p2Terms.get(j).getParameters());
-				result = MathUtils.ebeSqrt(result);
+					.add(p2Terms.get(j).getParameters()).mapDivide(2);
 				
 				term.setParameters(result);
 				variable.addLinguisticTerm(term);

@@ -23,21 +23,15 @@ public class Main {
 	public static void main(String[] args) {
 		
 		/*
-		 * valores numÃ©ricos e dinheiro
-		 * 
-		 * 
-		 * 
+		 * TODO tratar valores numÃ©ricos e dinheiro
+		 * TODO tudo que termina sem ponto é desconsiderado, sendo sonsiderado título 
+		 * No tf os termos do título não são calculados
 		 * 
 		 */
 		
-		
-		
 		//invokeGUI();
-		
 		//Summarizer.summarizeTexts();
-		
 		Summarizer.summarizationText("mu94de14-a.txt");
-		
 		//Summarizer.fuzzyOptimization();
 	}
 

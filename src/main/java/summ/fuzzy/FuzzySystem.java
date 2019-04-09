@@ -1,4 +1,4 @@
-package summ.ai.fuzzy;
+package summ.fuzzy;
 
 import java.util.ArrayList;
 import java.util.Arrays;

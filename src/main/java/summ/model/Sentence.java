@@ -14,8 +14,9 @@ public class Sentence {
 	private String currentValue;
 	private Map<String, Object> features; 
 	
-	private ArrayList<Word> words;
+	private List<Word> words;
 	private Boolean isTitle;
+	private Double score;
 	
 	public Sentence(String initialValue) {
 		this.initialValue = initialValue;
@@ -30,6 +31,15 @@ public class Sentence {
 		this.words.add(word);
 	}
 	
+	public Word getWord(String rawWord) {
+		for (Word word : this.words) {
+			if(word.getInitialValue().equals(rawWord)) {
+				return word;
+			}
+		}
+		return null;
+	}
+	
 	public void removeWord(Word word) {
 		this.words.remove(word);
 	}
@@ -42,7 +52,7 @@ public class Sentence {
 		this.initialValue = initialValue;
 	}
 
-	public ArrayList<Word> getWords() {
+	public List<Word> getWords() {
 		return words;
 	}
 	
@@ -78,6 +88,10 @@ public class Sentence {
 	public void setPos(int pos) {
 		this.pos = pos;
 	}
+
+	public void setWords(List<Word> words) {
+		this.words = words;
+	}
 	
 	public void addFeature(String key, Object value) {
 		this.features.put(key, value);
@@ -85,6 +99,14 @@ public class Sentence {
 	
 	public Object getFeature(String key) {
 		return this.features.get(key);
+	}
+
+	public Map<String, Double> getFeatures(List<String> selectedFeatures) {
+		Map<String, Double> features = new HashMap<>();
+		for (String feature : selectedFeatures) {
+			features.put(feature, (Double)this.features.get(feature));
+		}
+		return features;
 	}
 	
 	public Map<String, Object> getFeatures() {
@@ -115,6 +137,14 @@ public class Sentence {
 		this.id = id;
 	}
 	
+	public Double getScore() {
+		return score;
+	}
+
+	public void setScore(Double score) {
+		this.score = score;
+	}
+
 	public String toString(List<String> features) {
 		StringBuilder sb = new StringBuilder();
 		
@@ -130,8 +160,10 @@ public class Sentence {
 	@Override
 	public String toString() {
 		return this.initialValue + "\n\t" + 
+				"ID: " + this.id + "\n\t" +
 				this.words + "\n\t" +
-				this.features.toString() + "\n";
+				this.features.toString() + "\n\t" +
+				"Score: " + this.getScore() + "\n";
 	}
 	
 }

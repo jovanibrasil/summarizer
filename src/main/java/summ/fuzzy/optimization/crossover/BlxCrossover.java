@@ -1,13 +1,13 @@
-package summ.ai.fuzzy.optimization.crossover;
+package summ.fuzzy.optimization.crossover;
 
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import summ.ai.fuzzy.optimization.BellFunction;
-import summ.ai.fuzzy.optimization.Chromosome;
-import summ.ai.fuzzy.optimization.CustomLinguisticTerm;
-import summ.ai.fuzzy.optimization.CustomVariable;
+import summ.fuzzy.optimization.BellFunction;
+import summ.fuzzy.optimization.Chromosome;
+import summ.fuzzy.optimization.CustomLinguisticTerm;
+import summ.fuzzy.optimization.CustomVariable;
 
 public class BlxCrossover implements Crossover {
 

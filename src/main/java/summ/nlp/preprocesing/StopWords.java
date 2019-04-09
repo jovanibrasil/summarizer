@@ -5,6 +5,7 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.stream.Stream;
 
 import summ.model.Text;
@@ -13,28 +14,30 @@ import summ.utils.Pipe;
 
 public class StopWords implements Pipe<Text> {
 
-	private HashSet<String> stopWords = null;
+	private static HashSet<String> stopWords = null;
 	//static Logger logger = Logger.getLogger(StopWordsHandler.class);
 
 	public boolean isStopWord(String str) {
-		if (this.stopWords.contains(str))
+		if (stopWords.contains(str))
 			return true;
 		return false;
 	}
 	
 	public Text removeStopWords(Text text) {
 		
-		if(this.stopWords == null) {
+		if(stopWords == null) {
 			loadStopWords("resources/stopwords-pt-br.txt");
 		}
 		try {
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {
+					ArrayList<Word> words = new ArrayList<Word>();
 					sentence.getWords().forEach(word -> {
-						if(this.isStopWord(word.getInitialValue())){
-							sentence.removeWord(word);
+						if(!this.isStopWord(word.getInitialValue())){
+							words.add(word);
 						}
 					});
+					sentence.setWords(words);
 				});
 			});
 		} catch (Exception e) {

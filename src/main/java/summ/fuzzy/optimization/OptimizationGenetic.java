@@ -1,4 +1,4 @@
-package summ.ai.fuzzy.optimization;
+package summ.fuzzy.optimization;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -14,8 +14,8 @@ import net.sourceforge.jFuzzyLogic.optimization.Parameter;
 import net.sourceforge.jFuzzyLogic.rule.LinguisticTerm;
 import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
-import summ.ai.fuzzy.optimization.crossover.Crossover;
-import summ.ai.fuzzy.optimization.mutation.Mutation;
+import summ.fuzzy.optimization.crossover.Crossover;
+import summ.fuzzy.optimization.mutation.Mutation;
 
 public class OptimizationGenetic extends OptimizationMethod {
 	

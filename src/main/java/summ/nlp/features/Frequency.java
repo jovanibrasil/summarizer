@@ -4,7 +4,6 @@ import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 import summ.model.Paragraph;
 import summ.model.Sentence;
@@ -87,22 +86,23 @@ public class Frequency implements Pipe<Text> {
 				count++;
 				s.getWords().forEach(w -> {
 					String key = w.getCurrentValue();
-					
 					if(index.containsKey(key)) {
-						index.get(key).add(s.getPos());
+						index.get(key).add(s.getId());
 					} else {
-						HashSet<Integer> hs = new HashSet<Integer>();
-						hs.add(s.getPos());
-						index.put(key, hs);
+						index.put(key, new HashSet<Integer>());
+						index.get(key).add(s.getId());
 					}
-					
 				});
 			}
 		}
 		
+		// log (matemática) é log 10 em java - é o inverso de 10^x
+		// ln (matemática) é a função log em java que é log_e x ou log x  
+		// 	- é o inverno de e^x e tabém chamado de logaritmo natural
+		
 		Map<String, Double> isf = new HashMap<>();
 		for (Entry<String, HashSet<Integer>> e : index.entrySet()) {
-			isf.put(e.getKey(), Math.log((double)count / e.getValue().size()));
+			isf.put(e.getKey(), Math.log10((double)count / (double)e.getValue().size()));
 		}
 		
 		text.addFeature("sentence-counter", count);
@@ -127,7 +127,7 @@ public class Frequency implements Pipe<Text> {
 		
 		Map<String, Double> tfisf = new HashMap<>();
 		for (Entry<String, Integer> e : rtf.entrySet()) {
-			Double res = (double)e.getValue() / isf.get(e.getKey());
+			Double res = (double)e.getValue() * isf.get(e.getKey());
 			if(res > maxRes)
 				maxRes = res;
 			tfisf.put(e.getKey(), res);
@@ -138,6 +138,7 @@ public class Frequency implements Pipe<Text> {
 			//System.out.println(key + " tf-isf = " + tfisf.get(key) + " tf = " + rtf.get(key));	
 		}
 		
+		// calculates the sentence tfisf 
 		for (Paragraph p : text.getParagraphs()) {
 			for (Sentence s : p.getSentences()) {
 				maxRes = .0;

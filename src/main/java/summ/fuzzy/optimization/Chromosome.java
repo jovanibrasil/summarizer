@@ -1,4 +1,4 @@
-package summ.ai.fuzzy.optimization;
+package summ.fuzzy.optimization;
 
 import java.util.ArrayList;
 import java.util.List;

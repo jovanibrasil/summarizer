@@ -1,9 +1,9 @@
-package summ.ai.fuzzy.optimization.mutation;
+package summ.fuzzy.optimization.mutation;
 
-import summ.ai.fuzzy.optimization.BellFunction;
-import summ.ai.fuzzy.optimization.Chromosome;
-import summ.ai.fuzzy.optimization.CustomLinguisticTerm;
-import summ.ai.fuzzy.optimization.CustomVariable;
+import summ.fuzzy.optimization.BellFunction;
+import summ.fuzzy.optimization.Chromosome;
+import summ.fuzzy.optimization.CustomLinguisticTerm;
+import summ.fuzzy.optimization.CustomVariable;
 
 public class Mutation {
 

@@ -12,8 +12,8 @@ import java.util.Map.Entry;
 
 import com.opencsv.CSVWriter;
 
-import summ.ai.fuzzy.FuzzySystem;
-import summ.ai.fuzzy.optimization.Optimization;
+import summ.fuzzy.FuzzySystem;
+import summ.fuzzy.optimization.Optimization;
 import summ.model.Paragraph;
 import summ.model.Sentence;
 import summ.model.Text;
@@ -35,6 +35,7 @@ import summ.nlp.preprocesing.StopWords;
 import summ.nlp.preprocesing.Titles;
 import summ.nlp.preprocesing.Tokenization;
 import summ.utils.ExportCSV;
+import summ.utils.ExportHTML;
 import summ.utils.Pipeline;
 import summ.utils.Tuple;
 import summ.utils.Utils;
@@ -69,17 +70,17 @@ public class Summarizer {
 				Tuple<String, Double> titleWords = new Tuple<>("k2", (Double) s.getFeature("title-words-relative"));
 
 				List<Tuple<String, Double>> inputVariables = new ArrayList<>(Arrays.asList(tfIsf, locLen, titleWords));
-				Double out = fs.run(inputVariables, "informatividade");
-				outList.add(new Tuple<>(s.getId(), out));
+				double score = fs.run(inputVariables, "informatividade");
+				s.setScore(score);
+				outList.add(new Tuple<>(s.getId(), score));
 			});
 		});
 		Collections.sort(outList);
 		return outList;
 	}
 
-	public static Text generateSummary(Text text, int summarySize, FuzzySystem fs) {
-		// Compute sentences informativity using fuzzy system
-		ArrayList<Tuple<Integer, Double>> outList = computeSentencesInformativity(text, fs);
+	public static Text generateSummary(Text text, int summarySize, ArrayList<Tuple<Integer, Double>> outList) {
+		
 		// Generate the summary
 		Text generatedSummary = new Text("");
 		Paragraph paragraph = new Paragraph(""); // TODO where is the full paragraph text? Is it necessary?
@@ -105,13 +106,19 @@ public class Summarizer {
 		text = getTextPreProcessingPipeline().process(text);
 		text = featureComputation(text);
 		
-		System.out.println(text);
-
 		// Summary generation
 		FuzzySystem fs = new FuzzySystem("flc/fb2015.flc");
 		
+		// Compute sentences informativity using fuzzy system
+		ArrayList<Tuple<Integer, Double>> sentencesInformativity = computeSentencesInformativity(text, fs);
+		
 		// int summarySize = (int)(0.3 * text.getTotalSentence());
-		Text generatedSummary = generateSummary(text, summarySize, fs);
+		Text generatedSummary = generateSummary(text, summarySize, sentencesInformativity);
+		
+//		System.out.println(generatedSummary);
+//		
+//		System.out.println("-----------------------------------------");
+//		System.out.println(text);
 		
 		return generatedSummary;
 	}
@@ -125,13 +132,16 @@ public class Summarizer {
 		referenceSummary = getSummaryPreProcessingPipeline().process(referenceSummary);
 
 		int summarySize = referenceSummary.getTotalSentence();
-		summarize(text, summarySize);
+		Text generatedText = summarize(text, summarySize);
 		
 		// Evaluation methods
 //		return Evaluation.evaluate(generatedSummary, 
 //				referenceSummary, EvaluationTypes.OVERLAP);
 //		
 		ExportCSV.exportFeaturesValues(text);
+		ExportHTML.exportSentecesAndFeatures(text, Arrays.asList("relative-len", "relative-location", "tf-isf", "title-words-relative"));
+		ExportHTML.exportHighlightText(text, generatedText.getSentencesMap());
+		
 	}
 
 	public static void summarizeTexts() {

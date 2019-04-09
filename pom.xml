@@ -20,7 +20,13 @@
 		</dependency>
 		<!-- https://mvnrepository.com/artifact/opennlp/maxent -->
 
-		
+		<!-- https://mvnrepository.com/artifact/commons-io/commons-io -->
+		<dependency>
+		    <groupId>commons-io</groupId>
+		    <artifactId>commons-io</artifactId>
+		    <version>2.6</version>
+		</dependency>
+				
 		<dependency>
 			<groupId>org.apache.commons</groupId>
 			<artifactId>commons-math3</artifactId>
@@ -62,7 +68,11 @@
 		    <artifactId>jaxb-api</artifactId>
 		    <version>2.1</version>
 		</dependency>
-		
+		<dependency>
+		<groupId>com.fasterxml.jackson.core</groupId>
+			<artifactId>jackson-databind</artifactId>
+			<version>2.6.3</version>
+		</dependency>
 		<dependency>
 		    <groupId>com.sun.xml.bind</groupId>
 		    <artifactId>jaxb-impl</artifactId>

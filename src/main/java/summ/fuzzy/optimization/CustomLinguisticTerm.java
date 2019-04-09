@@ -1,4 +1,4 @@
-package summ.ai.fuzzy.optimization;
+package summ.fuzzy.optimization;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;

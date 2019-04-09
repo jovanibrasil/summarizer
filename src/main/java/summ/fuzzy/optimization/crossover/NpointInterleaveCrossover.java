@@ -1,9 +1,9 @@
-package summ.ai.fuzzy.optimization.crossover;
+package summ.fuzzy.optimization.crossover;
 
 import java.util.Arrays;
 import java.util.List;
 
-import summ.ai.fuzzy.optimization.Chromosome;
+import summ.fuzzy.optimization.Chromosome;
 
 public class NpointInterleaveCrossover implements Crossover {
 

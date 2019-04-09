@@ -53,7 +53,7 @@ public class Utils {
 			while((line = br.readLine()) != null) {
 				if(!line.isEmpty()) {
 					line = line.replace("(...)", "").replace("...", "")
-							.replace("....", "");
+							.replace("....", "").replace(".,", ",");
 					Paragraph p = new Paragraph(line);
 					p.setPos(pos++);
 					text.addParagraph(p);

@@ -1,4 +1,4 @@
-package summ.ai.fuzzy.optimization;
+package summ.fuzzy.optimization;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -13,7 +13,7 @@ import net.sourceforge.jFuzzyLogic.optimization.OptimizationGradient;
 import net.sourceforge.jFuzzyLogic.optimization.OptimizationPartialDerivate;
 import net.sourceforge.jFuzzyLogic.optimization.Parameter;
 import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
-import summ.ai.fuzzy.optimization.crossover.SimpleMean;
+import summ.fuzzy.optimization.crossover.SimpleMean;
 import summ.model.Text;
 
 
