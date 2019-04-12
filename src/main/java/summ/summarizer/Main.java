@@ -33,8 +33,8 @@ public class Main {
 		 */
 		
 		//invokeGUI();
-		//Summarizer.summarizeTexts();
-		Summarizer.summarizationText("mu94de14-a.txt");
+		Summarizer.summarizeTexts();
+		//Summarizer.summarizationText("mu94de14-a.txt");
 		//Summarizer.fuzzyOptimization();
 	}
 

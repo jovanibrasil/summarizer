@@ -18,7 +18,9 @@ import summ.model.Paragraph;
 import summ.model.Sentence;
 import summ.model.Text;
 import summ.nlp.evaluation.Evaluation;
+import summ.nlp.evaluation.EvaluationResult;
 import summ.nlp.evaluation.EvaluationTypes;
+import summ.nlp.evaluation.SentenceOverlap;
 import summ.nlp.features.FeatureType;
 import summ.nlp.features.Frequency;
 import summ.nlp.features.Length;
@@ -132,15 +134,16 @@ public class Summarizer {
 		referenceSummary = getSummaryPreProcessingPipeline().process(referenceSummary);
 
 		int summarySize = referenceSummary.getTotalSentence();
-		Text generatedText = summarize(text, summarySize);
+		Text generatedSummary = summarize(text, summarySize);
 		
-		// Evaluation methods
-//		return Evaluation.evaluate(generatedSummary, 
-//				referenceSummary, EvaluationTypes.OVERLAP);
-//		
+		Evaluation so = new SentenceOverlap();
+		EvaluationResult result = so.evaluate(generatedSummary, referenceSummary);	
+		System.out.println(result);
+		
 		ExportCSV.exportSentenceFeatures(text);
 		ExportHTML.exportSentecesAndFeatures(text, Arrays.asList("relative-len", "relative-location", "tf-isf", "title-words-relative"));
-		ExportHTML.exportHighlightText(text, generatedText.getSentencesMap());
+		ExportHTML.exportHighlightText(text, generatedSummary.getSentencesMap());
+		ExportHTML.exportOverlappedFeatures(generatedSummary, referenceSummary);
 		
 	}
 
@@ -161,7 +164,7 @@ public class Summarizer {
 	        
 			for (Entry<String, Text> entry : texts.entrySet()) {
 				
-				System.out.println("Processing " + entry.getValue().getName() + " ...");
+				//System.out.println("Processing " + entry.getValue().getName() + " ...");
 				
 				Text referenceSummary = refSummaries.get(entry.getKey());
 				Text originalText = entry.getValue();
@@ -173,14 +176,19 @@ public class Summarizer {
 				Text generatedSummary = summarize(originalText, summarySize);
 				
 				// Evaluate generated summary
-				HashMap<String, Double> result = Evaluation.evaluate(generatedSummary, referenceSummary, EvaluationTypes.OVERLAP);	
+				
+				Evaluation so = new SentenceOverlap();
+				EvaluationResult result = so.evaluate(generatedSummary, referenceSummary);	
+				result.setEvalName(entry.getValue().getName());
+				
+				System.out.println(result);
 				
 				// Save summarization result
-				String[] data = { entry.getValue().getName(), result.get("precision").toString(), result.get("recall").toString(), 
-					result.get("fMeasure").toString(), result.get("retrievedSentences").toString(), result.get("relevantSentences").toString(),
-						result.get("correctSentences").toString() };
+				String[] data = { entry.getValue().getName(), result.getMetric("precision").toString(), result.getMetric("recall").toString(), 
+					result.getMetric("fMeasure").toString(), result.getMetric("retrievedSentences").toString(), result.getMetric("relevantSentences").toString(),
+						result.getMetric("correctSentences").toString() };
 				
-				writer.writeNext(data);
+				//writer.writeNext(data);
 			}
 			writer.close();
 		} catch (Exception e) {

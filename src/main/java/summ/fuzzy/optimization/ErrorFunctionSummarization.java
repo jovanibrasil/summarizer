@@ -8,7 +8,9 @@ import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
 import summ.fuzzy.FuzzySystem;
 import summ.model.Text;
 import summ.nlp.evaluation.Evaluation;
+import summ.nlp.evaluation.EvaluationResult;
 import summ.nlp.evaluation.EvaluationTypes;
+import summ.nlp.evaluation.SentenceOverlap;
 import summ.summarizer.Summarizer;
 import summ.utils.Tuple;
 
@@ -18,6 +20,7 @@ class ErrorFunctionSummarization extends ErrorFunction {
 	private Text originalText;
 	private Text referenceSummary;
 	private int counter = 0;
+	private Evaluation evaluation;
 	
 	public ErrorFunctionSummarization(String fileName, Text originalText, Text referenceSummary) {
 		super();
@@ -33,12 +36,12 @@ class ErrorFunctionSummarization extends ErrorFunction {
      	ArrayList<Tuple<Integer, Double>> sentencesInformativity = Summarizer.computeSentencesInformativity(originalText, this.fs);
         Text generatedSummary = Summarizer.generateSummary(originalText, referenceSummary.getTotalSentence(), sentencesInformativity);
         // Evaluate the result and calculate the error
-        HashMap<String, Double> overlap = Evaluation.evaluate(generatedSummary, referenceSummary, EvaluationTypes.OVERLAP);
-        double error = (double)(referenceSummary.getTotalSentence() - overlap.get("fMeasure")) 
+        EvaluationResult result = evaluation.evaluate(generatedSummary, referenceSummary);
+        double error = (double)(referenceSummary.getTotalSentence() - result.getMetric("fMeasure")) 
         			/ referenceSummary.getTotalSentence();
         this.counter++;
         System.out.println("Iteratation: " + this.counter + " Error value: " + error + 
-        		" Overlap: " + overlap + " Reference summary size: " + referenceSummary.getTotalSentence());
+        		" Overlap: " + result + " Reference summary size: " + referenceSummary.getTotalSentence());
         return error ;
     }
     
