@@ -10,7 +10,6 @@ import org.apache.commons.io.FileUtils;
 
 import summ.model.Sentence;
 import summ.model.Text;
-import summ.nlp.features.FeatureType;
 
 public class ExportHTML {
 	
@@ -76,12 +75,40 @@ public class ExportHTML {
 			htmlString = htmlString.replace("$title", title);
 			htmlString = htmlString.replace("$body", body);
 			
-			File newHtmlFile = new File("results/texts-evaluation-features" + (new Date()).toString() + ".html");
+			File newHtmlFile = new File("results/highlighted-select-sentences-" + (new Date()).toString() + ".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString, Charset.forName("UTF-8"));
 			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static void exportOverlappedFeatures(Text text1, Text text2) {
+
+		try {
+			File file = new File("resources/templates/result.html") ;
+			String htmlString = FileUtils.readFileToString(file, Charset.forName("UTF-8"));
+			
+			String title = text1.getName() + "_" + text2.getName(), body = "<ol>";
+			
+			for (Sentence s : text1.getSentences()) {			
+				if(text2.containsSentence(s)) {
+					body += "<li>" + s.getInitialValue() + "</li>";
+				}
+			}
+			
+			body += "</ol>";
+			
+			htmlString = htmlString.replace("$title", title);
+			htmlString = htmlString.replace("$body", body);
+			
+			File newHtmlFile = new File("results/overlapped-sentences-" + (new Date()).toString() + ".html");
+			FileUtils.writeStringToFile(newHtmlFile, htmlString, Charset.forName("UTF-8"));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

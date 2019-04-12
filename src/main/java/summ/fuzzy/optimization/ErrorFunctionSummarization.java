@@ -33,8 +33,8 @@ class ErrorFunctionSummarization extends ErrorFunction {
      	ArrayList<Tuple<Integer, Double>> sentencesInformativity = Summarizer.computeSentencesInformativity(originalText, this.fs);
         Text generatedSummary = Summarizer.generateSummary(originalText, referenceSummary.getTotalSentence(), sentencesInformativity);
         // Evaluate the result and calculate the error
-        HashMap<String, HashMap<String, Object>> overlap = Evaluation.evaluate(generatedSummary, referenceSummary, EvaluationTypes.OVERLAP);
-        double error = (double)(referenceSummary.getTotalSentence() - (int)overlap.get("result").get("overlap")) 
+        HashMap<String, Double> overlap = Evaluation.evaluate(generatedSummary, referenceSummary, EvaluationTypes.OVERLAP);
+        double error = (double)(referenceSummary.getTotalSentence() - overlap.get("fMeasure")) 
         			/ referenceSummary.getTotalSentence();
         this.counter++;
         System.out.println("Iteratation: " + this.counter + " Error value: " + error + 

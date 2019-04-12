@@ -27,6 +27,9 @@ public class Main {
 		 * TODO tudo que termina sem ponto é desconsiderado, sendo sonsiderado título 
 		 * No tf os termos do título não são calculados
 		 * 
+		 * Overlap - criar forma melhor de adicionar objetos em um map
+		 * 
+		 * 
 		 */
 		
 		//invokeGUI();

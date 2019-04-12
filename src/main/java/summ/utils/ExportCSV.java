@@ -10,17 +10,15 @@ import com.opencsv.CSVWriter;
 
 import summ.model.Sentence;
 import summ.model.Text;
-import summ.nlp.features.FeatureType;
 
 public class ExportCSV {
 
-	@SuppressWarnings("unchecked")
 	/**
-	 * Saves the features data as a CSV file.
+	 * Saves the sentences features data as a CSV file.
 	 * 
 	 * @param text is a Text object that contains the data that will be saved.
 	 */
-	public static void exportFeaturesValues(Text text) {
+	public static void exportSentenceFeatures(Text text) {
 		try {
 			File file = new File("results/texts-evaluation-features" + (new Date()).toString() + ".csv") ;
 			FileWriter outputfile = new FileWriter(file);
@@ -48,17 +46,33 @@ public class ExportCSV {
 				}
 				writer.writeNext(data);
 			}
-			// Export all general features
-//			for (Entry<String, Object> entry : text.getFeatures().entrySet()) {
-//				if(entry.getValue() instanceof Double) {
-//					writer.writeNext(new String[] { entry.getKey(), entry.getValue().toString() });
-//				}else if(entry.getValue() instanceof Map) {
-//					writer.writeNext(new String[] { entry.getKey() });
-//					for (Entry<String, Object> feature : ((Map<String, Object>)entry.getValue()).entrySet()) {
-//						writer.writeNext(new String[] { feature.getKey(), feature.getValue().toString() });
-//					}
-//				}
-//			}
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+	
+	/**
+	 * Saves the word features data as a CSV File.
+	 * 
+	 * @param text
+	 */
+	@SuppressWarnings("unchecked")
+	public static void exportWordFeatures(Text text) {
+		try {
+			File file = new File("results/words-evaluation-features" + (new Date()).toString() + ".csv") ;
+			FileWriter outputfile = new FileWriter(file);
+			CSVWriter writer = new CSVWriter(outputfile);			
+			for (Entry<String, Object> entry : text.getFeatures().entrySet()) {
+				if(entry.getValue() instanceof Double) {
+					writer.writeNext(new String[] { entry.getKey(), entry.getValue().toString() });
+				}else if(entry.getValue() instanceof Map) {
+					writer.writeNext(new String[] { entry.getKey() });
+					for (Entry<String, Object> feature : ((Map<String, Object>)entry.getValue()).entrySet()) {
+						writer.writeNext(new String[] { feature.getKey(), feature.getValue().toString() });
+					}
+				}
+			}
 			writer.close();
 		} catch (Exception e) {
 			e.printStackTrace();

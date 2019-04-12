@@ -138,7 +138,7 @@ public class Summarizer {
 //		return Evaluation.evaluate(generatedSummary, 
 //				referenceSummary, EvaluationTypes.OVERLAP);
 //		
-		ExportCSV.exportFeaturesValues(text);
+		ExportCSV.exportSentenceFeatures(text);
 		ExportHTML.exportSentecesAndFeatures(text, Arrays.asList("relative-len", "relative-location", "tf-isf", "title-words-relative"));
 		ExportHTML.exportHighlightText(text, generatedText.getSentencesMap());
 		
@@ -155,7 +155,10 @@ public class Summarizer {
 			File file = new File("results/texts-evaluation-"+(new Date()).toString());  
 	        FileWriter outputfile = new FileWriter(file);
 	        CSVWriter writer = new CSVWriter(outputfile);
-			
+
+	        String[] header = new String[] { "textName", "precision", "recall", "fMeasure", "retrievedSentences", "relevantSentences", "correctSentences" };
+	        writer.writeNext(header);
+	        
 			for (Entry<String, Text> entry : texts.entrySet()) {
 				
 				System.out.println("Processing " + entry.getValue().getName() + " ...");
@@ -170,12 +173,13 @@ public class Summarizer {
 				Text generatedSummary = summarize(originalText, summarySize);
 				
 				// Evaluate generated summary
-				HashMap<String, HashMap<String, Object>> result = Evaluation.evaluate(generatedSummary,
-						referenceSummary, EvaluationTypes.OVERLAP);	
+				HashMap<String, Double> result = Evaluation.evaluate(generatedSummary, referenceSummary, EvaluationTypes.OVERLAP);	
 				
 				// Save summarization result
-				String[] data = { entry.getValue().getName(), result.get("result").get("total_sentences").toString(),
-						result.get("result").get("overlap").toString() };
+				String[] data = { entry.getValue().getName(), result.get("precision").toString(), result.get("recall").toString(), 
+					result.get("fMeasure").toString(), result.get("retrievedSentences").toString(), result.get("relevantSentences").toString(),
+						result.get("correctSentences").toString() };
+				
 				writer.writeNext(data);
 			}
 			writer.close();
