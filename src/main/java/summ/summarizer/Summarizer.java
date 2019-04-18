@@ -12,6 +12,7 @@ import java.util.Map.Entry;
 
 import com.opencsv.CSVWriter;
 
+import net.sourceforge.jFuzzyLogic.rule.Variable;
 import summ.fuzzy.FuzzySystem;
 import summ.fuzzy.optimization.Optimization;
 import summ.model.Paragraph;
@@ -19,7 +20,6 @@ import summ.model.Sentence;
 import summ.model.Text;
 import summ.nlp.evaluation.Evaluation;
 import summ.nlp.evaluation.EvaluationResult;
-import summ.nlp.evaluation.EvaluationTypes;
 import summ.nlp.evaluation.SentenceOverlap;
 import summ.nlp.features.FeatureType;
 import summ.nlp.features.Frequency;
@@ -66,13 +66,11 @@ public class Summarizer {
 		
 		text.getParagraphs().forEach(p -> {
 			p.getSentences().forEach(s -> {
-
-				Tuple<String, Double> tfIsf = new Tuple<>("k1", (Double) s.getFeature("tf-isf"));
-				Tuple<String, Double> locLen = new Tuple<>("loc_len", (Double) s.getFeature("loc-len"));
-				Tuple<String, Double> titleWords = new Tuple<>("k2", (Double) s.getFeature("title-words-relative"));
-
-				List<Tuple<String, Double>> inputVariables = new ArrayList<>(Arrays.asList(tfIsf, locLen, titleWords));
-				double score = fs.run(inputVariables, "informatividade");
+				fs.setOutputVariable("informatividade");
+				fs.setInputVariable("k1", (Double) s.getFeature("tf-isf"));
+				fs.setInputVariable("loc_len", (Double) s.getFeature("loc-len"));
+				fs.setInputVariable("k2", (Double) s.getFeature("title-words-relative"));
+				double score = fs.evaluate().getValue(); 
 				s.setScore(score);
 				outList.add(new Tuple<>(s.getId(), score));
 			});
@@ -102,14 +100,14 @@ public class Summarizer {
 		return generatedSummary;
 	}
 
-	public static Text summarize(Text text, int summarySize) {
+	public static Text summarize(Text text, int summarySize, String systemPath) {
 
 		// Pre-processing
 		text = getTextPreProcessingPipeline().process(text);
 		text = featureComputation(text);
 		
 		// Summary generation
-		FuzzySystem fs = new FuzzySystem("flc/fb2015.flc");
+		FuzzySystem fs = new FuzzySystem(systemPath);
 		
 		// Compute sentences informativity using fuzzy system
 		ArrayList<Tuple<Integer, Double>> sentencesInformativity = computeSentencesInformativity(text, fs);
@@ -125,16 +123,16 @@ public class Summarizer {
 		return generatedSummary;
 	}
 	
-	public static void summarizationText(String fileName) {
+	public static void summarizationText(String fileName, String systemPath) {
 		// Load complete text
 		Text text = Utils.loadText("projects/temario-2014/full-texts/", fileName);
 		Text referenceSummary = Utils.loadText("projects/temario-2014/summaries/"
-					+ "reference/automatic/", "po96fe09-b_areference1.txt");
+					+ "reference/automatic/", fileName.replace(".txt", "") + "_areference1.txt");
 		
 		referenceSummary = getSummaryPreProcessingPipeline().process(referenceSummary);
 
 		int summarySize = referenceSummary.getTotalSentence();
-		Text generatedSummary = summarize(text, summarySize);
+		Text generatedSummary = summarize(text, summarySize, systemPath);
 		
 		Evaluation so = new SentenceOverlap();
 		EvaluationResult result = so.evaluate(generatedSummary, referenceSummary);	
@@ -147,7 +145,7 @@ public class Summarizer {
 		
 	}
 
-	public static void summarizeTexts() {
+	public static void summarizeTexts(String systemPath) {
 		
 		HashMap<String, Text> texts = Utils.loadTexts("projects/temario-2014/full-texts/", null);
 		HashMap<String, Text> refSummaries = Utils.loadTexts("projects/temario-2014/summaries/"
@@ -173,7 +171,7 @@ public class Summarizer {
 				
 				// Summarize
 				int summarySize = referenceSummary.getTotalSentence();
-				Text generatedSummary = summarize(originalText, summarySize);
+				Text generatedSummary = summarize(originalText, summarySize, systemPath);
 				
 				// Evaluate generated summary
 				
@@ -218,7 +216,8 @@ public class Summarizer {
 
 		// Optimization
 		String[] varNames = { "k1", "k2", "loc_len", "informatividade" };
-		Optimization optmization = new Optimization("flc/fb2015.flc", varNames, text, referenceSummary);
+		Evaluation so = new SentenceOverlap();
+		Optimization optmization = new Optimization("fcl/fb2015.fcl", varNames, text, referenceSummary, so);
 
 	}
 		

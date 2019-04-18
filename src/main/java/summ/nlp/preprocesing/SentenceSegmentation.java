@@ -13,7 +13,7 @@ import opennlp.tools.sentdetect.SentenceModel;
 
 public class SentenceSegmentation implements Pipe<Text> {
 
-	public Text segmentTextParagraphs(Text text) {
+	public Text segmentTextParagraph(Text text) {
 		InputStream model = null;
 		try {
 			model = new FileInputStream("resources/models/pt-sent.bin");
@@ -55,7 +55,7 @@ public class SentenceSegmentation implements Pipe<Text> {
 
 	@Override
 	public Text process(Text text) {
-		return this.segmentTextParagraphs(text);
+		return this.segmentTextParagraph(text);
 	}
 	
 }

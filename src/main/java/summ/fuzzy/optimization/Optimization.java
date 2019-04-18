@@ -15,14 +15,14 @@ import net.sourceforge.jFuzzyLogic.optimization.Parameter;
 import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
 import summ.fuzzy.optimization.crossover.SimpleMean;
 import summ.model.Text;
+import summ.nlp.evaluation.Evaluation;
 
 
 public class Optimization {
 
-	public Optimization(String fileName, String[] varNames, Text originalText, Text referenceSummary) {
+	public Optimization(String fileName, String[] varNames, Text originalText, Text referenceSummary, Evaluation evaluation) {
 		
 		FIS fis = FIS.load(fileName);
-		FunctionBlock functionBlock = fis.getFunctionBlock(null);
 		RuleBlock ruleBlock = fis.getFunctionBlock(null).getFuzzyRuleBlock(null);
 		
 		ArrayList<Parameter> parameterList = new ArrayList<Parameter>(); //array of parameters to optimize 
@@ -41,14 +41,14 @@ public class Optimization {
 		//			parameterList.addAll(Parameter.parametersRuleWeight(rule));
 
 		// Error function to be optimized
-		ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(fileName, originalText, referenceSummary); 
+		ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(fileName, originalText, referenceSummary, evaluation); 
 		
 		// Define the crossover operator
 		SimpleMean sm = new SimpleMean();
 		
 		// OptimizationGradient Optimization Partial Derivative Optimization Gradient
 		//OptimizationDeltaJump optimization = new OptimizationDeltaJump(ruleBlock, errorFunction, parameterList); 
-		OptimizationGenetic optimization = new OptimizationGenetic(ruleBlock, errorFunction,
+		OptimizationGenetic geneticOptimization = new OptimizationGenetic(ruleBlock, errorFunction,
 				parameterList, sm, Arrays.asList("k1", "k2", "loc_len", "informatividade"));
 		//OptimizationGradient 
 		//OptimizationGradient optimization = new OptimizationGradient(ruleBlock, errorFunction, parameterList); 
@@ -56,14 +56,14 @@ public class Optimization {
 		//OptimizationPartialDerivate
 		//OptimizationPartialDerivate optimization = new OptimizationPartialDerivate(ruleBlock, errorFunction, parameterList); 
 		
-		optimization.setMaxIterations(20);
-		optimization.setVerbose(true);
-		optimization.optimize(); // optimize using delta jump method
+		geneticOptimization.setMaxIterations(20);
+		geneticOptimization.setVerbose(true);
+		geneticOptimization.optimize(); // optimize using delta jump method
 		
 		// save optimized result
-		System.out.println(ruleBlock.toStringFcl());
-	    Gpr.toFile("flc/fb2015_optimized.flc", ruleBlock.getFunctionBlock().toString() + ruleBlock.toString() );
-		
+//		System.out.println(ruleBlock.toStringFcl());
+//	    Gpr.toFile("flc/fb2015_optimized.flc", ruleBlock.getFunctionBlock().toString() + ruleBlock.toString() );
+//		
 	    // functionBlock.reset();
 	    // JFuzzyChart.get().chart(functionBlock);
 	    

@@ -23,7 +23,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		/*
-		 * TODO tratar valores numÃ©ricos e dinheiro
+		 * TODO tratar valores numÃ©ricos, datas e dinheiro
 		 * TODO tudo que termina sem ponto é desconsiderado, sendo sonsiderado título 
 		 * No tf os termos do título não são calculados
 		 * 
@@ -33,8 +33,9 @@ public class Main {
 		 */
 		
 		//invokeGUI();
-		Summarizer.summarizeTexts();
-		//Summarizer.summarizationText("mu94de14-a.txt");
+		//Summarizer.summarizeTexts();
+		Summarizer.summarizationText("ce94ab10-a.txt", "fcl/var0.fcl");
+		Summarizer.summarizationText("ce94ab10-a.txt", "fcl/var1.fcl");
 		//Summarizer.fuzzyOptimization();
 	}
 

@@ -25,13 +25,13 @@ public class BellFunction {
 		Random rand = new Random();
 		double rangeMin = 0;
 		double rangeMax = 0;
-		if(index == 0) {
+		if(index == 0) { // a
 			rangeMin = 0.1; 
 			rangeMax = 1;
-		}else if(index == 1) {
+		}else if(index == 1) { // b
 			rangeMin = 0.1;
-			rangeMax = 20;
-		}else if(index == 2) {
+			rangeMax = 5;
+		}else if(index == 2) { // mean
 			rangeMin = 0.1;
 			rangeMax = 1;
 		}

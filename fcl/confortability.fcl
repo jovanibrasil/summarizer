@@ -1,0 +1,53 @@
+
+/*
+	Example: Fuzzy configuration for estimating comfortability
+
+	By Jovani Brasil
+*/
+
+FUNCTION_BLOCK confortability	// Block definition (there may be more than one block per file)
+
+// Define input variables
+VAR_INPUT				
+	temperature : REAL;
+	humidity : REAL;
+END_VAR
+
+// Define output variable
+VAR_OUTPUT				
+	confortability : REAL;
+END_VAR
+
+// Fuzzify input variable 'temperature': {'low', 'high'}
+FUZZIFY temperature			
+	TERM cozy := TRAPE 10 20 40 70; 
+	TERM not_cozy := TRAPE 60 90 100 100;
+END_FUZZIFY
+
+// Fuzzify input variable 'humidity': { 'low', 'high' }
+FUZZIFY humidity			
+	TERM low := (0, 1) (23,1) (30, 0);
+	TERM high := (23, 0) (30, 1) (100, 1);
+END_FUZZIFY
+
+// Defzzzify output variable 'confortability' : {'low', 'medium', 'high' }
+DEFUZZIFY confortability			
+	TERM low := TRIAN 0 2.5 5;
+	TERM medium := TRIAN 2.5 5 7.5;
+	TERM high := TRIAN 5 7.5 10;
+	METHOD : COG;	// DefuzzifierLeftMostMax (LM) DefuzzifierMeanMax (MM) DefuzzifierRightMostMax (RM)  DefuzzifierCenterOfArea (COA)	
+	DEFAULT := 0;		// Default value is 0 (if no rule activates defuzzifier)
+	RANGE := (0 .. 10);
+END_DEFUZZIFY
+
+// Inference rules
+RULEBLOCK No1
+	AND : MIN;	// Use 'min' for 'and'
+	ACT : MIN;	// Use 'min' activation method
+	ACCU : MAX;	// Use 'max' accumulation method
+	RULE 1 : IF temperature IS not_cozy THEN confortability IS low;
+	RULE 3 : IF temperature IS cozy AND humidity IS high THEN confortability IS medium;
+	RULE 2 : IF temperature IS cozy AND humidity IS low  THEN confortability IS high;
+END_RULEBLOCK
+
+END_FUNCTION_BLOCK

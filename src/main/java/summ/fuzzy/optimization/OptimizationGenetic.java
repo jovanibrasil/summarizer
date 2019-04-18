@@ -8,12 +8,14 @@ import java.util.Map.Entry;
 import java.util.Random;
 
 import net.sourceforge.jFuzzyLogic.membership.MembershipFunction;
-import net.sourceforge.jFuzzyLogic.optimization.ErrorFunction;
+import net.sourceforge.jFuzzyLogic.membership.MembershipFunctionGenBell;
+import net.sourceforge.jFuzzyLogic.membership.Value;
 import net.sourceforge.jFuzzyLogic.optimization.OptimizationMethod;
 import net.sourceforge.jFuzzyLogic.optimization.Parameter;
 import net.sourceforge.jFuzzyLogic.rule.LinguisticTerm;
 import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
+import summ.fuzzy.FuzzySystem;
 import summ.fuzzy.optimization.crossover.Crossover;
 import summ.fuzzy.optimization.mutation.Mutation;
 
@@ -27,9 +29,11 @@ public class OptimizationGenetic extends OptimizationMethod {
     
     public Crossover crossoverOperator;
 	public Mutation mutationOperator;
-    
+    public ErrorFunctionSummarization errorFunction;
     public Random rand;
 	
+    boolean[] randControl;
+    
     List<String> parameters;
     	
 	public CustomVariable convertVariableToCustomVariable(Variable variable) {
@@ -37,9 +41,13 @@ public class OptimizationGenetic extends OptimizationMethod {
 		for (Entry<String, LinguisticTerm> linguisticTerm : variable.getLinguisticTerms().entrySet()) {
 			MembershipFunction mf = linguisticTerm.getValue().getMembershipFunction();
 			CustomLinguisticTerm lt = new CustomLinguisticTerm(mf.getParametersLength(), linguisticTerm.getKey());
-			for (int i = 0; i < mf.getParametersLength(); i++) {
-				lt.setParameter(i, mf.getParameter(i));
-			}
+			// the membership vector has different order
+			// CustomLinguisticTerm: a, b, mean
+			// MemberShip: mean, a, b
+			lt.setParameter(0, mf.getParameter(1));
+			lt.setParameter(1, mf.getParameter(2));
+			lt.setParameter(2, mf.getParameter(0));
+			
 			cv.addLinguisticTerm(lt);
 		}
 		return cv;
@@ -83,6 +91,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 	 */
 	public void rankPopulation() {
 		Collections.sort(this.currentPopulation);
+		System.out.println();
 	}
 	
 	/**
@@ -103,82 +112,87 @@ public class OptimizationGenetic extends OptimizationMethod {
 	
 	/**
 	 * Select a random set of Solutions from the population and return the 
-	 * fittest one.
+	 * fittest one. Randomically select a set of Solutions from the population.
 	 */
 	public Chromosome tournamentSelection(int tournnamentSize) {
-		List<Chromosome> chromossomes = this.selectSolutions(tournnamentSize);
-		Collections.sort(chromossomes);
-		return this.currentPopulation.get(0);
-	}
-	 
-	/**
-	 * Randomically select a set of Solutions from the population.
-	 */
-	public List<Chromosome> selectSolutions(int selectionSize) {
-		System.out.println("Selection ...");	
-		// tournament selection
-		List<Chromosome> selectedSolutions = new ArrayList<>();
-		boolean[] randControl = new boolean[this.populationSize];
+		int bestChromosomeIndex = -1;
+				
 		int i = 0;
-		while (i < selectionSize) {
-			Random rand = new Random();
+		while (i < tournnamentSize) {
 			int randIndex = rand.nextInt(this.populationSize);
+			//System.out.println(randIndex);
 			if(!randControl[randIndex]) {
-				selectedSolutions.add(this.currentPopulation.get(randIndex));
-				randControl[randIndex] = true;
+				if (bestChromosomeIndex < 0 || this.currentPopulation.get(randIndex).fitness > 
+					this.currentPopulation.get(bestChromosomeIndex).fitness) {
+					bestChromosomeIndex = randIndex;
+				}
 				i++;
 			}
 		}
-		return selectedSolutions;
+		randControl[bestChromosomeIndex] = true;
+		//System.out.println("Chromossome position " + bestChromosomeIndex + " selected");
+		return this.currentPopulation.get(bestChromosomeIndex);
 	}
 	
-	public void setMfParameter(String variableName, String linguisticTermName, 
-			int mfParameterId, double mfParameterValue) {
-		this.fuzzyRuleSet.getVariable(variableName).getLinguisticTerm(linguisticTermName)
-			.getMembershipFunction().setParameter(mfParameterId, mfParameterValue);
-	}
+	
+//	public void setMfParameter(String variableName, String linguisticTermName, 
+//			int mfParameterId, double mfParameterValue) {
+//	
+//		Variable var = this.fuzzyRuleSet.getVariable(variableName);
+//		LinguisticTerm lt = var.getLinguisticTerm(linguisticTermName);
+//		lt.getMembershipFunction().setParameter(mfParameterId, mfParameterValue);
+//		this.setVariable(var.getName(), var);
+//		
+//	}
 	
 	public void evaluatePopulation() {
 		
 		for (Chromosome chromosome : currentPopulation) {
 			for (CustomVariable variable : chromosome.getVariables()) {
+				
+				FuzzySystem fs = errorFunction.getFuzzySystem();
+				Variable var = fs.getVariable(variable.getName());
+				
 				for (CustomLinguisticTerm term : variable.getLinguisticTerms()) {
-					for (int index = 0; index < term.getParametersLength(); index++) {
-						this.setMfParameter(
-								variable.getName(), 
-								term.getTermName(), 
-								index,
-								term.getParameter(0));		
-					}
+					LinguisticTerm lTerm = var.getLinguisticTerm(term.getTermName());
+					lTerm.setMembershipFunction(new MembershipFunctionGenBell(
+							new Value(term.getParameter(0)), // a
+							new Value(term.getParameter(1)), // b
+							new Value(term.getParameter(2)))); // mean					
 				}
+				fs.setVariable(variable.getName(), var);
+				
 			}	
 			chromosome.fitness = errorFunction.evaluate(fuzzyRuleSet);
 		}
-		
+		System.out.println();
 	}
 	
 	public void generateIntermediatePopulation() {
-		System.out.println("Generate intermediate population ...");
+		//System.out.println("Generate intermediate population ...");
 
 		List<Chromosome> population = new ArrayList<>();
 		
+		
 		if(this.elitism) {
+			//System.out.println("Elitismo habilitado.");
 			Chromosome elite = this.getBestIndividual();
-			population.add(elite);
+			System.out.println(elite);
+			population.add(elite.deepClone());
 		}
 		
 		List<Chromosome> children = null;
 		while(population.size() < this.populationSize) {
-			
+		
+			this.randControl = new boolean[this.populationSize]; 
 			// selection
 			Chromosome parent1 = this.tournamentSelection(2);
 			Chromosome parent2 = this.tournamentSelection(2);
 			
 			if(this.rand.nextDouble() > this.crossoverProbability) {
-				System.out.println("crossover ...");
 				children = this.crossoverOperator.executeCrossover(parent1, parent2);		
-			}else {
-				children = Arrays.asList(parent1, parent2);
+			} else {
+				children = Arrays.asList(parent1.deepClone(), parent2.deepClone());
 			}
 			
 			if(this.rand.nextDouble() > this.mutationProbability) {
@@ -193,7 +207,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 				}
 			}	
 		}
-		this.currentPopulation = population;
+		this.currentPopulation = new ArrayList<>(population);
 		
 	}
 	
@@ -203,38 +217,41 @@ public class OptimizationGenetic extends OptimizationMethod {
 	 * @param fuzzyRuleSet is the initial fuzzy rule set
 	 * 
 	 */
-	public OptimizationGenetic(RuleBlock fuzzyRuleSet, ErrorFunction errorFunction, ArrayList<Parameter> parameterList,
+	public OptimizationGenetic(RuleBlock fuzzyRuleSet, ErrorFunctionSummarization errorFunction, ArrayList<Parameter> parameterList,
 			Crossover crossoverOperator, List<String> parameters) {
 	 	super(fuzzyRuleSet, errorFunction, parameterList);
 		
-		// function coefficient optimization
-		// rules optimization
 		this.currentPopulation = new ArrayList<>();
-		this.populationSize = 5;
+		this.populationSize = 10;
 		this.crossoverOperator = crossoverOperator;
 		this.mutationOperator = new Mutation();
-		
-		this.crossoverProbability = 0.8;
-		this.mutationProbability = 0.2;
+		this.errorFunction = errorFunction;
+		this.crossoverProbability = 0.6;
+		this.mutationProbability = 0.1;
         this.elitism = true;
-		
-        this.rand = new Random();
-        
+		this.rand = new Random();
         this.parameters = parameters;
         
-		// Generate, evaluate and rank the initial population
+	}
+	
+	/**
+	 * Generate a new population, evaluate and rank the initial population.
+	 */
+	@Override
+	public void optimizeInit() {
 		generateFirstPopulation();
 		evaluatePopulation();
-		rankPopulation();	
-		
+		rankPopulation();
 	}
 
 	@Override
 	public void optimizeIteration(int iterationNum) {
+		
 		// generate new population
 		generateIntermediatePopulation();				
 		evaluatePopulation();
 		rankPopulation();	
+		
 	}
 
 }
