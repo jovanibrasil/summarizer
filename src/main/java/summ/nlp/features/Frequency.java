@@ -96,9 +96,9 @@ public class Frequency implements Pipe<Text> {
 			}
 		}
 		
-		// log (matemática) é log 10 em java - é o inverso de 10^x
-		// ln (matemática) é a função log em java que é log_e x ou log x  
-		// 	- é o inverno de e^x e tabém chamado de logaritmo natural
+		// log (matemtica)  log 10 em java -  o inverso de 10^x
+		// ln (matemtica)  a funo log em java que  log_e x ou log x  
+		// 	-  o inverno de e^x e tabm chamado de logaritmo natural
 		
 		Map<String, Double> isf = new HashMap<>();
 		for (Entry<String, HashSet<Integer>> e : index.entrySet()) {

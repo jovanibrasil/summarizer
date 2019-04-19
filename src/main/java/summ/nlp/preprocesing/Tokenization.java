@@ -24,13 +24,13 @@ public class Tokenization implements Pipe<Text> {
 	
 	/**
 	 * 
-	 * Considera que não existem palavras tokenizadas, ou seja, lista de palavras é vazia.
+	 * Considera que no existem palavras tokenizadas, ou seja, lista de palavras  vazia.
 	 * 
 	 */
 	public Text tokenization(Text text) {
 		InputStream model = null;
 		try {
-			model = new FileInputStream("resources/models/pt-token.bin");
+			model = new FileInputStream("src/main/resources/models/pt-token.bin");
 			TokenizerModel sm = new TokenizerModel(model);
 			// uses maximum entropy model 
 			TokenizerME tk = new TokenizerME(sm);

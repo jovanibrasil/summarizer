@@ -22,7 +22,7 @@ public class NER {
 	public static Text ner(Text text) {
 		InputStream model = null;
 		try {
-			model = new FileInputStream("resources/models/en-ner-person.bin");
+			model = new FileInputStream("src/main/resources/models/en-ner-person.bin");
 			TokenNameFinderModel tokenFinderModel = new TokenNameFinderModel(model);
 			// uses maximum entropy model 
 			NameFinderME namefinder = new NameFinderME(tokenFinderModel);

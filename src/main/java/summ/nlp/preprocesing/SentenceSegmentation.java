@@ -16,7 +16,7 @@ public class SentenceSegmentation implements Pipe<Text> {
 	public Text segmentTextParagraph(Text text) {
 		InputStream model = null;
 		try {
-			model = new FileInputStream("resources/models/pt-sent.bin");
+			model = new FileInputStream("src/main/resources/models/pt-sent.bin");
 			SentenceModel sm = new SentenceModel(model);
 			// uses maximum entropy model 
 			SentenceDetectorME sd = new SentenceDetectorME(sm);

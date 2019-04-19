@@ -96,7 +96,6 @@ class FuzzySystemTest {
 		fs.setOutputVariable("informatividade");
 		fs.setDefuzzificationType(DefuzzifierType.MOM);
 		Variable outputValue = fs.evaluate(); // evaluate (run the system)
-		fs.showFuzzySystem(outputValue);
 		assertEquals(0.8969999999999999, outputValue.getValue(), DELTA); // using mean of maximum (MOM)
 
 	}

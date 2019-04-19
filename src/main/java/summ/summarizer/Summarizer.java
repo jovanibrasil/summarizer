@@ -61,8 +61,8 @@ public class Summarizer {
 		
 	}
 
-	public static ArrayList<Tuple<Integer, Double>> computeSentencesInformativity(Text text, FuzzySystem fs) {
-		ArrayList<Tuple<Integer, Double>> outList = new ArrayList<Tuple<Integer, Double>>();
+	public static ArrayList<Tuple<Integer>> computeSentencesInformativity(Text text, FuzzySystem fs) {
+		ArrayList<Tuple<Integer>> outList = new ArrayList<Tuple<Integer>>();
 		
 		text.getParagraphs().forEach(p -> {
 			p.getSentences().forEach(s -> {
@@ -79,13 +79,13 @@ public class Summarizer {
 		return outList;
 	}
 
-	public static Text generateSummary(Text text, int summarySize, ArrayList<Tuple<Integer, Double>> outList) {
+	public static Text generateSummary(Text text, int summarySize, ArrayList<Tuple<Integer>> outList) {
 		
 		// Generate the summary
 		Text generatedSummary = new Text("");
 		Paragraph paragraph = new Paragraph(""); // TODO where is the full paragraph text? Is it necessary?
 		int count = 0;
-		for (Tuple<Integer, Double> t : outList) {
+		for (Tuple<Integer> t : outList) {
 			Sentence sentence = text.getSentenceById(t.x);
 			// Title sentences are ignored
 			if (sentence.isTitle())
@@ -110,7 +110,7 @@ public class Summarizer {
 		FuzzySystem fs = new FuzzySystem(systemPath);
 		
 		// Compute sentences informativity using fuzzy system
-		ArrayList<Tuple<Integer, Double>> sentencesInformativity = computeSentencesInformativity(text, fs);
+		ArrayList<Tuple<Integer>> sentencesInformativity = computeSentencesInformativity(text, fs);
 		
 		// int summarySize = (int)(0.3 * text.getTotalSentence());
 		Text generatedSummary = generateSummary(text, summarySize, sentencesInformativity);

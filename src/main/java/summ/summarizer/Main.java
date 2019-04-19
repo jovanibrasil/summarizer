@@ -24,8 +24,8 @@ public class Main {
 		
 		/*
 		 * TODO tratar valores numÃ©ricos, datas e dinheiro
-		 * TODO tudo que termina sem ponto é desconsiderado, sendo sonsiderado título 
-		 * No tf os termos do título não são calculados
+		 * TODO tudo que termina sem ponto  desconsiderado, sendo sonsiderado ttulo 
+		 * No tf os termos do ttulo no so calculados
 		 * 
 		 * Overlap - criar forma melhor de adicionar objetos em um map
 		 * 

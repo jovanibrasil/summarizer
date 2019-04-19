@@ -33,7 +33,7 @@ class ErrorFunctionSummarization extends ErrorFunction {
     public double evaluate(RuleBlock ruleBlock) {
         
         // Generate new summary using the new configuration
-     	ArrayList<Tuple<Integer, Double>> sentencesInformativity = Summarizer.computeSentencesInformativity(originalText, this.fs);
+     	ArrayList<Tuple<Integer>> sentencesInformativity = Summarizer.computeSentencesInformativity(originalText, this.fs);
         Text generatedSummary = Summarizer.generateSummary(originalText, referenceSummary.getTotalSentence(), sentencesInformativity);
         // Evaluate the result and calculate the error
         EvaluationResult result = evaluation.evaluate(generatedSummary, referenceSummary);

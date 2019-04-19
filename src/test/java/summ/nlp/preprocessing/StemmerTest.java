@@ -8,7 +8,7 @@ import summ.nlp.preprocesing.Stemmer;
 public class StemmerTest {
 
 	@Test
-	void stemWord() {
+	void testStemWord() {
 		Stemmer s = new Stemmer();
 		assertEquals("trabalh", s.stemToken("trabalhando"));
 	}

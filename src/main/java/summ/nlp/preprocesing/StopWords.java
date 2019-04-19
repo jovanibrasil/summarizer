@@ -26,7 +26,7 @@ public class StopWords implements Pipe<Text> {
 	public Text removeStopWords(Text text) {
 		
 		if(stopWords == null) {
-			loadStopWords("resources/stopwords-pt-br.txt");
+			loadStopWords("src/main/resources/stopwords-pt-br.txt");
 		}
 		try {
 			text.getParagraphs().forEach( paragraph -> {

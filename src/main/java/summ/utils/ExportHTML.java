@@ -15,7 +15,7 @@ public class ExportHTML {
 	
 	/**
 	 * 
-	 * Exporta uma lista de sentenças com os respectivos valores de suas features.
+	 * Exporta uma lista de sentencas com os respectivos valores de suas features.
 	 * 
 	 * @param text
 	 * @param selectedFeatures
@@ -52,7 +52,7 @@ public class ExportHTML {
 	
 	/**
 	 *
-	 * Exporta o texto reescrito e marcado com as sentenças escolhidas.
+	 * Exporta o texto reescrito e marcado com as sentencas escolhidas.
 	 * 
 	 * @param text
 	 * @param selectedSentences
