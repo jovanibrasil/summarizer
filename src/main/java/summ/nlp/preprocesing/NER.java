@@ -3,11 +3,14 @@ package summ.nlp.preprocesing;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
-import summ.model.Sentence;
-import summ.model.Text;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import opennlp.tools.namefind.NameFinderME;
 import opennlp.tools.namefind.TokenNameFinderModel;
 import opennlp.tools.util.Span;
+import summ.model.Text;
+import summ.utils.Pipe;
 
 /*
  * Named entity recognition (NER)
@@ -17,11 +20,14 @@ import opennlp.tools.util.Span;
  * 
  * 
  */
-public class NER {
+public class NER implements Pipe<Text> {
+	
+	private static final Logger log = LogManager.getLogger(NER.class);
 
-	public static Text ner(Text text) {
+	public Text ner(Text text) {
 		InputStream model = null;
 		try {
+			log.info("Executing NER (named entity recognition) for each sentence in " + text.getName());
 			model = new FileInputStream("src/main/resources/models/en-ner-person.bin");
 			TokenNameFinderModel tokenFinderModel = new TokenNameFinderModel(model);
 			// uses maximum entropy model 
@@ -40,7 +46,8 @@ public class NER {
 			});
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.warn("Problem with NER model file." + e.getMessage());
+			log.warn("If you want to use NER, please fix this issue first before proceeding.");
 		} finally {
 			if(model != null) {
 				try {
@@ -51,6 +58,11 @@ public class NER {
 			}
 		}
 		return text;
+	}
+
+	@Override
+	public Text process(Text text) {
+		return ner(text);
 	}
 	
 	

@@ -1,17 +1,22 @@
 package summ.nlp.preprocesing;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import summ.model.Text;
 import summ.utils.Pipe;
 
-public class General implements Pipe<Text> {
+public class Misc implements Pipe<Text> {
 	
+	private static final Logger log = LogManager.getLogger(Misc.class);
 	private PreProcessingTypes preProcessingType;
 	
-	public General(PreProcessingTypes preProcessingType) {
+	public Misc(PreProcessingTypes preProcessingType) {
 		this.preProcessingType = preProcessingType;
 	}
 	
 	public Text removePunctuation(Text text) {
+		log.info("Removing text punctuation.");
 		try {
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {
@@ -26,7 +31,7 @@ public class General implements Pipe<Text> {
 	}
 	
 	public Text convertToLowerCase(Text text) {
-		
+		log.info("Converting text to lower case.");
 		try {
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {
@@ -47,6 +52,8 @@ public class General implements Pipe<Text> {
 				return removePunctuation(text);
 			case TO_LOWER_CASE:
 				return convertToLowerCase(text);
+			default:
+				break;
 		}
 		return text;
 	}

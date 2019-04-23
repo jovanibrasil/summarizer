@@ -3,11 +3,14 @@ package summ.nlp.preprocesing;
 import java.io.FileInputStream;
 import java.io.InputStream;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
+import opennlp.tools.postag.POSModel;
+import opennlp.tools.postag.POSTaggerME;
 import summ.model.Sentence;
 import summ.model.Text;
 import summ.utils.Pipe;
-import opennlp.tools.postag.POSModel;
-import opennlp.tools.postag.POSTaggerME;
 
 /*
  * Part-of-speech (POS) analysis identify the type of the words.
@@ -28,9 +31,12 @@ import opennlp.tools.postag.POSTaggerME;
  */
 public class POSTagger implements Pipe<Text> {
 	
+	private static final Logger log = LogManager.getLogger(POSTagger.class);
+	
 	public Text pos(Text text) {
 		InputStream model = null;
 		try {
+			log.info("Executing POSTagger for each word in the text " + text.getName());
 			model = new FileInputStream("src/main/resources/models/pt-pos-perceptron.bin");
 			POSModel posModel = new POSModel(model);
 			// uses maximum entropy model 
@@ -38,16 +44,14 @@ public class POSTagger implements Pipe<Text> {
 			
 			for (Sentence sentence : text.getSentences()) {
 				String tags[] = posTagger.tag(sentence.getRawWords());
-				
 				for (int i = 0; i < tags.length; i++) {
-					//System.out.println(sentence.getRawWords()[i] + " : " + tags[i]);
 					sentence.getWords().get(i).setPosTag(tags[i]);
-					//System.out.println("\n");
 				}
 			}
 			
 		} catch (Exception e) {
-			e.printStackTrace();
+			log.warn("Problem with POSTagger model file." + e.getMessage());
+			log.warn("If you want to use POSTagger, please fix this issue first before proceeding.");
 		} finally {
 			if(model != null) {
 				try {

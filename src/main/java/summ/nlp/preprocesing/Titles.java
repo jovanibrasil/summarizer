@@ -1,18 +1,23 @@
 package summ.nlp.preprocesing;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import summ.model.Text;
 import summ.utils.Pipe;
 import summ.utils.Utils;
 
 public class Titles implements Pipe<Text> {
 
+	private static final Logger log = LogManager.getLogger(Titles.class);
+	
 	/*
 	 * Verify if a sentence is a title. A sentence is a title if it begins with number OR if sentence length is less 
 	 * than the average sentence length and the paragraph has only one sentence.
 	 * 
 	 */
 	public static Text identifyTitles(Text text) {
-		
+		log.info("Searching and identifying text titles.");
 		text.getParagraphs().forEach( paragraph -> {
 			paragraph.getSentences().forEach(sentence -> {
 				// TODO sentença pode não ter valores após o pre-processamento

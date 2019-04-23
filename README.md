@@ -18,8 +18,8 @@ baseado em loǵica fuzzy com foco na língua portuguesa.
 1. Lematization
 2. Stemming
 3. Segmentação de Parágrafos
-4  Segmentação de Sentenças
-5  Segmentação de Palavras (Tokenização)
+4.  Segmentação de Sentenças
+5.  Segmentação de Palavras (Tokenização)
 6. Remoção de stop words
 7. POS Tagger
 8. Remoção de pontuação
@@ -29,7 +29,7 @@ baseado em loǵica fuzzy com foco na língua portuguesa.
 
 1. Frequencia dos termos - Term frequency (TF)
 2. Inverse Sentence Frequency (ISF)
-3  Term Frequency Inverse Sentence Frquency (TF-ISF)
+3.  Term Frequency Inverse Sentence Frequency (TF-ISF)
 4. Comprimento
 5. Local
 6. Correlação entre comprimento e local

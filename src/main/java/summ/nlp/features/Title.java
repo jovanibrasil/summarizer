@@ -2,12 +2,17 @@ package summ.nlp.features;
 
 import java.util.Map;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import summ.model.Sentence;
 import summ.model.Text;
 import summ.model.Word;
 import summ.utils.Pipe;
 
 public class Title implements Pipe<Text> {
+	
+	private static final Logger log = LogManager.getLogger(Title.class);
 	
 	/**
 	 * Title words
@@ -19,7 +24,6 @@ public class Title implements Pipe<Text> {
 	public Text titleWords(Text text) {
 		
 		Sentence title = text.getTitle();
-		
 		int wordCount = 0; Double summation = 0.0; Double maxSummation = 1.0;
 		
 		for (Sentence s : text.getSentences()) {
@@ -34,11 +38,9 @@ public class Title implements Pipe<Text> {
 							summation += Math.pow(weight, 2);
 						}
 					}
-					
 					if(summation > maxSummation) {
 						maxSummation = summation;
 					}
-				
 				}
 				s.addFeature("title-words-counter", wordCount);
 				s.addFeature("title-words-relative", summation);

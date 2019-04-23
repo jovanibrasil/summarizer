@@ -28,7 +28,7 @@ import summ.nlp.features.LocLen;
 import summ.nlp.features.Location;
 import summ.nlp.features.TextRank;
 import summ.nlp.features.Title;
-import summ.nlp.preprocesing.General;
+import summ.nlp.preprocesing.Misc;
 import summ.nlp.preprocesing.Lemmatizer;
 import summ.nlp.preprocesing.POSTagger;
 import summ.nlp.preprocesing.PreProcessingTypes;
@@ -49,8 +49,8 @@ public class Summarizer {
 	}
 
 	public static Pipeline<Text> getTextPreProcessingPipeline() {
-		return new Pipeline<Text>(new SentenceSegmentation(), new General(PreProcessingTypes.TO_LOWER_CASE),
-				new General(PreProcessingTypes.REMOVE_PUNCTUATION), new Tokenization(PreProcessingTypes.NEURAL_TOKENIZATION),
+		return new Pipeline<Text>(new SentenceSegmentation(), new Misc(PreProcessingTypes.TO_LOWER_CASE),
+				new Misc(PreProcessingTypes.REMOVE_PUNCTUATION), new Tokenization(PreProcessingTypes.NEURAL_TOKENIZATION),
 				new Titles(), new StopWords(), new POSTagger(), new Lemmatizer(null));
 	}
 	

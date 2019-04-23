@@ -3,6 +3,9 @@ package summ.nlp.features;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import summ.model.Sentence;
 import summ.model.Text;
 import summ.utils.Pipe;
@@ -12,10 +15,14 @@ import summ.utils.Pipe;
  */
 public class TextRank implements Pipe<Text> {
 
+	private static final Logger log = LogManager.getLogger(TextRank.class);
+	
 	private FeatureType featureType;
+	private Similarity similarity;
 	
 	public TextRank(FeatureType featureType) {
 		this.featureType = featureType;
+		this.similarity = new Similarity();
 	}
 	
 	/**
@@ -53,15 +60,8 @@ public class TextRank implements Pipe<Text> {
 		for (int i = 0; i < sentencesLen; i++) {
 			for (int j = 0; j < sentencesLen; j++) {
 				if(i != j) {
-					weight = Similarity.calculateCharSequenceSimilarity(getVector(sentences[i], featureType), 
+					weight = similarity.calculateCharSequenceSimilarity(getVector(sentences[i], featureType), 
 						getVector(sentences[j], featureType));
-					
-//					if(weight > 0) {
-//						System.out.println("Similaridade: " + weight);
-//						System.out.println("Left vector: " + sentences[i].getWords());
-//						System.out.println("Right vector: " + sentences[j].getWords());
-//					}
-					
 				}
 				similarityMatrix[i][j] = weight;
 				weight = 0;

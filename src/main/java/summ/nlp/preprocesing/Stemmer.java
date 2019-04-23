@@ -1,5 +1,7 @@
 package summ.nlp.preprocesing;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 import org.tartarus.snowball.ext.PortugueseStemmer;
 
 import summ.model.Sentence;
@@ -10,6 +12,8 @@ import summ.utils.Pipe;
 
 public class Stemmer implements Pipe<Text> {
 
+	private static final Logger log = LogManager.getLogger(Stemmer.class);
+	
 	public String stemToken(String token) {
 		PortugueseStemmer ps = new PortugueseStemmer();
 		ps.setCurrent(token);
@@ -23,7 +27,7 @@ public class Stemmer implements Pipe<Text> {
 	
 	@Override
 	public Text process(Text text) {
-		
+		log.info("Stemming each word in the text.");
 		for (Sentence sentence : text.getSentences()) {
 			for (Word word : sentence.getWords()) {
 				String stemmedToken = this.stemToken(word.getInitialValue());

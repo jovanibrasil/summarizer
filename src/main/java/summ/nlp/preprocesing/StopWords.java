@@ -5,8 +5,10 @@ import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.stream.Stream;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import summ.model.Text;
 import summ.model.Word;
@@ -14,9 +16,9 @@ import summ.utils.Pipe;
 
 public class StopWords implements Pipe<Text> {
 
+	private static final Logger log = LogManager.getLogger(StopWords.class);
 	private static HashSet<String> stopWords = null;
-	//static Logger logger = Logger.getLogger(StopWordsHandler.class);
-
+	
 	public boolean isStopWord(String str) {
 		if (stopWords.contains(str))
 			return true;
@@ -24,7 +26,7 @@ public class StopWords implements Pipe<Text> {
 	}
 	
 	public Text removeStopWords(Text text) {
-		
+		log.info("Remove stopwords in the text " + text.getName());
 		if(stopWords == null) {
 			loadStopWords("src/main/resources/stopwords-pt-br.txt");
 		}
@@ -47,17 +49,16 @@ public class StopWords implements Pipe<Text> {
 	}
 
 	private void loadStopWords(String stopFile) {
-
+		log.info("Loading stopwords file.");
 		stopWords = new HashSet<String>();
 		try (Stream<String> stream = Files.lines(Paths.get(stopFile))) {
 			stream.forEach(line -> {
 				String stopWord = line.trim().toLowerCase();
 				stopWords.add(stopWord);
 			});
-
 		} catch (IOException e) {
-//			logger.warn("Problem with stopwords file: " + e.getMessage());
-//			logger.warn("If you want to use stop words, please fix this issue first before proceeding.");
+			log.warn("Problem with stopwords file: " + e.getMessage());
+			log.warn("If you want to use stop words, please fix this issue first before proceeding.");
 		}
 	}
 

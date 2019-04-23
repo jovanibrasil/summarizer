@@ -3,16 +3,18 @@ package summ.nlp.features;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
-import java.util.concurrent.atomic.DoubleAdder;
 
 import org.apache.commons.text.similarity.CosineSimilarity;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
-import summ.model.Sentence;
 import summ.model.Text;
 import summ.utils.Pipe;
 
 public class Similarity implements Pipe<Text> {
 
+	private static final Logger log = LogManager.getLogger(Similarity.class);
+	
     /**
      * Returns a set with strings common to the two given maps.
      *
@@ -20,7 +22,7 @@ public class Similarity implements Pipe<Text> {
      * @param rightVector right vector map
      * @return common strings
      */
-    private static Set<CharSequence> getIntersection(final Map<CharSequence, Double> leftVector,
+    private Set<CharSequence> getIntersection(final Map<CharSequence, Double> leftVector,
             final Map<CharSequence, Double> rightVector) {
         final Set<CharSequence> intersection = new HashSet<>(leftVector.keySet());
         intersection.retainAll(rightVector.keySet());
@@ -37,7 +39,7 @@ public class Similarity implements Pipe<Text> {
      * @param intersection common elements
      * @return the dot product
      */
-    private static double dot(final Map<CharSequence, Double> leftVector, final Map<CharSequence, Double> rightVector,
+    private double dot(final Map<CharSequence, Double> leftVector, final Map<CharSequence, Double> rightVector,
             final Set<CharSequence> intersection) {
         long dotProduct = 0;
         for (final CharSequence key : intersection) {
@@ -57,7 +59,7 @@ public class Similarity implements Pipe<Text> {
 	 * @return a cosine similarity vector between the vectors
 	 * 
 	 */
-	public static Double calculateSimilarity(final Map<CharSequence, Double> a, final Map<CharSequence, Double> b) {
+	public Double calculateSimilarity(final Map<CharSequence, Double> a, final Map<CharSequence, Double> b) {
 		if (a == null || b == null) {
             throw new IllegalArgumentException("Vectors must not be null");
         }
@@ -93,12 +95,12 @@ public class Similarity implements Pipe<Text> {
 	 * @return
 	 * 
 	 */
-	public static Double calculateCharSequenceSimilarity(Map<CharSequence, Double> leftVector, 
+	public Double calculateCharSequenceSimilarity(Map<CharSequence, Double> leftVector, 
 			Map<CharSequence, Double> rightVector) {
 			return calculateSimilarity(rightVector, leftVector);
 	}
 	
-	public static Double calculateApacheCharSequenceSimilarity(Map<CharSequence, Integer> leftVector, 
+	public Double calculateApacheCharSequenceSimilarity(Map<CharSequence, Integer> leftVector, 
 			Map<CharSequence, Integer> rightVector) {
 			CosineSimilarity cosineSimilarity = new CosineSimilarity();
 			return cosineSimilarity.cosineSimilarity(leftVector, rightVector);	

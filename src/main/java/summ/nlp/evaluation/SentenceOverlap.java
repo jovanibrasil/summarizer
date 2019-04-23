@@ -1,10 +1,16 @@
 package summ.nlp.evaluation;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import summ.model.Sentence;
 import summ.model.Text;
+import summ.nlp.features.Location;
 
 public class SentenceOverlap implements Evaluation {
 
+	private static final Logger log = LogManager.getLogger(SentenceOverlap.class);
+	
 	/**
 	 * Evaluates similarity between two texts using precision, recall, and f-measure. 	 
 	 * 

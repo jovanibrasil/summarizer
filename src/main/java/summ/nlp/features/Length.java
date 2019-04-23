@@ -1,6 +1,8 @@
 package summ.nlp.features;
 
 import org.apache.commons.math3.stat.descriptive.DescriptiveStatistics;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import summ.model.Paragraph;
 import summ.model.Sentence;
@@ -8,6 +10,8 @@ import summ.model.Text;
 import summ.utils.Pipe;
 
 public class Length implements Pipe<Text> {
+	
+	private static final Logger log = LogManager.getLogger(Length.class);
 	
 	/**
 	 * Sentence length
@@ -30,6 +34,7 @@ public class Length implements Pipe<Text> {
 		
 		int maxLength = 0; double maxRelativeLength = 0.0; 
 		
+		log.info("Calculating sentences mean length and standard deviation.");
 		for (Paragraph p : text.getParagraphs()) {
 			int middle = p.getLength() / 2;
 			
@@ -53,6 +58,7 @@ public class Length implements Pipe<Text> {
 			
 		}
 		
+		log.info("Calculating simple and relative length features for each sentence.");
 		for (Paragraph p : text.getParagraphs()) {
 			for (Sentence s : p.getSentences()) {
 				int middle = p.getLength() / 2;
@@ -89,6 +95,7 @@ public class Length implements Pipe<Text> {
 
 	@Override
 	public Text process(Text text) {
+		log.info("Calculating length features for " + text.getName());
 		return this.length(text);
 	}
 	

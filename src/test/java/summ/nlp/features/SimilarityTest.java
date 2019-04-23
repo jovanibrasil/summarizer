@@ -1,17 +1,10 @@
 package summ.nlp.features;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
-import java.util.stream.Collectors;
-
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
-import summ.nlp.features.ImplementationType;
-import summ.nlp.features.Similarity;
 
 class SimilarityTest {
 
@@ -28,40 +21,42 @@ class SimilarityTest {
 	@Test
 	void testSenteceCustomCosineSimilarity() {
 		
+		Similarity similarity = new Similarity();
+		
 		double a[] = { 3.0, 8.0, 7.0, 5.0, 2.0, 9.0 }; // 6-dimensional vector
 		double b[] = { 10.0, 8.0, 6.0, 6.0, 4.0, 5.0 };
 	    
-		double result = Similarity.calculateCharSequenceSimilarity(convertToMap(a), convertToMap(b));
+		double result = similarity.calculateCharSequenceSimilarity(convertToMap(a), convertToMap(b));
 		assertEquals(0.8638935626791596, result, DELTA);
 		
 		a = new double[] { 1, 0, -1 }; // 3-dimensional vector
 		b = new double[] { -1,-1, 0 };
 		
-		result = Similarity.calculateCharSequenceSimilarity(convertToMap(a), convertToMap(b));
+		result = similarity.calculateCharSequenceSimilarity(convertToMap(a), convertToMap(b));
 		assertEquals(-0.5, result, DELTA);
 		
 		a = new double[] { 3, 45, 7, 2 }; // 4-dimensional vector
 		b = new double[] { 2, 54, 13, 15 };
 		
-		result = Similarity.calculateCharSequenceSimilarity(convertToMap(a), convertToMap(b));
+		result = similarity.calculateCharSequenceSimilarity(convertToMap(a), convertToMap(b));
 		assertEquals(0.972284251712, result, DELTA);
 		
 		a = new double[] { 1,2,3 };
 		b = new double[] { 1,1,4 };
 		
-		result = Similarity.calculateCharSequenceSimilarity(convertToMap(a), convertToMap(b));
+		result = similarity.calculateCharSequenceSimilarity(convertToMap(a), convertToMap(b));
 		assertEquals(0.9449111825230682, result, DELTA);
 		
 		a = new double[] { 2, 1, 0, 2, 0, 1, 1, 1 }; // 8-dimensional vector
 		b = new double[] { 2, 1, 1, 1, 1, 0, 1, 1 };
 		
-		result = Similarity.calculateCharSequenceSimilarity(convertToMap(a), convertToMap(b));
+		result = similarity.calculateCharSequenceSimilarity(convertToMap(a), convertToMap(b));
 		assertEquals(0.821583, result, DELTA);
 		
 		a = new double[] { 1, 1, 1, 1, 1, 1, 1, 1 }; // 8-dimensional vector
 		b = new double[] { 1, 1, 1, 1, 1, 1, 1, 1 };
 		
-		result = Similarity.calculateCharSequenceSimilarity(convertToMap(a), convertToMap(b));
+		result = similarity.calculateCharSequenceSimilarity(convertToMap(a), convertToMap(b));
 		assertEquals(1.0, result, DELTA);
 		
 	}

@@ -1,9 +1,15 @@
 package summ.nlp.features;
 
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 import summ.model.Text;
 import summ.utils.Pipe;
 
 public class Location implements Pipe<Text> {
+	
+	private static final Logger log = LogManager.getLogger(Location.class);
+	
 	/**
 	 * Simple sentence location and the relative sentence location.
 	 *
@@ -11,7 +17,7 @@ public class Location implements Pipe<Text> {
 	 *
 	 */
 	private Text location(Text text) {
-	
+		log.info("Calculating simple, inverse and relative locations features for each sentence.");
 		text.getParagraphs().forEach(p -> {
 			int middle = p.getLength() / 2;
 			p.getSentences().forEach(s -> {
