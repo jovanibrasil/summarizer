@@ -34,8 +34,9 @@ public class GeometricMean implements Crossover {
 			List<CustomLinguisticTerm> p1Terms = p1Variables.get(i).getLinguisticTerms();
 			List<CustomLinguisticTerm> p2Terms = p2Variables.get(i).getLinguisticTerms();
 			for (int j = 0; j < p1Terms.size(); j++) {
-				CustomLinguisticTerm term = new CustomLinguisticTerm(p1Terms.get(j)
-						.getParameters().getDimension(), p1Terms.get(j).getTermName());
+				CustomLinguisticTerm p1t = p1Terms.get(j); // parent term
+				CustomLinguisticTerm term = new CustomLinguisticTerm(p1t.getParameters().getDimension(), 
+						p1t.getTermName(), p1t.getFunction());
 				
 				// geometric mean = math.sqrt(varp1[idx] * varp2[idx])
 				RealVector result = p1Terms.get(j).getParameters()

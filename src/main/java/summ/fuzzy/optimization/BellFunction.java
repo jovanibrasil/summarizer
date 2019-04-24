@@ -1,10 +1,17 @@
 package summ.fuzzy.optimization;
 
-import java.util.Random;
 
-public class BellFunction {
+public class BellFunction implements Function {
 
-	public static boolean isFeasibleValue(int index, double value) {
+	private FunctionDetails functionInfo;
+	
+	public BellFunction() {
+		functionInfo = new FunctionDetails(new double[] { 0.1, 0.1, 0.1}, 
+				new double[] {1.0, 5.0, 1.0} );	
+	}
+	
+	@Override
+	public boolean isFeasibleValue(int index, double value) {
 		if(index == 0) {
 			if(value > 0 && value <= 1) {
 				return true;
@@ -21,26 +28,15 @@ public class BellFunction {
 		return false;
 	}
 	
-	public static double getAleatoryFeasibleValue(int index) {
-		Random rand = new Random();
-		double rangeMin = 0;
-		double rangeMax = 0;
-		if(index == 0) { // a
-			rangeMin = 0.1; 
-			rangeMax = 1;
-		}else if(index == 1) { // b
-			rangeMin = 0.1;
-			rangeMax = 5;
-		}else if(index == 2) { // mean
-			rangeMin = 0.1;
-			rangeMax = 1;
-		}
-		return rangeMin + (rangeMax - rangeMin) * rand.nextDouble();
-	}
-	
-	public static boolean isFeasibleVariable() {
-		// TODO
+
+	@Override
+	public boolean isFeasibleVariable() {
 		return false;
+	}
+
+	@Override
+	public FunctionDetails getFunctionInfo() {
+		return functionInfo;
 	}
 	
 	

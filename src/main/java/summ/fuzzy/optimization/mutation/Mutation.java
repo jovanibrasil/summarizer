@@ -1,21 +1,26 @@
 package summ.fuzzy.optimization.mutation;
 
-import summ.fuzzy.optimization.BellFunction;
 import summ.fuzzy.optimization.Chromosome;
 import summ.fuzzy.optimization.CustomLinguisticTerm;
 import summ.fuzzy.optimization.CustomVariable;
+import summ.fuzzy.optimization.FunctionDetails;
 
-public class Mutation {
+public interface Mutation {
+	
+	double getAleatoryFeasibleCoefficient(double rangeMin, double rangeMax);
 
-	public Chromosome executeMutation(Chromosome chromosome) {
+	public default Chromosome mutateAllGenes(Chromosome chromosome, Mutation mutation) {
 		for (CustomVariable variable : chromosome.getVariables()) {
 			for (CustomLinguisticTerm term : variable.getLinguisticTerms()) {
 				for (int index = 0; index < term.getParametersLength(); index++) {
-					term.setParameter(index, BellFunction.getAleatoryFeasibleValue(index));		
+					FunctionDetails funcInfo = term.getFunction().getFunctionInfo();
+					// uniform
+					term.setParameter(index, mutation.getAleatoryFeasibleCoefficient(funcInfo.getRangeMin(index), 
+							funcInfo.getRangeMax(index)));
 				}
 			}
 		}
 		return chromosome;
 	}
-	
+		
 }

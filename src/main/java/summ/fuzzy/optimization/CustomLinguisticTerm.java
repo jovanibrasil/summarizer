@@ -16,10 +16,12 @@ public class CustomLinguisticTerm implements Cloneable, Serializable {
 	
 	private String termName; 
 	private RealVector parameters; 
+	private Function function;
 	
-	public CustomLinguisticTerm(Integer termSize, String name) {
+	public CustomLinguisticTerm(Integer termSize, String name, Function function) {
 		this.parameters = new ArrayRealVector(termSize);
 		this.termName = name;
+		this.function = function;
 	}
 
 	public String getTermName() {
@@ -45,6 +47,10 @@ public class CustomLinguisticTerm implements Cloneable, Serializable {
 	public int getParametersLength() {
 		return this.parameters.getDimension();
 	}
+	
+	public Function getFunction() {
+		return function;
+	}
 
 	public CustomLinguisticTerm deepClone() {
 		try {
@@ -66,7 +72,6 @@ public class CustomLinguisticTerm implements Cloneable, Serializable {
 	@Override
 	public String toString() {
 		return parameters.toString();
-	}
-	
+	}	
 }
 

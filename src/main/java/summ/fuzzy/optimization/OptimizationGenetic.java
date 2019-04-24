@@ -18,6 +18,7 @@ import net.sourceforge.jFuzzyLogic.rule.Variable;
 import summ.fuzzy.FuzzySystem;
 import summ.fuzzy.optimization.crossover.Crossover;
 import summ.fuzzy.optimization.mutation.Mutation;
+import summ.fuzzy.optimization.mutation.UniformMutation;
 
 public class OptimizationGenetic extends OptimizationMethod {
 	
@@ -40,7 +41,8 @@ public class OptimizationGenetic extends OptimizationMethod {
 		CustomVariable cv = new CustomVariable(variable.getName());
 		for (Entry<String, LinguisticTerm> linguisticTerm : variable.getLinguisticTerms().entrySet()) {
 			MembershipFunction mf = linguisticTerm.getValue().getMembershipFunction();
-			CustomLinguisticTerm lt = new CustomLinguisticTerm(mf.getParametersLength(), linguisticTerm.getKey());
+			CustomLinguisticTerm lt = new CustomLinguisticTerm(mf.getParametersLength(), 
+					linguisticTerm.getKey(), FunctionFactory.generateFunctionInfo(FunctionType.BELL));
 			// the membership vector has different order
 			// CustomLinguisticTerm: a, b, mean
 			// MemberShip: mean, a, b
@@ -72,10 +74,14 @@ public class OptimizationGenetic extends OptimizationMethod {
 				Variable referenceVariable = this.fuzzyRuleSet.getVariable(parameterName);
 				CustomVariable customVariable = new CustomVariable(referenceVariable.getName());
 				for (Entry<String, LinguisticTerm> linguisticTerm : referenceVariable.getLinguisticTerms().entrySet()) {
-					CustomLinguisticTerm lt = new CustomLinguisticTerm(3, linguisticTerm.getKey());
-					lt.setParameter(0, BellFunction.getAleatoryFeasibleValue(0));
-					lt.setParameter(1, BellFunction.getAleatoryFeasibleValue(1));
-					lt.setParameter(2, BellFunction.getAleatoryFeasibleValue(2));
+					CustomLinguisticTerm lt = new CustomLinguisticTerm(3, linguisticTerm.getKey(),
+							FunctionFactory.generateFunctionInfo(FunctionType.BELL));
+					
+					FunctionDetails f = lt.getFunction().getFunctionInfo();
+					lt.setParameter(0, mutationOperator.getAleatoryFeasibleCoefficient(f.getRangeMin(0), f.getRangeMax(0)));
+					lt.setParameter(1, mutationOperator.getAleatoryFeasibleCoefficient(f.getRangeMin(1), f.getRangeMax(1)));
+					lt.setParameter(2, mutationOperator.getAleatoryFeasibleCoefficient(f.getRangeMin(2), f.getRangeMax(2)));
+					
 					customVariable.addLinguisticTerm(lt);
 				}
 				chromosome.addGene(customVariable);
@@ -197,7 +203,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 			
 			if(this.rand.nextDouble() > this.mutationProbability) {
 				for (int i = 0; i < children.size(); i++) {
-					children.set(i, this.mutationOperator.executeMutation(children.get(i)));
+					children.set(i, this.mutationOperator.mutateAllGenes(children.get(i), mutationOperator));
 				}
 			}
 		
@@ -224,7 +230,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 		this.currentPopulation = new ArrayList<>();
 		this.populationSize = 10;
 		this.crossoverOperator = crossoverOperator;
-		this.mutationOperator = new Mutation();
+		this.mutationOperator = new UniformMutation();
 		this.errorFunction = errorFunction;
 		this.crossoverProbability = 0.6;
 		this.mutationProbability = 0.1;

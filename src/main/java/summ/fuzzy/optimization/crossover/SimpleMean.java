@@ -37,7 +37,7 @@ public class SimpleMean implements Crossover {
 			for (int j = 0; j < p1Terms.size(); j++) {
 				
 				CustomLinguisticTerm term = new CustomLinguisticTerm(p1Terms.get(j)
-						.getParametersLength(), p1Terms.get(j).getTermName());
+						.getParametersLength(), p1Terms.get(j).getTermName(), p1Terms.get(j).getFunction() );
 				// compute the mean between the parent1 and parent 2 terms
 				RealVector result = p1Terms.get(j).getParameters().add(p2Terms.get(j).getParameters()).mapDivide(2); // simple mean ((varp1[idx] + varp2[idx])/2)
 				

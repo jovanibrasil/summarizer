@@ -4,7 +4,6 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 
-import summ.fuzzy.optimization.BellFunction;
 import summ.fuzzy.optimization.Chromosome;
 import summ.fuzzy.optimization.CustomLinguisticTerm;
 import summ.fuzzy.optimization.CustomVariable;
@@ -13,7 +12,8 @@ public class BlxCrossover implements Crossover {
 
 public CustomLinguisticTerm generateBlxTerm(CustomLinguisticTerm term1, CustomLinguisticTerm term2, double alpha) {
 		
-		CustomLinguisticTerm term = new CustomLinguisticTerm(term1.getParametersLength(), term1.getTermName());
+		CustomLinguisticTerm term = new CustomLinguisticTerm(term1.getParametersLength(), 
+				term1.getTermName(), term1.getFunction());
 		
 		Random rand = new Random();
 		for (int idx = 0; idx < term1.getParametersLength(); idx++) {
@@ -42,9 +42,10 @@ public CustomLinguisticTerm generateBlxTerm(CustomLinguisticTerm term1, CustomLi
             	// nextDouble returns the next pseudorandom, uniformly distributed double value between 0.0 and 1.0
                 value = rangeMin + (rangeMax - rangeMin) * rand.nextDouble();
                 
-            	if(BellFunction.isFeasibleValue(idx, value)) { // break the loop if the solution if feasible
+            	if(term1.getFunction().isFeasibleValue(idx, value)) { // break the loop if the solution if feasible
             		break;
             	}
+            	
                 iterationControl+=1;
             }
     	}
