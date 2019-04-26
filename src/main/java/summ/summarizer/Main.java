@@ -34,9 +34,9 @@ public class Main {
 		
 		//invokeGUI();
 		//Summarizer.summarizeTexts();
-		Summarizer.summarizationText("ce94ab10-a.txt", "fcl/var0.fcl");
-		Summarizer.summarizationText("ce94ab10-a.txt", "fcl/var1.fcl");
-		//Summarizer.fuzzyOptimization();
+//		Summarizer.summarizationText("ce94ab10-a.txt", "fcl/var0.fcl");
+//		Summarizer.summarizationText("ce94ab10-a.txt", "fcl/var1.fcl");
+		Summarizer.fuzzyOptimization();
 	}
 
 }

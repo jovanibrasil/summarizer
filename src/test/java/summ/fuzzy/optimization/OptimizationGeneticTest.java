@@ -26,7 +26,7 @@ public class OptimizationGeneticTest {
 		LinguisticTerm lt = new LinguisticTerm("lt", new MembershipFunctionGenBell(
 				new Value(0.5), new Value(2.0), new Value(0.6))); 
 		var.add(lt);
-		OptimizationGenetic og = new OptimizationGenetic(null, null, null, null, null);
+		OptimizationGenetic og = new OptimizationGenetic(null, null, null, null, 0.0, 0.0, true, 10, null);
 		
 		CustomVariable customVar = og.convertVariableToCustomVariable(var);
 		CustomLinguisticTerm customLt = customVar.getLinguisticTerm("lt");

@@ -1,4 +1,4 @@
-package summ.fuzzy.optimization;
+package summ.fuzzy.optimization.functions;
 
 public interface Function {
 

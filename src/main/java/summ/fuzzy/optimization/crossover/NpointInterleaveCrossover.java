@@ -5,7 +5,7 @@ import java.util.List;
 
 import summ.fuzzy.optimization.Chromosome;
 
-public class NpointInterleaveCrossover implements Crossover {
+public class NpointInterleaveCrossover implements CrossoverOperator {
 
 	int points;
 	

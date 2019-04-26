@@ -1,4 +1,4 @@
-package summ.fuzzy.optimization;
+package summ.fuzzy.optimization.evaluation;
 
 import java.util.ArrayList;
 
@@ -11,7 +11,7 @@ import summ.nlp.evaluation.EvaluationResult;
 import summ.summarizer.Summarizer;
 import summ.utils.Tuple;
 
-class ErrorFunctionSummarization extends ErrorFunction {
+public class ErrorFunctionSummarization extends ErrorFunction {
 	
 	private FuzzySystem fs;
 	private Text originalText;
@@ -40,8 +40,8 @@ class ErrorFunctionSummarization extends ErrorFunction {
         double error = result.getMetric("fMeasure");
 //        System.out.println("Iteratation: " + this.counter + " Error value: " + error + 
 //        		" Overlap: " + result + " Reference summary size: " + referenceSummary.getTotalSentence());
-        System.out.println(error);
-        System.out.println(fs);
+//        System.out.println(error);
+//        System.out.println(fs);
         return error ;
     }
     

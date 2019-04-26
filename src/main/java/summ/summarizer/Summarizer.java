@@ -7,12 +7,10 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map.Entry;
 
 import com.opencsv.CSVWriter;
 
-import net.sourceforge.jFuzzyLogic.rule.Variable;
 import summ.fuzzy.FuzzySystem;
 import summ.fuzzy.optimization.Optimization;
 import summ.model.Paragraph;
@@ -28,8 +26,8 @@ import summ.nlp.features.LocLen;
 import summ.nlp.features.Location;
 import summ.nlp.features.TextRank;
 import summ.nlp.features.Title;
-import summ.nlp.preprocesing.Misc;
 import summ.nlp.preprocesing.Lemmatizer;
+import summ.nlp.preprocesing.Misc;
 import summ.nlp.preprocesing.POSTagger;
 import summ.nlp.preprocesing.PreProcessingTypes;
 import summ.nlp.preprocesing.SentenceSegmentation;

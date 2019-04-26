@@ -10,7 +10,7 @@ import summ.fuzzy.optimization.CustomLinguisticTerm;
 import summ.fuzzy.optimization.CustomVariable;
 import summ.utils.MathUtils;
 
-public class GeometricMean implements Crossover {
+public class GeometricMeanCrossover implements CrossoverOperator {
 
 	/*
 	 * Média simples: Implementação do crossover média (Davis 1991). Dados dois

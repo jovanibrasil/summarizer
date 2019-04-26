@@ -2,7 +2,7 @@ package summ.fuzzy.optimization.mutation;
 
 import java.util.Random;
 
-public class GaussianMutation implements Mutation {
+public class GaussianMutation implements MutationOperator {
 
 	private Random rand;
 	
@@ -11,7 +11,7 @@ public class GaussianMutation implements Mutation {
 	}
 	
 	/**
-	 * Substitui um gene por um valor aleatório de uma distribuição normal, dentro dos limites do 
+	 * Substitui um gene por um valor aleatorio de uma distribuicao normal, dentro dos limites do 
 	 * intervalo permitido para cada gene.
 	 * 
 	 */

@@ -2,7 +2,7 @@ package summ.fuzzy.optimization.mutation;
 
 import java.util.Random;
 
-public class UniformMutation implements Mutation {
+public class UniformMutation implements MutationOperator {
 
 	private Random rand;
 	
@@ -11,7 +11,7 @@ public class UniformMutation implements Mutation {
 	}
 	
 	/**
-	 * Substitui um gene por um valor aleatório de uma distribuição uniforme, dentro os limites do 
+	 * Substitui um gene por um valor aleatorio de uma distribuicao uniforme, dentro os limites do 
 	 * interavalo permitido para cada gene.
 	 */
 	public double uniform(double rangeMin, double rangeMax) {

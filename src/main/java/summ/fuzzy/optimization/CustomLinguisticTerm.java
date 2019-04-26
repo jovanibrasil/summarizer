@@ -10,6 +10,8 @@ import java.io.Serializable;
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;
 
+import summ.fuzzy.optimization.functions.Function;
+
 public class CustomLinguisticTerm implements Cloneable, Serializable {
 	
 	private static final long serialVersionUID = 2447337688400816782L;

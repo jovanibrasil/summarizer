@@ -9,7 +9,7 @@ import summ.fuzzy.optimization.Chromosome;
 import summ.fuzzy.optimization.CustomLinguisticTerm;
 import summ.fuzzy.optimization.CustomVariable;
 
-public class SimpleMean implements Crossover {
+public class SimpleMeanCrossover implements CrossoverOperator {
 
 	/*
 	 * Média simples: Implementação do crossover média (Davis 1991). Dados dois

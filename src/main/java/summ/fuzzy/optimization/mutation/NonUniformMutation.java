@@ -2,7 +2,7 @@ package summ.fuzzy.optimization.mutation;
 
 import java.util.Random;
 
-public class NonUniformMutation implements Mutation {
+public class NonUniformMutation implements MutationOperator {
 	
 	private Random rand;
 	
@@ -11,9 +11,9 @@ public class NonUniformMutation implements Mutation {
 	}
 	
 	/**
-	 * Substitui um gene por um valor aleatório de uma distribuição não uniforme.
+	 * Substitui um gene por um valor aleatorio de uma distribuicao nao uniforme.
 	 *
-	 * Referência: Michalewicz, 1994
+	 * Referencia: Michalewicz, 1994
 	 * 
 	 * @param g is the current generation
 	 * @param gmax is the max number of generations
@@ -35,7 +35,7 @@ public class NonUniformMutation implements Mutation {
 	}
 	
 	/**
-	 * Aplicação do operador de mutação não uniforme em todos os genes do cromossomo. 
+	 * Aplicacao do operador de mutacao nao uniforme em todos os genes do cromossomo. 
 	 */
 	public void nonUniformMultiple() {
 		throw new UnsupportedOperationException("Operation not implemented yet");

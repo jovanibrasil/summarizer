@@ -2,7 +2,7 @@ package summ.fuzzy.optimization.mutation;
 
 import java.util.Random;
 
-public class LimitMutation implements Mutation {
+public class LimitMutation implements MutationOperator {
 	
 	private Random rand;
 	
@@ -12,10 +12,10 @@ public class LimitMutation implements Mutation {
 	
 	/**
 	 * Substitui o gene por um dos valores limites dos intervalos dos genes. Ideal para reduzir a 
-	 * perda de diversidade que certos operadores de cruzamento produzem, como o cruzamento aritmético,
+	 * perda de diversidade que certos operadores de cruzamento produzem, como o cruzamento aritmetico,
 	 * que leva os genes para o centro dos intervalos permitidos.
 	 * 
-	 * Referência: Michalewicz, 1994
+	 * Referencia: Michalewicz, 1994
 	 * 
 	 */
 	public double limit(double rangeMin, double rangeMax) {

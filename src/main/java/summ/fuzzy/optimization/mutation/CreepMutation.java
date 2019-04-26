@@ -2,11 +2,11 @@ package summ.fuzzy.optimization.mutation;
 
 public class CreepMutation {
 	/**
-	 * Adiciona um pequeno número aleatório ao gene. Este número aleatório pode ser obtido através
-	 * de uma distribuição normal (média zero e desvio padrão pequeno) ou uma distribuição uniforme.
+	 * Adiciona um pequeno numero aleatorio ao gene. Este numero aleatorio pode ser obtido atraves
+	 * de uma distribuicao normal (media zero e desvio padrao pequeno) ou uma distribuicao uniforme.
 	 * 
-	 * Também é possível obter a mutação creep através da multiplicação do valor do gene com um valor
-	 * muito próximo de um, para apenas gerar uma pequena perturbação no cromossomo e levá-lo mais 
+	 * Tambwm e possivel obter a mutacao creep atraves da multiplicacao do valor do gene com um valor
+	 * muito proximo de um, para apenas gerar uma pequena perturbacao no cromossomo e leva-lo mais 
 	 * rapidamente ao topo.
 	 * 
 	 */
