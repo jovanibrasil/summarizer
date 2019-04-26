@@ -67,10 +67,10 @@ public class Frequency implements Pipe<Text> {
 		}
 		
 		
-		text.addFeature("doc-length", count); // 
+		text.addFeature("doc_length", count); // 
 		text.addFeature("rtf", rtf); // register raw frequency		
-		text.addFeature("tf-doc-len-based", tfDocLenBased);
-		text.addFeature("tf-max-rtf-based", tfMaxRtfBased);
+		text.addFeature("tf_doc_len_based", tfDocLenBased);
+		text.addFeature("tf_max_rtf_based", tfMaxRtfBased);
 		
 	}
 	
@@ -115,7 +115,7 @@ public class Frequency implements Pipe<Text> {
 			isf.put(e.getKey(), Math.log10((double)count / (double)e.getValue().size()));
 		}
 		
-		text.addFeature("sentence-counter", count);
+		text.addFeature("sentence_counter", count);
 		text.addFeature("isf", isf);
 		
 	}
@@ -157,17 +157,17 @@ public class Frequency implements Pipe<Text> {
 				for (Word w : s.getWords()) {
 					maxRes += tfisf.get(w.getCurrentValue());
 				}
-				s.addFeature("tf-isf", maxRes / s.getLength());
+				s.addFeature("tf_isf", maxRes / s.getLength());
 			}
 		}
 		
-		text.addFeature("tf-isf", tfisf);
+		text.addFeature("tf_isf", tfisf);
 	
 		text.getParagraphs().forEach(p -> {
 			p.getSentences().forEach(s -> {
 				// increment sentence counter
 				s.getWords().forEach(w -> {
-					w.addFeature("tf-isf", tfisf.get(w.getCurrentValue()));
+					w.addFeature("tf_isf", tfisf.get(w.getCurrentValue()));
 				});
 			});
 		});

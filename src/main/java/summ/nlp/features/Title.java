@@ -30,7 +30,7 @@ public class Title implements Pipe<Text> {
 				wordCount = 0; 
 				summation = 0.0;
 				if(!s.isTitle()) {
-					Map<String, Double> tfIsf = (Map<String, Double>) text.getFeature("tf-isf");
+					Map<String, Double> tfIsf = (Map<String, Double>) text.getFeature("tf_isf");
 					for (Word w : s.getWords()) {
 						if(title.containsWord(w)) {
 							wordCount++;
@@ -42,12 +42,12 @@ public class Title implements Pipe<Text> {
 						maxSummation = summation;
 					}
 				}
-				s.addFeature("title-words-counter", wordCount);
-				s.addFeature("title-words-relative", summation);
+				s.addFeature("title_words_counter", wordCount);
+				s.addFeature("title_words_relative", summation);
 		};
 		
 		for (Sentence s : text.getSentences()) {
-			s.addFeature("title-words-relative", (Double)s.getFeature("title-words-relative") / maxSummation);
+			s.addFeature("title_words_relative", (Double)s.getFeature("title_words_relative") / maxSummation);
 		}
 		return text;	
 	}

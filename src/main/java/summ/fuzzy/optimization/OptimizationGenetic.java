@@ -106,8 +106,14 @@ public class OptimizationGenetic extends OptimizationMethod {
 		log.info("Ranking population " + this.iteration);
 		Collections.sort(this.currentPopulation);
 		log.info("Best individual: " + this.getBestIndividual());
+		log.info("Worst individual: " + this.getWorstIndividual());
 	}
 	
+	private String getWorstIndividual() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	/**
 	 * Return the best individual. The best individual is the individual with the best
 	 * fitness in the current generation. 
@@ -162,6 +168,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 							new Value(term.getParameter(1)), // b
 							new Value(term.getParameter(2)))); // mean					
 				}
+				
 				fs.setVariable(variable.getName(), var);
 				
 			}	

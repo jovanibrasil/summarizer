@@ -3,7 +3,7 @@
 ## Projeto Summarizer
 
 O objetivo deste projeto é desenvolver um sumarizador de textos extrativo, mono-documento, 
-baseado em loǵica fuzzy com foco na língua portuguesa.
+baseado em loǵica fuzzy e com foco na língua portuguesa.
 
 ### Compilando e executando
 
@@ -47,7 +47,10 @@ baseado em loǵica fuzzy com foco na língua portuguesa.
 
 ##### Mutação
 
-1. Simples
+1. Uniform
+2. Gaussian (Normal)
+3. Creep
+4. Limit
 
 ##### Mutação (Crossover)
 

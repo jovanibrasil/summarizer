@@ -37,7 +37,7 @@ public class TextRank implements Pipe<Text> {
 	private Map<CharSequence, Double> getVector(Sentence sentence, FeatureType featureType){
 		Map<CharSequence, Double> vector = new HashMap<>();
 		sentence.getWords().forEach(w -> {
-        	vector.put(w.getCurrentValue(), w.getFeature("tf-isf"));
+        	vector.put(w.getCurrentValue(), w.getFeature("tf_isf"));
         });
 	    return vector;
 	}
@@ -117,7 +117,7 @@ public class TextRank implements Pipe<Text> {
 	public Text process(Text text) {
 		double ranks[] = this.calculateTextRank(text, null);
 		for (Sentence sentence : text.getSentences()) {
-			sentence.addFeature("text-rank", ranks[sentence.getId()]);
+			sentence.addFeature("text_rank", ranks[sentence.getId()]);
 		}
 		return text;
 	}

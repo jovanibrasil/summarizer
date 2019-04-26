@@ -104,7 +104,7 @@ public class FrequencyTest {
 		f.tfIsf(t);
 		// S� com s1 todos  os tf-isf s�o 0, uma vez que isf = 0
 		// 0.4771212547 * 2 = 0.9542425094
-		assertEquals(0.5000000, (double)t.getSentenceById(0).getWord("tcc").getFeature("tf-isf"), DELTA); 
+		assertEquals(0.5000000, (double)t.getSentenceById(0).getWord("tcc").getFeature("tf_isf"), DELTA); 
 	}
 	
 	@Test

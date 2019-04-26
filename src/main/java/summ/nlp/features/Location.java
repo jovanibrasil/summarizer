@@ -25,14 +25,14 @@ public class Location implements Pipe<Text> {
 				Double pos = (double)p.getLength() - s.getPos();
 				
 				Double simpleLocation = pos / p.getLength();
-				s.addFeature("simple-location", simpleLocation);
+				s.addFeature("simple_location", simpleLocation);
 				
 				Double inverseLocation = 1 - (pos-1) / p.getLength();
-				s.addFeature("inverse-location", inverseLocation); 
+				s.addFeature("inverse_location", inverseLocation); 
 				
 				Double relativeLocation = s.getPos() <= middle ? pos / p.getLength() 
 						:  1 - ((pos - 1) / p.getLength());
-				s.addFeature("relative-location", relativeLocation); 
+				s.addFeature("relative_location", relativeLocation); 
 				
 			});
 		});

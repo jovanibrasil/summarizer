@@ -7,12 +7,17 @@ import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map.Entry;
+
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import com.opencsv.CSVWriter;
 
 import summ.fuzzy.FuzzySystem;
 import summ.fuzzy.optimization.Optimization;
+import summ.fuzzy.optimization.evaluation.ErrorFunctionSummarization;
 import summ.model.Paragraph;
 import summ.model.Sentence;
 import summ.model.Text;
@@ -42,6 +47,8 @@ import summ.utils.Utils;
 
 public class Summarizer {
 	
+	private static final Logger log = LogManager.getLogger(Summarizer.class);
+	
 	public static Pipeline<Text> getSummaryPreProcessingPipeline() {
 		return new Pipeline<Text>(new SentenceSegmentation(), new Tokenization(PreProcessingTypes.NEURAL_TOKENIZATION));
 	}
@@ -59,18 +66,22 @@ public class Summarizer {
 		
 	}
 
-	public static ArrayList<Tuple<Integer>> computeSentencesInformativity(Text text, FuzzySystem fs) {
-		ArrayList<Tuple<Integer>> outList = new ArrayList<Tuple<Integer>>();
+	public static ArrayList<Tuple<Integer>> computeSentencesInformativity(Text text, FuzzySystem fs, List<String> variables) {
 		
+		ArrayList<Tuple<Integer>> outList = new ArrayList<Tuple<Integer>>();
 		text.getParagraphs().forEach(p -> {
 			p.getSentences().forEach(s -> {
-				fs.setOutputVariable("informatividade");
-				fs.setInputVariable("k1", (Double) s.getFeature("tf-isf"));
-				fs.setInputVariable("loc_len", (Double) s.getFeature("loc-len"));
-				fs.setInputVariable("k2", (Double) s.getFeature("title-words-relative"));
+		
+				for (int index = 0; index < variables.size()-1; index++) {
+					String variableName = variables.get(index);
+					fs.setInputVariable(variableName, (double)s.getFeature(variableName));
+				}
+				fs.setOutputVariable(variables.get(variables.size()-1));
+				
 				double score = fs.evaluate().getValue(); 
 				s.setScore(score);
 				outList.add(new Tuple<>(s.getId(), score));
+				
 			});
 		});
 		Collections.sort(outList);
@@ -84,11 +95,13 @@ public class Summarizer {
 		Paragraph paragraph = new Paragraph(""); // TODO where is the full paragraph text? Is it necessary?
 		int count = 0;
 		for (Tuple<Integer> t : outList) {
+
 			Sentence sentence = text.getSentenceById(t.x);
 			// Title sentences are ignored
 			if (sentence.isTitle())
 				continue;
 			paragraph.addSentence(sentence);
+			//log.info("Sentence " + t.x + "with score " + t.y + " was selected");
 			if (count == summarySize) {
 				break;
 			}
@@ -98,7 +111,7 @@ public class Summarizer {
 		return generatedSummary;
 	}
 
-	public static Text summarize(Text text, int summarySize, String systemPath) {
+	public static Text summarize(Text text, int summarySize, String systemPath, List<String> varNames) {
 
 		// Pre-processing
 		text = getTextPreProcessingPipeline().process(text);
@@ -106,9 +119,9 @@ public class Summarizer {
 		
 		// Summary generation
 		FuzzySystem fs = new FuzzySystem(systemPath);
-		
+		//fs.setOutputVariable(outputVariableName);
 		// Compute sentences informativity using fuzzy system
-		ArrayList<Tuple<Integer>> sentencesInformativity = computeSentencesInformativity(text, fs);
+		ArrayList<Tuple<Integer>> sentencesInformativity = computeSentencesInformativity(text, fs, varNames);
 		
 		// int summarySize = (int)(0.3 * text.getTotalSentence());
 		Text generatedSummary = generateSummary(text, summarySize, sentencesInformativity);
@@ -121,7 +134,7 @@ public class Summarizer {
 		return generatedSummary;
 	}
 	
-	public static void summarizationText(String fileName, String systemPath) {
+	public static void summarizationText(String fileName, String systemPath, List<String> varNames) {
 		// Load complete text
 		Text text = Utils.loadText("projects/temario-2014/full-texts/", fileName);
 		Text referenceSummary = Utils.loadText("projects/temario-2014/summaries/"
@@ -130,7 +143,7 @@ public class Summarizer {
 		referenceSummary = getSummaryPreProcessingPipeline().process(referenceSummary);
 
 		int summarySize = referenceSummary.getTotalSentence();
-		Text generatedSummary = summarize(text, summarySize, systemPath);
+		Text generatedSummary = summarize(text, summarySize, systemPath, varNames);
 		
 		Evaluation so = new SentenceOverlap();
 		EvaluationResult result = so.evaluate(generatedSummary, referenceSummary);	
@@ -148,6 +161,8 @@ public class Summarizer {
 		HashMap<String, Text> texts = Utils.loadTexts("projects/temario-2014/full-texts/", null);
 		HashMap<String, Text> refSummaries = Utils.loadTexts("projects/temario-2014/summaries/"
 				+ "reference/automatic/", null);
+		
+		List<String> varNames = Arrays.asList("tf_isf", "title_words_relative", "loc_len", "informatividade");
 		
 		try {
 			
@@ -169,7 +184,7 @@ public class Summarizer {
 				
 				// Summarize
 				int summarySize = referenceSummary.getTotalSentence();
-				Text generatedSummary = summarize(originalText, summarySize, systemPath);
+				Text generatedSummary = summarize(originalText, summarySize, systemPath, varNames);
 				
 				// Evaluate generated summary
 				
@@ -213,10 +228,12 @@ public class Summarizer {
 		referenceSummary = getSummaryPreProcessingPipeline().process(referenceSummary);
 
 		// Optimization
-		String[] varNames = { "k1", "k2", "loc_len", "informatividade" };
-		Evaluation so = new SentenceOverlap();
-		Optimization optmization = new Optimization("fcl/fb2015.fcl", varNames, text, referenceSummary, so);
-
+		//List<String> varNames =  Arrays.asList( "tf_isf", "title_words_relative", "loc_len", "informatividade" );
+		List<String> varNames = Arrays.asList("tf_isf", "informatividade"); 
+		Evaluation evaluationMethod = new SentenceOverlap();
+		//Optimization optmization = new Optimization("fcl/fb2015.fcl", text, referenceSummary, evaluationMethod, varNames);
+		Optimization optmization = new Optimization("fcl/simplek1.fcl", text, referenceSummary, evaluationMethod, varNames);
+		
 	}
 		
 }

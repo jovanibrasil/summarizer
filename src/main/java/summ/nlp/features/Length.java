@@ -82,13 +82,13 @@ public class Length implements Pipe<Text> {
 				}
 				
 				s.addFeature("len", s.getLength());
-				s.addFeature("simple-len", (double)s.getEditedSentenceLength() / maxLength);
-				s.addFeature("relative-len", relativeLen);
+				s.addFeature("simple_len", (double)s.getEditedSentenceLength() / maxLength);
+				s.addFeature("relative_len", relativeLen);
 			}
 		}
 		
 		for (Sentence s : text.getSentences()) {
-			s.addFeature("relative-len", (double)s.getFeature("relative-len") / maxRelativeLength);	
+			s.addFeature("relative_len", (double)s.getFeature("relative_len") / maxRelativeLength);	
 		}
 		return text;	
 	}

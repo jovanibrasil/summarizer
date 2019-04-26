@@ -19,14 +19,14 @@ public class LocLen implements Pipe<Text> {
 		log.info("Calculating LOC-LEN (location and length correlation) feature for each sentence of " + text.getName());
 		double maxLocLen = 0.0;
 		for (Sentence s : text.getSentences()) {
-			Double loc = (Double)s.getFeature("relative-location");
-			Double len = (Double)s.getFeature("relative-len");
+			Double loc = (Double)s.getFeature("relative_location");
+			Double len = (Double)s.getFeature("relative_len");
 			Double locLen = (-0.084 + (0.08 * len) + (2.344 * loc));
-			s.addFeature("loc-len", locLen);
+			s.addFeature("loc_len", locLen);
 			maxLocLen = locLen > maxLocLen ? locLen : maxLocLen;	
 		}
 		for (Sentence s : text.getSentences()) {
-			s.addFeature("loc-len", (double)s.getFeature("loc-len") / maxLocLen);
+			s.addFeature("loc_len", (double)s.getFeature("loc_len") / maxLocLen);
 		}
 		return text;		
 	}

@@ -15,9 +15,9 @@ class FuzzySystemTest {
 	private static final double DELTA = 1e-6;
 
 	@Test
-	void testFuzzySystemLoadVariableK1Values() {
+	void testFuzzySystemLoadVariabletf_isfValues() {
 		FuzzySystem fs = new FuzzySystem("fcl/fb2015.fcl");
-		Variable var = fs.getVariable("k1");
+		Variable var = fs.getVariable("tf_isf");
 		LinguisticTerm lTerm = var.getLinguisticTerm("baixo");
 		MembershipFunction mf = lTerm.getMembershipFunction();
 		// TERM baixo := gbell 0.244 2.410 0.008;
@@ -27,13 +27,13 @@ class FuzzySystemTest {
 	}
 
 	@Test
-	void testFuzzySystemSetVariableK1Values() {
+	void testFuzzySystemSetVariabletf_isfValues() {
 		FuzzySystem fs = new FuzzySystem("fcl/fb2015.fcl");
-		Variable var = fs.getVariable("k1");
+		Variable var = fs.getVariable("tf_isf");
 		LinguisticTerm lTerm = var.getLinguisticTerm("baixo");
 		lTerm.setMembershipFunction(new MembershipFunctionGenBell(new Value(0.3), new Value(0.3), new Value(3.0))); // (a, b, mean)
-		fs.setVariable("k1", var);
-		var = fs.getVariable("k1");
+		fs.setVariable("tf_isf", var);
+		var = fs.getVariable("tf_isf");
 		lTerm = var.getLinguisticTerm("baixo");
 		MembershipFunction mf = lTerm.getMembershipFunction();
 		assertEquals(3.0, mf.getParameter(0)); // mean
@@ -74,8 +74,8 @@ class FuzzySystemTest {
 
 		FuzzySystem fs = new FuzzySystem("fcl/fb2015.fcl");
 		fs.setInputVariable("loc_len", 0.5);
-		fs.setInputVariable("k1", 0.8);
-		fs.setInputVariable("k2", 0.4);
+		fs.setInputVariable("tf_isf", 0.8);
+		fs.setInputVariable("title_words_relative", 0.4);
 		fs.setOutputVariable("informatividade");
 
 		fs.setDefuzzificationType(DefuzzifierType.COG);
@@ -91,8 +91,8 @@ class FuzzySystemTest {
 
 		FuzzySystem fs = new FuzzySystem("fcl/fb2015.fcl");
 		fs.setInputVariable("loc_len", 0.5);
-		fs.setInputVariable("k1", 0.8);
-		fs.setInputVariable("k2", 0.4);
+		fs.setInputVariable("tf_isf", 0.8);
+		fs.setInputVariable("title_words_relative", 0.4);
 		fs.setOutputVariable("informatividade");
 		fs.setDefuzzificationType(DefuzzifierType.MOM);
 		Variable outputValue = fs.evaluate(); // evaluate (run the system)
