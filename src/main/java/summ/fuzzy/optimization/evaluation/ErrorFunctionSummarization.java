@@ -20,55 +20,53 @@ public class ErrorFunctionSummarization extends ErrorFunction {
 	private static final Logger log = LogManager.getLogger(ErrorFunctionSummarization.class);
 	
 	private FuzzySystem fs;
-	private Text originalText;
-	private Text referenceSummary;
 	private Evaluation evaluation;
-	private ArrayList<Tuple<Integer>> lastSentenceInformativityValues;
 	private List<String> varNames;
-	
-	public ErrorFunctionSummarization(FuzzySystem fs, Text originalText, Text referenceSummary, Evaluation evaluation, 
-			List<String> varNames) {
+	private List<Text> originalTexts;
+	private List<Text> referenceSummaries;
+	private String metricName = "fMeasure";
+		
+	public ErrorFunctionSummarization(FuzzySystem fs, List<Text> texts, List<Text> refSummaries, 
+			Evaluation evaluation, List<String> varNames) {
 		super();
 		this.fs = fs;
-		this.referenceSummary = referenceSummary;
-		this.originalText = originalText;
+		this.referenceSummaries = refSummaries;
+		this.originalTexts = texts;
 		this.evaluation = evaluation;
 		this.varNames = varNames;
+		log.info("Initializing text summarization evaluation function ...");
+		log.info("Metric name: " + this.metricName + " Reference vector size: " + this.referenceSummaries.size());
 	}
 	
 	public FuzzySystem getFuzzySystem() {
 		return this.fs;
 	}
 	
+	/**
+	 *  Evaluate the result and calculate the error.     
+	 * 
+	 */
     public double evaluate(RuleBlock ruleBlock) {
         
-        // Generate new summary using the new configuration
-     	ArrayList<Tuple<Integer>> sentencesInformativity = Summarizer.computeSentencesInformativity(originalText, this.fs, varNames);
-     	
-//     	if(lastSentenceInformativityValues != null) {
-//     		for (int i = 0; i < sentencesInformativity.size(); i++) {
-//     			System.out.println(sentencesInformativity.get(i).y + " - " + lastSentenceInformativityValues.get(i).y);
-//			}
-//     	}
-//     	lastSentenceInformativityValues = sentencesInformativity;
-     	
-        Text generatedSummary = Summarizer.generateSummary(originalText, referenceSummary.getTotalSentence(), sentencesInformativity);
-        // Evaluate the result and calculate the error
-        EvaluationResult result = evaluation.evaluate(generatedSummary, referenceSummary);
+        double acc = 0.0;
+     	for (int i = 0; i < this.originalTexts.size(); i++) {
+     		Text originalText = this.originalTexts.get(i);
+			Text referenceSummary = this.referenceSummaries.get(i);
+     		ArrayList<Tuple<Integer>> sentencesInformativity = Summarizer.computeSentencesInformativity(originalText, this.fs, this.varNames);
+         	Text generatedSummary = Summarizer.generateSummary(originalText, referenceSummary.getTotalSentence(), sentencesInformativity);
+            EvaluationResult result = evaluation.evaluate(generatedSummary, referenceSummary);
+            log.debug(result);
+            acc += result.getMetric(this.metricName);
+		}
         
-        double error = result.getMetric("fMeasure");
+        double error = acc / this.referenceSummaries.size();
 
-        
-
-//      log.info(result);
-      
-        
-        
-        //        System.out.println("Iteratation: " + this.counter + " Error value: " + error + 
-//        		" Overlap: " + result + " Reference summary size: " + referenceSummary.getTotalSentence());
-//        System.out.println(error);
-//        System.out.println(fs);
-        
+		//      log.info(result);
+		//      System.out.println("Iteratation: " + this.counter + " Error value: " + error + 
+		//        		" Overlap: " + result + " Reference summary size: " + referenceSummary.getTotalSentence());
+		//      System.out.println(error);
+		//      System.out.println(fs);
+		        
         return error ;
     }
     

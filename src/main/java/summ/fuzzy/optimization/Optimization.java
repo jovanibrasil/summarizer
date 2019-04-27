@@ -19,26 +19,23 @@ import summ.nlp.evaluation.Evaluation;
 
 public class Optimization {
 
-	private final int MAX_ITERATIONS = 70;
-	
+	private final int MAX_ITERATIONS = 60;
 	private final double MUTATION_PROBABILITY = 0.1;
 	private final double CROSSOVER_PROBABILITY = 0.6;
 	private final boolean ELITISM = true;
-	private final int POPULATION_SIZE = 1000;
-	
+	private final int POPULATION_SIZE = 100;
 	private static final Logger log = LogManager.getLogger(Optimization.class);
+	private OptimizationGenetic geneticOptimization;
 	
-	public Optimization(String fileName, Text originalText, Text referenceSummary, Evaluation evaluation, List<String> varNames) {
+	public Optimization(String fileName, List<Text> texts, List<Text> refSummaries, Evaluation evaluation, List<String> varNames) {
 		
 		FuzzySystem fs = new FuzzySystem(fileName);
 		fs.setOutputVariable(varNames.get(varNames.size()-1));
 		
-	    ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(fs, originalText, referenceSummary, evaluation, varNames); 
+	    ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(fs, texts, refSummaries, evaluation, varNames); 
 	    log.info("Error function: " + errorFunction);
-		
 		CrossoverOperator crossoverOperator = new BlxCrossover();
-		log.info("Crossover operator: " + crossoverOperator);
-		
+		log.info("Crossover operator: " + crossoverOperator);		
 		MutationOperator mutationOperator = new GaussianMutation();
 		log.info("Mutation operator: " + mutationOperator);
 
@@ -50,22 +47,26 @@ public class Optimization {
 		FIS fis = FIS.load(fileName);
 		RuleBlock ruleBlock = fis.getFunctionBlock(null).getFuzzyRuleBlock(null);
 		log.info("Optimization variables: " + varNames);
-		OptimizationGenetic geneticOptimization = new OptimizationGenetic(ruleBlock, errorFunction, crossoverOperator, 
+		this.geneticOptimization = new OptimizationGenetic(ruleBlock, errorFunction, crossoverOperator, 
 			mutationOperator, CROSSOVER_PROBABILITY, MUTATION_PROBABILITY, ELITISM, POPULATION_SIZE, varNames);
 
 		log.info("Max iterations: " + MAX_ITERATIONS);
 		geneticOptimization.setMaxIterations(MAX_ITERATIONS);
 		geneticOptimization.setVerbose(false);
-		geneticOptimization.optimize(); 
 		
+	}
+	
+	public void showResult() {
 		// save optimized result
 		//		System.out.println(ruleBlock.toStringFcl());
 		//	    Gpr.toFile("flc/fb2015_optimized.flc", ruleBlock.getFunctionBlock().toString() + ruleBlock.toString() );
 		//		
 	    // functionBlock.reset();
 	    // JFuzzyChart.get().chart(functionBlock);
-	    
 	}
 	
+	public void run() {
+		this.geneticOptimization.optimize(); 
+	}
 	
 }

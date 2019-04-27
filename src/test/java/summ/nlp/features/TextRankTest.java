@@ -16,8 +16,7 @@ public class TextRankTest {
 	
 	@BeforeAll
     protected static void init(){
-		text =  Summarizer.getTextProcessedText("projects/temario-2014/full-texts/", 
-				"ce94ab10-a.txt");
+		//text =  Summarizer.getTextProcessedText("projects/temario-2014/full-texts/", "ce94ab10-a.txt");
 		textRank = new TextRank(FeatureType.TFISF);
 	}
 	

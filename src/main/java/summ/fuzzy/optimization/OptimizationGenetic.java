@@ -109,9 +109,8 @@ public class OptimizationGenetic extends OptimizationMethod {
 		log.info("Worst individual: " + this.getWorstIndividual());
 	}
 	
-	private String getWorstIndividual() {
-		// TODO Auto-generated method stub
-		return null;
+	private Chromosome getWorstIndividual() {
+		return this.currentPopulation.get(this.currentPopulation.size()-1);
 	}
 
 	/**
@@ -168,7 +167,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 							new Value(term.getParameter(1)), // b
 							new Value(term.getParameter(2)))); // mean					
 				}
-				
+				//log.info(var);
 				fs.setVariable(variable.getName(), var);
 				
 			}	

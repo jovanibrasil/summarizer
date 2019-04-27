@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map.Entry;
+import java.util.stream.Collectors;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -17,7 +18,6 @@ import com.opencsv.CSVWriter;
 
 import summ.fuzzy.FuzzySystem;
 import summ.fuzzy.optimization.Optimization;
-import summ.fuzzy.optimization.evaluation.ErrorFunctionSummarization;
 import summ.model.Paragraph;
 import summ.model.Sentence;
 import summ.model.Text;
@@ -48,6 +48,10 @@ import summ.utils.Utils;
 public class Summarizer {
 	
 	private static final Logger log = LogManager.getLogger(Summarizer.class);
+
+	public static final String TEMARIO_AUTO_SUMMARIES_PATH = "projects/temario-2014/summaries/reference/automatic/";
+	public static final String TEMARIO_FULL_TEXTS_PATH = "projects/temario-2014/full-texts/";
+	public static final int SUMMARY_EVALUATION_LEN = 10;
 	
 	public static Pipeline<Text> getSummaryPreProcessingPipeline() {
 		return new Pipeline<Text>(new SentenceSegmentation(), new Tokenization(PreProcessingTypes.NEURAL_TOKENIZATION));
@@ -89,7 +93,7 @@ public class Summarizer {
 	}
 
 	public static Text generateSummary(Text text, int summarySize, ArrayList<Tuple<Integer>> outList) {
-		
+		log.debug("Generating text summary with summary size " + summarySize);
 		// Generate the summary
 		Text generatedSummary = new Text("");
 		Paragraph paragraph = new Paragraph(""); // TODO where is the full paragraph text? Is it necessary?
@@ -101,7 +105,7 @@ public class Summarizer {
 			if (sentence.isTitle())
 				continue;
 			paragraph.addSentence(sentence);
-			//log.info("Sentence " + t.x + "with score " + t.y + " was selected");
+			//log.info("Sentence " + t.x + " with score " + t.y + " was selected");
 			if (count == summarySize) {
 				break;
 			}
@@ -136,9 +140,8 @@ public class Summarizer {
 	
 	public static void summarizationText(String fileName, String systemPath, List<String> varNames) {
 		// Load complete text
-		Text text = Utils.loadText("projects/temario-2014/full-texts/", fileName);
-		Text referenceSummary = Utils.loadText("projects/temario-2014/summaries/"
-					+ "reference/automatic/", fileName.replace(".txt", "") + "_areference1.txt");
+		Text text = Utils.loadText(TEMARIO_FULL_TEXTS_PATH, fileName);
+		Text referenceSummary = Utils.loadText(TEMARIO_AUTO_SUMMARIES_PATH, fileName.replace(".txt", "") + "_areference1.txt");
 		
 		referenceSummary = getSummaryPreProcessingPipeline().process(referenceSummary);
 
@@ -147,8 +150,7 @@ public class Summarizer {
 		
 		Evaluation so = new SentenceOverlap();
 		EvaluationResult result = so.evaluate(generatedSummary, referenceSummary);	
-		System.out.println(result);
-		
+		//log.info(result);
 		ExportCSV.exportSentenceFeatures(text);
 		ExportHTML.exportSentecesAndFeatures(text, Arrays.asList("relative-len", "relative-location", "tf-isf", "title-words-relative"));
 		ExportHTML.exportHighlightText(text, generatedSummary.getSentencesMap());
@@ -158,9 +160,8 @@ public class Summarizer {
 
 	public static void summarizeTexts(String systemPath) {
 		
-		HashMap<String, Text> texts = Utils.loadTexts("projects/temario-2014/full-texts/", null);
-		HashMap<String, Text> refSummaries = Utils.loadTexts("projects/temario-2014/summaries/"
-				+ "reference/automatic/", null);
+		HashMap<String, Text> texts = Utils.loadTexts(TEMARIO_FULL_TEXTS_PATH, null);
+		HashMap<String, Text> refSummaries = Utils.loadTexts(TEMARIO_AUTO_SUMMARIES_PATH, null);
 		
 		List<String> varNames = Arrays.asList("tf_isf", "title_words_relative", "loc_len", "informatividade");
 		
@@ -207,32 +208,26 @@ public class Summarizer {
 		}
 		
 	}
-
-	public static Text getTextProcessedText(String filePath, String fileName) {
-		// Load complete text
-		Text text = Utils.loadText(filePath, fileName);
-		// Pre-processing
-		text = getTextPreProcessingPipeline().process(text);
-		text = featureComputation(text);		
-		return text;
-	}
 	
 	public static void fuzzyOptimization() {
-
-		Text text =  getTextProcessedText("projects/temario-2014/full-texts/", "ce94ab10-a.txt");
-
-		// Load reference summary
-		Text referenceSummary = Utils.loadText("projects/temario-2014/summaries/"
-				+ "reference/automatic/", "ce94ab10-a_areference1.txt");
 	
-		referenceSummary = getSummaryPreProcessingPipeline().process(referenceSummary);
-
+		List<Text> texts = Utils.loadTexts(TEMARIO_FULL_TEXTS_PATH, null, SUMMARY_EVALUATION_LEN).stream().map(text -> {
+			Text preProcessedText = getTextPreProcessingPipeline().process(text);
+			return featureComputation(preProcessedText);
+		}).collect(Collectors.toList());
+		
+		List<Text> refSummaries = texts.stream().map(text -> { 
+			Text referenceSummary = Utils.loadText(TEMARIO_AUTO_SUMMARIES_PATH, text.getName().replace(".", "_areference1."));
+			return getSummaryPreProcessingPipeline().process(referenceSummary);
+		}).collect(Collectors.toList());
+		
 		// Optimization
 		//List<String> varNames =  Arrays.asList( "tf_isf", "title_words_relative", "loc_len", "informatividade" );
 		List<String> varNames = Arrays.asList("tf_isf", "informatividade"); 
 		Evaluation evaluationMethod = new SentenceOverlap();
-		//Optimization optmization = new Optimization("fcl/fb2015.fcl", text, referenceSummary, evaluationMethod, varNames);
-		Optimization optmization = new Optimization("fcl/simplek1.fcl", text, referenceSummary, evaluationMethod, varNames);
+		//Optimization optimization = new Optimization("fcl/fb2015.fcl", text, referenceSummary, evaluationMethod, varNames);
+		Optimization optmization = new Optimization("fcl/simplek1.fcl", texts, refSummaries, evaluationMethod, varNames);
+		optmization.run();
 		
 	}
 		

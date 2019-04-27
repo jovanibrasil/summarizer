@@ -2,7 +2,6 @@ package summ.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class Text {
@@ -11,9 +10,10 @@ public class Text {
 
 	private ArrayList<Paragraph> paragraphs;
 	private String rawText; 
-	
 	private HashMap<String, Object> features;
 
+	private String fullTextPath;
+	
 	public Text(String rawText) {
 		this.rawText = rawText;
 		this.paragraphs = new ArrayList<>();
@@ -112,6 +112,14 @@ public class Text {
 		this.name = name;
 	}
 	
+	public String getFullTextPath() {
+		return fullTextPath;
+	}
+
+	public void setFullTextPath(String fullTextPath) {
+		this.fullTextPath = fullTextPath;
+	}
+
 	@Override
 	public String toString() {
 		//return rawText;
