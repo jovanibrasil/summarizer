@@ -21,7 +21,7 @@ import summ.utils.ExportCSV;
 import summ.utils.ExportHTML;
 import summ.utils.Pipeline;
 import summ.utils.Tuple;
-import summ.utils.Utils;
+import summ.utils.FileUtils;
 
 public class Summarizer {
 	
@@ -89,7 +89,7 @@ public class Summarizer {
 	public EvaluationResult evaluateSummary(Text generatedSummary) {
 		if(settings.EVALUATION_METHOD != null) {
 			log.debug("Evaluating the summary ...");
-			Text referenceSummary = Utils.loadText(this.settings.AUTO_SUMMARIES_PATH + 
+			Text referenceSummary = FileUtils.loadText(this.settings.AUTO_SUMMARIES_PATH + 
 					generatedSummary.getName().replace(".txt", "") + "_areference1.txt");
 			referenceSummary = settings.SUMMARY_PREPROCESSING_PIPELINE.process(referenceSummary);
 			EvaluationResult evaluationResult = settings.EVALUATION_METHOD.evaluate(generatedSummary, referenceSummary);
@@ -176,7 +176,7 @@ public class Summarizer {
 	public Text summarizeText(String textPath, List<String> varNames) {
 		log.info("Summarizing " + textPath + " ...");
 		// Load, pre-process and compute the features of a complete text
-		Text text = Utils.loadText(textPath);
+		Text text = FileUtils.loadText(textPath);
 		text = prepareText(settings.TEXT_PREPROCESSING_PIPELINE, settings.FEATURES_PIPELINE, text);
 		this.saveResult(text);
 		// Summary generation
@@ -210,7 +210,7 @@ public class Summarizer {
 	public void run() {
 		
 		String fileName = "results/summ_" + (new Date().toString()).replace("-", "_").replace(" ", "_").replace(":", "_");
-	    Utils.createDir(fileName);
+	    FileUtils.createDir(fileName);
 	    summarizerSettings.OUTPUT_PATH = fileName;
 		
 		if(settings.SUMMARIZATION_TYPE.equals(SummarizationType.SINGLE)) {
@@ -220,7 +220,7 @@ public class Summarizer {
 			this.saveResult(generatedSummary);
 		}else {
 			// Run an specified list of summaries
-			List<Path> texts = Utils.listTexts(this.settings.FULL_TEXTS_PATH);
+			List<Path> texts = FileUtils.listTexts(this.settings.FULL_TEXTS_PATH);
 			this.summarizeTexts(texts);
 		}
 		

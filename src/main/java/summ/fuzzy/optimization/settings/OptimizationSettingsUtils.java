@@ -16,7 +16,7 @@ import summ.fuzzy.optimization.mutation.MutationOperatorFactory;
 import summ.fuzzy.optimization.mutation.MutationOperatorFactory.MutationOperatorType;
 import summ.nlp.evaluation.EvaluationMethodFactory;
 import summ.nlp.evaluation.EvaluationMethodFactory.EvaluationMethodType;
-import summ.utils.Utils;
+import summ.utils.FileUtils;
 
 public class OptimizationSettingsUtils {
 	
@@ -24,12 +24,15 @@ public class OptimizationSettingsUtils {
 
 	public static void loadOptimizationProps(String propertyFilePath, OptimizationSettings rs) {
 		
-		InputStream stream = Utils.loadProps(propertyFilePath);
+		InputStream stream = FileUtils.loadProps(propertyFilePath);
 		Properties properties = new Properties();
 
 		try {
 			properties.load(stream);
 
+			String stringList[] = propertyFilePath.split("/");
+			rs.OPTIMIZATION_NAME = stringList[stringList.length-1].replace(".properties", ""); 
+			
 			String val = properties.getProperty("max_iterations", "20");
 			rs.MAX_ITERATIONS = Integer.parseInt(val);
 

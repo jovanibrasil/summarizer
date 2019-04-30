@@ -22,6 +22,7 @@ public class OptimizationSettings {
 	public String FUZZY_SYSTEM_PATH;
 	public String FULL_TEXTS_PATH;
 	public String AUTO_SUMMARIES_PATH;
+	public String OPTIMIZATION_NAME;
 	
 	@Override
 	public String toString() {

@@ -76,7 +76,7 @@ class FuzzySystemTest {
 		fs.setInputVariable("loc_len", 0.5);
 		fs.setInputVariable("tf_isf", 0.8);
 		fs.setInputVariable("title_words_relative", 0.4);
-		fs.setOutputVariable("informatividade");
+		fs.setOutputVariable("informativity");
 
 		fs.setDefuzzificationType(DefuzzifierType.COG);
 
@@ -93,7 +93,7 @@ class FuzzySystemTest {
 		fs.setInputVariable("loc_len", 0.5);
 		fs.setInputVariable("tf_isf", 0.8);
 		fs.setInputVariable("title_words_relative", 0.4);
-		fs.setOutputVariable("informatividade");
+		fs.setOutputVariable("informativity");
 		fs.setDefuzzificationType(DefuzzifierType.MOM);
 		Variable outputValue = fs.evaluate(); // evaluate (run the system)
 		assertEquals(0.8969999999999999, outputValue.getValue(), DELTA); // using mean of maximum (MOM)

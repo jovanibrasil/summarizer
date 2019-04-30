@@ -1,6 +1,6 @@
 package summ.fuzzy.optimization;
 
-import java.util.Date;
+import java.util.Arrays;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
@@ -18,6 +18,7 @@ import summ.model.Text;
 import summ.settings.SummarizerSettings;
 import summ.summarizer.Summarizer;
 import summ.utils.Charts;
+import summ.utils.FileUtils;
 import summ.utils.Utils;
 
 
@@ -27,25 +28,25 @@ public class Optimization {
 
 	private OptimizationGenetic geneticOptimization;
 	private SummarizerSettings summarizerSettings;
+	private OptimizationSettings settings;
 	
 	public Optimization(SummarizerSettings summarizerSettings) {
 		
-		String fileName = "results/opt_" + (new Date().toString()).replace("-", "_").replace(" ", "_").replace(":", "_");
-	    Utils.createDir(fileName);
+		log.info("Initializing an summarization tool ...");
+		Summarizer summ = new Summarizer(summarizerSettings);	
+		
+		log.info("Initializing genetic optimization ...");
+		this.settings = new OptimizationSettings();
+		OptimizationSettingsUtils.loadOptimizationProps(summarizerSettings.OPTIMIZATION_PROPERTIES_PATH, settings);
+
+		String fileName = "results/opt_" + this.settings.OPTIMIZATION_NAME + Utils.generateStringFormattedData();
+	    FileUtils.createDir(fileName);
 	    summarizerSettings.OUTPUT_PATH = fileName;
 	    this.summarizerSettings = summarizerSettings;
 		
-	    
-		log.info("Initializing an summarization tool ...");
-		Summarizer summ = new Summarizer(summarizerSettings);		
-		log.info("Initializing genetic optimization ...");
-		
-		OptimizationSettings settings = new OptimizationSettings();
-		OptimizationSettingsUtils.loadOptimizationProps(summarizerSettings.OPTIMIZATION_PROPERTIES_PATH, settings);
-
 	    log.info("Initializing texts ...");		
 	    
-	    List<Text> texts = Utils.loadTexts(settings.FULL_TEXTS_PATH, settings.AUTO_SUMMARIES_PATH, settings.EVALUATION_LEN);	
+	    List<Text> texts = FileUtils.loadTexts(settings.FULL_TEXTS_PATH, settings.AUTO_SUMMARIES_PATH, settings.EVALUATION_LEN);	
 		summ.prepareTextList(texts); // pre-process and calculate features
 		
 		FuzzySystem fs = new FuzzySystem(settings.FUZZY_SYSTEM_PATH);
@@ -84,6 +85,9 @@ public class Optimization {
 			charts.setVisible(true);
 			charts.saveChart(summarizerSettings.OUTPUT_PATH + "/chart.png");
 		});
+		
+		List<Object> objs = Arrays.asList(dataSerie, this.summarizerSettings, this.settings);
+		FileUtils.saveListOfObjects(objs, this.summarizerSettings.OUTPUT_PATH + "/result_" + this.settings.OPTIMIZATION_NAME + ".txt");
 		
 	}
 	
