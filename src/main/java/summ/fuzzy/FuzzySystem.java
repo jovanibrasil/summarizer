@@ -9,7 +9,6 @@ import net.sourceforge.jFuzzyLogic.defuzzifier.DefuzzifierLeftMostMax;
 import net.sourceforge.jFuzzyLogic.defuzzifier.DefuzzifierMeanMax;
 import net.sourceforge.jFuzzyLogic.defuzzifier.DefuzzifierRightMostMax;
 import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
-import net.sourceforge.jFuzzyLogic.rule.Rule;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
 
 public class FuzzySystem {

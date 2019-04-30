@@ -2,7 +2,9 @@ package summ.utils;
 
 import java.io.File;
 import java.io.FileWriter;
+import java.nio.file.Path;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -10,6 +12,7 @@ import com.opencsv.CSVWriter;
 
 import summ.model.Sentence;
 import summ.model.Text;
+import summ.nlp.evaluation.EvaluationResult;
 
 public class ExportCSV {
 
@@ -18,9 +21,9 @@ public class ExportCSV {
 	 * 
 	 * @param text is a Text object that contains the data that will be saved.
 	 */
-	public static void exportSentenceFeatures(Text text) {
+	public static void exportSentenceFeatures(Text text, String outputPath) {
 		try {
-			File file = new File("results/texts-evaluation-features" + (new Date()).toString() + ".csv") ;
+			File file = new File(outputPath + "/texts-evaluation-features" + (new Date()).toString() + ".csv") ;
 			FileWriter outputfile = new FileWriter(file);
 			CSVWriter writer = new CSVWriter(outputfile);			
 			String[] header = null;
@@ -58,9 +61,9 @@ public class ExportCSV {
 	 * @param text
 	 */
 	@SuppressWarnings("unchecked")
-	public static void exportWordFeatures(Text text) {
+	public static void exportWordFeatures(Text text, String outputPath) {
 		try {
-			File file = new File("results/words-evaluation-features" + (new Date()).toString() + ".csv") ;
+			File file = new File(outputPath + "/words-evaluation-features" + (new Date()).toString() + ".csv") ;
 			FileWriter outputfile = new FileWriter(file);
 			CSVWriter writer = new CSVWriter(outputfile);			
 			for (Entry<String, Object> entry : text.getFeatures().entrySet()) {
@@ -77,6 +80,30 @@ public class ExportCSV {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public void saveEvaluationResult(List<EvaluationResult> results, String outputPath) {
+		
+		try {
+			File file = new File(outputPath + "/texts-evaluation-"+(new Date()).toString());  
+	        FileWriter outputfile = new FileWriter(file);
+	        CSVWriter writer = new CSVWriter(outputfile);
+
+	        String[] header = new String[] { "textName", "precision", "recall", "fMeasure", "retrievedSentences", "relevantSentences", "correctSentences" };
+	        writer.writeNext(header);
+	        
+			for (EvaluationResult result : results) {
+				String[] data = { result.getEvalName(), result.getMetric("precision").toString(), result.getMetric("recall").toString(), 
+					result.getMetric("fMeasure").toString(), result.getMetric("retrievedSentences").toString(), result.getMetric("relevantSentences").toString(),
+						result.getMetric("correctSentences").toString() };
+				
+				writer.writeNext(data);
+			}
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 }

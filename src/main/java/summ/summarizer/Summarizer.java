@@ -1,44 +1,22 @@
 package summ.summarizer;
 
-import java.io.File;
-import java.io.FileWriter;
+import java.nio.file.Path;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map.Entry;
-import java.util.stream.Collectors;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.opencsv.CSVWriter;
-
 import summ.fuzzy.FuzzySystem;
-import summ.fuzzy.optimization.Optimization;
 import summ.model.Paragraph;
 import summ.model.Sentence;
 import summ.model.Text;
-import summ.nlp.evaluation.Evaluation;
 import summ.nlp.evaluation.EvaluationResult;
-import summ.nlp.evaluation.SentenceOverlap;
-import summ.nlp.features.FeatureType;
-import summ.nlp.features.Frequency;
-import summ.nlp.features.Length;
-import summ.nlp.features.LocLen;
-import summ.nlp.features.Location;
-import summ.nlp.features.TextRank;
-import summ.nlp.features.Title;
-import summ.nlp.preprocesing.Lemmatizer;
-import summ.nlp.preprocesing.Misc;
-import summ.nlp.preprocesing.POSTagger;
-import summ.nlp.preprocesing.PreProcessingTypes;
-import summ.nlp.preprocesing.SentenceSegmentation;
-import summ.nlp.preprocesing.StopWords;
-import summ.nlp.preprocesing.Titles;
-import summ.nlp.preprocesing.Tokenization;
+import summ.settings.SummarizationSettings;
+import summ.settings.SummarizationSettings.SummarizationType;
+import summ.settings.SummarizerSettings;
 import summ.utils.ExportCSV;
 import summ.utils.ExportHTML;
 import summ.utils.Pipeline;
@@ -48,29 +26,15 @@ import summ.utils.Utils;
 public class Summarizer {
 	
 	private static final Logger log = LogManager.getLogger(Summarizer.class);
-
-	public static final String TEMARIO_AUTO_SUMMARIES_PATH = "projects/temario-2014/summaries/reference/automatic/";
-	public static final String TEMARIO_FULL_TEXTS_PATH = "projects/temario-2014/full-texts/";
-	public static final int SUMMARY_EVALUATION_LEN = 10;
+	private SummarizerSettings summarizerSettings;
+	private SummarizationSettings settings;
 	
-	public static Pipeline<Text> getSummaryPreProcessingPipeline() {
-		return new Pipeline<Text>(new SentenceSegmentation(), new Tokenization(PreProcessingTypes.NEURAL_TOKENIZATION));
-	}
-
-	public static Pipeline<Text> getTextPreProcessingPipeline() {
-		return new Pipeline<Text>(new SentenceSegmentation(), new Misc(PreProcessingTypes.TO_LOWER_CASE),
-				new Misc(PreProcessingTypes.REMOVE_PUNCTUATION), new Tokenization(PreProcessingTypes.NEURAL_TOKENIZATION),
-				new Titles(), new StopWords(), new POSTagger(), new Lemmatizer(null));
+	public Summarizer(SummarizerSettings summarizerSettings) {
+		this.summarizerSettings = summarizerSettings;
+		this.settings = new SummarizationSettings(this.summarizerSettings.SUMMARIZATION_PROPERTIES_PATH);
 	}
 	
-	public static Text featureComputation(Text text) {
-		return new Pipeline<Text>(
-				new Location(), new Length(), new LocLen(), new Frequency(), 
-					new Title(), new TextRank(FeatureType.TFISF)).process(text);
-		
-	}
-
-	public static ArrayList<Tuple<Integer>> computeSentencesInformativity(Text text, FuzzySystem fs, List<String> variables) {
+	public ArrayList<Tuple<Integer>> computeSentencesInformativity(Text text, FuzzySystem fs, List<String> variables) {
 		
 		ArrayList<Tuple<Integer>> outList = new ArrayList<Tuple<Integer>>();
 		text.getParagraphs().forEach(p -> {
@@ -92,10 +56,11 @@ public class Summarizer {
 		return outList;
 	}
 
-	public static Text generateSummary(Text text, int summarySize, ArrayList<Tuple<Integer>> outList) {
+	public Text generateSummary(Text text, int summarySize, ArrayList<Tuple<Integer>> outList) {
 		log.debug("Generating text summary with summary size " + summarySize);
 		// Generate the summary
 		Text generatedSummary = new Text("");
+		generatedSummary.setName(text.getName());
 		Paragraph paragraph = new Paragraph(""); // TODO where is the full paragraph text? Is it necessary?
 		int count = 0;
 		for (Tuple<Integer> t : outList) {
@@ -115,119 +80,149 @@ public class Summarizer {
 		return generatedSummary;
 	}
 
-	public static Text summarize(Text text, int summarySize, String systemPath, List<String> varNames) {
-
-		// Pre-processing
-		text = getTextPreProcessingPipeline().process(text);
-		text = featureComputation(text);
-		
-		// Summary generation
-		FuzzySystem fs = new FuzzySystem(systemPath);
-		//fs.setOutputVariable(outputVariableName);
-		// Compute sentences informativity using fuzzy system
-		ArrayList<Tuple<Integer>> sentencesInformativity = computeSentencesInformativity(text, fs, varNames);
-		
-		// int summarySize = (int)(0.3 * text.getTotalSentence());
-		Text generatedSummary = generateSummary(text, summarySize, sentencesInformativity);
-		
-//		System.out.println(generatedSummary);
-//		
-//		System.out.println("-----------------------------------------");
-//		System.out.println(text);
-		
-		return generatedSummary;
-	}
-	
-	public static void summarizationText(String fileName, String systemPath, List<String> varNames) {
-		// Load complete text
-		Text text = Utils.loadText(TEMARIO_FULL_TEXTS_PATH, fileName);
-		Text referenceSummary = Utils.loadText(TEMARIO_AUTO_SUMMARIES_PATH, fileName.replace(".txt", "") + "_areference1.txt");
-		
-		referenceSummary = getSummaryPreProcessingPipeline().process(referenceSummary);
-
-		int summarySize = referenceSummary.getTotalSentence();
-		Text generatedSummary = summarize(text, summarySize, systemPath, varNames);
-		
-		Evaluation so = new SentenceOverlap();
-		EvaluationResult result = so.evaluate(generatedSummary, referenceSummary);	
-		//log.info(result);
-		ExportCSV.exportSentenceFeatures(text);
-		ExportHTML.exportSentecesAndFeatures(text, Arrays.asList("relative-len", "relative-location", "tf-isf", "title-words-relative"));
-		ExportHTML.exportHighlightText(text, generatedSummary.getSentencesMap());
-		ExportHTML.exportOverlappedFeatures(generatedSummary, referenceSummary);
-		
-	}
-
-	public static void summarizeTexts(String systemPath) {
-		
-		HashMap<String, Text> texts = Utils.loadTexts(TEMARIO_FULL_TEXTS_PATH, null);
-		HashMap<String, Text> refSummaries = Utils.loadTexts(TEMARIO_AUTO_SUMMARIES_PATH, null);
-		
-		List<String> varNames = Arrays.asList("tf_isf", "title_words_relative", "loc_len", "informatividade");
-		
-		try {
-			
-			File file = new File("results/texts-evaluation-"+(new Date()).toString());  
-	        FileWriter outputfile = new FileWriter(file);
-	        CSVWriter writer = new CSVWriter(outputfile);
-
-	        String[] header = new String[] { "textName", "precision", "recall", "fMeasure", "retrievedSentences", "relevantSentences", "correctSentences" };
-	        writer.writeNext(header);
-	        
-			for (Entry<String, Text> entry : texts.entrySet()) {
-				
-				//System.out.println("Processing " + entry.getValue().getName() + " ...");
-				
-				Text referenceSummary = refSummaries.get(entry.getKey());
-				Text originalText = entry.getValue();
-				
-				referenceSummary = getSummaryPreProcessingPipeline().process(referenceSummary);
-				
-				// Summarize
-				int summarySize = referenceSummary.getTotalSentence();
-				Text generatedSummary = summarize(originalText, summarySize, systemPath, varNames);
-				
-				// Evaluate generated summary
-				
-				Evaluation so = new SentenceOverlap();
-				EvaluationResult result = so.evaluate(generatedSummary, referenceSummary);	
-				result.setEvalName(entry.getValue().getName());
-				
-				System.out.println(result);
-				
-				// Save summarization result
-				String[] data = { entry.getValue().getName(), result.getMetric("precision").toString(), result.getMetric("recall").toString(), 
-					result.getMetric("fMeasure").toString(), result.getMetric("retrievedSentences").toString(), result.getMetric("relevantSentences").toString(),
-						result.getMetric("correctSentences").toString() };
-				
-				//writer.writeNext(data);
-			}
-			writer.close();
-		} catch (Exception e) {
-			e.printStackTrace();
+	/**
+	 * Evaluates the summary with the method define in the settings file.
+	 * 
+	 * @param generatedSummary
+	 * @return
+	 */
+	public EvaluationResult evaluateSummary(Text generatedSummary) {
+		if(settings.EVALUATION_METHOD != null) {
+			log.debug("Evaluating the summary ...");
+			Text referenceSummary = Utils.loadText(this.settings.AUTO_SUMMARIES_PATH + 
+					generatedSummary.getName().replace(".txt", "") + "_areference1.txt");
+			referenceSummary = settings.SUMMARY_PREPROCESSING_PIPELINE.process(referenceSummary);
+			EvaluationResult evaluationResult = settings.EVALUATION_METHOD.evaluate(generatedSummary, referenceSummary);
+			evaluationResult.setEvalName(generatedSummary.getName());
+			generatedSummary.setEvaluationResult(evaluationResult);
+			log.debug(evaluationResult);
+			return evaluationResult;
 		}
-		
+		return null;
 	}
 	
-	public static void fuzzyOptimization() {
+	public EvaluationResult evaluateSummary(Text generatedSummary, Text referenceSummary) {
+		if(settings.EVALUATION_METHOD != null) {
+			log.debug("Evaluating the summary ...");
+			EvaluationResult evaluationResult = settings.EVALUATION_METHOD.evaluate(generatedSummary, referenceSummary);
+			evaluationResult.setEvalName(generatedSummary.getName());
+			generatedSummary.setEvaluationResult(evaluationResult);
+			log.debug(evaluationResult);
+			return evaluationResult;
+		}
+		return null;
+	}
 	
-		List<Text> texts = Utils.loadTexts(TEMARIO_FULL_TEXTS_PATH, null, SUMMARY_EVALUATION_LEN).stream().map(text -> {
-			Text preProcessedText = getTextPreProcessingPipeline().process(text);
-			return featureComputation(preProcessedText);
-		}).collect(Collectors.toList());
+	/**
+	 * Calculates the size of the summary based on maximum sentences permitted and
+	 * the percent value defined in the settings file. 
+	 * 
+	 * @param maxSentences is the maximum of sentences permitted
+	 * @return the summary size
+	 */
+	public int getSummarySize(int maxSentences) {
+		double summaryPercentual = settings.SUMMARY_SIZE_PERCENTUAL;
+		if(summaryPercentual > 0) {
+			return (int)(summaryPercentual * maxSentences);
+		}else {
+			return maxSentences;
+		}
+	}
+	
+	public void saveResult(Text text1) {
+		switch (settings.OUTPUT_TYPE) {
+			case NONE:
+				return;
+			case CONSOLE:
+				log.info(text1);
+				break;
+			case FEATURES_BY_SENTENCE_CSV:
+				ExportCSV.exportSentenceFeatures(text1, this.summarizerSettings.OUTPUT_PATH);
+				break;
+			case FEATURES_BY_SENTENCE_HTML:
+				ExportHTML.exportSentecesAndFeatures(text1, settings.OUTPUT_EXPORT_VARIABLES, this.summarizerSettings.OUTPUT_PATH);
+				break;
+			default:
+				break;
+		}
+	}
+	
+	public void saveResult(Text text1, Text text2) {
+		switch (settings.OUTPUT_TYPE) {
+			case NONE:
+				return;
+			case HIGHLIGHTED_TEXT:
+				ExportHTML.exportHighlightText(text1, text2.getSentencesMap(), this.summarizerSettings.OUTPUT_PATH);
+				break;
+			case OVERLAPPED_SENTENCES_HTML:
+				ExportHTML.exportOverlappedFeatures(text1, text2, this.summarizerSettings.OUTPUT_PATH);
+				break;
+			default:
+				break;
+		}
+	}
+	
+	public Text prepareText(Pipeline<Text> preprocessingPipeline, Pipeline<Text> featuresPipeline, Text text) {
+		return featuresPipeline.process(preprocessingPipeline.process(text));
+	}
+	
+	public void prepareTextList(List<Text> textList) {
+		for (Text text : textList) {
+			settings.FEATURES_PIPELINE.process(settings.TEXT_PREPROCESSING_PIPELINE.process(text));
+			settings.TEXT_PREPROCESSING_PIPELINE.process(text.getReferenceSummary());
+		}
+	}
+	
+	public Text summarizeText(String textPath, List<String> varNames) {
+		log.info("Summarizing " + textPath + " ...");
+		// Load, pre-process and compute the features of a complete text
+		Text text = Utils.loadText(textPath);
+		text = prepareText(settings.TEXT_PREPROCESSING_PIPELINE, settings.FEATURES_PIPELINE, text);
+		this.saveResult(text);
+		// Summary generation
+		FuzzySystem fs = new FuzzySystem(this.settings.FUZZY_SYSTEM_PATH);
+		// Compute sentences informativity using fuzzy system
+		int summarySize = this.getSummarySize(text.getTotalSentence());
+		ArrayList<Tuple<Integer>> sentencesInformativity = computeSentencesInformativity(text, fs, varNames);		
+		return generateSummary(text, summarySize, sentencesInformativity);
+	}
+
+	public Text summarizeText(Text text, List<String> varNames) {
+		log.debug("Summarizing " + text.getFullTextPath() + " ...");
+		// Summary generation
+		FuzzySystem fs = new FuzzySystem(this.settings.FUZZY_SYSTEM_PATH);
+		// Compute sentences informativity using fuzzy system
+		int summarySize = this.getSummarySize(text.getTotalSentence());
+		ArrayList<Tuple<Integer>> sentencesInformativity = computeSentencesInformativity(text, fs, varNames);		
+		return generateSummary(text, summarySize, sentencesInformativity);
+	}
+	
+	public List<Text> summarizeTexts(List<Path> texts) {
+		List<Text> generatedSummaries = new ArrayList<>();
+		for (Path entry : texts) {
+			log.info("Processing " + entry.getFileName() + " ...");
+			Text generatedSummary = this.summarizeText(this.settings.FULL_TEXTS_PATH + entry.getFileName(), this.settings.VAR_NAMES);
+			generatedSummaries.add(generatedSummary);
+		}
+		return generatedSummaries;
+	}
+
+	public void run() {
 		
-		List<Text> refSummaries = texts.stream().map(text -> { 
-			Text referenceSummary = Utils.loadText(TEMARIO_AUTO_SUMMARIES_PATH, text.getName().replace(".", "_areference1."));
-			return getSummaryPreProcessingPipeline().process(referenceSummary);
-		}).collect(Collectors.toList());
+		String fileName = "results/summ_" + (new Date().toString()).replace("-", "_").replace(" ", "_").replace(":", "_");
+	    Utils.createDir(fileName);
+	    summarizerSettings.OUTPUT_PATH = fileName;
 		
-		// Optimization
-		//List<String> varNames =  Arrays.asList( "tf_isf", "title_words_relative", "loc_len", "informatividade" );
-		List<String> varNames = Arrays.asList("tf_isf", "informatividade"); 
-		Evaluation evaluationMethod = new SentenceOverlap();
-		//Optimization optimization = new Optimization("fcl/fb2015.fcl", text, referenceSummary, evaluationMethod, varNames);
-		Optimization optmization = new Optimization("fcl/simplek1.fcl", texts, refSummaries, evaluationMethod, varNames);
-		optmization.run();
+		if(settings.SUMMARIZATION_TYPE.equals(SummarizationType.SINGLE)) {
+			// Run a single text summarization
+			Text generatedSummary = this.summarizeText(this.settings.FULL_TEXTS_PATH + this.settings.TEXT_NAME, settings.VAR_NAMES);
+			this.evaluateSummary(generatedSummary);
+			this.saveResult(generatedSummary);
+		}else {
+			// Run an specified list of summaries
+			List<Path> texts = Utils.listTexts(this.settings.FULL_TEXTS_PATH);
+			this.summarizeTexts(texts);
+		}
 		
 	}
 		

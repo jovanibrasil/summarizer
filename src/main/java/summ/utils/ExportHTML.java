@@ -20,9 +20,9 @@ public class ExportHTML {
 	 * @param text
 	 * @param selectedFeatures
 	 */
-	public static void exportSentecesAndFeatures(Text text, List<String> selectedFeatures) {
+	public static void exportSentecesAndFeatures(Text text, List<String> selectedFeatures, String outputPath) {
 		try {
-			File file = new File("resources/templates/result.html") ;
+			File file = new File("src/main/resources/templates/result.html") ;
 			String htmlString = FileUtils.readFileToString(file, Charset.forName("UTF-8"));
 			
 			String title = text.getName(), body = "<ol>";
@@ -42,7 +42,7 @@ public class ExportHTML {
 			htmlString = htmlString.replace("$title", title);
 			htmlString = htmlString.replace("$body", body);
 			
-			File newHtmlFile = new File("results/texts-evaluation-features" + (new Date()).toString() + ".html");
+			File newHtmlFile = new File(outputPath + "/texts-evaluation-features" + (new Date()).toString() + ".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString, Charset.forName("UTF-8"));
 			
 		} catch (Exception e) {
@@ -57,9 +57,9 @@ public class ExportHTML {
 	 * @param text
 	 * @param selectedSentences
 	 */
-	public static void exportHighlightText(Text text, Map<Integer, Sentence> selectedSentences) {
+	public static void exportHighlightText(Text text, Map<Integer, Sentence> selectedSentences, String outputPath) {
 		try {
-			File file = new File("resources/templates/result.html") ;
+			File file = new File("src/main/resources/templates/result.html") ;
 			String htmlString = FileUtils.readFileToString(file, Charset.forName("UTF-8"));
 			
 			String title = text.getName(), body = "<ol>";
@@ -75,7 +75,7 @@ public class ExportHTML {
 			htmlString = htmlString.replace("$title", title);
 			htmlString = htmlString.replace("$body", body);
 			
-			File newHtmlFile = new File("results/highlighted-select-sentences-" + (new Date()).toString() + ".html");
+			File newHtmlFile = new File(outputPath + "/highlighted-select-sentences-" + (new Date()).toString() + ".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString, Charset.forName("UTF-8"));
 			
 		} catch (Exception e) {
@@ -83,10 +83,10 @@ public class ExportHTML {
 		}
 	}
 	
-	public static void exportOverlappedFeatures(Text text1, Text text2) {
+	public static void exportOverlappedFeatures(Text text1, Text text2, String outputPath) {
 
 		try {
-			File file = new File("resources/templates/result.html") ;
+			File file = new File("src/main/resources/templates/result.html") ;
 			String htmlString = FileUtils.readFileToString(file, Charset.forName("UTF-8"));
 			
 			String title = text1.getName() + "_" + text2.getName(), body = "<ol>";
@@ -102,7 +102,7 @@ public class ExportHTML {
 			htmlString = htmlString.replace("$title", title);
 			htmlString = htmlString.replace("$body", body);
 			
-			File newHtmlFile = new File("results/overlapped-sentences-" + (new Date()).toString() + ".html");
+			File newHtmlFile = new File(outputPath + "/overlapped-sentences-" + (new Date()).toString() + ".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString, Charset.forName("UTF-8"));
 			
 		} catch (Exception e) {

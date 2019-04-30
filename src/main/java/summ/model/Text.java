@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import summ.nlp.evaluation.EvaluationResult;
+
 public class Text {
 
 	private String name;
@@ -11,8 +13,10 @@ public class Text {
 	private ArrayList<Paragraph> paragraphs;
 	private String rawText; 
 	private HashMap<String, Object> features;
-
+	private EvaluationResult evaluationResult;
+	
 	private String fullTextPath;
+	private Text referenceSummary;
 	
 	public Text(String rawText) {
 		this.rawText = rawText;
@@ -119,16 +123,33 @@ public class Text {
 	public void setFullTextPath(String fullTextPath) {
 		this.fullTextPath = fullTextPath;
 	}
+	
+	public EvaluationResult getEvaluationResult() {
+		return evaluationResult;
+	}
+
+	public void setEvaluationResult(EvaluationResult evaluationResult) {
+		this.evaluationResult = evaluationResult;
+	}
 
 	@Override
 	public String toString() {
 		//return rawText;
 		StringBuilder sb = new StringBuilder();
+		sb.append("Text content\n");
 		this.paragraphs.forEach(p -> {
 			sb.append(p);
 			sb.append("\n\n");
 		});
 		return sb.toString();
+	}
+
+	public Text getReferenceSummary() {
+		return this.referenceSummary;
+	}
+	
+	public void setReferenceSummary(Text referenceSummary) {
+		this.referenceSummary = referenceSummary;
 	}
 	
 }

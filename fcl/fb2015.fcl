@@ -16,7 +16,7 @@ END_VAR
 
 // Define output variable
 VAR_OUTPUT				
-	informatividade : REAL;
+	informativity : REAL;
 END_VAR
 
 // Fuzzify input variable 'loc_len': {'baixo', 'medio' , 'alto'}
@@ -40,8 +40,8 @@ FUZZIFY title_words_relative
 	TERM alto := GBELL 0.318 2.814 0.952;
 END_FUZZIFY
 
-// Defuzzify output variable 'informatividade' : {'baixo', 'medio', 'alto' }
-DEFUZZIFY informatividade			
+// Defuzzify output variable 'informativity' : {'baixo', 'medio', 'alto' }
+DEFUZZIFY informativity			
 	TERM baixo := GBELL 0.253 4.160 0.029;
 	TERM medio := GBELL 0.195 3.117 0.470;
 	TERM alto := GBELL 0.305 4.560 0.975;
@@ -56,33 +56,33 @@ RULEBLOCK No1
 	ACT : MIN;	// Use 'min' activation method
 	ACCU : MAX;	// Use 'max' accumulation method
 
-	RULE 1 : IF loc_len IS baixo AND tf_isf IS baixo AND title_words_relative IS baixo THEN informatividade IS baixo;
-	RULE 2 : IF loc_len IS baixo AND tf_isf IS baixo AND title_words_relative IS medio THEN informatividade IS baixo;
-	RULE 3 : IF loc_len IS baixo AND tf_isf IS baixo AND title_words_relative IS alto THEN informatividade IS baixo;
-	RULE 4 : IF loc_len IS baixo AND tf_isf IS medio AND title_words_relative IS baixo THEN informatividade IS baixo;
-	RULE 5 : IF loc_len IS baixo AND tf_isf IS medio AND title_words_relative IS medio THEN informatividade IS medio;
-	RULE 6 : IF loc_len IS baixo AND tf_isf IS medio AND title_words_relative IS alto THEN informatividade IS medio;
-	RULE 7 : IF loc_len IS baixo AND tf_isf IS alto AND title_words_relative IS baixo THEN informatividade IS medio;
-	RULE 8 : IF loc_len IS baixo AND tf_isf IS alto AND title_words_relative IS medio THEN informatividade IS medio;
-	RULE 9 : IF loc_len IS baixo AND tf_isf IS alto AND title_words_relative IS alto THEN informatividade IS medio;
-	RULE 10 : IF loc_len IS medio AND tf_isf IS baixo AND title_words_relative IS baixo THEN informatividade IS baixo;
-	RULE 11 : IF loc_len IS medio AND tf_isf IS baixo AND title_words_relative IS medio THEN informatividade IS medio;
-	RULE 12 : IF loc_len IS medio AND tf_isf IS baixo AND title_words_relative IS alto THEN informatividade IS medio;
-	RULE 13 : IF loc_len IS medio AND tf_isf IS medio AND title_words_relative IS baixo THEN informatividade IS baixo;
-	RULE 14 : IF loc_len IS medio AND tf_isf IS medio AND title_words_relative IS medio THEN informatividade IS medio;
-	RULE 15 : IF loc_len IS medio AND tf_isf IS medio AND title_words_relative IS alto THEN informatividade IS alto;
-	RULE 16 : IF loc_len IS medio AND tf_isf IS alto AND title_words_relative IS baixo THEN informatividade IS medio;
-	RULE 17 : IF loc_len IS medio AND tf_isf IS alto AND title_words_relative IS medio THEN informatividade IS alto;
-	RULE 18 : IF loc_len IS medio AND tf_isf IS alto AND title_words_relative IS alto THEN informatividade IS alto;
-	RULE 19 : IF loc_len IS alto AND tf_isf IS baixo AND title_words_relative IS baixo THEN informatividade IS medio;
-	RULE 20 : IF loc_len IS alto AND tf_isf IS baixo AND title_words_relative IS medio THEN informatividade IS medio;
-	RULE 21 : IF loc_len IS alto AND tf_isf IS baixo AND title_words_relative IS alto THEN informatividade IS alto;
-	RULE 22 : IF loc_len IS alto AND tf_isf IS medio AND title_words_relative IS baixo THEN informatividade IS medio;
-	RULE 23 : IF loc_len IS alto AND tf_isf IS medio AND title_words_relative IS medio THEN informatividade IS alto;
-	RULE 24 : IF loc_len IS alto AND tf_isf IS medio AND title_words_relative IS alto THEN informatividade IS alto;
-	RULE 25 : IF loc_len IS alto AND tf_isf IS alto AND title_words_relative IS baixo THEN informatividade IS alto;
-	RULE 26 : IF loc_len IS alto AND tf_isf IS alto AND title_words_relative IS medio THEN informatividade IS alto;
-	RULE 27 : IF loc_len IS alto AND tf_isf IS alto AND title_words_relative IS alto THEN informatividade IS alto;	
+	RULE 1 : IF loc_len IS baixo AND tf_isf IS baixo AND title_words_relative IS baixo THEN informativity IS baixo;
+	RULE 2 : IF loc_len IS baixo AND tf_isf IS baixo AND title_words_relative IS medio THEN informativity IS baixo;
+	RULE 3 : IF loc_len IS baixo AND tf_isf IS baixo AND title_words_relative IS alto THEN informativity IS baixo;
+	RULE 4 : IF loc_len IS baixo AND tf_isf IS medio AND title_words_relative IS baixo THEN informativity IS baixo;
+	RULE 5 : IF loc_len IS baixo AND tf_isf IS medio AND title_words_relative IS medio THEN informativity IS medio;
+	RULE 6 : IF loc_len IS baixo AND tf_isf IS medio AND title_words_relative IS alto THEN informativity IS medio;
+	RULE 7 : IF loc_len IS baixo AND tf_isf IS alto AND title_words_relative IS baixo THEN informativity IS medio;
+	RULE 8 : IF loc_len IS baixo AND tf_isf IS alto AND title_words_relative IS medio THEN informativity IS medio;
+	RULE 9 : IF loc_len IS baixo AND tf_isf IS alto AND title_words_relative IS alto THEN informativity IS medio;
+	RULE 10 : IF loc_len IS medio AND tf_isf IS baixo AND title_words_relative IS baixo THEN informativity IS baixo;
+	RULE 11 : IF loc_len IS medio AND tf_isf IS baixo AND title_words_relative IS medio THEN informativity IS medio;
+	RULE 12 : IF loc_len IS medio AND tf_isf IS baixo AND title_words_relative IS alto THEN informativity IS medio;
+	RULE 13 : IF loc_len IS medio AND tf_isf IS medio AND title_words_relative IS baixo THEN informativity IS baixo;
+	RULE 14 : IF loc_len IS medio AND tf_isf IS medio AND title_words_relative IS medio THEN informativity IS medio;
+	RULE 15 : IF loc_len IS medio AND tf_isf IS medio AND title_words_relative IS alto THEN informativity IS alto;
+	RULE 16 : IF loc_len IS medio AND tf_isf IS alto AND title_words_relative IS baixo THEN informativity IS medio;
+	RULE 17 : IF loc_len IS medio AND tf_isf IS alto AND title_words_relative IS medio THEN informativity IS alto;
+	RULE 18 : IF loc_len IS medio AND tf_isf IS alto AND title_words_relative IS alto THEN informativity IS alto;
+	RULE 19 : IF loc_len IS alto AND tf_isf IS baixo AND title_words_relative IS baixo THEN informativity IS medio;
+	RULE 20 : IF loc_len IS alto AND tf_isf IS baixo AND title_words_relative IS medio THEN informativity IS medio;
+	RULE 21 : IF loc_len IS alto AND tf_isf IS baixo AND title_words_relative IS alto THEN informativity IS alto;
+	RULE 22 : IF loc_len IS alto AND tf_isf IS medio AND title_words_relative IS baixo THEN informativity IS medio;
+	RULE 23 : IF loc_len IS alto AND tf_isf IS medio AND title_words_relative IS medio THEN informativity IS alto;
+	RULE 24 : IF loc_len IS alto AND tf_isf IS medio AND title_words_relative IS alto THEN informativity IS alto;
+	RULE 25 : IF loc_len IS alto AND tf_isf IS alto AND title_words_relative IS baixo THEN informativity IS alto;
+	RULE 26 : IF loc_len IS alto AND tf_isf IS alto AND title_words_relative IS medio THEN informativity IS alto;
+	RULE 27 : IF loc_len IS alto AND tf_isf IS alto AND title_words_relative IS alto THEN informativity IS alto;	
 	
 END_RULEBLOCK
 

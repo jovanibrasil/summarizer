@@ -14,7 +14,7 @@ END_VAR
 
 // Define output variable
 VAR_OUTPUT				
-	informatividade : REAL;
+	informativity : REAL;
 END_VAR
 
 // Fuzzify input variable 'tf_isf': { 'baixo', 'medio', 'alto' }
@@ -24,8 +24,8 @@ FUZZIFY tf_isf
 	TERM alto := GBELL 0.318 3.465 0.889;
 END_FUZZIFY
 
-// Defuzzify output variable 'informatividade' : {'baixo', 'medio', 'alto' }
-DEFUZZIFY informatividade			
+// Defuzzify output variable 'informativity' : {'baixo', 'medio', 'alto' }
+DEFUZZIFY informativity			
 	TERM baixo := GBELL 0.253 4.160 0.029;
 	TERM medio := GBELL 0.195 3.117 0.470;
 	TERM alto := GBELL 0.305 4.560 0.975;
@@ -40,9 +40,9 @@ RULEBLOCK No1
 	ACT : MIN;	// Use 'min' activation method
 	ACCU : MAX;	// Use 'max' accumulation method
 
-	RULE 1 : IF tf_isf IS baixo THEN informatividade IS baixo;
-	RULE 2 : IF tf_isf IS medio THEN informatividade IS medio;
-	RULE 3 : IF tf_isf IS alto THEN informatividade IS alto;
+	RULE 1 : IF tf_isf IS baixo THEN informativity IS baixo;
+	RULE 2 : IF tf_isf IS medio THEN informativity IS medio;
+	RULE 3 : IF tf_isf IS alto THEN informativity IS alto;
 	
 END_RULEBLOCK
 

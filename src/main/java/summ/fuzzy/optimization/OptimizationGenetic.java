@@ -41,7 +41,7 @@ public class OptimizationGenetic extends OptimizationMethod {
     public Random rand;
 	
     public int iteration;
-    
+    List<Double> dataSerie;
     boolean[] randControl;
     
     List<String> parameters;
@@ -107,6 +107,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 		Collections.sort(this.currentPopulation);
 		log.info("Best individual: " + this.getBestIndividual());
 		log.info("Worst individual: " + this.getWorstIndividual());
+		this.dataSerie.add(this.getBestIndividual().fitness);
 	}
 	
 	private Chromosome getWorstIndividual() {
@@ -238,6 +239,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 		this.rand = new Random();
         this.parameters = parameters;
         this.iteration = 0;
+        this.dataSerie = new ArrayList<>();
         
 	}
 	
@@ -259,6 +261,10 @@ public class OptimizationGenetic extends OptimizationMethod {
 		generateIntermediatePopulation();				
 		evaluatePopulation();
 		rankPopulation();	
+	}
+
+	public List<Double> getDataSerie() {
+		return this.dataSerie;
 	}
 
 }

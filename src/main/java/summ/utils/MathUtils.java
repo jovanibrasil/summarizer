@@ -18,4 +18,12 @@ public class MathUtils {
 		return result;
 	}
 	
+	public static boolean isNumeric(String str) {
+		return str.matches("-?\\d+(\\.\\d+)?");  //match a number with optional '-' and decimal.
+	}
+	
+	public static double convertCosineToAngle(double consine) {
+		return Math.acos(consine);
+	}
+	
 }

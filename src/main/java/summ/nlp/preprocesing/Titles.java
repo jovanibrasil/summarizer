@@ -4,8 +4,8 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
 import summ.model.Text;
+import summ.utils.MathUtils;
 import summ.utils.Pipe;
-import summ.utils.Utils;
 
 public class Titles implements Pipe<Text> {
 
@@ -23,7 +23,7 @@ public class Titles implements Pipe<Text> {
 				// TODO sentença pode não ter valores após o pre-processamento
 				String firstWord = sentence.getFirstWord().getInitialValue();
 				int maxSentenceLength = 5; // TODO calculate dynamically the sentence length BEFORE the execution of this method
-				if(Utils.isNumeric(firstWord) || 
+				if(MathUtils.isNumeric(firstWord) || 
 						paragraph.getLength() == 1 && sentence.getLength() < maxSentenceLength) {
 					sentence.setTitle(true);
 				} else {

@@ -35,7 +35,7 @@ public class EvaluationResult {
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();
-		sb.append("File name: " + this.evalName + "\n");
+		sb.append("Evalution Result - File name: " + this.evalName + "\n");
 		metrics.entrySet().forEach(entry -> {
 			sb.append("\t" + entry.getKey() + ": " + entry.getValue() + "\n");
 		});

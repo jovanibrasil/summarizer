@@ -7,7 +7,7 @@ import summ.model.Sentence;
 import summ.model.Text;
 import summ.nlp.features.Location;
 
-public class SentenceOverlap implements Evaluation {
+public class SentenceOverlap implements EvaluationMethod {
 
 	private static final Logger log = LogManager.getLogger(SentenceOverlap.class);
 	

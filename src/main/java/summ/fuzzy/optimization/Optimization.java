@@ -1,6 +1,9 @@
 package summ.fuzzy.optimization;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.swing.SwingUtilities;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -8,51 +11,59 @@ import org.apache.log4j.Logger;
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
 import summ.fuzzy.FuzzySystem;
-import summ.fuzzy.optimization.crossover.BlxCrossover;
-import summ.fuzzy.optimization.crossover.CrossoverOperator;
 import summ.fuzzy.optimization.evaluation.ErrorFunctionSummarization;
-import summ.fuzzy.optimization.mutation.GaussianMutation;
-import summ.fuzzy.optimization.mutation.MutationOperator;
+import summ.fuzzy.optimization.settings.OptimizationSettings;
+import summ.fuzzy.optimization.settings.OptimizationSettingsUtils;
 import summ.model.Text;
-import summ.nlp.evaluation.Evaluation;
+import summ.settings.SummarizerSettings;
+import summ.summarizer.Summarizer;
+import summ.utils.Charts;
+import summ.utils.Utils;
 
 
 public class Optimization {
-
-	private final int MAX_ITERATIONS = 60;
-	private final double MUTATION_PROBABILITY = 0.1;
-	private final double CROSSOVER_PROBABILITY = 0.6;
-	private final boolean ELITISM = true;
-	private final int POPULATION_SIZE = 100;
-	private static final Logger log = LogManager.getLogger(Optimization.class);
-	private OptimizationGenetic geneticOptimization;
 	
-	public Optimization(String fileName, List<Text> texts, List<Text> refSummaries, Evaluation evaluation, List<String> varNames) {
-		
-		FuzzySystem fs = new FuzzySystem(fileName);
-		fs.setOutputVariable(varNames.get(varNames.size()-1));
-		
-	    ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(fs, texts, refSummaries, evaluation, varNames); 
-	    log.info("Error function: " + errorFunction);
-		CrossoverOperator crossoverOperator = new BlxCrossover();
-		log.info("Crossover operator: " + crossoverOperator);		
-		MutationOperator mutationOperator = new GaussianMutation();
-		log.info("Mutation operator: " + mutationOperator);
+	private static final Logger log = LogManager.getLogger(Optimization.class);
 
-		log.info("Crossover probability: " + CROSSOVER_PROBABILITY);
-		log.info("Mutation probability: " + MUTATION_PROBABILITY);
-		log.info("Elitism: " + ELITISM);
-		log.info("Population size: " + POPULATION_SIZE);
+	private OptimizationGenetic geneticOptimization;
+	private SummarizerSettings summarizerSettings;
+	
+	public Optimization(SummarizerSettings summarizerSettings) {
 		
-		FIS fis = FIS.load(fileName);
+		String fileName = "results/opt_" + (new Date().toString()).replace("-", "_").replace(" ", "_").replace(":", "_");
+	    Utils.createDir(fileName);
+	    summarizerSettings.OUTPUT_PATH = fileName;
+	    this.summarizerSettings = summarizerSettings;
+		
+	    
+		log.info("Initializing an summarization tool ...");
+		Summarizer summ = new Summarizer(summarizerSettings);		
+		log.info("Initializing genetic optimization ...");
+		
+		OptimizationSettings settings = new OptimizationSettings();
+		OptimizationSettingsUtils.loadOptimizationProps(summarizerSettings.OPTIMIZATION_PROPERTIES_PATH, settings);
+
+	    log.info("Initializing texts ...");		
+	    
+	    List<Text> texts = Utils.loadTexts(settings.FULL_TEXTS_PATH, settings.AUTO_SUMMARIES_PATH, settings.EVALUATION_LEN);	
+		summ.prepareTextList(texts); // pre-process and calculate features
+		
+		FuzzySystem fs = new FuzzySystem(settings.FUZZY_SYSTEM_PATH);
+		fs.setOutputVariable(settings.VAR_NAMES.get(settings.VAR_NAMES.size()-1));
+		
+	    ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(fs, summ, texts, settings.EVALUATION_METHOD, settings.VAR_NAMES); 
+	    
+		FIS fis = FIS.load(settings.FUZZY_SYSTEM_PATH);
 		RuleBlock ruleBlock = fis.getFunctionBlock(null).getFuzzyRuleBlock(null);
-		log.info("Optimization variables: " + varNames);
-		this.geneticOptimization = new OptimizationGenetic(ruleBlock, errorFunction, crossoverOperator, 
-			mutationOperator, CROSSOVER_PROBABILITY, MUTATION_PROBABILITY, ELITISM, POPULATION_SIZE, varNames);
+		
+		this.geneticOptimization = new OptimizationGenetic(ruleBlock, errorFunction, settings.CROSSOVER_OPERATOR, 
+			settings.MUTATION_OPERATOR, settings.CROSSOVER_PROBABILITY, settings.MUTATION_PROBABILITY, settings.ELITISM, 
+			settings.POPULATION_SIZE, settings.VAR_NAMES);
 
-		log.info("Max iterations: " + MAX_ITERATIONS);
-		geneticOptimization.setMaxIterations(MAX_ITERATIONS);
+		geneticOptimization.setMaxIterations(settings.MAX_ITERATIONS);
 		geneticOptimization.setVerbose(false);
+		
+		log.info(settings);
 		
 	}
 	
@@ -67,6 +78,13 @@ public class Optimization {
 	
 	public void run() {
 		this.geneticOptimization.optimize(); 
+		List<Double> dataSerie = this.geneticOptimization.getDataSerie();
+		SwingUtilities.invokeLater(() -> {
+			Charts charts = new Charts(dataSerie, "genetic-optimization");
+			charts.setVisible(true);
+			charts.saveChart(summarizerSettings.OUTPUT_PATH + "/chart.png");
+		});
+		
 	}
 	
 }

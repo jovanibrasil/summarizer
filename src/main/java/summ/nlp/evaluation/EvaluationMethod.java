@@ -2,6 +2,6 @@ package summ.nlp.evaluation;
 
 import summ.model.Text;
 
-public interface Evaluation {
+public interface EvaluationMethod {
 	public EvaluationResult evaluate(Text generatedText, Text referenceText);
 }

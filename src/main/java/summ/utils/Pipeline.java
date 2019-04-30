@@ -1,5 +1,6 @@
 package summ.utils;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -10,6 +11,14 @@ public class Pipeline<T> {
 	@SafeVarargs
 	public Pipeline(Pipe<T>... pipes) {
 		this.pipes = Arrays.asList(pipes);
+	}
+	
+	public Pipeline() {
+		this.pipes = new ArrayList<>();
+	}
+	
+	public void addPipe(Pipe<T> pipe) {
+		this.pipes.add(pipe);
 	}
 	
 	public T process(T input) {
