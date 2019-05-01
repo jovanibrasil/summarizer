@@ -20,5 +20,5 @@ public class CrossoverOperatorFactory {
 				return null;
 		}
 	}
-	
+
 }

@@ -65,6 +65,11 @@ public class POSTagger implements Pipe<Text> {
 	}
 
 	@Override
+	public String toString() {
+		return "POSTagger";
+	}
+	
+	@Override
 	public Text process(Text text) {
 		return this.pos(text);
 	}

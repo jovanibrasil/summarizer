@@ -1,7 +1,5 @@
 package summ.fuzzy.optimization.evaluation;
 
-import java.nio.file.Path;
-import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -14,7 +12,6 @@ import summ.model.Text;
 import summ.nlp.evaluation.EvaluationMethod;
 import summ.nlp.evaluation.EvaluationResult;
 import summ.summarizer.Summarizer;
-import summ.utils.Tuple;
 
 public class ErrorFunctionSummarization extends ErrorFunction {
 	
@@ -49,13 +46,15 @@ public class ErrorFunctionSummarization extends ErrorFunction {
     public double evaluate(RuleBlock ruleBlock) {
         double acc = 0.0;
         for (Text text : textList) {
-        	
-        	Text generatedSummary = this.summarizer.summarizeText(text, varNames);
+        	Text generatedSummary = this.summarizer.summarizeText(text, this.fs, varNames);
         	EvaluationResult result = this.summarizer.evaluateSummary(generatedSummary, text.getReferenceSummary());
-        	
-            log.debug(result);
+        	log.debug(text.getName() + " - " + result.getMetric(this.metricName));
+            log.trace(result);
             acc += result.getMetric(this.metricName);
 		}
+        
+        log.debug("Result " + acc / this.textList.size());
+        
         return acc / this.textList.size();
     }
     

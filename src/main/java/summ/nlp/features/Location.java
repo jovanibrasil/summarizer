@@ -38,6 +38,11 @@ public class Location implements Pipe<Text> {
 		});
 		return text;
 	}
+	
+	@Override
+	public String toString() {
+		return "Location";
+	}
 
 	@Override
 	public Text process(Text input) {

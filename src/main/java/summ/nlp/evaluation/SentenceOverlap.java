@@ -79,4 +79,9 @@ public class SentenceOverlap implements EvaluationMethod {
 		return overlap;
 	}
 	
+	@Override
+	public String toString() {
+		return "Sentence overlap (precision, recall and f-measure)";
+	}
+	
 }

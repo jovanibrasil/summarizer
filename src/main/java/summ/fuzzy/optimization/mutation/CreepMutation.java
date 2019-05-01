@@ -14,4 +14,9 @@ public class CreepMutation {
 		throw new UnsupportedOperationException("Operation not implemented yet");
 	}
 	
+	@Override
+	public String toString() {
+		return "Creep mutation";
+	}
+	
 }

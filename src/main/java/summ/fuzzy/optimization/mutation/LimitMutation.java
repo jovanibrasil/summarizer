@@ -30,4 +30,10 @@ public class LimitMutation implements MutationOperator {
 	public double getAleatoryFeasibleCoefficient(double rangeMin, double rangeMax) {
 		return limit(rangeMin, rangeMax);
 	}
+	
+	@Override
+	public String toString() {
+		return "Limit mutation";
+	}
+	
 }

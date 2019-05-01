@@ -61,6 +61,11 @@ public class NER implements Pipe<Text> {
 	}
 
 	@Override
+	public String toString() {
+		return "NER";
+	}
+	
+	@Override
 	public Text process(Text text) {
 		return ner(text);
 	}

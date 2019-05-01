@@ -43,5 +43,9 @@ public class NpointInterleaveCrossover implements CrossoverOperator {
 		return nPointInterleave(parent1, parent2);
 	}
 
+	@Override
+	public String toString() {
+		return "Npoint Interleave crossover";
+	}
 	
 }

@@ -93,6 +93,11 @@ public class Tokenization implements Pipe<Text> {
 	}
 
 	@Override
+	public String toString() {
+		return "Tokenization";
+	}
+	
+	@Override
 	public Text process(Text text) {
 		switch (this.tokenizationType) {
 			case WHITE_SPACE_TOKENIZATION:

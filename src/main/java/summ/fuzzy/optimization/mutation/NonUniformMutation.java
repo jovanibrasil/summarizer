@@ -46,4 +46,9 @@ public class NonUniformMutation implements MutationOperator {
 		return nonUniform(0, 5, 5, 0.5, rangeMin, rangeMax);
 	}	
 	
+	@Override
+	public String toString() {
+		return "Non-uniform mutation";
+	}
+	
 }

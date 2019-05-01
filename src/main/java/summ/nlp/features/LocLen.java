@@ -30,6 +30,11 @@ public class LocLen implements Pipe<Text> {
 		}
 		return text;		
 	}
+	
+	@Override
+	public String toString() {
+		return "Loc-len";
+	}
 
 	@Override
 	public Text process(Text text) {

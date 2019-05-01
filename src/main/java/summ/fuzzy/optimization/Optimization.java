@@ -1,6 +1,7 @@
 package summ.fuzzy.optimization;
 
 import java.util.Arrays;
+import java.util.Date;
 import java.util.List;
 
 import javax.swing.SwingUtilities;
@@ -78,7 +79,15 @@ public class Optimization {
 	}
 	
 	public void run() {
-		this.geneticOptimization.optimize(); 
+		
+		log.info("Start time: " + new Date());
+		long startTime = System.nanoTime();
+		this.geneticOptimization.optimize();
+		long endTime = System.nanoTime();
+		log.info("End time: " + new Date());
+		long timeElapsed = (endTime - startTime) / 1000000;
+		log.info("Execution time in milliseconds : " + timeElapsed);
+		
 		List<Double> dataSerie = this.geneticOptimization.getDataSerie();
 		SwingUtilities.invokeLater(() -> {
 			Charts charts = new Charts(dataSerie, "genetic-optimization");
@@ -86,9 +95,8 @@ public class Optimization {
 			charts.saveChart(summarizerSettings.OUTPUT_PATH + "/chart.png");
 		});
 		
-		List<Object> objs = Arrays.asList(dataSerie, this.summarizerSettings, this.settings);
+		List<Object> objs = Arrays.asList("Execution time in milliseconds : " + timeElapsed, dataSerie, this.summarizerSettings, this.settings);
 		FileUtils.saveListOfObjects(objs, this.summarizerSettings.OUTPUT_PATH + "/result_" + this.settings.OPTIMIZATION_NAME + ".txt");
-		
 	}
 	
 }

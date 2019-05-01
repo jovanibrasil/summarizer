@@ -173,6 +173,11 @@ public class Frequency implements Pipe<Text> {
 		});
 		return text;
 	}
+	
+	@Override
+	public String toString() {
+		return "Frequency";
+	}
 
 	@Override
 	public Text process(Text text) {

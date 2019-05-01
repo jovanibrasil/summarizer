@@ -94,6 +94,11 @@ public class Length implements Pipe<Text> {
 	}
 
 	@Override
+	public String toString() {
+		return "Length";
+	}
+	
+	@Override
 	public Text process(Text text) {
 		log.info("Calculating length features for " + text.getName());
 		return this.length(text);

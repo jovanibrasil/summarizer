@@ -187,10 +187,8 @@ public class Summarizer {
 		return generateSummary(text, summarySize, sentencesInformativity);
 	}
 
-	public Text summarizeText(Text text, List<String> varNames) {
+	public Text summarizeText(Text text, FuzzySystem fs, List<String> varNames) {
 		log.debug("Summarizing " + text.getFullTextPath() + " ...");
-		// Summary generation
-		FuzzySystem fs = new FuzzySystem(this.settings.FUZZY_SYSTEM_PATH);
 		// Compute sentences informativity using fuzzy system
 		int summarySize = this.getSummarySize(text.getTotalSentence());
 		ArrayList<Tuple<Integer>> sentencesInformativity = computeSentencesInformativity(text, fs, varNames);		

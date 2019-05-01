@@ -37,4 +37,9 @@ public class Stemmer implements Pipe<Text> {
 		return text;
 	}
 	
+	@Override
+	public String toString() {
+		return "Stemmer";
+	}
+	
 }

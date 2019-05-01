@@ -12,6 +12,8 @@ public class MutationOperatorFactory {
 				return new UniformMutation();
 			case NON_UNIFORM:
 				return new NonUniformMutation();
+			case GAUSSIAN:
+				return new GaussianMutation();
 			case LIMIT:
 				return new LimitMutation();
 			default:

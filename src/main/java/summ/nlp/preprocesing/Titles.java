@@ -34,6 +34,11 @@ public class Titles implements Pipe<Text> {
 		
 		return text;
 	}
+	
+	@Override
+	public String toString() {
+		return "Titles";
+	}
 
 	@Override
 	public Text process(Text text) {

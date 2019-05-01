@@ -114,6 +114,11 @@ public class TextRank implements Pipe<Text> {
 	}
 
 	@Override
+	public String toString() {
+		return "TextRank";
+	}
+	
+	@Override
 	public Text process(Text text) {
 		double ranks[] = this.calculateTextRank(text, null);
 		for (Sentence sentence : text.getSentences()) {

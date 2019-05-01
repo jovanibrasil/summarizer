@@ -47,4 +47,9 @@ public class Rouge {
 		
 	}
 	
+	@Override
+	public String toString() {
+		return "Rouge";
+	}
+	
 }

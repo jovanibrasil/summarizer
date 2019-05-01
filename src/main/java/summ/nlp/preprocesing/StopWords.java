@@ -63,6 +63,11 @@ public class StopWords implements Pipe<Text> {
 	}
 
 	@Override
+	public String toString() {
+		return "Stopwords";
+	}
+	
+	@Override
 	public Text process(Text text) {
 		return this.removeStopWords(text);
 	}

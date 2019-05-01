@@ -46,6 +46,11 @@ public class Misc implements Pipe<Text> {
 	}
 
 	@Override
+	public String toString() {
+		return this.preProcessingType.toString();
+	}
+	
+	@Override
 	public Text process(Text text) {
 		switch (this.preProcessingType) {
 			case REMOVE_PUNCTUATION:

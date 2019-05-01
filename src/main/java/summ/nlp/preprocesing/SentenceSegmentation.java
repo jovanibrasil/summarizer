@@ -57,6 +57,11 @@ public class SentenceSegmentation implements Pipe<Text> {
 	}
 
 	@Override
+	public String toString() {
+		return "Sentence segmentation";
+	}
+	
+	@Override
 	public Text process(Text text) {
 		return this.segmentSentences(text);
 	}

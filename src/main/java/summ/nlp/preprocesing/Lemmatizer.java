@@ -38,6 +38,11 @@ public class Lemmatizer implements Pipe<Text> {
 		}
 		return text;
 	}
+	
+	@Override
+	public String toString() {
+		return "Lemmatizer";
+	}
 
 	@Override
 	public Text process(Text text) {

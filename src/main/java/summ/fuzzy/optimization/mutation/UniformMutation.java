@@ -23,4 +23,9 @@ public class UniformMutation implements MutationOperator {
 		return uniform(rangeMin, rangeMax);
 	}
 	
+	@Override
+	public String toString() {
+		return "Uniform mutation";
+	}
+	
 }

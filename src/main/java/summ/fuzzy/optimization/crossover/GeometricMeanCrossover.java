@@ -56,4 +56,9 @@ public class GeometricMeanCrossover implements CrossoverOperator {
 		return Arrays.asList(mean(parent1, parent2));
 	}
 	
+	@Override
+	public String toString() {
+		return "Geometric mean crossover";
+	}
+	
 }

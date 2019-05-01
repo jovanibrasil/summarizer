@@ -27,4 +27,9 @@ public class GaussianMutation implements MutationOperator {
 		return gaussian(rangeMin, rangeMax);
 	}
 	
+	@Override
+	public String toString() {
+		return "Gaussian mutation";
+	}
+	
 }

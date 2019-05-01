@@ -88,4 +88,9 @@ public class BlxCrossover implements CrossoverOperator {
 		return Arrays.asList(blxAlpha(parent1, parent2));
 	}
 
+	@Override
+	public String toString() {
+		return "Blx crossover";
+	}
+	
 }
