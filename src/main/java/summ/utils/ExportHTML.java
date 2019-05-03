@@ -2,7 +2,6 @@ package summ.utils;
 
 import java.io.File;
 import java.nio.charset.Charset;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -42,7 +41,8 @@ public class ExportHTML {
 			htmlString = htmlString.replace("$title", title);
 			htmlString = htmlString.replace("$body", body);
 			
-			File newHtmlFile = new File(outputPath + "/texts-evaluation-features" + (new Date()).toString() + ".html");
+			File newHtmlFile = new File(outputPath + "/" + text.getName().replace(".txt", "") + 
+					"pp-and-features" + Utils.generateStringFormattedData() + ".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString, Charset.forName("UTF-8"));
 			
 		} catch (Exception e) {
@@ -75,7 +75,7 @@ public class ExportHTML {
 			htmlString = htmlString.replace("$title", title);
 			htmlString = htmlString.replace("$body", body);
 			
-			File newHtmlFile = new File(outputPath + "/highlighted-select-sentences-" + (new Date()).toString() + ".html");
+			File newHtmlFile = new File(outputPath + "/highlighted-select-sentences-" + Utils.generateStringFormattedData() + ".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString, Charset.forName("UTF-8"));
 			
 		} catch (Exception e) {
@@ -102,7 +102,7 @@ public class ExportHTML {
 			htmlString = htmlString.replace("$title", title);
 			htmlString = htmlString.replace("$body", body);
 			
-			File newHtmlFile = new File(outputPath + "/overlapped-sentences-" + (new Date()).toString() + ".html");
+			File newHtmlFile = new File(outputPath + "/overlapped-sentences-" + Utils.generateStringFormattedData() + ".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString, Charset.forName("UTF-8"));
 			
 		} catch (Exception e) {

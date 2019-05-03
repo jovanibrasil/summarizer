@@ -32,7 +32,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 	public int populationSize;	
 	public List<Chromosome> currentPopulation;
 	public double crossoverProbability; // probability of crossover operation
-    public double mutationProbability; // probability of mutation operation
+    public double chromossomeMutationProbability; // probability of mutation operation
     public boolean elitism; 
     
     public CrossoverOperator crossoverOperator;
@@ -43,7 +43,7 @@ public class OptimizationGenetic extends OptimizationMethod {
     public int iteration;
     List<Double> dataSerie;
     boolean[] randControl;
-    
+    public double geneMutationProbability;
     List<String> parameters;
     	
 	public CustomVariable convertVariableToCustomVariable(Variable variable) {
@@ -66,7 +66,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 	
 	public void generateFirstPopulation() {
 		
-		log.info("Generating initial population...");
+		log.debug("Generating initial population...");
 		 
 		this.currentPopulation = new ArrayList<>(); // candidate solution matrix
 		
@@ -103,10 +103,10 @@ public class OptimizationGenetic extends OptimizationMethod {
 	 * Sort the population by fitness.
 	 */
 	public void rankPopulation() {
-		log.info("Ranking population " + this.iteration);
+		log.debug("Ranking population " + this.iteration);
 		Collections.sort(this.currentPopulation);
-		log.info("Best individual: " + this.getBestIndividual());
-		log.info("Worst individual: " + this.getWorstIndividual());
+		log.debug("Best individual: " + this.getBestIndividual());
+		log.debug("Worst individual: " + this.getWorstIndividual());
 		this.dataSerie.add(this.getBestIndividual().fitness);
 	}
 	
@@ -178,7 +178,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 	
 	public void generateIntermediatePopulation() {
 		
-		log.info("Generate intermediate population");
+		log.debug("Generate intermediate population");
 		List<Chromosome> population = new ArrayList<>();
 		
 		if(this.elitism) {
@@ -194,15 +194,16 @@ public class OptimizationGenetic extends OptimizationMethod {
 			Chromosome parent1 = this.tournamentSelection(2);
 			Chromosome parent2 = this.tournamentSelection(2);
 			
-			if(this.rand.nextDouble() > this.crossoverProbability) {
+			if(this.rand.nextDouble() < this.crossoverProbability) {
 				children = this.crossoverOperator.executeCrossover(parent1, parent2);		
 			} else {
 				children = Arrays.asList(parent1.deepClone(), parent2.deepClone());
 			}
 			
-			if(this.rand.nextDouble() > this.mutationProbability) {
+			if(this.rand.nextDouble() < this.chromossomeMutationProbability) {
 				for (int i = 0; i < children.size(); i++) {
-					children.set(i, this.mutationOperator.mutateAllGenes(children.get(i), mutationOperator));
+					children.set(i, this.mutationOperator.mutateGenes(children.get(i), 
+							mutationOperator, this.geneMutationProbability));
 				}
 			}
 		
@@ -224,7 +225,8 @@ public class OptimizationGenetic extends OptimizationMethod {
 	 */
 	public OptimizationGenetic(RuleBlock fuzzyRuleSet, ErrorFunctionSummarization errorFunction,
 			CrossoverOperator crossoverOperator, MutationOperator mutationOperator, double crossoverProbability,
-			double mutationProbability, boolean eletism, int populationSize, List<String> parameters) {
+			double chromosomeMutationProbability,  double geneMutationProbability, boolean eletism, int populationSize,
+			List<String> parameters) {
 		
 	 	super(fuzzyRuleSet, errorFunction, null);
 		
@@ -234,8 +236,9 @@ public class OptimizationGenetic extends OptimizationMethod {
 		this.mutationOperator = mutationOperator;
 		this.errorFunction = errorFunction;
 		this.crossoverProbability = crossoverProbability;
-		this.mutationProbability = mutationProbability;
-        this.elitism = eletism;
+		this.chromossomeMutationProbability = chromosomeMutationProbability;
+        this.geneMutationProbability = geneMutationProbability;
+		this.elitism = eletism;
 		this.rand = new Random();
         this.parameters = parameters;
         this.iteration = 0;
@@ -248,7 +251,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 	 */
 	@Override
 	public void optimizeInit() {
-		log.info("Generate the first population, evaluate and rank the initial population.");
+		log.debug("Generate the first population, evaluate and rank the initial population.");
 		generateFirstPopulation();
 		evaluatePopulation();
 		rankPopulation();

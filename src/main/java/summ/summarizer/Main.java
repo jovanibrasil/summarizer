@@ -33,15 +33,19 @@ public class Main {
 		 * No tf os termos do ttulo no so calculados
 		 * 
 		 * Overlap - criar forma melhor de adicionar objetos em um map
-		 * 
-		 * 
 		 */
 	
 		SummarizerSettings summarizerSettings = new SummarizerSettings();
 		
 		if(summarizerSettings.EXECUTION_TYPE.equals(ExecutionType.OPTIMIZATION)) {
-			Optimization optmization = new Optimization(summarizerSettings);
-			optmization.run();			
+			
+			String filesPath = summarizerSettings.OPTIMIZATION_PROPERTIES_PATH;
+			for (String fileName : summarizerSettings.OPTIMIZATION_FILES) {
+				summarizerSettings.OPTIMIZATION_PROPERTIES_PATH = filesPath + fileName;
+				Optimization optmization = new Optimization(summarizerSettings);
+				optmization.run();
+			}			
+			
 		}else {
 			Summarizer summarizer = new Summarizer(summarizerSettings);
 			summarizer.run();

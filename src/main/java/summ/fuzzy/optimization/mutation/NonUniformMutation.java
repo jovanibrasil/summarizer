@@ -2,7 +2,7 @@ package summ.fuzzy.optimization.mutation;
 
 import java.util.Random;
 
-public class NonUniformMutation implements MutationOperator {
+public class NonUniformMutation extends MutationOperator {
 	
 	private Random rand;
 	

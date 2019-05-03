@@ -2,8 +2,6 @@ package summ.utils;
 
 import java.io.File;
 import java.io.FileWriter;
-import java.nio.file.Path;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -23,7 +21,7 @@ public class ExportCSV {
 	 */
 	public static void exportSentenceFeatures(Text text, String outputPath) {
 		try {
-			File file = new File(outputPath + "/texts-evaluation-features" + (new Date()).toString() + ".csv") ;
+			File file = new File(outputPath + "/texts-evaluation-features" + Utils.generateStringFormattedData() + ".csv") ;
 			FileWriter outputfile = new FileWriter(file);
 			CSVWriter writer = new CSVWriter(outputfile);			
 			String[] header = null;
@@ -63,7 +61,7 @@ public class ExportCSV {
 	@SuppressWarnings("unchecked")
 	public static void exportWordFeatures(Text text, String outputPath) {
 		try {
-			File file = new File(outputPath + "/words-evaluation-features" + (new Date()).toString() + ".csv") ;
+			File file = new File(outputPath + "/words-evaluation-features" + Utils.generateStringFormattedData() + ".csv") ;
 			FileWriter outputfile = new FileWriter(file);
 			CSVWriter writer = new CSVWriter(outputfile);			
 			for (Entry<String, Object> entry : text.getFeatures().entrySet()) {
@@ -85,7 +83,7 @@ public class ExportCSV {
 	public void saveEvaluationResult(List<EvaluationResult> results, String outputPath) {
 		
 		try {
-			File file = new File(outputPath + "/texts-evaluation-"+(new Date()).toString());  
+			File file = new File(outputPath + "/texts-evaluation-"+ Utils.generateStringFormattedData());  
 	        FileWriter outputfile = new FileWriter(file);
 	        CSVWriter writer = new CSVWriter(outputfile);
 

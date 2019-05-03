@@ -5,7 +5,17 @@
 O objetivo deste projeto é desenvolver um sumarizador de textos extrativo, mono-documento, 
 baseado em loǵica fuzzy e com foco na língua portuguesa.
 
-### Compilando e executando
+### Executando
+
+Primeiro é necessário criar um arquivo de configuração de sumarização, definindo caminhos para os arquivos, pipelines 
+de pré-processamento e de computação de features, tipo de avaliação e de mecanismo de decisão, etc. Exemplos podem
+sem observados aqui.
+
+No caso da otimização também é necessário criar um arquivo com as configurações da otimização, como quantidade de iterações,
+função de avaliação, tipo de mutação e crossover, etc.
+
+Ambos os arquivos devem ter seu caminho indicado no arquivo summarizer.properties e na propriedade type deve ser atribuido
+o tipo de execução desejado (sumarização ou otimização). 
 
 ### Montando um pipeline de sumarização
 
@@ -59,6 +69,7 @@ baseado em loǵica fuzzy e com foco na língua portuguesa.
 3. BLX crossover
 4. N-point interleave
 
+### Compilando
 
 
 

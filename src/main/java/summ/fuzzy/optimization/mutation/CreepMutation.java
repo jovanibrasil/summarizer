@@ -1,6 +1,11 @@
 package summ.fuzzy.optimization.mutation;
 
 public class CreepMutation {
+	
+	public CreepMutation() {
+		super();
+	}
+	
 	/**
 	 * Adiciona um pequeno numero aleatorio ao gene. Este numero aleatorio pode ser obtido atraves
 	 * de uma distribuicao normal (media zero e desvio padrao pequeno) ou uma distribuicao uniforme.

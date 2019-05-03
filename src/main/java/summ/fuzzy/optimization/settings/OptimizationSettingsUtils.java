@@ -55,6 +55,9 @@ public class OptimizationSettingsUtils {
 				rs.VAR_NAMES = Arrays.asList(val.split(","));
 			}
 			
+			val = properties.getProperty("gene_mutation_probability", "0.7");
+			rs.GENE_MUTATION_PROBABILITY = Double.parseDouble(val);
+			
 			val = properties.getProperty("evaluation_len", "10");
 			rs.EVALUATION_LEN = Integer.parseInt(val);
 			

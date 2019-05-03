@@ -1,13 +1,9 @@
 package summ.fuzzy.optimization.mutation;
 
-import java.util.Random;
+public class GaussianMutation extends MutationOperator {
 
-public class GaussianMutation implements MutationOperator {
-
-	private Random rand;
-	
 	public GaussianMutation() {
-		this.rand = new Random(); 
+		super();
 	}
 	
 	/**

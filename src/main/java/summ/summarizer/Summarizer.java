@@ -27,7 +27,7 @@ public class Summarizer {
 	
 	private static final Logger log = LogManager.getLogger(Summarizer.class);
 	private SummarizerSettings summarizerSettings;
-	private SummarizationSettings settings;
+	public SummarizationSettings settings;
 	
 	public Summarizer(SummarizerSettings summarizerSettings) {
 		this.summarizerSettings = summarizerSettings;

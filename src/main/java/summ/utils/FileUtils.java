@@ -29,7 +29,7 @@ public class FileUtils {
 	private static final Logger log = LogManager.getLogger(FileUtils.class);
 
 	public static List<Path> listTexts(String textsDir) {
-		log.info("Loading list of texts from" + textsDir);
+		log.info("Loading list of texts from " + textsDir);
 		try {
 			Path filesPath = Paths.get(textsDir);
 			if (Files.exists(filesPath)) {
@@ -42,7 +42,7 @@ public class FileUtils {
 	}
 	
 	public static HashMap<String, Text> loadTexts(String textsDir) {
-		log.info("Loading all texts from" + textsDir);
+		log.info("Loading all texts from " + textsDir);
 		HashMap<String, Text> texts = new HashMap<>();
 		try {
 			Path filesPath = Paths.get(textsDir);
@@ -166,7 +166,7 @@ public class FileUtils {
 	
 	public static void createDir(String fileName) {
 		try {
-			log.info("Creating directory" + fileName);
+			log.info("Creating directory " + fileName);
 			Path path = Paths.get(fileName);
 		    Files.createDirectories(path);
 		} catch (IOException e) {

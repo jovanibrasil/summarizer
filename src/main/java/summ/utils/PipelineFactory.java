@@ -1,7 +1,5 @@
 package summ.utils;
 
-import java.util.List;
-
 import org.apache.log4j.Logger;
 
 import summ.model.Text;

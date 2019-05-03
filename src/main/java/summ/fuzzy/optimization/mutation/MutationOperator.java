@@ -1,23 +1,32 @@
 package summ.fuzzy.optimization.mutation;
 
+import java.util.Random;
+
 import summ.fuzzy.optimization.Chromosome;
 import summ.fuzzy.optimization.CustomLinguisticTerm;
 import summ.fuzzy.optimization.CustomVariable;
 import summ.fuzzy.optimization.functions.FunctionDetails;
 
-public interface MutationOperator {
+public abstract class MutationOperator {
 	
-	double getAleatoryFeasibleCoefficient(double rangeMin, double rangeMax);
+	public Random rand;
+	
+	public MutationOperator() {
+		this.rand = new Random();
+	}
+	
+	public abstract double getAleatoryFeasibleCoefficient(double rangeMin, double rangeMax);
 
-	public default Chromosome mutateAllGenes(Chromosome chromosome, MutationOperator mutation) {
+	public Chromosome mutateGenes(Chromosome chromosome, MutationOperator mutation, double geneMutationProbability) {
 		for (CustomVariable variable : chromosome.getVariables()) {
 			for (CustomLinguisticTerm term : variable.getLinguisticTerms()) {
-				for (int index = 0; index < term.getParametersLength(); index++) {
-					FunctionDetails funcInfo = term.getFunction().getFunctionInfo();
-					// uniform
-					term.setParameter(index, mutation.getAleatoryFeasibleCoefficient(funcInfo.getRangeMin(index), 
-							funcInfo.getRangeMax(index)));
-				}
+				if(this.rand.nextDouble() < geneMutationProbability) {
+					for (int index = 0; index < term.getParametersLength(); index++) {
+						FunctionDetails funcInfo = term.getFunction().getFunctionInfo();
+						term.setParameter(index, mutation.getAleatoryFeasibleCoefficient(funcInfo.getRangeMin(index), 
+								funcInfo.getRangeMax(index)));
+					}
+				} 
 			}
 		}
 		return chromosome;

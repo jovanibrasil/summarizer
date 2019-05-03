@@ -20,6 +20,7 @@ public class SummarizerSettings {
 	public String SUMMARIZATION_PROPERTIES_PATH;
 	public String OPTIMIZATION_PROPERTIES_PATH;
 	public String OUTPUT_PATH;
+	public String[] OPTIMIZATION_FILES;
 	
 	public SummarizerSettings() {
 		loadSummarizerProps();
@@ -36,6 +37,7 @@ public class SummarizerSettings {
 			this.SUMMARIZATION_PROPERTIES_PATH = properties.getProperty("summarization_properties_path", "");
 			this.OPTIMIZATION_PROPERTIES_PATH = properties.getProperty("optimization_properties_path", "");
 			this.OUTPUT_PATH = properties.getProperty("output_path", "");
+			this.OPTIMIZATION_FILES = properties.getProperty("optimization_files", "").replace(" ", "").split(",");
 		} catch (IOException e) {
 			log.warn("Problem with settings model file." + e.getMessage());
 			log.warn("If you want to use the tool, please fix this issue first before proceeding.");
