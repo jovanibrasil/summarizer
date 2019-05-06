@@ -30,7 +30,7 @@ public abstract class MutationOperator {
 			
 			if(term.getFunction().isFeasibleValue(index, term.getTermName(), value, variable)) break;
 			if(loopControl == 100) {
-				log.error("Coefficient generation error ...");
+				//log.error("Coefficient generation error ...");
 				value = term.getParameter(2); // não foi possível, então mantém o valor anterior
 				break;
 			}
