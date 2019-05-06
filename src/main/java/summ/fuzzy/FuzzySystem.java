@@ -2,6 +2,7 @@ package summ.fuzzy;
 
 import net.sourceforge.jFuzzyLogic.FIS;
 import net.sourceforge.jFuzzyLogic.FunctionBlock;
+import net.sourceforge.jFuzzyLogic.Gpr;
 import net.sourceforge.jFuzzyLogic.defuzzifier.Defuzzifier;
 import net.sourceforge.jFuzzyLogic.defuzzifier.DefuzzifierCenterOfArea;
 import net.sourceforge.jFuzzyLogic.defuzzifier.DefuzzifierCenterOfGravity;
@@ -9,6 +10,7 @@ import net.sourceforge.jFuzzyLogic.defuzzifier.DefuzzifierLeftMostMax;
 import net.sourceforge.jFuzzyLogic.defuzzifier.DefuzzifierMeanMax;
 import net.sourceforge.jFuzzyLogic.defuzzifier.DefuzzifierRightMostMax;
 import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
+import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
 
 public class FuzzySystem {
@@ -29,8 +31,12 @@ public class FuzzySystem {
 	
 	public void showFuzzySystem(Variable outVariable) {
 		JFuzzyChart.get().chart(functionBlock); // show fuzzy system
-		// show output 
-		JFuzzyChart.get().chart(outVariable, outVariable.getDefuzzifier(), true); 
+		//JFuzzyChart.get().chart(outVariable, outVariable.getDefuzzifier(), true); // show output 
+		//System.out.println(this.fis); // print fuzzy system configuration 
+	}
+	
+	public void showFuzzySystem() {
+		JFuzzyChart.get().chart(functionBlock);	
 		//System.out.println(this.fis); // print fuzzy system configuration 
 	}
 	
@@ -86,6 +92,15 @@ public class FuzzySystem {
 	@Override
 	public String toString() {
 		return this.fis.toStringFcl();
+	}
+
+	public RuleBlock getRuleBlock() {
+		return this.functionBlock.getFuzzyRuleBlock(null);
+	}
+
+	public void saveFuzzySystem(String outputPath) {
+		Gpr.toFile(outputPath, this.fis.getFunctionBlock(null).toString());
+		JFuzzyChart.get().chart(functionBlock);	
 	}
 	
 }

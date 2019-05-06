@@ -18,21 +18,19 @@ public class ErrorFunctionSummarization extends ErrorFunction {
 	private static final Logger log = LogManager.getLogger(ErrorFunctionSummarization.class);
 	
 	private FuzzySystem fs;
-	//private EvaluationMethod evaluation;
 	private List<String> varNames;
 	private List<Text> textList;
-	private String metricName = "fMeasure";
-	private Summarizer summarizer;
-		
-	public ErrorFunctionSummarization(FuzzySystem fs, Summarizer summarizer, List<Text> texts, EvaluationMethod evaluation, List<String> varNames) {
+	private Summarizer summarizer;	
+	private EvaluationMethod evaluationMethod;
+	
+	public ErrorFunctionSummarization(FuzzySystem fs, Summarizer summarizer, List<Text> texts,
+			EvaluationMethod evaluationMethod, List<String> varNames) {
 		super();
 		this.fs = fs;
+		this.evaluationMethod = evaluationMethod;
 		this.textList = texts;
-		//this.evaluation = evaluation;
 		this.varNames = varNames;
 		this.summarizer = summarizer;
-		log.info("Initializing text summarization evaluation function ...");
-		log.info("Metric name: " + this.metricName + " Reference vector size: " + this.textList.size());
 	}
 	
 	public FuzzySystem getFuzzySystem() {
@@ -47,14 +45,12 @@ public class ErrorFunctionSummarization extends ErrorFunction {
         double acc = 0.0;
         for (Text text : textList) {
         	Text generatedSummary = this.summarizer.summarizeText(text, this.fs, varNames);
-        	EvaluationResult result = this.summarizer.evaluateSummary(generatedSummary, text.getReferenceSummary());
-        	log.debug(text.getName() + " - " + result.getMetric(this.metricName));
+        	EvaluationResult result = this.summarizer.evaluateSummary(evaluationMethod, generatedSummary, text.getReferenceSummary());
+        	log.debug(text.getName() + " - " + result.getEvaluationMetricValue());
             log.trace(result);
-            acc += result.getMetric(this.metricName);
+            acc += result.getEvaluationMetricValue();
 		}
-        
         log.debug("Result " + acc / this.textList.size());
-        
         return acc / this.textList.size();
     }
     

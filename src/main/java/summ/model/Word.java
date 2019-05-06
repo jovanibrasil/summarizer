@@ -6,10 +6,15 @@ import java.util.Map;
 public class Word implements Comparable<Word> {
 	
 	private Map<String, Double> features;
-	private String posTag; // morphological class
-	private String initialValue; // (lexeme) the original token text
-	private String currentValue;
+	private String posTag; // Is the morphological class
+	private String initialValue; // (lexeme) The original token text
+	// The current value is used by pre-processing methods and feature computations
+	private String currentValue; // It's value depends on pipeline steps
 	
+	/**
+	 * Constructor.
+	 * @param initialValue is the raw word.
+	 */
 	public Word(String initialValue) {
 		this.initialValue = initialValue;
 		this.currentValue = initialValue;

@@ -10,7 +10,7 @@ import summ.fuzzy.optimization.CustomVariable;
 
 public class BlxCrossover implements CrossoverOperator {
 
-	public CustomLinguisticTerm generateBlxTerm(CustomLinguisticTerm term1, CustomLinguisticTerm term2, double alpha) {
+	public CustomLinguisticTerm generateBlxTerm(CustomVariable variable, CustomLinguisticTerm term1, CustomLinguisticTerm term2, double alpha) {
 
 		CustomLinguisticTerm term = new CustomLinguisticTerm(term1.getParametersLength(), term1.getTermName(), term1.getFunction());
 
@@ -41,7 +41,7 @@ public class BlxCrossover implements CrossoverOperator {
 				// between 0.0 and 1.0
 				value = rangeMin + (rangeMax - rangeMin) * rand.nextDouble();
 
-				if (term1.getFunction().isFeasibleValue(idx, value)) { // break the loop if the solution if feasible
+				if (term1.getFunction().isFeasibleValue(idx, term.getTermName(), value, variable)) { // break the loop if the solution if feasible
 					break;
 				}
 
@@ -74,7 +74,7 @@ public class BlxCrossover implements CrossoverOperator {
 			List<CustomLinguisticTerm> p1Terms = p1Variables.get(i).getLinguisticTerms();
 			List<CustomLinguisticTerm> p2Terms = p2Variables.get(i).getLinguisticTerms();
 			for (int j = 0; j < p1Terms.size(); j++) {
-				CustomLinguisticTerm term = generateBlxTerm(p1Terms.get(j), p2Terms.get(j), alpha);
+				CustomLinguisticTerm term = generateBlxTerm(variable, p1Terms.get(j), p2Terms.get(j), alpha);
 
 				variable.addLinguisticTerm(term);
 			}

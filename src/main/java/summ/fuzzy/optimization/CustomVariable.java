@@ -62,5 +62,14 @@ public class CustomVariable implements Cloneable, Serializable {
 	public String toString() {
 		return linguisticTerms.toString();
 	}
+
+	public double[] getCenters() {
+		double[] centers = new double[3];
+		int i = 0;
+		for (CustomLinguisticTerm customLinguisticTerm : linguisticTerms) {
+			centers[i++] = customLinguisticTerm.getParameter(2); // center 
+		}
+		return centers;
+	}
 		
 }

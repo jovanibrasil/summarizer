@@ -11,6 +11,7 @@ import com.opencsv.CSVWriter;
 import summ.model.Sentence;
 import summ.model.Text;
 import summ.nlp.evaluation.EvaluationResult;
+import summ.nlp.evaluation.EvaluationMethodFactory.EvaluationMethodType;
 
 public class ExportCSV {
 
@@ -91,10 +92,13 @@ public class ExportCSV {
 	        writer.writeNext(header);
 	        
 			for (EvaluationResult result : results) {
-				String[] data = { result.getEvalName(), result.getMetric("precision").toString(), result.getMetric("recall").toString(), 
-					result.getMetric("fMeasure").toString(), result.getMetric("retrievedSentences").toString(), result.getMetric("relevantSentences").toString(),
-						result.getMetric("correctSentences").toString() };
-				
+				String[] data = { result.getEvalName(), 
+						result.getEvaluationMetricValue(EvaluationMethodType.PRECISION.name()).toString(), 
+						result.getEvaluationMetricValue(EvaluationMethodType.RECALL.name()).toString(), 
+						result.getEvaluationMetricValue(EvaluationMethodType.FMEASURE.name()).toString(), 
+						result.getEvaluationMetricValue("retrievedSentences").toString(), 
+						result.getEvaluationMetricValue("relevantSentences").toString(),
+						result.getEvaluationMetricValue("correctSentences").toString() };
 				writer.writeNext(data);
 			}
 			writer.close();

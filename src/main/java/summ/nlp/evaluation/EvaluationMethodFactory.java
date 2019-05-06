@@ -1,23 +1,26 @@
 package summ.nlp.evaluation;
 
+import org.jfree.util.Log;
+
 public class EvaluationMethodFactory {
 
 	public enum EvaluationMethodType {
-		OVERLAP, OVERLAP_P, OVERLAP_R, OVERLAP_F, ROUGE1, ROUGE2, NONE
+		ALL, PRECISION, RECALL, FMEASURE, ROUGE1, ROUGE2, NONE
 	}
 	
 	public static EvaluationMethod getEvaluationMethod(EvaluationMethodType evaluationType) {
+		Log.info("Evaluation type: " + evaluationType.name());
 		switch (evaluationType) {
-			case OVERLAP_F:
-				return new SentenceOverlap();
-			case OVERLAP_R:
-				return new SentenceOverlap();
-			case OVERLAP_P:
-				return new SentenceOverlap();
-			case OVERLAP:
-				return new SentenceOverlap();
+			case FMEASURE:
+				return new SentenceOverlap(EvaluationMethodType.FMEASURE);
+			case RECALL:
+				return new SentenceOverlap(EvaluationMethodType.RECALL);
+			case PRECISION:
+				return new SentenceOverlap(EvaluationMethodType.PRECISION);
+			case ALL:
+				return new SentenceOverlap(EvaluationMethodType.ALL);
 			default:
-				return new SentenceOverlap();
+				return new SentenceOverlap(EvaluationMethodType.ALL);
 		}
 	}
 	

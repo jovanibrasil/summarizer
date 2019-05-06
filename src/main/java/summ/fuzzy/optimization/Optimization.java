@@ -5,13 +5,9 @@ import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import javax.swing.SwingUtilities;
-
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import net.sourceforge.jFuzzyLogic.FIS;
-import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
 import summ.fuzzy.FuzzySystem;
 import summ.fuzzy.optimization.evaluation.ErrorFunctionSummarization;
 import summ.fuzzy.optimization.settings.OptimizationSettings;
@@ -34,6 +30,7 @@ public class Optimization {
 	private SummarizerSettings summarizerSettings;
 	private OptimizationSettings settings;
 	private List<Text> texts;
+	private FuzzySystem fs;
 	
 	public Optimization(SummarizerSettings summarizerSettings) {
 		
@@ -54,16 +51,14 @@ public class Optimization {
 	    this.texts = FileUtils.loadTexts(settings.FULL_TEXTS_PATH, settings.AUTO_SUMMARIES_PATH, settings.EVALUATION_LEN);	
 		this.summ.prepareTextList(this.texts); // pre-process and calculate features
 		
-		FuzzySystem fs = new FuzzySystem(settings.FUZZY_SYSTEM_PATH);
-		fs.setOutputVariable(settings.VAR_NAMES.get(settings.VAR_NAMES.size()-1));
+		this.fs = new FuzzySystem(settings.FUZZY_SYSTEM_PATH);
+		fs.showFuzzySystem();
+		this.fs.setOutputVariable(settings.VAR_NAMES.get(settings.VAR_NAMES.size()-1));
 		
-	    ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(fs, this.summ, this.texts, 
+	    ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(this.fs, this.summ, this.texts, 
 	    		settings.EVALUATION_METHOD, settings.VAR_NAMES); 
 	    
-		FIS fis = FIS.load(settings.FUZZY_SYSTEM_PATH);
-		RuleBlock ruleBlock = fis.getFunctionBlock(null).getFuzzyRuleBlock(null);
-		
-		this.geneticOptimization = new OptimizationGenetic(ruleBlock, errorFunction, settings.CROSSOVER_OPERATOR, 
+		this.geneticOptimization = new OptimizationGenetic(this.fs.getRuleBlock(), errorFunction, settings.CROSSOVER_OPERATOR, 
 			settings.MUTATION_OPERATOR, settings.CROSSOVER_PROBABILITY, settings.MUTATION_PROBABILITY, 
 			settings.GENE_MUTATION_PROBABILITY, settings.ELITISM, settings.POPULATION_SIZE, settings.VAR_NAMES);
 
@@ -73,15 +68,7 @@ public class Optimization {
 		log.info(settings);
 		
 	}
-	
-	public void showResult() {
-		// save optimized result
-		//		System.out.println(ruleBlock.toStringFcl());
-		//	    Gpr.toFile("flc/fb2015_optimized.flc", ruleBlock.getFunctionBlock().toString() + ruleBlock.toString() );
-		// functionBlock.reset();
-	    // JFuzzyChart.get().chart(functionBlock);
-	}
-	
+		
 	public void run() {
 		
 		log.info("Start time: " + new Date());
@@ -96,10 +83,6 @@ public class Optimization {
 		Charts charts = new Charts(dataSerie, "genetic-optimization");
 		charts.saveChart(summarizerSettings.OUTPUT_PATH + "/chart.png");
 		
-		SwingUtilities.invokeLater(() -> {
-			charts.setVisible(true);
-		});
-		
 		// Get list of file names
 		List<String> fileNames = this.texts.stream().map(t -> { return t.getName(); }).collect(Collectors.toList());
 		
@@ -108,13 +91,18 @@ public class Optimization {
 		
 		// Save pre-processing and feature computation results
 		this.texts.forEach(text -> {
-			ExportHTML.exportSentecesAndFeatures(text, summ.settings.OUTPUT_EXPORT_VARIABLES, textsResultsPath);
+			ExportHTML.exportSentecesAndFeatures(text, summ.optimizationSettings.OUTPUT_EXPORT_VARIABLES, textsResultsPath);
 		});
 		
 		List<Object> objs = Arrays.asList("Execution time in milliseconds : " + timeElapsed, dataSerie, 
 				this.summarizerSettings, this.settings, fileNames);
 		
 		FileUtils.saveListOfObjects(objs, this.summarizerSettings.OUTPUT_PATH + "/result_" + this.settings.OPTIMIZATION_NAME + ".txt");
+	
+		// save optimized result
+		fs.saveFuzzySystem(this.summarizerSettings.OUTPUT_PATH + "/opt_" + this.settings.OPTIMIZATION_NAME + ".fcl");
+		
+
 	}
 	
 }

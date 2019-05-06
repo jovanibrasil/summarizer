@@ -78,23 +78,31 @@ public class OptimizationGenetic extends OptimizationMethod {
 		}
 		this.currentPopulation.add(chromosome);
 		for (int i = 1; i < this.populationSize; i++) {
+			
+			
+			// Geração de cromossomos com valores aleatórios é ruim pq gera valores que não fazem sentido. 
+			// Por exemplo, a ordem dos valores fica sem sentido porém o resultado é ruim. São necessárias algumas 
+			// constraints a serem respeitadas.
+			
+			// Gera cromossomos variando apenas o valor do centro
+			
 			chromosome = new Chromosome();
 			for (String parameterName : this.parameters) {	
+				
 				Variable referenceVariable = this.fuzzyRuleSet.getVariable(parameterName);
-				CustomVariable customVariable = new CustomVariable(referenceVariable.getName());
-				for (Entry<String, LinguisticTerm> linguisticTerm : referenceVariable.getLinguisticTerms().entrySet()) {
-					CustomLinguisticTerm lt = new CustomLinguisticTerm(3, linguisticTerm.getKey(),
-							FunctionFactory.generateFunctionInfo(FunctionType.BELL));
-					
+				CustomVariable customVariable = convertVariableToCustomVariable(referenceVariable);
+				
+				// set c value
+				for (CustomLinguisticTerm lt : customVariable.getLinguisticTerms()) {
 					FunctionDetails f = lt.getFunction().getFunctionInfo();
 					lt.setParameter(0, mutationOperator.getAleatoryFeasibleCoefficient(f.getRangeMin(0), f.getRangeMax(0)));
 					lt.setParameter(1, mutationOperator.getAleatoryFeasibleCoefficient(f.getRangeMin(1), f.getRangeMax(1)));
-					lt.setParameter(2, mutationOperator.getAleatoryFeasibleCoefficient(f.getRangeMin(2), f.getRangeMax(2)));
-					
-					customVariable.addLinguisticTerm(lt);
+					lt.setParameter(2, mutationOperator.getMutatedFeasibleCoefficient(2, f.getRangeMin(2), f.getRangeMax(2), customVariable, lt));
 				}
+				
 				chromosome.addGene(customVariable);
 			}
+			
 			this.currentPopulation.add(chromosome);
 		}
 	}
@@ -105,8 +113,8 @@ public class OptimizationGenetic extends OptimizationMethod {
 	public void rankPopulation() {
 		log.debug("Ranking population " + this.iteration);
 		Collections.sort(this.currentPopulation);
-		log.debug("Best individual: " + this.getBestIndividual());
-		log.debug("Worst individual: " + this.getWorstIndividual());
+		log.info("Best individual: " + this.getBestIndividual());
+		log.info("Worst individual: " + this.getWorstIndividual());
 		this.dataSerie.add(this.getBestIndividual().fitness);
 	}
 	
@@ -159,6 +167,8 @@ public class OptimizationGenetic extends OptimizationMethod {
 			for (CustomVariable variable : chromosome.getVariables()) {
 				
 				FuzzySystem fs = errorFunction.getFuzzySystem();
+				
+				// get the correct variable by variable name
 				Variable var = fs.getVariable(variable.getName());
 				
 				for (CustomLinguisticTerm term : variable.getLinguisticTerms()) {
@@ -168,7 +178,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 							new Value(term.getParameter(1)), // b
 							new Value(term.getParameter(2)))); // mean					
 				}
-				//log.info(var);
+				
 				fs.setVariable(variable.getName(), var);
 				
 			}	
@@ -202,8 +212,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 			
 			if(this.rand.nextDouble() < this.chromossomeMutationProbability) {
 				for (int i = 0; i < children.size(); i++) {
-					children.set(i, this.mutationOperator.mutateGenes(children.get(i), 
-							mutationOperator, this.geneMutationProbability));
+					children.set(i, this.mutationOperator.mutateGenes(children.get(i), this.geneMutationProbability));
 				}
 			}
 		
@@ -264,6 +273,23 @@ public class OptimizationGenetic extends OptimizationMethod {
 		generateIntermediatePopulation();				
 		evaluatePopulation();
 		rankPopulation();	
+		
+		Chromosome chromosome = this.currentPopulation.get(0);
+		for (CustomVariable variable : chromosome.getVariables()) {
+			
+			FuzzySystem fs = errorFunction.getFuzzySystem();
+			Variable var = fs.getVariable(variable.getName());
+			
+			for (CustomLinguisticTerm term : variable.getLinguisticTerms()) {
+				LinguisticTerm lTerm = var.getLinguisticTerm(term.getTermName());
+				lTerm.setMembershipFunction(new MembershipFunctionGenBell(
+						new Value(term.getParameter(0)), // a
+						new Value(term.getParameter(1)), // b
+						new Value(term.getParameter(2)))); // mean					
+			}
+			//log.info(var);
+			fs.setVariable(variable.getName(), var);
+		}		
 	}
 
 	public List<Double> getDataSerie() {

@@ -5,11 +5,16 @@ import org.apache.log4j.Logger;
 
 import summ.model.Sentence;
 import summ.model.Text;
-import summ.nlp.features.Location;
+import summ.nlp.evaluation.EvaluationMethodFactory.EvaluationMethodType;
 
 public class SentenceOverlap implements EvaluationMethod {
 
 	private static final Logger log = LogManager.getLogger(SentenceOverlap.class);
+	private EvaluationMethodType evaluationType;
+	
+	public SentenceOverlap(EvaluationMethodType evaluationType) {
+		this.evaluationType = evaluationType;
+	}
 	
 	/**
 	 * Evaluates similarity between two texts using precision, recall, and f-measure. 	 
@@ -26,6 +31,7 @@ public class SentenceOverlap implements EvaluationMethod {
 		double correctSentences = countOverlappedSentences(generatedText, referenceText); 
 		
 		EvaluationResult eval = calculateMetrics(relevantSentences, retrievedSentences, correctSentences);
+		eval.setMainEvaluationMetric(this.evaluationType);
 		eval.addMetric("retrievedSentences", (double)retrievedSentences);
 		eval.addMetric("relevantSentences", (double)relevantSentences);
 		eval.addMetric("correctSentences", (double)correctSentences);
@@ -54,9 +60,10 @@ public class SentenceOverlap implements EvaluationMethod {
 		}	
 		
 		EvaluationResult eval = new EvaluationResult();
-		eval.addMetric("precision", precision);
-		eval.addMetric("recall", recall);
-		eval.addMetric("fMeasure", fMeasure);
+		eval.setMainEvaluationMetric(this.evaluationType);
+		eval.addMetric(EvaluationMethodType.PRECISION.name(), precision);
+		eval.addMetric(EvaluationMethodType.RECALL.name(), recall);
+		eval.addMetric(EvaluationMethodType.FMEASURE.name(), fMeasure);
 		return eval;
 		
 	}
@@ -81,7 +88,7 @@ public class SentenceOverlap implements EvaluationMethod {
 	
 	@Override
 	public String toString() {
-		return "Sentence overlap (precision, recall and f-measure)";
+		return "Sentence overlap " + this.evaluationType.name();
 	}
 	
 }
