@@ -34,7 +34,7 @@ public class Frequency implements Pipe<Text> {
 	 */
 	public void tf(Text text) {
 		
-		log.info("Calculating TF (term frequency).");
+		log.debug("Calculating TF (term frequency).");
 		
 		HashMap<String, Integer> rtf = new HashMap<String, Integer>(); 
 		int count = 0; String maxRtfKey = ""; 
@@ -84,7 +84,7 @@ public class Frequency implements Pipe<Text> {
 	 */
 	public void isf(Text text) {
 		
-		log.info("Calculating ISF (inverse sentence frequency).");
+		log.debug("Calculating ISF (inverse sentence frequency).");
 		
 		// inverted index used for count sentences with term occurrence
 		HashMap<String, HashSet<Integer>> index = new HashMap<>(); 
@@ -130,7 +130,7 @@ public class Frequency implements Pipe<Text> {
 	@SuppressWarnings("unchecked")
 	public Text tfIsf(Text text) {
 		
-		log.info("Calculating TF-ISF (term frequency, inverse sentence frequency.");
+		log.debug("Calculating TF-ISF (term frequency, inverse sentence frequency.");
 		
 		HashMap<String, Integer> rtf = (HashMap<String, Integer>) text.getFeature("rtf");
 		HashMap<String, Double> isf = (HashMap<String, Double>) text.getFeature("isf");
@@ -181,7 +181,7 @@ public class Frequency implements Pipe<Text> {
 
 	@Override
 	public Text process(Text text) {
-		log.info("Calculating frequency features for " + text.getName());
+		log.debug("Calculating frequency features for " + text.getName());
 		this.tf(text);
 		this.isf(text);
 		return tfIsf(text);

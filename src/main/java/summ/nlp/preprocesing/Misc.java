@@ -16,7 +16,7 @@ public class Misc implements Pipe<Text> {
 	}
 	
 	public Text removePunctuation(Text text) {
-		log.info("Removing text punctuation.");
+		log.debug("Removing text punctuation.");
 		try {
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {
@@ -31,7 +31,7 @@ public class Misc implements Pipe<Text> {
 	}
 	
 	public Text convertToLowerCase(Text text) {
-		log.info("Converting text to lower case.");
+		log.debug("Converting text to lower case.");
 		try {
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {

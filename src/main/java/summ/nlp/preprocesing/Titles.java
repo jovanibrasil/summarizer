@@ -17,7 +17,7 @@ public class Titles implements Pipe<Text> {
 	 * 
 	 */
 	public static Text identifyTitles(Text text) {
-		log.info("Searching and identifying text titles.");
+		log.debug("Searching and identifying text titles.");
 		text.getParagraphs().forEach( paragraph -> {
 			paragraph.getSentences().forEach(sentence -> {
 				// TODO sentença pode não ter valores após o pre-processamento

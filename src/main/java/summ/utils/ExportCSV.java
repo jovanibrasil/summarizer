@@ -93,12 +93,12 @@ public class ExportCSV {
 	        
 			for (EvaluationResult result : results) {
 				String[] data = { result.getEvalName(), 
-						result.getEvaluationMetricValue(EvaluationMethodType.PRECISION.name()).toString(), 
-						result.getEvaluationMetricValue(EvaluationMethodType.RECALL.name()).toString(), 
-						result.getEvaluationMetricValue(EvaluationMethodType.FMEASURE.name()).toString(), 
-						result.getEvaluationMetricValue("retrievedSentences").toString(), 
-						result.getEvaluationMetricValue("relevantSentences").toString(),
-						result.getEvaluationMetricValue("correctSentences").toString() };
+						result.getMetricValue(EvaluationMethodType.PRECISION.name()).toString(), 
+						result.getMetricValue(EvaluationMethodType.RECALL.name()).toString(), 
+						result.getMetricValue(EvaluationMethodType.FMEASURE.name()).toString(), 
+						result.getMetricValue("retrievedSentences").toString(), 
+						result.getMetricValue("relevantSentences").toString(),
+						result.getMetricValue("correctSentences").toString() };
 				writer.writeNext(data);
 			}
 			writer.close();

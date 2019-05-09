@@ -31,7 +31,7 @@ public class Tokenization implements Pipe<Text> {
 	public Text tokenization(Text text) {
 		InputStream model = null;
 		try {
-			log.info("Executing model based tokenization for each sentence in the text " + text.getName());
+			log.debug("Executing model based tokenization for each sentence in the text " + text.getName());
 			model = new FileInputStream("src/main/resources/models/pt-token.bin");
 			TokenizerModel sm = new TokenizerModel(model);
 			// uses maximum entropy model 
@@ -64,7 +64,7 @@ public class Tokenization implements Pipe<Text> {
 	 * Sentence tokenization based only on whitespace characters as delimiters. 
 	 */
 	public Text whiteSpaceTokenization(Text text) {
-		log.info("Executing whitespace based tokenization for each sentence in the text " + text.getName());
+		log.debug("Executing whitespace based tokenization for each sentence in the text " + text.getName());
 		WhitespaceTokenizer tk = WhitespaceTokenizer.INSTANCE;
 		text.getParagraphs().forEach( paragraph -> {
 			paragraph.getSentences().forEach(sentence -> {
@@ -80,7 +80,7 @@ public class Tokenization implements Pipe<Text> {
 	 * Sentence tokenization that splits sentence into numbers, words and punctuation.
 	 */
 	public  Text simpleTokenization(Text text) {
-		log.info("Executing simple tokenization for each sentence in the text " + text.getName());
+		log.debug("Executing simple tokenization for each sentence in the text " + text.getName());
 		SimpleTokenizer tk = SimpleTokenizer.INSTANCE;
 		text.getParagraphs().forEach( paragraph -> {
 			paragraph.getSentences().forEach(sentence -> {

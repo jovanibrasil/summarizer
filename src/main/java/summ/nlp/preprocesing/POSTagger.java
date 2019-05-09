@@ -36,7 +36,7 @@ public class POSTagger implements Pipe<Text> {
 	public Text pos(Text text) {
 		InputStream model = null;
 		try {
-			log.info("Executing POSTagger for each word in the text " + text.getName());
+			log.debug("Executing POSTagger for each word in the text " + text.getName());
 			model = new FileInputStream("src/main/resources/models/pt-pos-perceptron.bin");
 			POSModel posModel = new POSModel(model);
 			// uses maximum entropy model 

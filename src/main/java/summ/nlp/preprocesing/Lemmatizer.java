@@ -30,7 +30,7 @@ public class Lemmatizer implements Pipe<Text> {
 	}
 
 	public Text lemmatize(Text text) {
-		log.info("Lemmatizing each word in text " + text.getName());
+		log.debug("Lemmatizing each word in text " + text.getName());
 		for (Sentence s : text.getSentences()) {
 			for (Word w : s.getWords()) {
 				this.analyzeToken(w);

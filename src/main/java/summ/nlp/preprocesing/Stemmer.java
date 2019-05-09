@@ -27,7 +27,7 @@ public class Stemmer implements Pipe<Text> {
 	
 	@Override
 	public Text process(Text text) {
-		log.info("Stemming each word in the text.");
+		log.debug("Stemming each word in the text.");
 		for (Sentence sentence : text.getSentences()) {
 			for (Word word : sentence.getWords()) {
 				String stemmedToken = this.stemToken(word.getInitialValue());

@@ -27,7 +27,7 @@ public class EvaluationResult {
 		return metrics.get(evaluationMetricType.name());
 	}
 	
-	public Double getEvaluationMetricValue(String metricName){
+	public Double getMetricValue(String metricName){
 		return metrics.get(metricName);
 	}
 	
@@ -55,6 +55,10 @@ public class EvaluationResult {
 			sb.append("\t" + entry.getKey() + ": " + entry.getValue() + "\n");
 		});
 		return sb.toString();
+	}
+
+	public void setMetric(String metricName, double metricValue) {
+		this.metrics.put(metricName, metricValue);
 	}
 	
 }

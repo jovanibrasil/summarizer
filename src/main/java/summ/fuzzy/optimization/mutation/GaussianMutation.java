@@ -11,16 +11,28 @@ public class GaussianMutation extends MutationOperator {
 	 * intervalo permitido para cada gene.
 	 * 
 	 */
-	public double gaussian(double rangeMin, double rangeMax) {
-		double mean = 0.0;
-		double standardDeviation = 1.0;
-		// normally distributed double with mean 0.0 and standard deviation 1.0
-		return rangeMin + (rangeMax - rangeMin) * (this.rand.nextDouble() * standardDeviation + mean); 
+	public double gaussian(double mean, double standardDeviation) {
+		return this.rand.nextGaussian() * standardDeviation + mean; 
 	}
 
 	@Override
 	public double getAleatoryFeasibleCoefficient(double rangeMin, double rangeMax) {
-		return gaussian(rangeMin, rangeMax);
+		
+		if (rangeMax == rangeMin) return rangeMax;
+		
+		double mean = 0.0;
+		double standardDeviation = 1.0;
+		// normally distributed double with mean 0.0 and standard deviation 1.0
+		double val = rangeMin - 1;
+		int counter = 0;
+		while(val < rangeMin || val > rangeMax){
+			val = gaussian(mean, standardDeviation);
+			counter++;
+			if(counter == 40) {
+				return rangeMin + (rangeMax - rangeMin) / 2;
+			}
+		}
+		return val; 
 	}
 	
 	@Override

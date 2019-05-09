@@ -26,7 +26,7 @@ public class StopWords implements Pipe<Text> {
 	}
 	
 	public Text removeStopWords(Text text) {
-		log.info("Remove stopwords in the text " + text.getName());
+		log.debug("Remove stopwords in the text " + text.getName());
 		if(stopWords == null) {
 			loadStopWords("src/main/resources/stopwords-pt-br.txt");
 		}
@@ -49,7 +49,7 @@ public class StopWords implements Pipe<Text> {
 	}
 
 	private void loadStopWords(String stopFile) {
-		log.info("Loading stopwords file.");
+		log.debug("Loading stopwords file.");
 		stopWords = new HashSet<String>();
 		try (Stream<String> stream = Files.lines(Paths.get(stopFile))) {
 			stream.forEach(line -> {

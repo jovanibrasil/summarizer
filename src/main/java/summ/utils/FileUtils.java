@@ -71,7 +71,7 @@ public class FileUtils {
 				// Get a list of files in the directory
 				List<Path> refFiles = Files.list(Paths.get(textsDir)).collect(Collectors.toList());
 				while(texts.size() < quantity) {
-					int nextIndex = rand.nextInt(refFiles.size()-1);
+					int nextIndex = rand.nextInt(refFiles.size());
 					Path filePath = refFiles.remove(nextIndex);	
 					Text text = loadText(textsDir + filePath.getFileName().toString());
 					//String key = filePath.getFileName().toString();
@@ -113,7 +113,7 @@ public class FileUtils {
 	}
 	
 	public static Text loadText(String filePath) {
-		log.info("Loading " + filePath);
+		log.debug("Loading " + filePath);
 		BufferedReader br = null;
 		Text text = null;
 		try {
@@ -153,7 +153,7 @@ public class FileUtils {
 	public static InputStream loadProps(String propertyFilePath) {
 		try {
 			// Read properties file.
-			log.info("Using config.properties: " + propertyFilePath);
+			log.info("Loading config.properties: " + propertyFilePath);
 			InputStream stream = new FileInputStream(propertyFilePath);
 			return stream;
 
@@ -182,6 +182,17 @@ public class FileUtils {
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		}
+	}
+
+	public static int countFiles(String textsDir) {
+		try {
+			return Files.list(Paths.get(textsDir)).collect(Collectors.toList()).size();
+		} catch (IOException e) {
+			e.printStackTrace();
+			log.error(e.getMessage());
+			System.exit(-1);
+		}
+		return 0;
 	}
 	
 }

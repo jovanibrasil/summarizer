@@ -34,7 +34,7 @@ public class Length implements Pipe<Text> {
 		
 		int maxLength = 0; double maxRelativeLength = 0.0; 
 		
-		log.info("Calculating sentences mean length and standard deviation.");
+		log.debug("Calculating sentences mean length and standard deviation.");
 		for (Paragraph p : text.getParagraphs()) {
 			int middle = p.getLength() / 2;
 			
@@ -58,7 +58,7 @@ public class Length implements Pipe<Text> {
 			
 		}
 		
-		log.info("Calculating simple and relative length features for each sentence.");
+		log.debug("Calculating simple and relative length features for each sentence.");
 		for (Paragraph p : text.getParagraphs()) {
 			for (Sentence s : p.getSentences()) {
 				int middle = p.getLength() / 2;
@@ -100,7 +100,7 @@ public class Length implements Pipe<Text> {
 	
 	@Override
 	public Text process(Text text) {
-		log.info("Calculating length features for " + text.getName());
+		log.debug("Calculating length features for " + text.getName());
 		return this.length(text);
 	}
 	

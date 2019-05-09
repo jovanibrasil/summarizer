@@ -57,8 +57,8 @@ public class SentenceOverlapTest {
 	public void calculateMetrics(double relevantSentences, double retrievedSentences,  double correctSentences,
 			double expectedPrecision, double expectedRecall, double expectedfMeasure) {
 		EvaluationResult result = so.calculateMetrics(relevantSentences, retrievedSentences, correctSentences);
-		assertEquals(expectedPrecision, result.getEvaluationMetricValue(EvaluationMethodType.PRECISION.name()), DELTA);
-		assertEquals(expectedRecall, result.getEvaluationMetricValue(EvaluationMethodType.RECALL.name()), DELTA);
-		assertEquals(expectedfMeasure, result.getEvaluationMetricValue(EvaluationMethodType.FMEASURE.name()), DELTA);
+		assertEquals(expectedPrecision, result.getMetricValue(EvaluationMethodType.PRECISION.name()), DELTA);
+		assertEquals(expectedRecall, result.getMetricValue(EvaluationMethodType.RECALL.name()), DELTA);
+		assertEquals(expectedfMeasure, result.getMetricValue(EvaluationMethodType.FMEASURE.name()), DELTA);
 	}
 }

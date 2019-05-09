@@ -17,7 +17,7 @@ public class Location implements Pipe<Text> {
 	 *
 	 */
 	private Text location(Text text) {
-		log.info("Calculating simple, inverse and relative locations features for each sentence.");
+		log.debug("Calculating simple, inverse and relative locations features for each sentence.");
 		text.getParagraphs().forEach(p -> {
 			int middle = p.getLength() / 2;
 			p.getSentences().forEach(s -> {

@@ -27,7 +27,7 @@ public class NER implements Pipe<Text> {
 	public Text ner(Text text) {
 		InputStream model = null;
 		try {
-			log.info("Executing NER (named entity recognition) for each sentence in " + text.getName());
+			log.debug("Executing NER (named entity recognition) for each sentence in " + text.getName());
 			model = new FileInputStream("src/main/resources/models/en-ner-person.bin");
 			TokenNameFinderModel tokenFinderModel = new TokenNameFinderModel(model);
 			// uses maximum entropy model 

@@ -16,7 +16,7 @@ public class LocLen implements Pipe<Text> {
 	 * 
 	 */
 	public Text locLen(Text text) {
-		log.info("Calculating LOC-LEN (location and length correlation) feature for each sentence of " + text.getName());
+		log.debug("Calculating LOC-LEN (location and length correlation) feature for each sentence of " + text.getName());
 		double maxLocLen = 0.0;
 		for (Sentence s : text.getSentences()) {
 			Double loc = (Double)s.getFeature("relative_location");
