@@ -23,7 +23,7 @@ public class TextRankTest {
 	
 	public static Pipeline<Text> getTextPreProcessingPipeline() {
 		return new Pipeline<Text>(new SentenceSegmentation(), new Misc(PreProcessingTypes.TO_LOWER_CASE),
-				new Misc(PreProcessingTypes.REMOVE_PUNCTUATION), new Tokenization(PreProcessingTypes.NEURAL_TOKENIZATION),
+				new Misc(PreProcessingTypes.REMOVE_PUNCTUATION), new Tokenization(PreProcessingTypes.ME_TOKENIZATION),
 				new Titles(), new StopWords(), new POSTagger(), new Lemmatizer());
 	}
 	

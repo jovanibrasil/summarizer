@@ -6,7 +6,7 @@ public enum PreProcessingTypes {
 	TO_LOWER_CASE, 
 	SIMPLE_TOKENIZATION,
 	WHITE_SPACE_TOKENIZATION,
-	NEURAL_TOKENIZATION,
+	ME_TOKENIZATION, // Maximum entropy tokenization
 	REMOVE_STOPWORDS,
 	NER,
 	POS,

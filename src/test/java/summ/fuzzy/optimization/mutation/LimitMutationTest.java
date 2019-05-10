@@ -9,10 +9,10 @@ import org.junit.jupiter.api.Test;
 class LimitMutationTest {
 
 	private static final Logger log = LogManager.getLogger(LimitMutationTest.class);
-	private MutationOperator m;
+	private LimitMutation m;
 	
 	public void testCoeffientGeneration(double minRange, double maxRange) {
-		double c = m.getAleatoryFeasibleCoefficient(minRange, maxRange);
+		double c = m.limit(minRange, maxRange);
 		log.info("Coefficient Range: [" + minRange + ", " + maxRange + "] Generated: " + c);
 		assertTrue(c == minRange || c == maxRange);
 	}

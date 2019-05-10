@@ -15,8 +15,8 @@ public class PreprocessingFactory {
 				return new Tokenization(PreProcessingTypes.SIMPLE_TOKENIZATION);
 			case WHITE_SPACE_TOKENIZATION:
 				return new Tokenization(PreProcessingTypes.WHITE_SPACE_TOKENIZATION);
-			case NEURAL_TOKENIZATION:
-				return new Tokenization(PreProcessingTypes.NEURAL_TOKENIZATION);
+			case ME_TOKENIZATION:
+				return new Tokenization(PreProcessingTypes.ME_TOKENIZATION);
 			case POS:
 				return new POSTagger();
 			case REMOVE_PUNCTUATION:

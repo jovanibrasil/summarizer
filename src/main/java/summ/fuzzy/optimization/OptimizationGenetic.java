@@ -94,10 +94,9 @@ public class OptimizationGenetic extends OptimizationMethod {
 				
 				// set c value
 				for (CustomLinguisticTerm lt : customVariable.getLinguisticTerms()) {
-					FunctionDetails f = lt.getFunction().getFunctionInfo();
-					lt.setParameter(0, mutationOperator.getAleatoryFeasibleCoefficient(f.getRangeMin(0), f.getRangeMax(0)));
-					lt.setParameter(1, mutationOperator.getAleatoryFeasibleCoefficient(f.getRangeMin(1), f.getRangeMax(1)));
-					lt.setParameter(2, mutationOperator.getMutatedFeasibleCoefficient(2, f.getRangeMin(2), f.getRangeMax(2), customVariable, lt));
+					lt.setParameter(0, mutationOperator.getAleatoryFeasibleCoefficient(lt, 0));
+					lt.setParameter(1, mutationOperator.getAleatoryFeasibleCoefficient(lt, 1));
+					lt.setParameter(2, mutationOperator.getMutatedFeasibleCoefficient(2, customVariable, lt));
 				}
 				
 				chromosome.addGene(customVariable);

@@ -2,6 +2,9 @@ package summ.fuzzy.optimization.mutation;
 
 import java.util.Random;
 
+import summ.fuzzy.optimization.CustomLinguisticTerm;
+import summ.fuzzy.optimization.functions.FunctionDetails;
+
 public class NonUniformMutation extends MutationOperator {
 	
 	private Random rand;
@@ -42,7 +45,10 @@ public class NonUniformMutation extends MutationOperator {
 	}
 
 	@Override
-	public double getAleatoryFeasibleCoefficient(double rangeMin, double rangeMax) {
+	public double getAleatoryFeasibleCoefficient(CustomLinguisticTerm term, int coefficientIndex) {
+		FunctionDetails funcInfo = term.getFunction().getFunctionInfo();
+		double rangeMin = funcInfo.getRangeMin(coefficientIndex);
+		double rangeMax = funcInfo.getRangeMax(coefficientIndex);
 		return nonUniform(0, 5, 5, 0.5, rangeMin, rangeMax);
 	}	
 	

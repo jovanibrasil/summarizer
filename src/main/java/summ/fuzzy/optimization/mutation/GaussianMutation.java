@@ -1,5 +1,8 @@
 package summ.fuzzy.optimization.mutation;
 
+import summ.fuzzy.optimization.CustomLinguisticTerm;
+import summ.fuzzy.optimization.functions.FunctionDetails;
+
 public class GaussianMutation extends MutationOperator {
 
 	public GaussianMutation() {
@@ -16,7 +19,10 @@ public class GaussianMutation extends MutationOperator {
 	}
 
 	@Override
-	public double getAleatoryFeasibleCoefficient(double rangeMin, double rangeMax) {
+	public double getAleatoryFeasibleCoefficient(CustomLinguisticTerm term, int coefficientIndex) {
+		FunctionDetails funcInfo = term.getFunction().getFunctionInfo();
+		double rangeMin = funcInfo.getRangeMin(coefficientIndex);
+		double rangeMax = funcInfo.getRangeMax(coefficientIndex);
 		
 		if (rangeMax == rangeMin) return rangeMax;
 		

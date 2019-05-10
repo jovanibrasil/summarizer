@@ -20,13 +20,13 @@ public abstract class MutationOperator {
 		this.rand = new Random();
 	}
 	
-	public abstract double getAleatoryFeasibleCoefficient(double rangeMin, double rangeMax);
+	public abstract double getAleatoryFeasibleCoefficient(CustomLinguisticTerm term, int coefficientIndex);
 	
-	public double getMutatedFeasibleCoefficient(int index, double rangeMin, double rangeMax, CustomVariable variable, CustomLinguisticTerm term) {
+	public double getMutatedFeasibleCoefficient(int index, CustomVariable variable, CustomLinguisticTerm term) {
 		double value;
 		int loopControl = 0;
 		while(true) {
-			value = this.getAleatoryFeasibleCoefficient(rangeMin, rangeMax);
+			value = this.getAleatoryFeasibleCoefficient(term, index);
 			
 			if(term.getFunction().isFeasibleValue(index, term.getTermName(), value, variable)) break;
 			if(loopControl == 100) {
@@ -43,9 +43,9 @@ public abstract class MutationOperator {
 		for (CustomVariable variable : chromosome.getVariables()) {
 			for (CustomLinguisticTerm term : variable.getLinguisticTerms()) {
 				if(this.rand.nextDouble() < geneMutationProbability) {
-					for (int index = 0; index < term.getParametersLength(); index++) {
-						FunctionDetails funcInfo = term.getFunction().getFunctionInfo();
-						term.setParameter(index, this.getMutatedFeasibleCoefficient(index, funcInfo.getRangeMin(index), funcInfo.getRangeMax(index), variable, term));
+					for (int coefficientIndex = 0; coefficientIndex < term.getParametersLength(); coefficientIndex++) {
+						term.setParameter(coefficientIndex, 
+								this.getMutatedFeasibleCoefficient(coefficientIndex, variable, term));
 					}
 				}
 			}

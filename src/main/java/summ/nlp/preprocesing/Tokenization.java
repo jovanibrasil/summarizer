@@ -10,6 +10,7 @@ import opennlp.tools.tokenize.SimpleTokenizer;
 import opennlp.tools.tokenize.TokenizerME;
 import opennlp.tools.tokenize.TokenizerModel;
 import opennlp.tools.tokenize.WhitespaceTokenizer;
+import summ.model.Sentence;
 import summ.model.Text;
 import summ.model.Word;
 import summ.utils.Pipe;
@@ -24,8 +25,7 @@ public class Tokenization implements Pipe<Text> {
 	}
 	
 	/**
-	 * 
-	 * Considera que no existem palavras tokenizadas, ou seja, lista de palavras  vazia.
+	 * Maximum entropy based sentence tokenization. 
 	 * 
 	 */
 	public Text tokenization(Text text) {
@@ -33,8 +33,9 @@ public class Tokenization implements Pipe<Text> {
 		try {
 			log.debug("Executing model based tokenization for each sentence in the text " + text.getName());
 			model = new FileInputStream("src/main/resources/models/pt-token.bin");
-			TokenizerModel sm = new TokenizerModel(model);
-			// uses maximum entropy model 
+			// TokenizerModel encapsulates the model and provides basic methods
+			TokenizerModel sm = new TokenizerModel(model); // This model was trained on conllx bosque data.
+			// Uses maximum entropy with the defined model 
 			TokenizerME tk = new TokenizerME(sm);
 			text.getParagraphs().forEach( paragraph -> {
 				paragraph.getSentences().forEach(sentence -> {
@@ -99,12 +100,20 @@ public class Tokenization implements Pipe<Text> {
 	
 	@Override
 	public Text process(Text text) {
+		
+		//The sentence list of words must be empty before the execution.
+		for (Sentence sentence : text.getSentences()) { 
+			if(sentence.getLength() > 0) { 
+				log.error("Sentence " + sentence.getId() + ": List of words must be empty."); 
+			} 
+		}
+		
 		switch (this.tokenizationType) {
 			case WHITE_SPACE_TOKENIZATION:
 				return this.whiteSpaceTokenization(text);
 			case SIMPLE_TOKENIZATION:
 				return this.simpleTokenization(text);
-			case NEURAL_TOKENIZATION:
+			case ME_TOKENIZATION:
 				return this.tokenization(text);
 			default:
 				log.warn("Tokenization method not found.");

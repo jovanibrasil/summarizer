@@ -8,8 +8,6 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
-import com.rxnlp.tools.rouge.SettingsUtil;
-
 import summ.fuzzy.optimization.crossover.CrossoverOperatorFactory;
 import summ.fuzzy.optimization.crossover.CrossoverOperatorFactory.CrossoverOperatorType;
 import summ.fuzzy.optimization.mutation.MutationOperatorFactory;
@@ -20,7 +18,7 @@ import summ.utils.FileUtils;
 
 public class OptimizationSettingsUtils {
 	
-	static Logger log = Logger.getLogger(SettingsUtil.class);
+	static Logger log = Logger.getLogger(OptimizationSettingsUtils.class);
 
 	public static void loadOptimizationProps(String propertyFilePath, OptimizationSettings rs) {
 		
