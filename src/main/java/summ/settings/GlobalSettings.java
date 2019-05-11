@@ -8,9 +8,9 @@ import org.apache.log4j.Logger;
 
 import summ.utils.FileUtils;
 
-public class SummarizerSettings {
+public class GlobalSettings {
 	
-	static Logger log = Logger.getLogger(SummarizerSettings.class);
+	static Logger log = Logger.getLogger(GlobalSettings.class);
 	
 	public enum ExecutionType {
 		OPTIMIZATION, SUMMARIZATION 
@@ -22,7 +22,7 @@ public class SummarizerSettings {
 	public String OUTPUT_PATH;
 	public String[] OPTIMIZATION_FILES;
 	
-	public SummarizerSettings() {
+	public GlobalSettings() {
 		loadSummarizerProps();
 	}
 	

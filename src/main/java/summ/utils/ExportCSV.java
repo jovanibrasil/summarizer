@@ -11,7 +11,7 @@ import com.opencsv.CSVWriter;
 import summ.model.Sentence;
 import summ.model.Text;
 import summ.nlp.evaluation.EvaluationResult;
-import summ.nlp.evaluation.EvaluationMethodFactory.EvaluationMethodType;
+import summ.nlp.evaluation.EvaluationTypes;
 
 public class ExportCSV {
 
@@ -81,10 +81,10 @@ public class ExportCSV {
 		}
 	}
 	
-	public void saveEvaluationResult(List<EvaluationResult> results, String outputPath) {
+	public static void saveEvaluationResult(List<EvaluationResult> results, String outputPath) {
 		
 		try {
-			File file = new File(outputPath + "/texts-evaluation-"+ Utils.generateStringFormattedData());  
+			File file = new File(outputPath + "/texts-evaluation-"+ Utils.generateStringFormattedData() + ".csv");  
 	        FileWriter outputfile = new FileWriter(file);
 	        CSVWriter writer = new CSVWriter(outputfile);
 
@@ -93,9 +93,9 @@ public class ExportCSV {
 	        
 			for (EvaluationResult result : results) {
 				String[] data = { result.getEvalName(), 
-						result.getMetricValue(EvaluationMethodType.PRECISION.name()).toString(), 
-						result.getMetricValue(EvaluationMethodType.RECALL.name()).toString(), 
-						result.getMetricValue(EvaluationMethodType.FMEASURE.name()).toString(), 
+						result.getMetricValue(EvaluationTypes.PRECISION.name()).toString(), 
+						result.getMetricValue(EvaluationTypes.RECALL.name()).toString(), 
+						result.getMetricValue(EvaluationTypes.FMEASURE.name()).toString(), 
 						result.getMetricValue("retrievedSentences").toString(), 
 						result.getMetricValue("relevantSentences").toString(),
 						result.getMetricValue("correctSentences").toString() };

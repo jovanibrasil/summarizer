@@ -13,7 +13,7 @@ import summ.fuzzy.optimization.crossover.CrossoverOperatorFactory.CrossoverOpera
 import summ.fuzzy.optimization.mutation.MutationOperatorFactory;
 import summ.fuzzy.optimization.mutation.MutationOperatorFactory.MutationOperatorType;
 import summ.nlp.evaluation.EvaluationMethodFactory;
-import summ.nlp.evaluation.EvaluationMethodFactory.EvaluationMethodType;
+import summ.nlp.evaluation.EvaluationTypes;
 import summ.utils.FileUtils;
 
 public class OptimizationSettingsUtils {
@@ -66,7 +66,7 @@ public class OptimizationSettingsUtils {
 			rs.CROSSOVER_OPERATOR = CrossoverOperatorFactory.getCrossoverOperator(CrossoverOperatorType.valueOf(val));
 			
 			val = properties.getProperty("evaluation_method", "");
-			rs.EVALUATION_METHOD = EvaluationMethodFactory.getEvaluationMethod(EvaluationMethodType.valueOf(val));
+			rs.EVALUATION_METHOD = EvaluationMethodFactory.getEvaluationMethod(EvaluationTypes.valueOf(val));
 			
 			rs.FULL_TEXTS_PATH = properties.getProperty("full_texts_path", "");
 			rs.AUTO_SUMMARIES_PATH = properties.getProperty("auto_summaries_path", "");

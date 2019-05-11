@@ -7,8 +7,8 @@ import org.apache.log4j.Logger;
 
 import summ.fuzzy.optimization.Optimization;
 import summ.gui.SummGUI;
-import summ.settings.SummarizerSettings;
-import summ.settings.SummarizerSettings.ExecutionType;
+import summ.settings.GlobalSettings;
+import summ.settings.GlobalSettings.ExecutionType;
 
 public class Main {
 
@@ -31,7 +31,7 @@ public class Main {
 		
 		//invokeGUI();
 		
-		SummarizerSettings summarizerSettings = new SummarizerSettings();
+		GlobalSettings summarizerSettings = new GlobalSettings();
 		
 		if(summarizerSettings.EXECUTION_TYPE.equals(ExecutionType.OPTIMIZATION)) {
 			

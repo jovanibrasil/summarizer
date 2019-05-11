@@ -13,9 +13,9 @@ import summ.fuzzy.optimization.evaluation.ErrorFunctionSummarization;
 import summ.fuzzy.optimization.settings.OptimizationSettings;
 import summ.fuzzy.optimization.settings.OptimizationSettingsUtils;
 import summ.model.Text;
-import summ.nlp.evaluation.EvaluationMethodFactory.EvaluationMethodType;
 import summ.nlp.evaluation.EvaluationResult;
-import summ.settings.SummarizerSettings;
+import summ.nlp.evaluation.EvaluationTypes;
+import summ.settings.GlobalSettings;
 import summ.summarizer.Summarizer;
 import summ.utils.Charts;
 import summ.utils.ExportHTML;
@@ -28,12 +28,12 @@ public class Optimization {
 
 	private Summarizer summarizer;
 	private OptimizationGenetic geneticOptimization;
-	private SummarizerSettings summarizerSettings;
+	private GlobalSettings summarizerSettings;
 	private OptimizationSettings optimizationSettings;
 	private List<Text> texts;
 	private FuzzySystem fs;
 	
-	public Optimization(SummarizerSettings summarizerSettings) {
+	public Optimization(GlobalSettings summarizerSettings) {
 		
 		log.info("Initializing an summarization tool ...");
 		this.summarizer = new Summarizer(summarizerSettings);	
@@ -93,8 +93,8 @@ public class Optimization {
 		// Pre-process and compute sentence features
 		this.summarizer.prepareTextList(corpus);
 		
-		List<String> metrics = Arrays.asList(EvaluationMethodType.PRECISION.name(), 
-				EvaluationMethodType.RECALL.name(), EvaluationMethodType.FMEASURE.name());
+		List<String> metrics = Arrays.asList(EvaluationTypes.PRECISION.name(), 
+				EvaluationTypes.RECALL.name(), EvaluationTypes.FMEASURE.name());
 		
 		log.info("Initial corpus evalution");
 		EvaluationResult initialCorpusEvaluation = evaluateCorpus(metrics, corpus);
@@ -126,7 +126,7 @@ public class Optimization {
 		
 		// Save pre-processing and feature computation results
 		this.texts.forEach(text -> {
-			ExportHTML.exportSentecesAndFeatures(text, summarizer.optimizationSettings.OUTPUT_EXPORT_VARIABLES, textsResultsPath);
+			ExportHTML.exportSentecesAndFeatures(text, summarizer.summarizationSettings.OUTPUT_EXPORT_VARIABLES, textsResultsPath);
 		});
 		
 		List<Object> objs = Arrays.asList("Execution time in milliseconds : " + timeElapsed, dataSerie, 

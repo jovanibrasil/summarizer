@@ -5,8 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
-import summ.nlp.evaluation.EvaluationMethodFactory.EvaluationMethodType;
-
 public class SentenceOverlapTest {
 
 	private static final double DELTA = 1e-6;
@@ -14,7 +12,7 @@ public class SentenceOverlapTest {
 	
 	@BeforeAll
     protected static void init(){
-		so = new SentenceOverlap(EvaluationMethodType.ALL);
+		so = new SentenceOverlap(EvaluationTypes.ALL);
 	}
 	
 	@Test
@@ -57,8 +55,8 @@ public class SentenceOverlapTest {
 	public void calculateMetrics(double relevantSentences, double retrievedSentences,  double correctSentences,
 			double expectedPrecision, double expectedRecall, double expectedfMeasure) {
 		EvaluationResult result = so.calculateMetrics(relevantSentences, retrievedSentences, correctSentences);
-		assertEquals(expectedPrecision, result.getMetricValue(EvaluationMethodType.PRECISION.name()), DELTA);
-		assertEquals(expectedRecall, result.getMetricValue(EvaluationMethodType.RECALL.name()), DELTA);
-		assertEquals(expectedfMeasure, result.getMetricValue(EvaluationMethodType.FMEASURE.name()), DELTA);
+		assertEquals(expectedPrecision, result.getMetricValue(EvaluationTypes.PRECISION.name()), DELTA);
+		assertEquals(expectedRecall, result.getMetricValue(EvaluationTypes.RECALL.name()), DELTA);
+		assertEquals(expectedfMeasure, result.getMetricValue(EvaluationTypes.FMEASURE.name()), DELTA);
 	}
 }

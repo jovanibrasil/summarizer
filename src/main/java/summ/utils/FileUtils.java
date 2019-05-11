@@ -127,7 +127,7 @@ public class FileUtils {
 			text.setFullTextPath(filePath);
 			int pos = 0;
 			while((line = br.readLine()) != null) {
-				if(!line.isEmpty()) {
+				if(!line.isEmpty()) { // ignore empty lines
 					line = line.replace("(...)", "").replace("...", "")
 							.replace("....", "").replace(".,", ",");
 					Paragraph p = new Paragraph(line);

@@ -2,13 +2,11 @@ package summ.nlp.evaluation;
 
 import java.util.HashMap;
 
-import summ.nlp.evaluation.EvaluationMethodFactory.EvaluationMethodType;
-
 public class EvaluationResult {
 
 	private HashMap<String, Double> metrics;
 	private String evalName;
-	private EvaluationMethodType evaluationMetricType;
+	private EvaluationTypes evaluationMetricType;
 	
 	public EvaluationResult() {
 		this.evalName = "";
@@ -39,11 +37,11 @@ public class EvaluationResult {
 		this.evalName = evalName;
 	}
 
-	public EvaluationMethodType getMainEvaluationMetric() {
+	public EvaluationTypes getMainEvaluationMetric() {
 		return evaluationMetricType;
 	}
 
-	public void setMainEvaluationMetric(EvaluationMethodType mainEvaluationMetric) {
+	public void setMainEvaluationMetric(EvaluationTypes mainEvaluationMetric) {
 		this.evaluationMetricType = mainEvaluationMetric;
 	}
 

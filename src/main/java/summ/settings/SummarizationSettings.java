@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import summ.model.Text;
 import summ.nlp.evaluation.EvaluationMethod;
 import summ.nlp.evaluation.EvaluationMethodFactory;
-import summ.nlp.evaluation.EvaluationMethodFactory.EvaluationMethodType;
+import summ.nlp.evaluation.EvaluationTypes;
 import summ.utils.Pipeline;
 import summ.utils.PipelineFactory;
 import summ.utils.FileUtils;
@@ -63,7 +63,7 @@ public class SummarizationSettings {
 			String strVal = properties.getProperty("summary_size_percentual", "0");
 			this.SUMMARY_SIZE_PERCENTUAL = Double.parseDouble(strVal);
 			strVal = properties.getProperty("evaluation_method", "NONE");
-			this.EVALUATION_METHOD = EvaluationMethodFactory.getEvaluationMethod(EvaluationMethodType.valueOf(strVal));
+			this.EVALUATION_METHOD = EvaluationMethodFactory.getEvaluationMethod(EvaluationTypes.valueOf(strVal));
 			strVal = properties.getProperty("output_type", "NONE");
 			this.OUTPUT_TYPE = OutputType.valueOf(strVal);
 			if(this.OUTPUT_TYPE.equals(OutputType.FEATURES_BY_SENTENCE_HTML)) {

@@ -2,6 +2,7 @@ package summ.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import summ.nlp.evaluation.EvaluationResult;
@@ -93,6 +94,16 @@ public class Text {
 		for (Paragraph p : this.paragraphs) {
 			for (Sentence s: p.getSentences()) {
 				sentences[i++] = s;
+			}
+		}
+		return sentences;
+	}
+	
+	public List<String> getStringSentences(){
+		List<String> sentences = new ArrayList<String>();
+		for (Paragraph p : this.paragraphs) {
+			for (Sentence s: p.getSentences()) {
+				sentences.add(s.getInitialValue());
 			}
 		}
 		return sentences;

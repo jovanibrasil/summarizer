@@ -17,22 +17,22 @@ import summ.nlp.evaluation.EvaluationMethod;
 import summ.nlp.evaluation.EvaluationResult;
 import summ.settings.SummarizationSettings;
 import summ.settings.SummarizationSettings.SummarizationType;
-import summ.settings.SummarizerSettings;
+import summ.settings.GlobalSettings;
 import summ.utils.ExportCSV;
 import summ.utils.ExportHTML;
+import summ.utils.FileUtils;
 import summ.utils.Pipeline;
 import summ.utils.Tuple;
-import summ.utils.FileUtils;
 
 public class Summarizer {
 	
 	private static final Logger log = LogManager.getLogger(Summarizer.class);
-	private SummarizerSettings summarizerSettings;
-	public SummarizationSettings optimizationSettings;
+	private GlobalSettings globalSettings;
+	public SummarizationSettings summarizationSettings;
 	
-	public Summarizer(SummarizerSettings summarizerSettings) {
-		this.summarizerSettings = summarizerSettings;
-		this.optimizationSettings = new SummarizationSettings(this.summarizerSettings.SUMMARIZATION_PROPERTIES_PATH);
+	public Summarizer(GlobalSettings globalSettings) {
+		this.globalSettings = globalSettings;
+		this.summarizationSettings = new SummarizationSettings(this.globalSettings.SUMMARIZATION_PROPERTIES_PATH);
 	}
 	
 	public ArrayList<Tuple<Integer>> computeSentencesInformativity(Text text, FuzzySystem fs, List<String> variables) {
@@ -88,9 +88,9 @@ public class Summarizer {
 	public EvaluationResult evaluateSummary(EvaluationMethod evaluationMethod, Text generatedSummary) {
 		if(evaluationMethod != null) {
 			log.debug("Evaluating the summary ...");
-			Text referenceSummary = FileUtils.loadText(this.optimizationSettings.AUTO_SUMMARIES_PATH + 
+			Text referenceSummary = FileUtils.loadText(this.summarizationSettings.AUTO_SUMMARIES_PATH + 
 					generatedSummary.getName().replace(".txt", "") + "_areference1.txt");
-			referenceSummary = optimizationSettings.SUMMARY_PREPROCESSING_PIPELINE.process(referenceSummary);
+			referenceSummary = summarizationSettings.SUMMARY_PREPROCESSING_PIPELINE.process(referenceSummary);
 			EvaluationResult evaluationResult = evaluationMethod.evaluate(generatedSummary, referenceSummary);
 			evaluationResult.setEvalName(generatedSummary.getName());
 			generatedSummary.setEvaluationResult(evaluationResult);
@@ -120,7 +120,7 @@ public class Summarizer {
 	 * @return the summary size
 	 */
 	public int getSummarySize(int maxSentences) {
-		double summaryPercentual = optimizationSettings.SUMMARY_SIZE_PERCENTUAL;
+		double summaryPercentual = summarizationSettings.SUMMARY_SIZE_PERCENTUAL;
 		if(summaryPercentual > 0) {
 			return (int)(summaryPercentual * maxSentences);
 		}else {
@@ -129,17 +129,17 @@ public class Summarizer {
 	}
 	
 	public void saveResult(Text text1) {
-		switch (optimizationSettings.OUTPUT_TYPE) {
+		switch (summarizationSettings.OUTPUT_TYPE) {
 			case NONE:
 				return;
 			case CONSOLE:
 				log.info(text1);
 				break;
 			case FEATURES_BY_SENTENCE_CSV:
-				ExportCSV.exportSentenceFeatures(text1, this.summarizerSettings.OUTPUT_PATH);
+				ExportCSV.exportSentenceFeatures(text1, this.globalSettings.OUTPUT_PATH);
 				break;
 			case FEATURES_BY_SENTENCE_HTML:
-				ExportHTML.exportSentecesAndFeatures(text1, optimizationSettings.OUTPUT_EXPORT_VARIABLES, this.summarizerSettings.OUTPUT_PATH);
+				ExportHTML.exportSentecesAndFeatures(text1, summarizationSettings.OUTPUT_EXPORT_VARIABLES, this.globalSettings.OUTPUT_PATH);
 				break;
 			default:
 				break;
@@ -147,14 +147,14 @@ public class Summarizer {
 	}
 	
 	public void saveResult(Text text1, Text text2) {
-		switch (optimizationSettings.OUTPUT_TYPE) {
+		switch (summarizationSettings.OUTPUT_TYPE) {
 			case NONE:
 				return;
 			case HIGHLIGHTED_TEXT:
-				ExportHTML.exportHighlightText(text1, text2.getSentencesMap(), this.summarizerSettings.OUTPUT_PATH);
+				ExportHTML.exportHighlightText(text1, text2.getSentencesMap(), this.globalSettings.OUTPUT_PATH);
 				break;
 			case OVERLAPPED_SENTENCES_HTML:
-				ExportHTML.exportOverlappedFeatures(text1, text2, this.summarizerSettings.OUTPUT_PATH);
+				ExportHTML.exportOverlappedFeatures(text1, text2, this.globalSettings.OUTPUT_PATH);
 				break;
 			default:
 				break;
@@ -167,8 +167,8 @@ public class Summarizer {
 	
 	public void prepareTextList(List<Text> textList) {
 		for (Text text : textList) {
-			optimizationSettings.FEATURES_PIPELINE.process(optimizationSettings.TEXT_PREPROCESSING_PIPELINE.process(text));
-			optimizationSettings.TEXT_PREPROCESSING_PIPELINE.process(text.getReferenceSummary());
+			summarizationSettings.FEATURES_PIPELINE.process(summarizationSettings.TEXT_PREPROCESSING_PIPELINE.process(text));
+			summarizationSettings.TEXT_PREPROCESSING_PIPELINE.process(text.getReferenceSummary());
 		}
 	}
 	
@@ -176,14 +176,12 @@ public class Summarizer {
 		log.info("Summarizing " + textPath + " ...");
 		// Load, pre-process and compute the features of a complete text
 		Text text = FileUtils.loadText(textPath);
-		text = prepareText(optimizationSettings.TEXT_PREPROCESSING_PIPELINE, optimizationSettings.FEATURES_PIPELINE, text);
+		text = prepareText(summarizationSettings.TEXT_PREPROCESSING_PIPELINE, summarizationSettings.FEATURES_PIPELINE, text);
 		this.saveResult(text);
 		// Summary generation
-		FuzzySystem fs = new FuzzySystem(this.optimizationSettings.FUZZY_SYSTEM_PATH);
-		// Compute sentences informativity using fuzzy system
-		int summarySize = this.getSummarySize(text.getTotalSentence());
-		ArrayList<Tuple<Integer>> sentencesInformativity = computeSentencesInformativity(text, fs, varNames);		
-		return generateSummary(text, summarySize, sentencesInformativity);
+		FuzzySystem fs = new FuzzySystem(this.summarizationSettings.FUZZY_SYSTEM_PATH);
+		return summarizeText(text, fs, varNames);
+		
 	}
 
 	public Text summarizeText(Text text, FuzzySystem fs, List<String> varNames) {
@@ -191,16 +189,24 @@ public class Summarizer {
 		// Compute sentences informativity using fuzzy system
 		int summarySize = this.getSummarySize(text.getTotalSentence());
 		ArrayList<Tuple<Integer>> sentencesInformativity = computeSentencesInformativity(text, fs, varNames);		
-		return generateSummary(text, summarySize, sentencesInformativity);
+		Text generatedSummary = generateSummary(text, summarySize, sentencesInformativity);
+		EvaluationResult result = this.evaluateSummary(summarizationSettings.EVALUATION_METHOD, generatedSummary);
+		return generatedSummary;
 	}
 	
 	public List<Text> summarizeTexts(List<Path> texts) {
 		List<Text> generatedSummaries = new ArrayList<>();
+		List<EvaluationResult> evaluationResults = new ArrayList<>();
 		for (Path entry : texts) {
 			log.info("Processing " + entry.getFileName() + " ...");
-			Text generatedSummary = this.summarizeText(this.optimizationSettings.FULL_TEXTS_PATH + entry.getFileName(), this.optimizationSettings.VAR_NAMES);
+			Text generatedSummary = this.summarizeText(this.summarizationSettings.FULL_TEXTS_PATH + entry.getFileName(), this.summarizationSettings.VAR_NAMES);
 			generatedSummaries.add(generatedSummary);
+			// evaluate 
+			EvaluationResult result = this.evaluateSummary(summarizationSettings.EVALUATION_METHOD, generatedSummary);
+			evaluationResults.add(result);
 		}
+		// save evaluation results
+		ExportCSV.saveEvaluationResult(evaluationResults, this.globalSettings.OUTPUT_PATH);
 		return generatedSummaries;
 	}
 
@@ -208,16 +214,16 @@ public class Summarizer {
 		
 		String fileName = "results/summ_" + (new Date().toString()).replace("-", "_").replace(" ", "_").replace(":", "_");
 	    FileUtils.createDir(fileName);
-	    summarizerSettings.OUTPUT_PATH = fileName;
+	    globalSettings.OUTPUT_PATH = fileName;
 		
-		if(optimizationSettings.SUMMARIZATION_TYPE.equals(SummarizationType.SINGLE)) {
+		if(summarizationSettings.SUMMARIZATION_TYPE.equals(SummarizationType.SINGLE)) {
 			// Run a single text summarization
-			Text generatedSummary = this.summarizeText(this.optimizationSettings.FULL_TEXTS_PATH + this.optimizationSettings.TEXT_NAME, optimizationSettings.VAR_NAMES);
-			this.evaluateSummary(this.optimizationSettings.EVALUATION_METHOD, generatedSummary);
+			Text generatedSummary = this.summarizeText(this.summarizationSettings.FULL_TEXTS_PATH + this.summarizationSettings.TEXT_NAME, summarizationSettings.VAR_NAMES);
+			this.evaluateSummary(this.summarizationSettings.EVALUATION_METHOD, generatedSummary);
 			this.saveResult(generatedSummary);
 		}else {
 			// Run an specified list of summaries
-			List<Path> texts = FileUtils.listTexts(this.optimizationSettings.FULL_TEXTS_PATH);
+			List<Path> texts = FileUtils.listTexts(this.summarizationSettings.FULL_TEXTS_PATH);
 			this.summarizeTexts(texts);
 		}
 		

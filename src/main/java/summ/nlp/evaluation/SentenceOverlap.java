@@ -5,14 +5,13 @@ import org.apache.log4j.Logger;
 
 import summ.model.Sentence;
 import summ.model.Text;
-import summ.nlp.evaluation.EvaluationMethodFactory.EvaluationMethodType;
 
 public class SentenceOverlap implements EvaluationMethod {
 
 	private static final Logger log = LogManager.getLogger(SentenceOverlap.class);
-	private EvaluationMethodType evaluationType;
+	private EvaluationTypes evaluationType;
 	
-	public SentenceOverlap(EvaluationMethodType evaluationType) {
+	public SentenceOverlap(EvaluationTypes evaluationType) {
 		this.evaluationType = evaluationType;
 	}
 	
@@ -61,9 +60,9 @@ public class SentenceOverlap implements EvaluationMethod {
 		
 		EvaluationResult eval = new EvaluationResult();
 		eval.setMainEvaluationMetric(this.evaluationType);
-		eval.addMetric(EvaluationMethodType.PRECISION.name(), precision);
-		eval.addMetric(EvaluationMethodType.RECALL.name(), recall);
-		eval.addMetric(EvaluationMethodType.FMEASURE.name(), fMeasure);
+		eval.addMetric(EvaluationTypes.PRECISION.name(), precision);
+		eval.addMetric(EvaluationTypes.RECALL.name(), recall);
+		eval.addMetric(EvaluationTypes.FMEASURE.name(), fMeasure);
 		return eval;
 		
 	}

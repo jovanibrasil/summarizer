@@ -21,6 +21,10 @@ public class PreprocessingFactory {
 				return new POSTagger();
 			case REMOVE_PUNCTUATION:
 				return new Misc(PreProcessingTypes.REMOVE_PUNCTUATION);
+			case REMOVE_EMPTY_WORDS:
+				return new Misc(PreProcessingTypes.REMOVE_EMPTY_WORDS);
+			case REMOVE_NUMBERS:
+				return new Misc(PreProcessingTypes.REMOVE_NUMBERS);
 			case REMOVE_STOPWORDS:
 				return new StopWords();
 			case SENTENCE_SEGMENTATION:
