@@ -44,8 +44,7 @@ public abstract class MutationOperator {
 			for (CustomLinguisticTerm term : variable.getLinguisticTerms()) {
 				if(this.rand.nextDouble() < geneMutationProbability) {
 					for (int coefficientIndex = 0; coefficientIndex < term.getParametersLength(); coefficientIndex++) {
-						term.setParameter(coefficientIndex, 
-								this.getMutatedFeasibleCoefficient(coefficientIndex, variable, term));
+						term.setParameter(coefficientIndex, this.getMutatedFeasibleCoefficient(coefficientIndex, variable, term));
 					}
 				}
 			}

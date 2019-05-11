@@ -18,8 +18,8 @@ public class BellFunction implements Function, Cloneable, Serializable {
 	private FunctionDetails functionInfo;
 	
 	public BellFunction() {
-		functionInfo = new FunctionDetails(new double[] { 0.2, 1.5, 0.3}, 
-				new double[] {0.5, 3.0, 1.0} );	
+		functionInfo = new FunctionDetails(new double[] { 0.05, 1.0, 0.0}, 
+				new double[] {0.3, 5.0, 1.0} );	
 	}
 	
 	private boolean isFeasibleValue(int index, double value) {

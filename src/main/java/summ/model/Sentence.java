@@ -74,7 +74,10 @@ public class Sentence {
 	}
 	
 	public Word getFirstWord() {
-		return this.words.get(0);
+		if(this.words.size() > 0) {
+			return this.words.get(0);
+		}
+		return null;
 	}
 
 	public void setCurrentValue(String editedSentence) {

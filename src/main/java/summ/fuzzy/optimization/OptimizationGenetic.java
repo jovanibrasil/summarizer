@@ -262,6 +262,7 @@ public class OptimizationGenetic extends OptimizationMethod {
 		log.debug("Generate the first population, evaluate and rank the initial population.");
 		generateFirstPopulation();
 		evaluatePopulation();
+		this.dataSerie.add(this.getBestIndividual().fitness);
 		rankPopulation();
 	}
 

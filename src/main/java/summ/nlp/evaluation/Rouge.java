@@ -14,13 +14,14 @@ import summ.model.Text;
 
 public class Rouge implements EvaluationMethod {
 
-	EvaluationTypes rougeType;
-	
-	public Rouge(EvaluationTypes rougeType) {
-		this.rougeType = rougeType;
-	}
-	
 	private static final Logger log = LogManager.getLogger(Rouge.class);
+	private EvaluationTypes rougeType;
+	private EvaluationTypes evaluationType;
+	
+	public Rouge(EvaluationTypes rougeType, EvaluationTypes evaluationType) {
+		this.rougeType = rougeType;
+		this.evaluationType = evaluationType;
+	}	
 	
 	public EvaluationResult rougeEvaluation(Text generatedSummary, Text referenceSummary) {
 		ROUGESettings settings = new ROUGESettings();
@@ -30,6 +31,7 @@ public class Rouge implements EvaluationMethod {
 		HashMap<String, HashMap<String, Object>> rougeResult = ROUGECalculator.computeRouge(settings, 
 				referenceSummary.getStringSentences(), generatedSummary.getStringSentences()); 
 		EvaluationResult evalResult = formatRougeResult(rougeResult);
+		evalResult.setMainEvaluationMetric(this.evaluationType);
 		return evalResult; 
 	}
 	
@@ -39,7 +41,7 @@ public class Rouge implements EvaluationMethod {
 		
 		result.keySet().forEach(key -> {
 			HashMap<String, Object> r = result.get(key);
-			eval.setEvalName("Rouge-1 Evaluation - " + key);
+			eval.setEvalName(this.rougeType.name() + " evaluation - " + key);
 			eval.addMetric(EvaluationTypes.PRECISION.name(), (Double)r.get("average_p"));
 			eval.addMetric(EvaluationTypes.RECALL.name(), (Double)r.get("average_r"));
 			eval.addMetric(EvaluationTypes.FMEASURE.name(), (Double)r.get("average_f"));
@@ -78,7 +80,7 @@ public class Rouge implements EvaluationMethod {
 
 	@Override
 	public EvaluationResult evaluate(Text generatedText, Text referenceText) {
-		log.info("Rouge evaluation ...");
+		log.debug("Rouge evaluation ...");
 		double relevantSentences = referenceText.getTotalSentence();
 		double retrievedSentences = generatedText.getTotalSentence();
 		double correctSentences = countOverlappedSentences(generatedText, referenceText); 

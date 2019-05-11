@@ -14,10 +14,12 @@ public class EvaluationMethodFactory {
 				return new SentenceOverlap(EvaluationTypes.RECALL);
 			case PRECISION:
 				return new SentenceOverlap(EvaluationTypes.PRECISION);
-			case ROUGE1:
-				return new Rouge(EvaluationTypes.ROUGE1);
-			case ROUGE2:
-				return new Rouge(EvaluationTypes.ROUGE2);
+			case ROUGE1_P:
+				return new Rouge(EvaluationTypes.ROUGE1, EvaluationTypes.PRECISION);
+			case ROUGE1_R:
+				return new Rouge(EvaluationTypes.ROUGE1, EvaluationTypes.RECALL);
+			case ROUGE1_F:
+				return new Rouge(EvaluationTypes.ROUGE1, EvaluationTypes.FMEASURE);
 			case ALL:
 				return new SentenceOverlap(EvaluationTypes.ALL);
 			default:
