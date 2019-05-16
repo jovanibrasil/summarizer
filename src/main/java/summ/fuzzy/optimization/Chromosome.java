@@ -6,8 +6,9 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.Serializable;
-import java.util.ArrayList;
-import java.util.List;
+
+import org.apache.commons.math3.linear.ArrayRealVector;
+import org.apache.commons.math3.linear.RealVector;
 
 /*
  * This class encapsulates an candidate solution and the fitness value. 
@@ -17,23 +18,10 @@ public class Chromosome implements Comparable<Chromosome>, Cloneable, Serializab
 	private static final long serialVersionUID = -4779057552656984319L;
 	
 	double fitness;
-	List<CustomVariable> variables;
+	private RealVector genes;
 	
 	public Chromosome() {
-		this.variables = new ArrayList<>();
-		this.fitness = 0;
-	}
-	
-	public void addGene(CustomVariable variable) {
-		this.variables.add(variable);
-	}
-	
-	public void appendGenes(List<CustomVariable> variables) {
-		this.variables.addAll(variables);
-	}
-	
-	public List<CustomVariable> getVariables() {
-		return this.variables;
+		this.genes = new ArrayRealVector(36);
 	}
 	
 	@Override
@@ -64,9 +52,29 @@ public class Chromosome implements Comparable<Chromosome>, Cloneable, Serializab
 		}
 	}
 
+	public RealVector getGenes() {
+		return this.genes;
+	}
+
+	public double getGene(int index) {
+		return this.genes.getEntry(index);
+	}
+	
+	public void setGenes(RealVector coefficients) {
+		this.genes = coefficients;
+	}
+
+	public int getLength() {
+		return this.genes.getDimension();
+	}
+
+	public void setGene(int geneIndex, double newGeneValue) {
+		this.genes.setEntry(geneIndex, newGeneValue);
+	}
+	
 	@Override
 	public String toString() {
-		return "Chromosome [fitness=" + fitness + ", variables=" + variables + "]";
+		return genes.toString();
 	}
 	
 }

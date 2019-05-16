@@ -6,11 +6,14 @@ import java.util.List;
 import org.apache.commons.math3.linear.RealVector;
 
 import summ.fuzzy.optimization.Chromosome;
-import summ.fuzzy.optimization.CustomLinguisticTerm;
-import summ.fuzzy.optimization.CustomVariable;
+import summ.fuzzy.optimization.functions.Function;
 import summ.utils.MathUtils;
 
-public class GeometricMeanCrossover implements CrossoverOperator {
+public class GeometricMeanCrossover extends CrossoverOperator {
+
+	public GeometricMeanCrossover(Function function) {
+		super(function);
+	}
 
 	/*
 	 * Média simples: Implementação do crossover média (Davis 1991). Dados dois
@@ -24,30 +27,11 @@ public class GeometricMeanCrossover implements CrossoverOperator {
 	 *
 	 */
 	public Chromosome mean(Chromosome parent1, Chromosome parent2) {
-
 		Chromosome child = new Chromosome();
-		List<CustomVariable> p1Variables = parent1.getVariables();
-		List<CustomVariable> p2Variables = parent2.getVariables();
-
-		for (int i = 0; i < p1Variables.size(); i++) {
-			CustomVariable variable = new CustomVariable(p1Variables.get(i).getName()); 
-			List<CustomLinguisticTerm> p1Terms = p1Variables.get(i).getLinguisticTerms();
-			List<CustomLinguisticTerm> p2Terms = p2Variables.get(i).getLinguisticTerms();
-			for (int j = 0; j < p1Terms.size(); j++) {
-				CustomLinguisticTerm p1t = p1Terms.get(j); // parent term
-				CustomLinguisticTerm term = new CustomLinguisticTerm(p1t.getParameters().getDimension(), 
-						p1t.getTermName(), p1t.getFunction());
-				
-				// geometric mean = math.sqrt(varp1[idx] * varp2[idx])
-				RealVector result = p1Terms.get(j).getParameters()
-						.ebeMultiply(p2Terms.get(j).getParameters());
-				result = MathUtils.ebeSqrt(result);
-				
-				term.setParameters(result);
-				variable.addLinguisticTerm(term);
-			}
-			child.addGene(variable);
-		}
+		RealVector result = parent1.getGenes().ebeMultiply(
+				parent2.getGenes());
+		result = MathUtils.ebeSqrt(result);
+		child.setGenes(result);
 		return child;
 	}
 

@@ -10,6 +10,8 @@ import org.apache.log4j.Logger;
 
 import summ.fuzzy.optimization.crossover.CrossoverOperatorFactory;
 import summ.fuzzy.optimization.crossover.CrossoverOperatorFactory.CrossoverOperatorType;
+import summ.fuzzy.optimization.functions.BellFunction;
+import summ.fuzzy.optimization.functions.Function;
 import summ.fuzzy.optimization.mutation.MutationOperatorFactory;
 import summ.fuzzy.optimization.mutation.MutationOperatorFactory.MutationOperatorType;
 import summ.nlp.evaluation.EvaluationMethodFactory;
@@ -53,20 +55,24 @@ public class OptimizationSettingsUtils {
 				rs.VAR_NAMES = Arrays.asList(val.split(","));
 			}
 			
-			val = properties.getProperty("gene_mutation_probability", "0.7");
-			rs.GENE_MUTATION_PROBABILITY = Double.parseDouble(val);
+			val = properties.getProperty("gene_mutation_percentual", "0.7");
+			rs.GENE_MUTATION_PERCENTUAL = Double.parseDouble(val);
 			
 			val = properties.getProperty("evaluation_len", "10");
 			rs.EVALUATION_LEN = Integer.parseInt(val);
 			
+			Function function = new BellFunction();
 			val = properties.getProperty("mutation_operator", "");
-			rs.MUTATION_OPERATOR = MutationOperatorFactory.getMutationOperator(MutationOperatorType.valueOf(val));
+			rs.MUTATION_OPERATOR = MutationOperatorFactory
+					.getMutationOperator(MutationOperatorType.valueOf(val), function);
 			
 			val = properties.getProperty("crossover_operator", "");
-			rs.CROSSOVER_OPERATOR = CrossoverOperatorFactory.getCrossoverOperator(CrossoverOperatorType.valueOf(val));
+			rs.CROSSOVER_OPERATOR = CrossoverOperatorFactory
+					.getCrossoverOperator(CrossoverOperatorType.valueOf(val), function);
 			
 			val = properties.getProperty("evaluation_method", "");
-			rs.EVALUATION_METHOD = EvaluationMethodFactory.getEvaluationMethod(EvaluationTypes.valueOf(val));
+			rs.EVALUATION_METHOD = EvaluationMethodFactory
+					.getEvaluationMethod(EvaluationTypes.valueOf(val));
 			
 			rs.FULL_TEXTS_PATH = properties.getProperty("full_texts_path", "");
 			rs.AUTO_SUMMARIES_PATH = properties.getProperty("auto_summaries_path", "");

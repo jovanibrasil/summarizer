@@ -22,6 +22,10 @@ public class GlobalSettings {
 	public String OUTPUT_PATH;
 	public String[] OPTIMIZATION_FILES;
 	
+	public String CORPUS_PATH;
+	public String AUTO_SUMMARIES_PATH;
+	public int EVALUATION_LEN;
+	
 	public GlobalSettings() {
 		loadSummarizerProps();
 	}
@@ -38,6 +42,11 @@ public class GlobalSettings {
 			this.OPTIMIZATION_PROPERTIES_PATH = properties.getProperty("optimization_properties_path", "");
 			this.OUTPUT_PATH = properties.getProperty("output_path", "");
 			this.OPTIMIZATION_FILES = properties.getProperty("optimization_files", "").replace(" ", "").split(",");
+			
+			this.CORPUS_PATH = properties.getProperty("corpus_path", "");
+			this.AUTO_SUMMARIES_PATH = properties.getProperty("auto_summaries_path", "");
+			this.EVALUATION_LEN = Integer.parseInt(properties.getProperty("evaluation_len", "0"));
+			
 		} catch (IOException e) {
 			log.warn("Problem with settings model file." + e.getMessage());
 			log.warn("If you want to use the tool, please fix this issue first before proceeding.");

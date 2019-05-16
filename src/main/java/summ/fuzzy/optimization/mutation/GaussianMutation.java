@@ -1,12 +1,14 @@
 package summ.fuzzy.optimization.mutation;
 
-import summ.fuzzy.optimization.CustomLinguisticTerm;
-import summ.fuzzy.optimization.functions.FunctionDetails;
+import summ.fuzzy.optimization.functions.Function;
 
 public class GaussianMutation extends MutationOperator {
 
-	public GaussianMutation() {
+	private Function function;
+	
+	public GaussianMutation(Function function) {
 		super();
+		this.function = function;
 	}
 	
 	/**
@@ -19,13 +21,10 @@ public class GaussianMutation extends MutationOperator {
 	}
 
 	@Override
-	public double getAleatoryFeasibleCoefficient(CustomLinguisticTerm term, int coefficientIndex) {
-		FunctionDetails funcInfo = term.getFunction().getFunctionInfo();
-		double rangeMin = funcInfo.getRangeMin(coefficientIndex);
-		double rangeMax = funcInfo.getRangeMax(coefficientIndex);
-		
+	public double getAleatoryFeasibleCoefficient(int index) {
+		double rangeMin = this.function.getRangeMin(index);
+		double rangeMax = this.function.getRangeMax(index);
 		if (rangeMax == rangeMin) return rangeMax;
-		
 		double mean = 0.0;
 		double standardDeviation = 1.0;
 		// normally distributed double with mean 0.0 and standard deviation 1.0

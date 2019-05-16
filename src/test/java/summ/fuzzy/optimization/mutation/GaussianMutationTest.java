@@ -1,9 +1,10 @@
 package summ.fuzzy.optimization.mutation;
 
-import static org.junit.jupiter.api.Assertions.assertTrue;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
+
+import summ.fuzzy.optimization.functions.BellFunction;
 
 class GaussianMutationTest {
 
@@ -19,7 +20,7 @@ class GaussianMutationTest {
 	
 	@Test
 	void test() {
-		this.m = new GaussianMutation();
+		this.m = new GaussianMutation(new BellFunction());
 		this.testCoeffientGeneration(0.0, 1.0);
 		this.testCoeffientGeneration(0.1, 3.0);
 		this.testCoeffientGeneration(0.5, 0.9);

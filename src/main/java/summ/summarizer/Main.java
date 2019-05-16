@@ -34,14 +34,8 @@ public class Main {
 		GlobalSettings summarizerSettings = new GlobalSettings();
 		
 		if(summarizerSettings.EXECUTION_TYPE.equals(ExecutionType.OPTIMIZATION)) {
-			
-			String filesPath = summarizerSettings.OPTIMIZATION_PROPERTIES_PATH;
-			for (String fileName : summarizerSettings.OPTIMIZATION_FILES) {
-				summarizerSettings.OPTIMIZATION_PROPERTIES_PATH = filesPath + fileName;
-				Optimization optmization = new Optimization(summarizerSettings);
-				optmization.run();
-			}			
-			
+			Optimization optmization = new Optimization();
+			optmization.run(summarizerSettings);	
 		}else {
 			Summarizer summarizer = new Summarizer(summarizerSettings);
 			summarizer.run();

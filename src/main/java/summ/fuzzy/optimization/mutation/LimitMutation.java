@@ -1,12 +1,14 @@
 package summ.fuzzy.optimization.mutation;
 
-import summ.fuzzy.optimization.CustomLinguisticTerm;
-import summ.fuzzy.optimization.functions.FunctionDetails;
+import summ.fuzzy.optimization.functions.Function;
 
 public class LimitMutation extends MutationOperator {
 	
-	public LimitMutation() {
+	private Function function;
+	
+	public LimitMutation(Function function) {
 		super();
+		this.function = function;
 	}
 	
 	/**
@@ -26,11 +28,8 @@ public class LimitMutation extends MutationOperator {
 	}
 
 	@Override
-	public double getAleatoryFeasibleCoefficient(CustomLinguisticTerm term, int coefficientIndex) {
-		FunctionDetails funcInfo = term.getFunction().getFunctionInfo();
-		double rangeMin = funcInfo.getRangeMin(coefficientIndex);
-		double rangeMax = funcInfo.getRangeMax(coefficientIndex);
-		return limit(rangeMin, rangeMax);
+	public double getAleatoryFeasibleCoefficient(int index) {
+		return limit(function.getRangeMin(index), function.getRangeMax(index));
 	}
 	
 	@Override

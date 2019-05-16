@@ -1,7 +1,6 @@
 package summ.fuzzy.optimization.mutation;
 
-import summ.fuzzy.optimization.CustomLinguisticTerm;
-import summ.fuzzy.optimization.functions.FunctionDetails;
+import summ.fuzzy.optimization.functions.Function;
 import summ.fuzzy.optimization.mutation.MutationOperatorFactory.MutationOperatorType;
 
 public class CreepMutation extends MutationOperator {
@@ -9,10 +8,12 @@ public class CreepMutation extends MutationOperator {
 	private MutationOperatorType type;
 	private double max;
 	private double min; 
+	private Function function;
 	
-	public CreepMutation(MutationOperatorType creepType) {
+	public CreepMutation(MutationOperatorType creepType, Function function) {
 		super();
 		this.type = creepType;
+		this.function = function;
 		
 		if(this.type.equals(MutationOperatorType.NORMAL_CREEP)) {
 			this.max = +0.05; this.min = -0.05;
@@ -58,17 +59,13 @@ public class CreepMutation extends MutationOperator {
 	}
 	
 	@Override
-	public double getAleatoryFeasibleCoefficient(CustomLinguisticTerm term, int coefficientIndex) {
-		FunctionDetails funcInfo = term.getFunction().getFunctionInfo();
-		double rangeMin = funcInfo.getRangeMin(coefficientIndex);
-		double rangeMax = funcInfo.getRangeMax(coefficientIndex);
-	
-		if(this.type.equals(MutationOperatorType.NORMAL_CREEP)) {
-			return this.creepNormal(term.getParameter(coefficientIndex), rangeMin, rangeMax);
-		}else {
-			return this.creepDisturb(term.getParameter(coefficientIndex), rangeMin, rangeMax);
-		}
-		
+	public double getAleatoryFeasibleCoefficient(int index) {
+//		if(this.type.equals(MutationOperatorType.NORMAL_CREEP)) {
+//			return this.creepNormal(term.getParameter(coefficientIndex), rangeMin, rangeMax);
+//		}else {
+//			return this.creepDisturb(term.getParameter(coefficientIndex), rangeMin, rangeMax);
+//		}
+		return 0.0;
 	}
 	
 	@Override

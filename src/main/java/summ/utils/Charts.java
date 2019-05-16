@@ -14,6 +14,8 @@ import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
 import org.jfree.chart.ChartUtilities;
 import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.axis.ValueAxis;
 import org.jfree.chart.block.BlockBorder;
 import org.jfree.chart.plot.PlotOrientation;
 import org.jfree.chart.plot.XYPlot;
@@ -28,10 +30,13 @@ public class Charts extends JFrame {
 	private static final long serialVersionUID = 6081226860992968894L;
 	private JFreeChart chart;
 
-	public Charts(List<Double> data, String resultName) {
+	public Charts(List<Double> bestFitnessSerie, List<Double> averageFitnessSerie, int totalIterations, String resultName) {
 
-		XYDataset dataset = createDataset(data);
-		chart = createChart(resultName, dataset);
+		XYSeriesCollection dataset = new XYSeriesCollection();
+		createDataset(bestFitnessSerie, "Best Fitness", dataset);
+		createDataset(averageFitnessSerie, "Average Fitness", dataset);
+		
+		chart = createChart(resultName, dataset, totalIterations);
 		ChartPanel chartPanel = new ChartPanel(chart);
 		chartPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 		chartPanel.setBackground(Color.white);
@@ -52,24 +57,30 @@ public class Charts extends JFrame {
 		}
 	}
 
-	private XYDataset createDataset(List<Double> data) {
+	private XYDataset createDataset(List<Double> data, String name, XYSeriesCollection dataset) {
 		
-		XYSeries series = new XYSeries("Fitness");
+		XYSeries series = new XYSeries(name);
 		for (int i = 0; i < data.size(); i++) {
 			series.add(i+1, data.get(i));
 		}
-		XYSeriesCollection dataset = new XYSeriesCollection();
+		
 		dataset.addSeries(series);
 		return dataset;
 	}
 
-	private JFreeChart createChart(String resultName, XYDataset dataset) {
+	private JFreeChart createChart(String resultName, XYDataset dataset, int totalIterations) {
 
-		JFreeChart chart = ChartFactory.createXYLineChart("Results " + resultName, "Iteration", "Evaluation", dataset,
+		JFreeChart chart = ChartFactory.createXYLineChart("Results: " + resultName, "Iteration", "Evaluation", dataset,
 				PlotOrientation.VERTICAL, true, true, false);
 
 		XYPlot plot = chart.getXYPlot();
-
+		
+		ValueAxis domainAxis = plot.getDomainAxis();
+		ValueAxis rangeAxis = plot.getRangeAxis();
+		domainAxis.setStandardTickUnits(NumberAxis.createIntegerTickUnits());
+		domainAxis.setRange(0, totalIterations);
+		rangeAxis.setRange(0.0, 1.0);
+		
 		XYLineAndShapeRenderer renderer = new XYLineAndShapeRenderer();
 		renderer.setSeriesPaint(0, Color.RED);
 		renderer.setSeriesStroke(0, new BasicStroke(2.0f));

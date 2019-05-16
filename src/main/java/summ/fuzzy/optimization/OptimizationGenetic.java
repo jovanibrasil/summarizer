@@ -4,28 +4,19 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map.Entry;
 import java.util.Random;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import net.sourceforge.jFuzzyLogic.membership.MembershipFunction;
-import net.sourceforge.jFuzzyLogic.membership.MembershipFunctionGenBell;
-import net.sourceforge.jFuzzyLogic.membership.Value;
-import net.sourceforge.jFuzzyLogic.optimization.OptimizationMethod;
-import net.sourceforge.jFuzzyLogic.rule.LinguisticTerm;
-import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
-import net.sourceforge.jFuzzyLogic.rule.Variable;
 import summ.fuzzy.FuzzySystem;
 import summ.fuzzy.optimization.crossover.CrossoverOperator;
 import summ.fuzzy.optimization.evaluation.ErrorFunctionSummarization;
-import summ.fuzzy.optimization.functions.FunctionDetails;
-import summ.fuzzy.optimization.functions.FunctionFactory;
-import summ.fuzzy.optimization.functions.FunctionType;
+import summ.fuzzy.optimization.functions.BellFunction;
 import summ.fuzzy.optimization.mutation.MutationOperator;
+import summ.fuzzy.optimization.mutation.UniformMutation;
 
-public class OptimizationGenetic extends OptimizationMethod {
+public class OptimizationGenetic {
 	
 	private static final Logger log = LogManager.getLogger(OptimizationGenetic.class);
 	
@@ -41,29 +32,87 @@ public class OptimizationGenetic extends OptimizationMethod {
     public Random rand;
 	
     public int iteration;
-    List<Double> dataSerie;
     boolean[] randControl;
-    public double geneMutationProbability;
+    public double geneMutationPercentual;
     List<String> parameters;
     	
-	public CustomVariable convertVariableToCustomVariable(Variable variable) {
-		CustomVariable cv = new CustomVariable(variable.getName());
-		for (Entry<String, LinguisticTerm> linguisticTerm : variable.getLinguisticTerms().entrySet()) {
-			MembershipFunction mf = linguisticTerm.getValue().getMembershipFunction();
-			CustomLinguisticTerm lt = new CustomLinguisticTerm(mf.getParametersLength(), 
-					linguisticTerm.getKey(), FunctionFactory.generateFunctionInfo(FunctionType.BELL));
-			// the membership vector has different order
-			// CustomLinguisticTerm: a, b, mean
-			// MemberShip: mean, a, b
-			lt.setParameter(0, mf.getParameter(1));
-			lt.setParameter(1, mf.getParameter(2));
-			lt.setParameter(2, mf.getParameter(0));
-			
-			cv.addLinguisticTerm(lt);
-		}
-		return cv;
+    public List<Double> bestFitnessSerie;
+    public List<Double> averageFitnessSerie;
+    public List<Double> worstFitnessSerie;
+    
+    public FuzzySystem fuzzySystem;
+
+	private int maxIterations;
+    
+    /**
+	 * Genetic optimization constructor.
+	 * 
+	 * @param fuzzyRuleSet is the initial fuzzy rule set
+	 * 
+	 */
+	public OptimizationGenetic(ErrorFunctionSummarization errorFunction,
+			CrossoverOperator crossoverOperator, MutationOperator mutationOperator, double crossoverProbability,
+			double chromosomeMutationProbability,  double geneMutationProbability, boolean eletism, int populationSize,
+			List<String> parameters, FuzzySystem fuzzySystem, int maxIterations) {
+		
+		this.currentPopulation = new ArrayList<>();
+		this.populationSize = populationSize;
+		this.crossoverOperator = crossoverOperator;
+		this.mutationOperator = mutationOperator;
+		this.errorFunction = errorFunction;
+		this.crossoverProbability = crossoverProbability;
+		this.chromossomeMutationProbability = chromosomeMutationProbability;
+        this.geneMutationPercentual = geneMutationProbability;
+		this.elitism = eletism;
+		this.rand = new Random();
+        this.parameters = parameters;
+        this.iteration = 0;
+        
+        this.bestFitnessSerie = new ArrayList<>();
+        this.averageFitnessSerie = new ArrayList<>();
+        this.worstFitnessSerie = new ArrayList<>();
+
+        this.maxIterations = maxIterations;
+        
+        this.fuzzySystem = fuzzySystem;
+        
+        optimizeInit();
 	}
 	
+	/**
+	 * Generate the first population, evaluate and rank the initial population.
+	 */
+	public void optimizeInit() {
+		log.debug("Generate the first population, evaluate and rank the initial population.");
+		generateFirstPopulation();
+		evaluatePopulation();
+		rankPopulation();
+		log.info("Mutation verification: " + OptimizationGenetic.MUTATION_VERIFICATION);
+		log.info("Mutation execution: " + OptimizationGenetic.MUTATION_EXECUTION);
+		log.info("Mutation operator hits: " + MutationOperator.VALUE_GEN_HIT);
+		log.info("Mutation operator errors: " + MutationOperator.VALUE_GEN_ERROR);
+	}
+
+	public void optimizeIteration(int iterationNum) {
+		
+		for (Chromosome c : this.currentPopulation) {
+			System.out.println(c);
+		}
+		
+		
+		this.iteration++;
+		log.info("Iterations:	" + this.iteration + "/" + this.maxIterations);
+		generateIntermediatePopulation();				
+		evaluatePopulation();
+		rankPopulation();	
+		
+		log.info("Mutation verification: " + OptimizationGenetic.MUTATION_VERIFICATION);
+		log.info("Mutation execution: " + OptimizationGenetic.MUTATION_EXECUTION);
+		log.info("Mutation operator hits: " + MutationOperator.VALUE_GEN_HIT);
+		log.info("Mutation operator errors: " + MutationOperator.VALUE_GEN_ERROR);
+		
+	}
+    
 	public void generateFirstPopulation() {
 		
 		log.debug("Generating initial population...");
@@ -72,38 +121,24 @@ public class OptimizationGenetic extends OptimizationMethod {
 		
 		// Create the first Solution. The first Solution is a copy of the initial solution.
 		Chromosome chromosome = new Chromosome();
-		for (String parameterName : this.parameters) {
-			Variable referenceVariable = this.fuzzyRuleSet.getVariable(parameterName);
-			chromosome.addGene(convertVariableToCustomVariable(referenceVariable));	
-		}
+		chromosome.setGenes(fuzzySystem.getCoefficients());
+		MutationOperator fpMutator = new UniformMutation(new BellFunction());
+		
 		this.currentPopulation.add(chromosome);
 		for (int i = 1; i < this.populationSize; i++) {
-			
-			
 			// Geração de cromossomos com valores aleatórios é ruim pq gera valores que não fazem sentido. 
 			// Por exemplo, a ordem dos valores fica sem sentido porém o resultado é ruim. São necessárias algumas 
 			// constraints a serem respeitadas.
-			
-			// Gera cromossomos variando apenas o valor do centro
-			
+			// TODO Gerar cromossomos variando apenas o valor do centro
 			chromosome = new Chromosome();
-			for (String parameterName : this.parameters) {	
-				
-				Variable referenceVariable = this.fuzzyRuleSet.getVariable(parameterName);
-				CustomVariable customVariable = convertVariableToCustomVariable(referenceVariable);
-				
-				// set c value
-				for (CustomLinguisticTerm lt : customVariable.getLinguisticTerms()) {
-					lt.setParameter(0, mutationOperator.getAleatoryFeasibleCoefficient(lt, 0));
-					lt.setParameter(1, mutationOperator.getAleatoryFeasibleCoefficient(lt, 1));
-					lt.setParameter(2, mutationOperator.getMutatedFeasibleCoefficient(2, customVariable, lt));
-				}
-				
-				chromosome.addGene(customVariable);
+			for (int j = 0; j < fuzzySystem.getCoefficients().getDimension(); j+=3) {
+				chromosome.setGene(j, fpMutator.getAleatoryFeasibleCoefficient(0));
+				chromosome.setGene(j, fpMutator.getAleatoryFeasibleCoefficient(1));
+				chromosome.setGene(j, fpMutator.getAleatoryFeasibleCoefficient(2));
 			}
-			
 			this.currentPopulation.add(chromosome);
-		}
+		}	
+		
 	}
 	
 	/**
@@ -112,10 +147,17 @@ public class OptimizationGenetic extends OptimizationMethod {
 	public void rankPopulation() {
 		log.debug("Ranking population " + this.iteration);
 		Collections.sort(this.currentPopulation);
+		double averageFitness = this.currentPopulation.stream()
+				.mapToDouble(x -> x.fitness).sum() / this.currentPopulation.size();
+		this.bestFitnessSerie.add(this.getBestIndividual().fitness);
+		this.worstFitnessSerie.add(this.getWorstIndividual().fitness);
+		this.averageFitnessSerie.add(averageFitness);
 		log.info("Best individual: " + this.getBestIndividual());
-		log.info("Worst individual: " + this.getWorstIndividual());
-		this.dataSerie.add(this.getBestIndividual().fitness);
+		log.info("Average fitness: " + averageFitness);
+		log.info("Best fitness: " + this.getBestIndividual().fitness);
+		log.info("Worst fitness: " + this.getWorstIndividual().fitness);		
 	}
+	
 	
 	private Chromosome getWorstIndividual() {
 		return this.currentPopulation.get(this.currentPopulation.size()-1);
@@ -163,27 +205,13 @@ public class OptimizationGenetic extends OptimizationMethod {
 	public void evaluatePopulation() {
 		
 		for (Chromosome chromosome : currentPopulation) {
-			for (CustomVariable variable : chromosome.getVariables()) {
-				
-				FuzzySystem fs = errorFunction.getFuzzySystem();
-				
-				// get the correct variable by variable name
-				Variable var = fs.getVariable(variable.getName());
-				
-				for (CustomLinguisticTerm term : variable.getLinguisticTerms()) {
-					LinguisticTerm lTerm = var.getLinguisticTerm(term.getTermName());
-					lTerm.setMembershipFunction(new MembershipFunctionGenBell(
-							new Value(term.getParameter(0)), // a
-							new Value(term.getParameter(1)), // b
-							new Value(term.getParameter(2)))); // mean					
-				}
-				
-				fs.setVariable(variable.getName(), var);
-				
-			}	
-			chromosome.fitness = errorFunction.evaluate(fuzzyRuleSet);
+			this.fuzzySystem.setCoefficients(chromosome.getGenes());
+			chromosome.fitness = errorFunction.evaluate(this.fuzzySystem);
 		}
 	}
+	
+	public static int MUTATION_VERIFICATION = 0;
+	public static int MUTATION_EXECUTION = 0;
 	
 	public void generateIntermediatePopulation() {
 		
@@ -209,9 +237,11 @@ public class OptimizationGenetic extends OptimizationMethod {
 				children = Arrays.asList(parent1.deepClone(), parent2.deepClone());
 			}
 			
+			OptimizationGenetic.MUTATION_VERIFICATION++;
 			if(this.rand.nextDouble() < this.chromossomeMutationProbability) {
 				for (int i = 0; i < children.size(); i++) {
-					children.set(i, this.mutationOperator.mutateGenes(children.get(i), this.geneMutationProbability));
+					OptimizationGenetic.MUTATION_EXECUTION++;
+					children.set(i, this.mutationOperator.mutateGenes(children.get(i), this.geneMutationPercentual));
 				}
 			}
 		
@@ -225,75 +255,12 @@ public class OptimizationGenetic extends OptimizationMethod {
 		
 	}
 	
-	/**
-	 * Genetic optimization constructor.
-	 * 
-	 * @param fuzzyRuleSet is the initial fuzzy rule set
-	 * 
-	 */
-	public OptimizationGenetic(RuleBlock fuzzyRuleSet, ErrorFunctionSummarization errorFunction,
-			CrossoverOperator crossoverOperator, MutationOperator mutationOperator, double crossoverProbability,
-			double chromosomeMutationProbability,  double geneMutationProbability, boolean eletism, int populationSize,
-			List<String> parameters) {
-		
-	 	super(fuzzyRuleSet, errorFunction, null);
-		
-		this.currentPopulation = new ArrayList<>();
-		this.populationSize = populationSize;
-		this.crossoverOperator = crossoverOperator;
-		this.mutationOperator = mutationOperator;
-		this.errorFunction = errorFunction;
-		this.crossoverProbability = crossoverProbability;
-		this.chromossomeMutationProbability = chromosomeMutationProbability;
-        this.geneMutationProbability = geneMutationProbability;
-		this.elitism = eletism;
-		this.rand = new Random();
-        this.parameters = parameters;
-        this.iteration = 0;
-        this.dataSerie = new ArrayList<>();
-        
+	public Chromosome run() {
+		int iterNum = 0;
+		for( ; iterNum < maxIterations; iterNum++ ) {
+			optimizeIteration(iterNum);
+		}
+		return this.getBestIndividual();
 	}
 	
-	/**
-	 * Generate the first population, evaluate and rank the initial population.
-	 */
-	@Override
-	public void optimizeInit() {
-		log.debug("Generate the first population, evaluate and rank the initial population.");
-		generateFirstPopulation();
-		evaluatePopulation();
-		this.dataSerie.add(this.getBestIndividual().fitness);
-		rankPopulation();
-	}
-
-	@Override
-	public void optimizeIteration(int iterationNum) {
-		this.iteration++;
-		log.info("Iterations:	" + this.iteration + "/" + this.maxIterations);
-		generateIntermediatePopulation();				
-		evaluatePopulation();
-		rankPopulation();	
-		
-		Chromosome chromosome = this.currentPopulation.get(0);
-		for (CustomVariable variable : chromosome.getVariables()) {
-			
-			FuzzySystem fs = errorFunction.getFuzzySystem();
-			Variable var = fs.getVariable(variable.getName());
-			
-			for (CustomLinguisticTerm term : variable.getLinguisticTerms()) {
-				LinguisticTerm lTerm = var.getLinguisticTerm(term.getTermName());
-				lTerm.setMembershipFunction(new MembershipFunctionGenBell(
-						new Value(term.getParameter(0)), // a
-						new Value(term.getParameter(1)), // b
-						new Value(term.getParameter(2)))); // mean					
-			}
-			//log.info(var);
-			fs.setVariable(variable.getName(), var);
-		}		
-	}
-
-	public List<Double> getDataSerie() {
-		return this.dataSerie;
-	}
-
 }

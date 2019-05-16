@@ -1,53 +1,53 @@
 package summ.fuzzy.optimization.mutation;
 
+import java.util.HashSet;
 import java.util.Random;
 
-import org.apache.log4j.LogManager;
-import org.apache.log4j.Logger;
-
 import summ.fuzzy.optimization.Chromosome;
-import summ.fuzzy.optimization.CustomLinguisticTerm;
-import summ.fuzzy.optimization.CustomVariable;
-import summ.fuzzy.optimization.functions.FunctionDetails;
 
 public abstract class MutationOperator {
 	
-	private static final Logger log = LogManager.getLogger(MutationOperator.class);
+	//private static final Logger log = LogManager.getLogger(MutationOperator.class);
+	
+	public static int VALUE_GEN_HIT = 0;
+	public static int VALUE_GEN_ERROR = 0;
+	public final double GENE_MUTATION_PROBABILITY = 0.3;
+	HashSet<Integer> alreadyMutated;
 	
 	public Random rand;
 	
 	public MutationOperator() {
 		this.rand = new Random();
+		this.alreadyMutated = new HashSet<Integer>();
 	}
 	
-	public abstract double getAleatoryFeasibleCoefficient(CustomLinguisticTerm term, int coefficientIndex);
+	public int getAleatoryIntegerValue(int rangeMin, int rangeMax) {
+		return this.rand.nextInt(rangeMax) + rangeMin; // uniformly distributed double
+	}
 	
-	public double getMutatedFeasibleCoefficient(int index, CustomVariable variable, CustomLinguisticTerm term) {
-		double value;
-		int loopControl = 0;
-		while(true) {
-			value = this.getAleatoryFeasibleCoefficient(term, index);
+	public abstract double getAleatoryFeasibleCoefficient(int index);
+	
+	public Chromosome mutateGenes(Chromosome chromosome, double genesMutationPercentual) {
+		
+		HashSet<Integer> alreadyMutated = new HashSet<Integer>();
+		alreadyMutated.clear();
+		
+		int maxGeneMutatedValues = (int)(chromosome.getLength() * genesMutationPercentual);
+		int geneMutationCounter = 0;
+		
+		while (geneMutationCounter < maxGeneMutatedValues) {	
+			int geneIndex = getAleatoryIntegerValue(0, chromosome.getLength()-1);
 			
-			if(term.getFunction().isFeasibleValue(index, term.getTermName(), value, variable)) break;
-			if(loopControl == 100) {
-				//log.error("Coefficient generation error ...");
-				value = term.getParameter(2); // não foi possível, então mantém o valor anterior
-				break;
-			}
-			loopControl++; // tenta 100x gerar um novo coeficiente
-		}	
-		return value;
-	}
-	
-	public Chromosome mutateGenes(Chromosome chromosome, double geneMutationProbability) {
-		for (CustomVariable variable : chromosome.getVariables()) {
-			for (CustomLinguisticTerm term : variable.getLinguisticTerms()) {
-				if(this.rand.nextDouble() < geneMutationProbability) {
-					for (int coefficientIndex = 0; coefficientIndex < term.getParametersLength(); coefficientIndex++) {
-						term.setParameter(coefficientIndex, this.getMutatedFeasibleCoefficient(coefficientIndex, variable, term));
-					}
-				}
-			}
+			if(this.alreadyMutated.contains(geneIndex)) continue;
+			
+			// descobrir o indice do termo a partir do indice do variável
+			// resto da divisão por 3 (isso pq todas as varieis tem o mesmo tamanho)
+			
+			double newGeneValue = this.getAleatoryFeasibleCoefficient(geneIndex % 3);
+			chromosome.setGene(geneIndex, newGeneValue);
+			geneMutationCounter++;
+			alreadyMutated.add(geneIndex);
+			MutationOperator.VALUE_GEN_HIT++;
 		}
 		return chromosome;
 	}

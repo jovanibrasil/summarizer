@@ -6,10 +6,13 @@ import java.util.List;
 import org.apache.commons.math3.linear.RealVector;
 
 import summ.fuzzy.optimization.Chromosome;
-import summ.fuzzy.optimization.CustomLinguisticTerm;
-import summ.fuzzy.optimization.CustomVariable;
+import summ.fuzzy.optimization.functions.Function;
 
-public class SimpleMeanCrossover implements CrossoverOperator {
+public class SimpleMeanCrossover extends CrossoverOperator {
+
+	public SimpleMeanCrossover(Function function) {
+		super(function);
+	}
 
 	/*
 	 * Média simples: Implementação do crossover média (Davis 1991). Dados dois
@@ -23,29 +26,11 @@ public class SimpleMeanCrossover implements CrossoverOperator {
 	 *
 	 */
 	public Chromosome mean(Chromosome parent1, Chromosome parent2) {
-
 		Chromosome child = new Chromosome();
-		
-		List<CustomVariable> p1Variables = parent1.getVariables();
-		List<CustomVariable> p2Variables = parent2.getVariables();
-		// for each variable
-		for (int i = 0; i < p1Variables.size(); i++) {
-			CustomVariable variable = new CustomVariable(p1Variables.get(i).getName()); 
-			List<CustomLinguisticTerm> p1Terms = p1Variables.get(i).getLinguisticTerms();
-			List<CustomLinguisticTerm> p2Terms = p2Variables.get(i).getLinguisticTerms();
-			// for each term
-			for (int j = 0; j < p1Terms.size(); j++) {
-				
-				CustomLinguisticTerm term = new CustomLinguisticTerm(p1Terms.get(j)
-						.getParametersLength(), p1Terms.get(j).getTermName(), p1Terms.get(j).getFunction() );
-				// compute the mean between the parent1 and parent 2 terms
-				RealVector result = p1Terms.get(j).getParameters().add(p2Terms.get(j).getParameters()).mapDivide(2); // simple mean ((varp1[idx] + varp2[idx])/2)
-				
-				term.setParameters(result);
-				variable.addLinguisticTerm(term);
-			}
-			child.addGene(variable);
-		}
+		// compute the mean between the parent1 and parent 2 terms
+		// simple mean ((varp1[idx] + varp2[idx])/2)
+		RealVector result = parent1.getGenes().add(parent2.getGenes()).mapDivide(2); 
+		child.setGenes(result);
 		return child;
 	}
 

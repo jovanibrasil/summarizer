@@ -1,11 +1,25 @@
 package summ.fuzzy.optimization.functions;
 
-import summ.fuzzy.optimization.CustomVariable;
 
-public interface Function {
+public abstract class Function {
 
-	public boolean isFeasibleValue(int index, String termName, double value, CustomVariable variable);
-	public boolean isFeasibleVariable();
-	public FunctionDetails getFunctionInfo();
+	double rangeMin[];
+	double rangeMax[];
+	
+	public Function(double rangeMin[], double rangeMax[]) {
+		this.rangeMin = rangeMin; 
+		this.rangeMax = rangeMax;
+	}
+	
+	public double getRangeMin(int index) {
+		return rangeMin[index];
+	}
+
+	public double getRangeMax(int index) {
+		return rangeMax[index];
+	}
+	
+	public abstract boolean isFeasibleValue(int index, double value);
+	public abstract boolean isFeasibleVariable();
 	
 }

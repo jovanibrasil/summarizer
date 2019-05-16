@@ -11,7 +11,7 @@ public class OptimizationSettings {
 	public int MAX_ITERATIONS = 20;
 	public double MUTATION_PROBABILITY = 0.1;
 	public double CROSSOVER_PROBABILITY = 0.6;
-	public double GENE_MUTATION_PROBABILITY = 0.7;
+	public double GENE_MUTATION_PERCENTUAL = 0.7;
 	public boolean ELITISM = true;
 	public int POPULATION_SIZE = 10;
 	public int EVALUATION_LEN = 10;
