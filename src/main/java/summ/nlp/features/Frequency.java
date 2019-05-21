@@ -37,13 +37,13 @@ public class Frequency implements Pipe<Text> {
 		log.debug("Calculating TF (term frequency).");
 		
 		HashMap<String, Integer> rtf = new HashMap<String, Integer>(); 
-		int count = 0; String maxRtfKey = ""; 
+		int wordCounter = 0; String maxRtfKey = ""; 
 		rtf.put(maxRtfKey, 0);
 		for (Paragraph p : text.getParagraphs()) {
 			for (Sentence s : p.getSentences()) {
 				for (Word w : s.getWords()) {
 					// increment word counter
-					count++;
+					wordCounter++;
 					// increment frequency counter
 					String key = w.getCurrentValue();
 					int value = rtf.containsKey(key) ? rtf.get(key) + 1 : 1;
@@ -57,17 +57,15 @@ public class Frequency implements Pipe<Text> {
 		
 		Map<String, Double> tfDocLenBased = new HashMap<>();
 		for (Entry<String, Integer> e : rtf.entrySet()) {
-			tfDocLenBased.put(e.getKey(), (double)e.getValue() / count);
+			tfDocLenBased.put(e.getKey(), (double)e.getValue() / wordCounter);
 		}
-		
 		
 		Map<String, Double> tfMaxRtfBased = new HashMap<>();
 		for (Entry<String, Integer> e : rtf.entrySet()) {
 			tfMaxRtfBased.put(e.getKey(), (double)e.getValue() / rtf.get(maxRtfKey));
 		}
 		
-		
-		text.addFeature("doc_length", count); // 
+		text.addFeature("doc_length", wordCounter); // 
 		text.addFeature("rtf", rtf); // register raw frequency		
 		text.addFeature("tf_doc_len_based", tfDocLenBased);
 		text.addFeature("tf_max_rtf_based", tfMaxRtfBased);
@@ -88,12 +86,12 @@ public class Frequency implements Pipe<Text> {
 		
 		// inverted index used for count sentences with term occurrence
 		HashMap<String, HashSet<Integer>> index = new HashMap<>(); 
-		int count = 0;
+		int sentenceCounter = 0;
 		
 		for (Paragraph p : text.getParagraphs()) {
 			for (Sentence s : p.getSentences()) {
 				// increment sentence counter
-				count++;
+				sentenceCounter++;
 				s.getWords().forEach(w -> {
 					String key = w.getCurrentValue();
 					if(index.containsKey(key)) {
@@ -108,14 +106,14 @@ public class Frequency implements Pipe<Text> {
 		
 		// log (matemtica)  log 10 em java -  o inverso de 10^x
 		// ln (matemtica)  a funo log em java que  log_e x ou log x  
-		// 	-  o inverno de e^x e tabm chamado de logaritmo natural
+		// 	-  o inverso de e^x e tabm chamado de logaritmo natural
 		
 		Map<String, Double> isf = new HashMap<>();
 		for (Entry<String, HashSet<Integer>> e : index.entrySet()) {
-			isf.put(e.getKey(), Math.log10((double)count / (double)e.getValue().size()));
+			isf.put(e.getKey(), Math.log10((double)sentenceCounter / (double)e.getValue().size()));
 		}
 		
-		text.addFeature("sentence_counter", count);
+		text.addFeature("sentence_counter", sentenceCounter);
 		text.addFeature("isf", isf);
 		
 	}
@@ -140,37 +138,40 @@ public class Frequency implements Pipe<Text> {
 		Map<String, Double> tfisf = new HashMap<>();
 		for (Entry<String, Integer> e : rtf.entrySet()) {
 			Double res = (double)e.getValue() * isf.get(e.getKey());
-			if(res > maxRes)
-				maxRes = res;
+			if(res > maxRes) maxRes = res;
 			tfisf.put(e.getKey(), res);
 		}
 		
 		for (String key : tfisf.keySet()) {
-			tfisf.put(key, tfisf.get(key) / maxRes);
-			//System.out.println(key + " tf-isf = " + tfisf.get(key) + " tf = " + rtf.get(key));	
+			tfisf.put(key, tfisf.get(key) / maxRes); // tfisf normalization
 		}
 		
-		// calculates the sentence tfisf 
+		// calculates the sentence tfisf
+		double sentenceTfIsf;
+		maxRes = .0;
 		for (Paragraph p : text.getParagraphs()) {
 			for (Sentence s : p.getSentences()) {
-				maxRes = .0;
+				sentenceTfIsf = .0;
 				for (Word w : s.getWords()) {
-					maxRes += tfisf.get(w.getCurrentValue());
+					sentenceTfIsf += tfisf.get(w.getCurrentValue());
 				}
-				s.addFeature("tf_isf", maxRes / s.getLength());
+				if(sentenceTfIsf > maxRes) maxRes = sentenceTfIsf;
+				s.addFeature("tf_isf", sentenceTfIsf);
 			}
 		}
 		
 		text.addFeature("tf_isf", tfisf);
 	
-		text.getParagraphs().forEach(p -> {
-			p.getSentences().forEach(s -> {
-				// increment sentence counter
-				s.getWords().forEach(w -> {
+		for (Paragraph p : text.getParagraphs()) {
+			for (Sentence s : p.getSentences()) {
+				// normalize tfisf
+				s.addFeature("tf_isf", (double)s.getFeature("tf_isf") / maxRes);
+				// set tfisf for each word
+				for (Word w : s.getWords()) {
 					w.addFeature("tf_isf", tfisf.get(w.getCurrentValue()));
-				});
-			});
-		});
+				}
+			}
+		}
 		return text;
 	}
 	

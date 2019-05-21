@@ -134,7 +134,7 @@ public class Optimization {
 			
 			// Save pre-processing and feature computation results
 			texts.forEach(text -> {
-				ExportHTML.exportSentecesAndFeatures(text, summarizer.summarizationSettings.OUTPUT_EXPORT_VARIABLES, textsResultsPath);
+				ExportHTML.exportSentecesAndFeatures(text, summarizer.summarizationSettings.OUTPUT_EXPORT_VARIABLES, textsResultsPath, "full-text");
 			});
 			
 			objs.add(Arrays.asList(bestFitnessSerie, geneticOptimization.worstFitnessSerie,  geneticOptimization.averageFitnessSerie, 

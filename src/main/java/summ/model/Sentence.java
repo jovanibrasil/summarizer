@@ -5,7 +5,9 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class Sentence {
+import summ.utils.Tuple;
+
+public class Sentence implements Comparable<Sentence> {
 
 	private int id;
 	private int pos; // relative position to paragraph  	
@@ -18,12 +20,15 @@ public class Sentence {
 	private Boolean isTitle;
 	private Double score;
 	
+	public int wordCounter;
+	
 	public Sentence(String initialValue) {
 		this.initialValue = initialValue;
 		this.currentValue = initialValue;
 		this.features = new HashMap<>();
 		this.words = new ArrayList<>();
 		this.isTitle = false;
+		this.wordCounter = 0;
 	}
 	
 	public void addWord(Word word) {
@@ -148,6 +153,17 @@ public class Sentence {
 		this.score = score;
 	}
 
+	@Override
+	public int compareTo(Sentence s) {
+		if(s.getId() > this.getId()) {
+			return -1;
+		}else if(s.getId() < this.getId()) {
+			return 1;
+		}else {
+			return 0;
+		}
+	}
+	
 	public String toString(List<String> features) {
 		StringBuilder sb = new StringBuilder();
 		

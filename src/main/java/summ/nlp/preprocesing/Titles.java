@@ -21,19 +21,23 @@ public class Titles implements Pipe<Text> {
 		log.debug("Searching and identifying text titles.");
 		text.getParagraphs().forEach( paragraph -> {
 			paragraph.getSentences().forEach(sentence -> {
-				// TODO sentença pode não ter valores após o pre-processamento
-				Word word = sentence.getFirstWord();
-				if(word == null) {
-					sentence.setTitle(false);
+				if(sentence.getId() == 0) {
+					sentence.setTitle(true);
 				}else {
-					String firstWord = word.getInitialValue();
-					int maxSentenceLength = 5; // TODO calculate dynamically the sentence length BEFORE the execution of this method
-					if(MathUtils.isNumeric(firstWord) || 
-							paragraph.getLength() == 1 && sentence.getLength() < maxSentenceLength) {
-						sentence.setTitle(true);
-					} else {
+					// TODO sentença pode não ter valores após o pre-processamento
+					Word word = sentence.getFirstWord();
+					if(word == null) {
 						sentence.setTitle(false);
-					}	
+					}else {
+						String firstWord = word.getInitialValue();
+						int maxSentenceLength = 5; // TODO calculate dynamically the sentence length BEFORE the execution of this method
+						if(MathUtils.isNumeric(firstWord) || 
+								paragraph.getLength() == 1 && sentence.getLength() < maxSentenceLength) {
+							sentence.setTitle(true);
+						} else {
+							sentence.setTitle(false);
+						}	
+					}
 				}
 			});
 		});

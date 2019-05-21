@@ -2,6 +2,7 @@ package summ.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 public class Paragraph {
@@ -66,6 +67,10 @@ public class Paragraph {
 			sb.append(s);
 		});
 		return sb.toString();
+	}
+
+	public void addSentences(List<Sentence> sentences) {
+		this.sentences.addAll(sentences);
 	}
 	
 }

@@ -19,7 +19,7 @@ public class ExportHTML {
 	 * @param text
 	 * @param selectedFeatures
 	 */
-	public static void exportSentecesAndFeatures(Text text, List<String> selectedFeatures, String outputPath) {
+	public static void exportSentecesAndFeatures(Text text, List<String> selectedFeatures, String outputPath, String fileName) {
 		try {
 			File file = new File("src/main/resources/templates/result.html") ;
 			String htmlString = FileUtils.readFileToString(file, Charset.forName("UTF-8"));
@@ -42,7 +42,7 @@ public class ExportHTML {
 			htmlString = htmlString.replace("$body", body);
 			
 			File newHtmlFile = new File(outputPath + "/" + text.getName().replace(".txt", "") + 
-					"pp-and-features" + Utils.generateStringFormattedData() + ".html");
+					"-" + fileName + "-pp-and-features" + Utils.generateStringFormattedData() + ".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString, Charset.forName("UTF-8"));
 			
 		} catch (Exception e) {

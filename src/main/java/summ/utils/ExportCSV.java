@@ -20,9 +20,10 @@ public class ExportCSV {
 	 * 
 	 * @param text is a Text object that contains the data that will be saved.
 	 */
-	public static void exportSentenceFeatures(Text text, String outputPath) {
+	public static void exportSentenceFeatures(Text text, String outputPath, String fileName) {
 		try {
-			File file = new File(outputPath + "/texts-evaluation-features" + Utils.generateStringFormattedData() + ".csv") ;
+			File file = new File(outputPath + "/"+ fileName +"texts-evaluation-features" + 
+					Utils.generateStringFormattedData() + ".csv") ;
 			FileWriter outputfile = new FileWriter(file);
 			CSVWriter writer = new CSVWriter(outputfile);			
 			String[] header = null;

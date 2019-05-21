@@ -2,6 +2,7 @@ package summ.summarizer;
 
 import java.nio.file.Path;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 import java.util.Date;
 import java.util.List;
@@ -56,26 +57,38 @@ public class Summarizer {
 	}
 
 	public Text generateSummary(Text text, int summarySize, ArrayList<Tuple<Integer>> outList) {
+		
 		log.debug("Generating text summary with summary size " + summarySize);
 		// Generate the summary
 		Text generatedSummary = new Text("");
 		generatedSummary.setName(text.getName());
 		Paragraph paragraph = new Paragraph(""); // TODO where is the full paragraph text? Is it necessary?
 		int count = 0;
+		List<Sentence> sentences = new ArrayList<Sentence>();
 		for (Tuple<Integer> t : outList) {
 
 			Sentence sentence = text.getSentenceById(t.x);
 			// Title sentences are ignored
 			if (sentence.isTitle())
 				continue;
-			paragraph.addSentence(sentence);
-			//log.info("Sentence " + t.x + " with score " + t.y + " was selected");
-			if (count == summarySize) {
-				break;
-			}
-			count++;
+			
+			// counting words
+			if(count + sentence.wordCounter > summarySize) break;
+			
+			sentences.add(sentence);
+			count+=sentence.wordCounter;
+			
+			// counting sentences
+//			if (count == summarySize) {
+//				break;
+//			}
+//			count++;
 		}
+		
+		Collections.sort(sentences);
+		paragraph.addSentences(sentences);
 		generatedSummary.addParagraph(paragraph);
+		
 		return generatedSummary;
 	}
 
@@ -94,6 +107,24 @@ public class Summarizer {
 			EvaluationResult evaluationResult = evaluationMethod.evaluate(generatedSummary, referenceSummary);
 			evaluationResult.setEvalName(generatedSummary.getName());
 			generatedSummary.setEvaluationResult(evaluationResult);
+			
+			/*
+			 * 
+			 * Gera sumário referência commarcações das sentenças selecionadas no sumário gerado.
+			 * 
+			 */
+			String refSentences = "";
+			int id = 0;
+			// save extra formats
+			for (Sentence s : referenceSummary.getSentences()) {
+				refSentences += generatedSummary.containsSentence(s) ? 
+					" \\uline{" + s.getInitialValue() + "} " : s.getInitialValue();
+				id++;
+			} 
+			refSentences+="\n";
+			
+			FileUtils.saveListOfObjects(Arrays.asList(refSentences), this.globalSettings.OUTPUT_PATH + "/sumarioreferencia_marcado.txt");
+						
 			log.debug(evaluationResult);
 			return evaluationResult;
 		}
@@ -128,7 +159,7 @@ public class Summarizer {
 		}
 	}
 	
-	public void saveResult(Text text1) {
+	public void saveResult(Text text1, String fileName) {
 		switch (summarizationSettings.OUTPUT_TYPE) {
 			case NONE:
 				return;
@@ -136,10 +167,11 @@ public class Summarizer {
 				log.info(text1);
 				break;
 			case FEATURES_BY_SENTENCE_CSV:
-				ExportCSV.exportSentenceFeatures(text1, this.globalSettings.OUTPUT_PATH);
+				ExportCSV.exportSentenceFeatures(text1, this.globalSettings.OUTPUT_PATH, fileName);
 				break;
 			case FEATURES_BY_SENTENCE_HTML:
-				ExportHTML.exportSentecesAndFeatures(text1, summarizationSettings.OUTPUT_EXPORT_VARIABLES, this.globalSettings.OUTPUT_PATH);
+				ExportHTML.exportSentecesAndFeatures(text1, summarizationSettings.OUTPUT_EXPORT_VARIABLES, 
+						this.globalSettings.OUTPUT_PATH, fileName);
 				break;
 			default:
 				break;
@@ -173,21 +205,44 @@ public class Summarizer {
 	}
 	
 	public Text summarizeText(String textPath, List<String> varNames) {
-		log.info("Summarizing " + textPath + " ...");
+		//log.info("Summarizing " + textPath + " ...");
 		// Load, pre-process and compute the features of a complete text
 		Text text = FileUtils.loadText(textPath);
 		text = prepareText(summarizationSettings.TEXT_PREPROCESSING_PIPELINE, summarizationSettings.FEATURES_PIPELINE, text);
-		this.saveResult(text);
+		
 		// Summary generation
 		FuzzySystem fs = new FuzzySystem(this.summarizationSettings.FUZZY_SYSTEM_PATH);
-		return summarizeText(text, fs, varNames);
+		
+		Text generatedSummary = summarizeText(text, fs, varNames);
+		
+		this.saveResult(text, "full-text");
+		
+		/*
+		 * Gera texto original marcado com sentenças selecionadas no sumário gerado.
+		 * 
+		 */
+		String originalText = "";
+		int id = 0;
+		for (Paragraph p : text.getParagraphs()) {
+			for (Sentence s : p.getSentences()) {
+				originalText += generatedSummary.containsSentence(s) ?
+					" \\uline{[" + id++ + "] " + s.getInitialValue() + "}" : s.getInitialValue();
+			}
+			originalText += "\\\\";
+		}
+		FileUtils.saveListOfObjects(Arrays.asList(originalText), this.globalSettings.OUTPUT_PATH + "/textooriginal_marcado.txt");
+		
+		return generatedSummary;
 		
 	}
 
 	public Text summarizeText(Text text, FuzzySystem fs, List<String> varNames) {
 		log.debug("Summarizing " + text.getFullTextPath() + " ...");
 		// Compute sentences informativity using fuzzy system
-		int summarySize = this.getSummarySize(text.getTotalSentence());
+		
+		//int summarySize = this.getSummarySize(text.getTotalSentence());
+		int summarySize = (int)(text.wordCounter * 0.3);
+		
 		ArrayList<Tuple<Integer>> sentencesInformativity = computeSentencesInformativity(text, fs, varNames);		
 		Text generatedSummary = generateSummary(text, summarySize, sentencesInformativity);
 		EvaluationResult result = this.evaluateSummary(summarizationSettings.EVALUATION_METHOD, generatedSummary);
@@ -220,7 +275,25 @@ public class Summarizer {
 			// Run a single text summarization
 			Text generatedSummary = this.summarizeText(this.summarizationSettings.FULL_TEXTS_PATH + this.summarizationSettings.TEXT_NAME, summarizationSettings.VAR_NAMES);
 			this.evaluateSummary(this.summarizationSettings.EVALUATION_METHOD, generatedSummary);
-			this.saveResult(generatedSummary);
+			
+			this.saveResult(generatedSummary, "summ-text");
+			
+			/*
+			 * 
+			 * Gera lista de sentenças numeradas.
+			 * 
+			 */
+			
+			String numeredSentences = "";
+			int id = 0;
+			// save extra formats
+			for (Sentence s : generatedSummary.getSentences()) {
+				numeredSentences += " [" + id++ + "] " + s.getInitialValue(); 
+			} 
+			numeredSentences+="\n";
+			
+			FileUtils.saveListOfObjects(Arrays.asList(numeredSentences), this.globalSettings.OUTPUT_PATH + "/sumariogerado_numerado.txt");
+			
 		}else {
 			// Run an specified list of summaries
 			List<Path> texts = FileUtils.listTexts(this.summarizationSettings.FULL_TEXTS_PATH);

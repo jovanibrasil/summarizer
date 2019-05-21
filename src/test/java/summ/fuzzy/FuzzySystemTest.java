@@ -82,7 +82,7 @@ class FuzzySystemTest {
 
 		Variable outputValue = fs.evaluate(); // evaluate (run the system)
 		assertEquals(0.7665974171965814, outputValue.getValue()); // using center of gravity (COG, centroid)
-
+		// 0.752
 	}
 
 	// test gaussian functions

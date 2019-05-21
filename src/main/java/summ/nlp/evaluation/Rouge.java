@@ -27,7 +27,7 @@ public class Rouge implements EvaluationMethod {
 		ROUGESettings settings = new ROUGESettings();
 		SettingsUtil.loadProps(settings);
 		settings.USE_STEMMER = false;
-		settings.REMOVE_STOP_WORDS = true;
+		settings.REMOVE_STOP_WORDS = false;
 		HashMap<String, HashMap<String, Object>> rougeResult = ROUGECalculator.computeRouge(settings, 
 				referenceSummary.getStringSentences(), generatedSummary.getStringSentences()); 
 		EvaluationResult evalResult = formatRougeResult(rougeResult);

@@ -1,12 +1,15 @@
 package summ.nlp.evaluation;
 
-import org.jfree.util.Log;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
+
 
 public class EvaluationMethodFactory {
 
+	private static final Logger log = LogManager.getLogger(EvaluationMethodFactory.class);
 	
 	public static EvaluationMethod getEvaluationMethod(EvaluationTypes evaluationType) {
-		Log.info("Evaluation type: " + evaluationType.name());
+		log.info("Evaluation type: " + evaluationType.name());
 		switch (evaluationType) {
 			case FMEASURE:
 				return new SentenceOverlap(EvaluationTypes.FMEASURE);

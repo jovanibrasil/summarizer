@@ -43,6 +43,8 @@ public class Tokenization implements Pipe<Text> {
 					for (String s : tokenizedWords) {
 						sentence.addWord(new Word(s.trim()));
 					}
+					sentence.wordCounter = tokenizedWords.length;
+					text.wordCounter += tokenizedWords.length;
 				});
 			});
 			
@@ -69,9 +71,12 @@ public class Tokenization implements Pipe<Text> {
 		WhitespaceTokenizer tk = WhitespaceTokenizer.INSTANCE;
 		text.getParagraphs().forEach( paragraph -> {
 			paragraph.getSentences().forEach(sentence -> {
-				for (String s : tk.tokenize(sentence.getCurrentValue())) {
+				String[] tokenizedWords = tk.tokenize(sentence.getCurrentValue());
+				for (String s : tokenizedWords) {
 					sentence.addWord(new Word(s.trim()));
 				}
+				sentence.wordCounter = tokenizedWords.length;
+				text.wordCounter += tokenizedWords.length;
 			});
 		});
 		return text;
@@ -85,9 +90,12 @@ public class Tokenization implements Pipe<Text> {
 		SimpleTokenizer tk = SimpleTokenizer.INSTANCE;
 		text.getParagraphs().forEach( paragraph -> {
 			paragraph.getSentences().forEach(sentence -> {
-				for (String s : tk.tokenize(sentence.getCurrentValue())) {
+				String[] tokenizedWords = tk.tokenize(sentence.getCurrentValue());
+				for (String s : tokenizedWords) {
 					sentence.addWord(new Word(s.trim()));
 				}
+				sentence.wordCounter = tokenizedWords.length;
+				text.wordCounter += tokenizedWords.length;
 			});
 		});
 		return text;
@@ -107,7 +115,6 @@ public class Tokenization implements Pipe<Text> {
 				log.error("Sentence " + sentence.getId() + ": List of words must be empty."); 
 			} 
 		}
-		
 		switch (this.tokenizationType) {
 			case WHITE_SPACE_TOKENIZATION:
 				return this.whiteSpaceTokenization(text);

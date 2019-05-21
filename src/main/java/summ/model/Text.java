@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Map;
 
 import summ.nlp.evaluation.EvaluationResult;
+import summ.utils.Tuple;
 
 public class Text {
 
@@ -19,10 +20,13 @@ public class Text {
 	private String fullTextPath;
 	private Text referenceSummary;
 	
+	public int wordCounter;
+	
 	public Text(String rawText) {
 		this.rawText = rawText;
 		this.paragraphs = new ArrayList<>();
 		this.features = new HashMap<>();
+		this.wordCounter = 0;
 	}
 	
 	public ArrayList<Paragraph> getParagraphs() {
@@ -161,6 +165,16 @@ public class Text {
 	
 	public void setReferenceSummary(Text referenceSummary) {
 		this.referenceSummary = referenceSummary;
+	}
+
+	public List<Sentence> getValidSentences() {
+		List<Sentence> validSentences = new ArrayList<Sentence>();
+		for (Paragraph paragraph : this.paragraphs) {
+			for (Sentence sentence : paragraph.getSentences()) {
+				if(!sentence.isTitle()) validSentences.add(sentence);
+			}
+		}
+		return validSentences;
 	}
 	
 }

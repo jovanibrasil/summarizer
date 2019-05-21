@@ -8,6 +8,7 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PrintWriter;
+import java.io.UnsupportedEncodingException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -175,12 +176,14 @@ public class FileUtils {
 	}
 	
 	public static void saveListOfObjects(List<Object> objList, String filePath) {
-		try (PrintWriter out = new PrintWriter(filePath)) {
+		try (PrintWriter out = new PrintWriter(filePath, "ISO-8859-1")) {
 		    for (Object object : objList) {
 		    	out.println(object);
 			}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
+		} catch (UnsupportedEncodingException e1) {
+			e1.printStackTrace();
 		}
 	}
 

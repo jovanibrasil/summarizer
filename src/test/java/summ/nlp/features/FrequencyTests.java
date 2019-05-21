@@ -15,7 +15,7 @@ import summ.model.Sentence;
 import summ.model.Text;
 import summ.model.Word;
 
-public class FrequencyTest {
+public class FrequencyTests {
 
 	private static Paragraph p1;
 	private static Text t;

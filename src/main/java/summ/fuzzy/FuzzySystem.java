@@ -22,6 +22,7 @@ import net.sourceforge.jFuzzyLogic.membership.MembershipFunctionGenBell;
 import net.sourceforge.jFuzzyLogic.membership.Value;
 import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
 import net.sourceforge.jFuzzyLogic.rule.LinguisticTerm;
+import net.sourceforge.jFuzzyLogic.rule.Rule;
 import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
 
@@ -58,7 +59,7 @@ public class FuzzySystem {
 			}
 			termNames.forEach(termName -> {
 				MembershipFunction mf = v.getMembershipFunction(termName);
-				log.info("Loading gbell fuzzy membership (a, b, c) = (" + mf.getParameter(1) + ", " + mf.getParameter(2) + ", " + mf.getParameter(0) + ")");
+				log.debug("Loading gbell fuzzy membership (a, b, c) = (" + mf.getParameter(1) + ", " + mf.getParameter(2) + ", " + mf.getParameter(0) + ")");
 				coefficients = coefficients.append(mf.getParameter(1))
 					.append(mf.getParameter(2))
 					.append(mf.getParameter(0));
@@ -66,8 +67,8 @@ public class FuzzySystem {
 			
 		});
 		
-		log.info("Loaded Variables: " + this.varNames.toString());
-		log.info("Loaded Terms: " + this.termNames.toString());
+		log.debug("Loaded Variables: " + this.varNames.toString());
+		log.debug("Loaded Terms: " + this.termNames.toString());
 		
 	}
 
@@ -127,6 +128,10 @@ public class FuzzySystem {
 	public Variable evaluate() {
 		this.fis.evaluate();
 		Variable outputValue = this.functionBlock.getVariable(outputVariableName); // read output variable
+		
+//		for( Rule r : this.fis.getFunctionBlock(null).getFuzzyRuleBlock("No1").getRules() )
+//			System.out.println(r);
+		
 		return outputValue;
 	}
 	
