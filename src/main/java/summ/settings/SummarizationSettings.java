@@ -40,6 +40,7 @@ public class SummarizationSettings {
 
 	public List<String> VAR_NAMES;
 	public String TEXT_NAME;
+	public int SAMPLE_SIZE;
 	
 	public SummarizationSettings(String propertyFilePath) {
 		this.loadSummarizationProps(propertyFilePath);
@@ -52,7 +53,7 @@ public class SummarizationSettings {
 		try {
 			properties.load(stream);
 			this.FULL_TEXTS_PATH = properties.getProperty("full_texts_path", "");
-			this.MANUAL_SUMMARIES_PATH = properties.getProperty("manual_summaries_path");
+			this.MANUAL_SUMMARIES_PATH = properties.getProperty("manual_summaries_path", "");
 			this.AUTO_SUMMARIES_PATH = properties.getProperty("auto_summaries_path", "");
 			String[] val = properties.getProperty("text_preprocessing_pipeline", "").replace(" ", "").split(",");
 			this.TEXT_PREPROCESSING_PIPELINE = PipelineFactory.getPreprocessingPipeline(val);
@@ -74,6 +75,8 @@ public class SummarizationSettings {
 			this.SUMMARIZATION_TYPE = SummarizationType.valueOf(strVal);
 			if(this.SUMMARIZATION_TYPE.equals(SummarizationType.SINGLE)) {
 				this.TEXT_NAME = properties.getProperty("file_name", "");
+			}else {
+				this.SAMPLE_SIZE = Integer.parseInt(properties.getProperty("sample_size", "0"));
 			}
 			this.FUZZY_SYSTEM_PATH = properties.getProperty("fuzzy_system_path", "");
 			

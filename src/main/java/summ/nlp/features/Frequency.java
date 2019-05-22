@@ -2,6 +2,7 @@ package summ.nlp.features;
 
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -13,7 +14,8 @@ import summ.model.Sentence;
 import summ.model.Text;
 import summ.model.Word;
 import summ.utils.Pipe;
-
+import static java.util.stream.Collectors.*;
+import static java.util.Map.Entry.*;
 
 public class Frequency implements Pipe<Text> {
 	
@@ -69,7 +71,7 @@ public class Frequency implements Pipe<Text> {
 		text.addFeature("rtf", rtf); // register raw frequency		
 		text.addFeature("tf_doc_len_based", tfDocLenBased);
 		text.addFeature("tf_max_rtf_based", tfMaxRtfBased);
-		
+				
 	}
 	
 	/**

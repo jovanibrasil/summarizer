@@ -1,0 +1,14 @@
+<ROUGE_EVAL version="1.55">
+<EVAL ID="0">
+<MODEL-ROOT>reference_summary_path</MODEL-ROOT>
+<PEER-ROOT>generated_summary_path</PEER-ROOT>
+<INPUT-FORMAT TYPE="SEE">
+</INPUT-FORMAT>
+<PEERS>
+<P ID="0">generated_file_name</P>
+</PEERS>
+<MODELS>
+<M ID="0">reference_file_name</M>
+</MODELS>
+</EVAL>
+</ROUGE_EVAL>

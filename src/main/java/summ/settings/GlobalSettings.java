@@ -32,7 +32,7 @@ public class GlobalSettings {
 	
 	public void loadSummarizerProps() {
 		log.info("Loading summarizer properties ...");
-		InputStream stream = FileUtils.loadProps("/home/jovani/workspace/summarizer/src/main/resources/settings/summarizer.properties");
+		InputStream stream = FileUtils.loadProps("./settings/summarizer.properties");
 		Properties properties = new Properties();
 		try {
 			properties.load(stream);

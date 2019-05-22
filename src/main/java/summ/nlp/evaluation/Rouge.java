@@ -1,13 +1,16 @@
 package summ.nlp.evaluation;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import com.rxnlp.tools.rouge.ROUGECalculator;
-import com.rxnlp.tools.rouge.ROUGESettings;
-import com.rxnlp.tools.rouge.SettingsUtil;
+//import com.rxnlp.tools.rouge.ROUGECalculator;
+//import com.rxnlp.tools.rouge.ROUGESettings;
+//import com.rxnlp.tools.rouge.SettingsUtil;
 
 import summ.model.Sentence;
 import summ.model.Text;
@@ -23,36 +26,84 @@ public class Rouge implements EvaluationMethod {
 		this.evaluationType = evaluationType;
 	}	
 	
-	public EvaluationResult rougeEvaluation(Text generatedSummary, Text referenceSummary) {
-		ROUGESettings settings = new ROUGESettings();
-		SettingsUtil.loadProps(settings);
-		settings.USE_STEMMER = false;
-		settings.REMOVE_STOP_WORDS = false;
-		HashMap<String, HashMap<String, Object>> rougeResult = ROUGECalculator.computeRouge(settings, 
-				referenceSummary.getStringSentences(), generatedSummary.getStringSentences()); 
-		EvaluationResult evalResult = formatRougeResult(rougeResult);
-		evalResult.setMainEvaluationMetric(this.evaluationType);
-		return evalResult; 
+	public EvaluationResult rougeEvaluation(String outputPath) {
+		EvaluationResult eval = new EvaluationResult();
+		try {
+
+			// Command to create an external process
+			String projectDir = System.getProperty("user.dir");
+			String rougePath = projectDir + "/ROUGE-1.5.5";
+			String dataPath = rougePath + "/data";
+			String settingsPath = projectDir + "/" + outputPath + "/settings.xml";
+			
+			/*
+			 * -v	verbose mode
+			 * -e	rouge files directory
+			 * -n 	specifies ROUGE-N
+			 * -x	ROUGE-L
+			 * -c	confiability interval 
+			 * -r
+			 * -f
+			 * -p	
+			 * -a	settings path - specifies which systems we want to evaluate 
+			 * -m 	specifies the usage of stemming
+			 * 
+			 */
+			
+			String[] command = {rougePath + "/ROUGE-1.5.5.pl" , 
+					"-e" , dataPath,
+					"-n", "1",
+					"-x",
+					"-c", "95", 
+					"-r", "1000", 
+					"-f", "A",
+					"-p", "0.5", 
+					"-a", settingsPath
+					};
+			
+			// Running the above command
+			Runtime run = Runtime.getRuntime();
+			Process proc = run.exec(command);
+
+			BufferedReader stdInput = new BufferedReader(new InputStreamReader(proc.getInputStream()));
+			BufferedReader stdError = new BufferedReader(new InputStreamReader(proc.getErrorStream()));
+			// read the output from the command
+			log.debug("Standard output of the command:\n");
+			String s = null;
+			while ((s = stdInput.readLine()) != null) {
+				log.debug(s);
+				String[] values = s.toLowerCase().replace(")", "").replace(":", "")
+						.replace("-", "_").split(" ");
+				if(values.length == 8) {
+					eval.addMetric(getMetricName(values[2]), Double.parseDouble(values[3]));
+					eval.addMetric(values[1]+values[2]+"-min-interval", Double.parseDouble(values[5]));
+					eval.addMetric(values[1]+values[2]+"-max-interval", Double.parseDouble(values[7]));
+				}
+			}
+
+			// read any errors from the attempted command
+			log.debug("Standard error of the command (if any):\n");
+			while ((s = stdError.readLine()) != null) {
+				log.info(s);
+			}
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return eval;
 	}
 	
-	public EvaluationResult formatRougeResult(HashMap<String, HashMap<String, Object>> result) {
-
-		EvaluationResult eval = new EvaluationResult();		
-		
-		result.keySet().forEach(key -> {
-			HashMap<String, Object> r = result.get(key);
-			eval.setEvalName(this.rougeType.name() + " evaluation - " + key);
-			eval.addMetric(EvaluationTypes.PRECISION.name(), (Double)r.get("average_p"));
-			eval.addMetric(EvaluationTypes.RECALL.name(), (Double)r.get("average_r"));
-			eval.addMetric(EvaluationTypes.FMEASURE.name(), (Double)r.get("average_f"));
-			
-//			String resultStr = r.get("result_title") + "\t" + ((String)r.get("task_name")).toUpperCase() 
-//				+ "\t" + ((String)r.get("result_name")).toUpperCase()
-//			+ "\tAverage_R:" + r.get("average_r") + "\tAverage_P:" + r.get("average_p")
-//			+ "\tAverage_F:" + r.get("average_f") + "\tNum Reference Summaries:" + r.get("reference_summary_count");
-			
-		});
-		return eval;
+	public String getMetricName(String metricName) {
+		switch (metricName) {
+		case "average_r":
+			return EvaluationTypes.RECALL.name();
+		case "average_p":
+			return EvaluationTypes.PRECISION.name();
+		case "average_f":
+			return EvaluationTypes.FMEASURE.name();
+		default:
+			return "";
+		}
 	}
 	
 	/**
@@ -79,13 +130,13 @@ public class Rouge implements EvaluationMethod {
 	}
 
 	@Override
-	public EvaluationResult evaluate(Text generatedText, Text referenceText) {
+	public EvaluationResult evaluate(Text generatedText, Text referenceText, String outputPath) {
 		log.debug("Rouge evaluation ...");
 		double relevantSentences = referenceText.getTotalSentence();
 		double retrievedSentences = generatedText.getTotalSentence();
 		double correctSentences = countOverlappedSentences(generatedText, referenceText); 
 		
-		EvaluationResult eval = rougeEvaluation(generatedText, referenceText);
+		EvaluationResult eval = rougeEvaluation(outputPath);
 		//eval.setMainEvaluationMetric(this.evaluationType);
 		eval.addMetric("retrievedSentences", (double)retrievedSentences);
 		eval.addMetric("relevantSentences", (double)relevantSentences);

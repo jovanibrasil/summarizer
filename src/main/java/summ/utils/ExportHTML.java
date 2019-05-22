@@ -6,11 +6,15 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.io.FileUtils;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import summ.model.Sentence;
 import summ.model.Text;
 
 public class ExportHTML {
+	
+	private static final Logger log = LogManager.getLogger(ExportHTML.class);
 	
 	/**
 	 * 
@@ -109,6 +113,32 @@ public class ExportHTML {
 			e.printStackTrace();
 		}
 		
+	}
+
+	public static void exportSummaryRougeFormat(Text summary, String outputPath) {
+		log.info("Saving summary (Rouge format)");
+		try {
+			String sentences = "";
+			
+			File file = new File("src/main/resources/templates/rouge_summary.html") ;
+			String htmlString = FileUtils.readFileToString(file, Charset.forName("UTF-8"));
+			
+			int id = 0;
+			for (Sentence s : summary.getSentences()) {			
+				sentences += "<a name=\"" + id + "\">[" + id + "]</a> <a href=\"#" + id 
+					+ "\" id=" + id + ">" + s.getInitialValue() + "</a>\n";
+				id++;
+			}
+			
+			htmlString = htmlString.replace("filename", summary.getName() + ".0.gen.html");//summary.getName());
+			htmlString = htmlString.replace("sentences", sentences);
+			
+			File newHtmlFile = new File(outputPath + "/" + summary.getName() + ".0.gen.html");
+			FileUtils.writeStringToFile(newHtmlFile, htmlString, Charset.forName("UTF-8"));
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}	
 	}
 	
 }

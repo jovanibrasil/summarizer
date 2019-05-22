@@ -23,7 +23,7 @@ public class SentenceOverlap implements EvaluationMethod {
 	 * @return an Evaluation object with the metrics: precision, recall, f-measure; and with the counters: retrievedSentences, 
 	 * relevantSentences, correctSentences
 	 */
-	public EvaluationResult evaluate(Text generatedText, Text referenceText) {
+	public EvaluationResult evaluate(Text generatedText, Text referenceText, String outputPath) {
 		
 		double relevantSentences = referenceText.getTotalSentence();
 		double retrievedSentences = generatedText.getTotalSentence();

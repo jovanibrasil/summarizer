@@ -42,6 +42,24 @@ public class FileUtils {
 		return Arrays.asList();
 	}
 	
+	public static List<Path> listTexts(String textsDir, int quantity) {
+		log.info("Loading list with " + quantity + " texts from " + textsDir);
+		List<Path> texts = new ArrayList<>();
+		Random rand = new Random();
+		try {
+			if (Files.exists(Paths.get(textsDir))) {
+				List<Path> refFiles = Files.list(Paths.get(textsDir)).collect(Collectors.toList());
+				while(texts.size() < quantity) {
+					int nextIndex = rand.nextInt(refFiles.size()-1);
+					texts.add(refFiles.remove(nextIndex));
+				}
+			}	
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return texts;
+	}
+	
 	public static HashMap<String, Text> loadTexts(String textsDir) {
 		log.info("Loading all texts from " + textsDir);
 		HashMap<String, Text> texts = new HashMap<>();
@@ -124,7 +142,7 @@ public class FileUtils {
 			String line = null;
 
 			text = new Text(rawText);
-			text.setName(file.getName());
+			text.setName(file.getName().replace(".txt", ""));
 			text.setFullTextPath(filePath);
 			int pos = 0;
 			while((line = br.readLine()) != null) {
