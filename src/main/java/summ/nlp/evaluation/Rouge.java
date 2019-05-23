@@ -3,7 +3,6 @@ package summ.nlp.evaluation;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
-import java.util.HashMap;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -18,7 +17,8 @@ import summ.model.Text;
 public class Rouge implements EvaluationMethod {
 
 	private static final Logger log = LogManager.getLogger(Rouge.class);
-	private EvaluationTypes rougeType;
+	@SuppressWarnings("unused")
+	private EvaluationTypes rougeType; // ROUGE-1, ROUGE-2, ROUGE-L ...
 	private EvaluationTypes evaluationType;
 	
 	public Rouge(EvaluationTypes rougeType, EvaluationTypes evaluationType) {
@@ -28,6 +28,7 @@ public class Rouge implements EvaluationMethod {
 	
 	public EvaluationResult rougeEvaluation(String outputPath) {
 		EvaluationResult eval = new EvaluationResult();
+		eval.setMainEvaluationMetric(this.evaluationType);
 		try {
 
 			// Command to create an external process

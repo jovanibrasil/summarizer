@@ -97,7 +97,7 @@ public class FileUtils {
 					//key = key.contains("_") ? key.split("_")[0]+".txt" : key;
 					
 					text.setReferenceSummary(loadText(referenceSummariesDir + 
-							text.getName().replace(".txt", "") + "_areference1.txt"));
+							text.getName() + "/" + text.getName() + ".0.ref.html"));
 					
 					texts.add(text);
 				}

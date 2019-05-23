@@ -116,7 +116,7 @@ public class ExportHTML {
 	}
 
 	public static void exportSummaryRougeFormat(Text summary, String outputPath) {
-		log.info("Saving summary (Rouge format)");
+		log.debug("Saving summary (Rouge format)");
 		try {
 			String sentences = "";
 			

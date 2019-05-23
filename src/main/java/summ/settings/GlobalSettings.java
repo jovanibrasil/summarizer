@@ -25,6 +25,7 @@ public class GlobalSettings {
 	public String CORPUS_PATH;
 	public String AUTO_SUMMARIES_PATH;
 	public int EVALUATION_LEN;
+	public String MANUAL_SUMMARIES_PATH;
 	
 	public GlobalSettings() {
 		loadSummarizerProps();
@@ -45,6 +46,7 @@ public class GlobalSettings {
 			
 			this.CORPUS_PATH = properties.getProperty("corpus_path", "");
 			this.AUTO_SUMMARIES_PATH = properties.getProperty("auto_summaries_path", "");
+			this.MANUAL_SUMMARIES_PATH = properties.getProperty("manual_summaries_path", "");
 			this.EVALUATION_LEN = Integer.parseInt(properties.getProperty("evaluation_len", "0"));
 			
 		} catch (IOException e) {

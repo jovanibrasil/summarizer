@@ -42,6 +42,10 @@ public class OptimizationGenetic {
     
     public FuzzySystem fuzzySystem;
 
+    public static int CROSSOVER_COUNTER = 0;
+	public static int MUTATION_VERIFICATION = 0;
+	public static int MUTATION_EXECUTION = 0;
+    
 	private int maxIterations;
     
     /**
@@ -95,17 +99,11 @@ public class OptimizationGenetic {
 
 	public void optimizeIteration(int iterationNum) {
 		
-		for (Chromosome c : this.currentPopulation) {
-			System.out.println(c);
-		}
-		
-		
 		this.iteration++;
 		log.info("Iterations:	" + this.iteration + "/" + this.maxIterations);
 		generateIntermediatePopulation();				
 		evaluatePopulation();
 		rankPopulation();	
-		
 		log.info("Mutation verification: " + OptimizationGenetic.MUTATION_VERIFICATION);
 		log.info("Mutation execution: " + OptimizationGenetic.MUTATION_EXECUTION);
 		log.info("Mutation operator hits: " + MutationOperator.VALUE_GEN_HIT);
@@ -122,31 +120,53 @@ public class OptimizationGenetic {
 		// Create the first Solution. The first Solution is a copy of the initial solution.
 		Chromosome chromosome = new Chromosome();
 		chromosome.setGenes(fuzzySystem.getCoefficients());
+		log.info("Seeding: " + chromosome);
+		this.currentPopulation.add(chromosome);
+		
 		MutationOperator fpMutator = new UniformMutation(new BellFunction());
 		
-		this.currentPopulation.add(chromosome);
 		for (int i = 1; i < this.populationSize; i++) {
-			// Geração de cromossomos com valores aleatórios é ruim pq gera valores que não fazem sentido. 
-			// Por exemplo, a ordem dos valores fica sem sentido porém o resultado é ruim. São necessárias algumas 
-			// constraints a serem respeitadas.
-			// TODO Gerar cromossomos variando apenas o valor do centro
 			chromosome = new Chromosome();
 			for (int j = 0; j < fuzzySystem.getCoefficients().getDimension(); j+=3) {
 				chromosome.setGene(j, fpMutator.getAleatoryFeasibleCoefficient(0));
-				chromosome.setGene(j, fpMutator.getAleatoryFeasibleCoefficient(1));
-				chromosome.setGene(j, fpMutator.getAleatoryFeasibleCoefficient(2));
+				chromosome.setGene(j+1, fpMutator.getAleatoryFeasibleCoefficient(1));
+				chromosome.setGene(j+2, fpMutator.getAleatoryFeasibleCoefficient(2));
 			}
 			this.currentPopulation.add(chromosome);
 		}	
 		
 	}
 	
+	public int countDuplicates(List<Chromosome> population) {
+		log.debug("Verifying duplicates ...");
+		int c = 0;
+		
+		for (int i = 0; i < population.size(); i++) {
+			for (int j = 0; j < population.size(); j++) {
+				if(i != j && population.get(i).equals(population.get(j))) {
+					log.info("Duplicated: " + population.get(i));
+					c++; 
+				}
+			}
+		}
+		return c;
+	}
+	
 	/**
 	 * Sort the population by fitness.
 	 */
 	public void rankPopulation() {
+		
+	 	int duplicatedCounter = countDuplicates(this.currentPopulation);
+		log.info("Current population has " + duplicatedCounter + " duplicated chromosomes ...");
+		
 		log.debug("Ranking population " + this.iteration);
 		Collections.sort(this.currentPopulation);
+		
+		for (int index = 0; index < currentPopulation.size(); index++) {
+			log.info("[" + index + "]" + currentPopulation.get(index).fitness);
+		}
+		
 		double averageFitness = this.currentPopulation.stream()
 				.mapToDouble(x -> x.fitness).sum() / this.currentPopulation.size();
 		this.bestFitnessSerie.add(this.getBestIndividual().fitness);
@@ -155,9 +175,10 @@ public class OptimizationGenetic {
 		log.info("Best individual: " + this.getBestIndividual());
 		log.info("Average fitness: " + averageFitness);
 		log.info("Best fitness: " + this.getBestIndividual().fitness);
-		log.info("Worst fitness: " + this.getWorstIndividual().fitness);		
+		log.info("Worst fitness: " + this.getWorstIndividual().fitness);
+		log.info("Crossover execution: " + OptimizationGenetic.CROSSOVER_COUNTER);
+		OptimizationGenetic.CROSSOVER_COUNTER = 0;
 	}
-	
 	
 	private Chromosome getWorstIndividual() {
 		return this.currentPopulation.get(this.currentPopulation.size()-1);
@@ -201,7 +222,6 @@ public class OptimizationGenetic {
 		return this.currentPopulation.get(bestChromosomeIndex);
 	}
 	
-	
 	public void evaluatePopulation() {
 		
 		for (Chromosome chromosome : currentPopulation) {
@@ -209,9 +229,6 @@ public class OptimizationGenetic {
 			chromosome.fitness = errorFunction.evaluate(this.fuzzySystem);
 		}
 	}
-	
-	public static int MUTATION_VERIFICATION = 0;
-	public static int MUTATION_EXECUTION = 0;
 	
 	public void generateIntermediatePopulation() {
 		

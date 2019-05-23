@@ -1,6 +1,7 @@
 package summ.fuzzy;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
@@ -49,14 +50,14 @@ public class FuzzySystem {
 		
 		this.coefficients = new ArrayRealVector();
 		this.varNames = new ArrayList<>();
-		this.termNames = new ArrayList<>();
+		this.termNames = Arrays.asList("baixo", "medio", "alto");
 		this.functionBlock = this.fis.getFunctionBlock(null);
 		
 		this.functionBlock.getVariables().values().forEach(v -> {
 			varNames.add(v.getName());
-			if(termNames.isEmpty()) {
-				v.getLinguisticTerms().values().forEach(lt -> { termNames.add(lt.getTermName()); });	
-			}
+//			if(termNames.isEmpty()) {
+//				v.getLinguisticTerms().values().forEach(lt -> { termNames.add(lt.getTermName()); });	
+//			}
 			termNames.forEach(termName -> {
 				MembershipFunction mf = v.getMembershipFunction(termName);
 				log.debug("Loading gbell fuzzy membership (a, b, c) = (" + mf.getParameter(1) + ", " + mf.getParameter(2) + ", " + mf.getParameter(0) + ")");

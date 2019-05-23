@@ -30,10 +30,8 @@ public class Optimization {
 	public Optimization() {}
 	
 	public EvaluationResult evaluateCorpus(Summarizer summarizer, FuzzySystem fuzzySystem, List<String> metrics, List<Text> texts, OptimizationSettings optimizationSettings) {
-		
 		EvaluationResult eval = new EvaluationResult();
 		metrics.forEach(m -> {eval.setMetric(m, 0);});
-	
 		for (Text text : texts) {
         	Text generatedSummary = summarizer.summarizeText(text, fuzzySystem, optimizationSettings.VAR_NAMES);
         	EvaluationResult result = summarizer.evaluateSummary(optimizationSettings.EVALUATION_METHOD, generatedSummary, text.getReferenceSummary());
@@ -70,14 +68,14 @@ public class Optimization {
 		log.info("Initializing an summarization tool ...");
 		Summarizer summarizer = new Summarizer(globalSettings);	
 		
-		// Load all corpus
-		int	corpusSize = 0;//FileUtils.countFiles(globalSettings.CORPUS_PATH);
-		List<Text> corpus = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.AUTO_SUMMARIES_PATH, corpusSize);	
+		// Load corpus
+		int corpusSize = 0;//FileUtils.countFiles(globalSettings.CORPUS_PATH);
+		List<Text> corpus = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, corpusSize);	
 		// Pre-process and compute sentence features
 		summarizer.prepareTextList(corpus);
 		
 		log.info("Load Evaluation files ...");
-		List<Text> texts = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.AUTO_SUMMARIES_PATH, globalSettings.EVALUATION_LEN);	
+		List<Text> texts = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, globalSettings.EVALUATION_LEN);	
 		summarizer.prepareTextList(texts); // pre-process and calculate features
 		
 		log.info("Initializing genetic optimization configurations ...");
