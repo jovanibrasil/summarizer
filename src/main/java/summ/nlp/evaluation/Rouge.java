@@ -33,9 +33,9 @@ public class Rouge implements EvaluationMethod {
 
 			// Command to create an external process
 			String projectDir = System.getProperty("user.dir");
-			String rougePath = projectDir + "/ROUGE-1.5.5";
-			String dataPath = rougePath + "/data";
-			String settingsPath = projectDir + "/" + outputPath + "/settings.xml";
+			String rougePath = projectDir + "\\ROUGE-1.5.5";
+			String dataPath = rougePath + "\\data";
+			String settingsPath = outputPath + "\\settings.xml";
 			
 			/*
 			 * -v	verbose mode
@@ -50,17 +50,15 @@ public class Rouge implements EvaluationMethod {
 			 * -m 	specifies the usage of stemming
 			 * 
 			 */
-			
-			String[] command = {rougePath + "/ROUGE-1.5.5.pl" , 
-					"-e" , dataPath,
-					"-n", "1",
-					"-x",
-					"-c", "95", 
-					"-r", "1000", 
-					"-f", "A",
-					"-p", "0.5", 
-					"-a", settingsPath
-					};
+			String command = "perl " + rougePath + "\\ROUGE-1.5.5.pl " + 
+					" -e " + dataPath +
+					" -n " + " 1 " +
+					" -x " +
+					" -c " + " 95 " + 
+					" -r " + " 1000 " + 
+					" -f " + " A " +
+					" -p " + " 0.5 " + 
+					" -a " + settingsPath;
 			
 			// Running the above command
 			Runtime run = Runtime.getRuntime();

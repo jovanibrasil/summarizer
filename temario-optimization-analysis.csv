@@ -1,0 +1,12 @@
+ID,Iterations,Population Size,Chromosome Mutation Probability,Gene Mutation Percentual,Crossover Probability,Elitism,Number of Evaluated Files,Mutation Operator,Crossover Operator,Evaluation Method,Fitness (First iteration / Last iteration),,Diff,Temário,,Diff
+1,40,100,0.1,0.20,0.6,true,10,UNIFORM,SIMPLE MEAN,RECALL,,,,,,
+2,40,100,0.3,0.20,0.6,true,10,UNIFORM,SIMPLE MEAN,RECALL,,,,,,
+3,40,100,0.1,0.20,0.7,true,10,UNIFORM,SIMPLE MEAN,RECALL,,,,,,
+4,40,100,0.1,0.20,0.6,true,10,UNIFORM,GEO MEAN,RECALL,,,,,,
+5,40,100,0.2,0.20,0.7,true,10,UNIFORM,GEO MEAN,RECALL,,,,,,
+6,40,100,0.1,0.20,0.6,true,10,LIMIT,SIMPLE MEAN,RECALL,,,,,,
+7,40,100,0.1,0.20,0.6,true,10,LIMIT,GEO MEAN,RECALL,,,,,,
+8,40,100,0.2,0.20,0.7,true,10,LIMIT,GEO MEAN,RECALL,,,,,,
+9,40,100,0.1,0.30,0.7,true,10,LIMIT,GEO MEAN,RECALL,,,,,,
+10,40,100,0.1,0.20,0.8,true,10,LIMIT,GEO MEAN,RECALL,,,,,,
+11,40,100,0.3,0.20,0.8,true,20,LIMIT,GEO MEAN,RECALL,,,,,,

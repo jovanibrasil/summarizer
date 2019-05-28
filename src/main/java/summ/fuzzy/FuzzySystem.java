@@ -147,7 +147,6 @@ public class FuzzySystem {
 
 	public void saveFuzzySystem(String outputPath) {
 		Gpr.toFile(outputPath, this.fis.getFunctionBlock(null).toString());
-		JFuzzyChart.get().chart(functionBlock);	
 	}
 	
 	public void setValue(int varIndex, int termIndex, double a, double b, double c) {

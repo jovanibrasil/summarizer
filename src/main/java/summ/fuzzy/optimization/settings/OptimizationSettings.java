@@ -25,6 +25,10 @@ public class OptimizationSettings {
 	public String AUTO_SUMMARIES_PATH;
 	public String OPTIMIZATION_NAME;
 	
+	public OptimizationSettings(String optFilePath) {
+		OptimizationSettingsUtils.loadOptimizationProps(optFilePath, this);
+	}
+	
 	@Override
 	public String toString() {
 		StringBuilder sb = new StringBuilder();

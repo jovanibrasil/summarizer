@@ -30,11 +30,12 @@ public class Charts extends JFrame {
 	private static final long serialVersionUID = 6081226860992968894L;
 	private JFreeChart chart;
 
-	public Charts(List<Double> bestFitnessSerie, List<Double> averageFitnessSerie, int totalIterations, String resultName) {
+	public Charts(List<List<Double>> series, int totalIterations, String resultName) {
 
 		XYSeriesCollection dataset = new XYSeriesCollection();
-		createDataset(bestFitnessSerie, "Best Fitness", dataset);
-		createDataset(averageFitnessSerie, "Average Fitness", dataset);
+		for (int i = 0; i < series.size(); i++) {
+			createDataset(series.get(i), "Serie " + i, dataset);
+		}
 		
 		chart = createChart(resultName, dataset, totalIterations);
 		ChartPanel chartPanel = new ChartPanel(chart);

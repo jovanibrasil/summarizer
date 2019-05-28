@@ -81,6 +81,46 @@ public class FileUtils {
 		return texts;
 	}
 	
+	public static List<List<Text>> loadTexts(String textsDir, String referenceSummariesDir, int corpusSize, double trainingTextsPercentual) {
+		
+		int totalTrainingTexts = (int)(corpusSize * trainingTextsPercentual);
+		int totalTestTexts = corpusSize - totalTrainingTexts;
+		
+		log.info("Training tests: " +  totalTrainingTexts);
+		log.info("Test texts: " + totalTestTexts);
+		
+		List<Text> trainingTexts = new ArrayList<>();
+		List<Text> testTexts = new ArrayList<>();
+		
+		Random rand = new Random();
+		try {
+			if (Files.exists(Paths.get(textsDir))) {
+				// Get a list of files in the directory
+				List<Path> refFiles = Files.list(Paths.get(textsDir)).collect(Collectors.toList());
+				while(corpusSize > 0) {
+					int nextIndex = rand.nextInt(refFiles.size());
+					Path filePath = refFiles.remove(nextIndex);	
+					Text text = loadText(textsDir + filePath.getFileName().toString());
+					//String key = filePath.getFileName().toString();
+					//key = key.contains("_") ? key.split("_")[0]+".txt" : key;
+					
+					text.setReferenceSummary(loadText(referenceSummariesDir + 
+							text.getName() + "/" + text.getName() + ".0.ref.html"));
+					
+					if(trainingTexts.size() < totalTrainingTexts) {
+						trainingTexts.add(text);	
+					}else {
+						testTexts.add(text);
+					}
+					corpusSize--;
+				}
+			}	
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		return Arrays.asList(trainingTexts, testTexts);
+	}
+	
 	public static List<Text> loadTexts(String textsDir, String referenceSummariesDir, int quantity) {
 		log.info("Loading " + quantity + " texts from " + textsDir);
 		List<Text> texts = new ArrayList<>();
@@ -194,7 +234,7 @@ public class FileUtils {
 	}
 	
 	public static void saveListOfObjects(List<Object> objList, String filePath) {
-		try (PrintWriter out = new PrintWriter(filePath, "ISO-8859-1")) {
+		try (PrintWriter out = new PrintWriter(filePath, "UTF-8")) {
 		    for (Object object : objList) {
 		    	out.println(object);
 			}

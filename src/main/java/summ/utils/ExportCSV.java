@@ -108,5 +108,33 @@ public class ExportCSV {
 		}
 		
 	}
+
+	public static void exportOptimizationResults(List<List<Double>> results, String[] fileNames, String outputPath) {
+		
+		try {
+			File file = new File(outputPath + "/OptimizationResult.csv");  
+	        FileWriter outputfile = new FileWriter(file);
+	        CSVWriter writer = new CSVWriter(outputfile);
+	        String[] header = new String[fileNames.length];
+	        header[0] = "Iteration / Configuration";
+	        for (int i = 1; i < fileNames.length; i++) {
+				header[i] = fileNames[i-1];
+			}
+	        writer.writeNext(header);
+	        for (int j=0; j < results.size(); j++) {
+	        	List<Double> result = results.get(j);
+				String[] data = new String[result.size()+1];
+				data[0] = String.valueOf(j); // iteration index
+				for (int i = 1; i < result.size()+1; i++) {
+					data[i] = String.valueOf(result.get(i-1)); // iteration results
+				}
+				writer.writeNext(data);
+			}
+			writer.close();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
 	
 }

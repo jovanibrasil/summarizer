@@ -5,7 +5,6 @@ import java.util.Random;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
-import org.jfree.util.Log;
 
 import summ.fuzzy.optimization.Chromosome;
 

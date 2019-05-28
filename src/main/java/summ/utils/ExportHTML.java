@@ -34,7 +34,7 @@ public class ExportHTML {
 				body += "<li>" 
 						+ sentence.getInitialValue(); // Original String
 				body += "<ul>"
-						+ " <li>" + sentence.getWords().toString() + "</li>" // Final processed string
+						+ " <li>" + sentence.getWordsToStringWithFeatures() + "</li>" // Final processed string
 						+ " <li>" + sentence.getFeatures(selectedFeatures).toString() + "</li>" // Selected string features
 						+ " <li> Score: " + sentence.getScore()  + "<li>"
 						+ "</ul>"

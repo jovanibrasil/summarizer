@@ -24,7 +24,7 @@ public class GlobalSettings {
 	
 	public String CORPUS_PATH;
 	public String AUTO_SUMMARIES_PATH;
-	public int EVALUATION_LEN;
+	public double TRAINING_TEXTS_PERCENTUAL;
 	public String MANUAL_SUMMARIES_PATH;
 	
 	public GlobalSettings() {
@@ -47,7 +47,7 @@ public class GlobalSettings {
 			this.CORPUS_PATH = properties.getProperty("corpus_path", "");
 			this.AUTO_SUMMARIES_PATH = properties.getProperty("auto_summaries_path", "");
 			this.MANUAL_SUMMARIES_PATH = properties.getProperty("manual_summaries_path", "");
-			this.EVALUATION_LEN = Integer.parseInt(properties.getProperty("evaluation_len", "0"));
+			this.TRAINING_TEXTS_PERCENTUAL = 0.8; //Double.parseDouble(properties.getProperty("evaluation_len", "0.0")); TODO
 			
 		} catch (IOException e) {
 			log.warn("Problem with settings model file." + e.getMessage());
@@ -64,6 +64,5 @@ public class GlobalSettings {
 			.append("\n\tOptimization properties path: ").append(this.OPTIMIZATION_PROPERTIES_PATH);
 		return sb.toString();
 	}
-	
 
 }

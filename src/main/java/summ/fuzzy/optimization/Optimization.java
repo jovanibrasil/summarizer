@@ -12,7 +12,6 @@ import org.apache.log4j.Logger;
 import summ.fuzzy.FuzzySystem;
 import summ.fuzzy.optimization.evaluation.ErrorFunctionSummarization;
 import summ.fuzzy.optimization.settings.OptimizationSettings;
-import summ.fuzzy.optimization.settings.OptimizationSettingsUtils;
 import summ.model.Text;
 import summ.nlp.evaluation.EvaluationResult;
 import summ.nlp.evaluation.EvaluationTypes;
@@ -27,9 +26,41 @@ public class Optimization {
 	
 	private static final Logger log = LogManager.getLogger(Optimization.class);
 
-	public Optimization() {}
+	List<String> metrics = Arrays.asList(EvaluationTypes.PRECISION.name(), 
+			EvaluationTypes.RECALL.name(), EvaluationTypes.FMEASURE.name());
 	
-	public EvaluationResult evaluateCorpus(Summarizer summarizer, FuzzySystem fuzzySystem, List<String> metrics, List<Text> texts, OptimizationSettings optimizationSettings) {
+	private Summarizer summarizer;
+	private GlobalSettings globalSettings;
+	
+	private List<Text> trainingTexts;
+	private List<Text> testTests;
+	
+
+	private int docEvalMaxIterations = 2;
+	private int corpusSize = 20; //countFiles(textsDir); 
+	
+	
+	public Optimization(GlobalSettings globalSettings) {
+				
+		log.info("Initializing an summarization tool ...");
+		this.summarizer = new Summarizer(globalSettings);	
+		
+		// TODO load files using a list of file names
+		
+		List<List<Text>> data = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, corpusSize, globalSettings.TRAINING_TEXTS_PERCENTUAL);	
+		this.trainingTexts = data.get(0);
+		this.testTests = data.get(1);
+		
+		this.summarizer.prepareTextList(trainingTexts); // Pre-process and compute sentence features
+		this.summarizer.prepareTextList(testTests); // pre-process and calculate features
+		
+		this.globalSettings = globalSettings;
+		
+	}
+	
+	public EvaluationResult evaluateCorpus(Summarizer summarizer, FuzzySystem fuzzySystem,  
+			List<Text> texts, OptimizationSettings optimizationSettings, String evaluationName) {
+		
 		EvaluationResult eval = new EvaluationResult();
 		metrics.forEach(m -> {eval.setMetric(m, 0);});
 		for (Text text : texts) {
@@ -39,16 +70,18 @@ public class Optimization {
         }
     	metrics.forEach(m -> {eval.setMetric(m, eval.getMetricValue(m) / texts.size());});
 		
+    	eval.setEvalName(evaluationName);
+		log.info(eval);
+		
 		return eval;
 	}
 	
-	public Chromosome runGeneticOptimization(OptimizationGenetic geneticOptimization, List<Object> logs) {
+	public Chromosome runGeneticOptimization(GeneticOptimization geneticOptimization, List<Object> logs) {
 		log.info("Optimization Start time: " + new Date());
 		long startTime = System.nanoTime();
 		Chromosome bestSolution = geneticOptimization.run();
-		long endTime = System.nanoTime();
 		log.info("End time: " + new Date());
-		long timeElapsed = (endTime - startTime) / 1000000;
+		long timeElapsed = (System.nanoTime() - startTime) / 1000000;
 		log.info("Execution time in milliseconds : " + timeElapsed);
 		logs.add("Execution time in milliseconds : " + timeElapsed);
 		return bestSolution;
@@ -58,92 +91,81 @@ public class Optimization {
 		return texts.stream().map(t -> { return t.getName(); }).collect(Collectors.toList());			
 	}
 	
-	public void run(GlobalSettings globalSettings) {
+	public List<Double> run(int iteration) {
 		
-		List<Object> objs = new ArrayList<Object>();
-		
-		List<String> metrics = Arrays.asList(EvaluationTypes.PRECISION.name(), 
-				EvaluationTypes.RECALL.name(), EvaluationTypes.FMEASURE.name());
-		
-		log.info("Initializing an summarization tool ...");
-		Summarizer summarizer = new Summarizer(globalSettings);	
-		
-		// Load corpus
-		int corpusSize = 0;//FileUtils.countFiles(globalSettings.CORPUS_PATH);
-		List<Text> corpus = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, corpusSize);	
-		// Pre-process and compute sentence features
-		summarizer.prepareTextList(corpus);
-		
-		log.info("Load Evaluation files ...");
-		List<Text> texts = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, globalSettings.EVALUATION_LEN);	
-		summarizer.prepareTextList(texts); // pre-process and calculate features
+		List<Double> optimizationResults = new ArrayList<Double>();
 		
 		log.info("Initializing genetic optimization configurations ...");
 		
+		String outputPath = globalSettings.OUTPUT_PATH + "/iteration" + iteration;
+		String optSettingsPath = globalSettings.OPTIMIZATION_PROPERTIES_PATH;
 		
 		for (String optFileName : globalSettings.OPTIMIZATION_FILES) { // for each configuration file, execute the optimization
-		
-			globalSettings.OPTIMIZATION_PROPERTIES_PATH += optFileName;
-			OptimizationSettings optSettings = new OptimizationSettings();
 			
-			OptimizationSettingsUtils.loadOptimizationProps(globalSettings.OPTIMIZATION_PROPERTIES_PATH, optSettings);
-
-			globalSettings.OUTPUT_PATH = "results/opt_" + optSettings.OPTIMIZATION_NAME + Utils.generateStringFormattedData();
+			globalSettings.OPTIMIZATION_PROPERTIES_PATH = optSettingsPath + optFileName;
+			OptimizationSettings optSettings = new OptimizationSettings(globalSettings.OPTIMIZATION_PROPERTIES_PATH);
+			log.debug(optSettings);
+			
+			// create iteration results directory
+			globalSettings.OUTPUT_PATH = outputPath + "/opt_" + optSettings.OPTIMIZATION_NAME + Utils.generateStringFormattedData();
 		    FileUtils.createDir(globalSettings.OUTPUT_PATH);
 		    
-		    log.info("Initializing texts ...");		
-		    
-			FuzzySystem fs = new FuzzySystem(optSettings.FUZZY_SYSTEM_PATH);
-			fs.showFuzzySystem();
-			fs.setOutputVariable(optSettings.VAR_NAMES.get(optSettings.VAR_NAMES.size()-1));
-			
-		    ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(summarizer, texts, 
-		    		optSettings.EVALUATION_METHOD, optSettings.VAR_NAMES); 
-		    
-			OptimizationGenetic geneticOptimization = new OptimizationGenetic(errorFunction, 
-					optSettings.CROSSOVER_OPERATOR, optSettings.MUTATION_OPERATOR, 
-					optSettings.CROSSOVER_PROBABILITY, optSettings.MUTATION_PROBABILITY, 
-					optSettings.GENE_MUTATION_PERCENTUAL, optSettings.ELITISM, optSettings.POPULATION_SIZE, 
-				optSettings.VAR_NAMES, fs ,optSettings.MAX_ITERATIONS);
-
-			log.info(optSettings);
-			
-			log.info("Initial corpus evalution");
-			EvaluationResult initialCorpusEvaluation = evaluateCorpus(summarizer, fs, metrics, corpus, optSettings);
-			initialCorpusEvaluation.setEvalName("Initial Corpus Evaluation");
-			
-			// run the genetic optimization
-			Chromosome bestSolution = this.runGeneticOptimization(geneticOptimization, objs);
-			fs.setCoefficients(bestSolution.getGenes());
-			
-			log.info("Final corpus evalution");
-			EvaluationResult finalCorpusEvaluation = evaluateCorpus(summarizer, fs, metrics, corpus, optSettings);
-			finalCorpusEvaluation.setEvalName("Final Corpus Evaluation");
-			
-			// Create results directory
+		    // Create texts results directory
 			String textsResultsPath = globalSettings.OUTPUT_PATH + "/texts-results";
 			FileUtils.createDir(textsResultsPath);
-
-			// Get optimization best fitness for each iteration. Save this series as a chart. 
-			List<Double> bestFitnessSerie = geneticOptimization.bestFitnessSerie;
-			Charts charts = new Charts(bestFitnessSerie, geneticOptimization.averageFitnessSerie, 
-					optSettings.MAX_ITERATIONS, "genetic-optimization_" + optFileName);
+		    
+		    FuzzySystem fs = new FuzzySystem(optSettings.FUZZY_SYSTEM_PATH);
+		    fs.setOutputVariable("informativity");
+		    
+		    ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(summarizer, trainingTexts, 
+		    		optSettings.EVALUATION_METHOD, optSettings.VAR_NAMES); 
+		    
+			//List<Double> iterationResults = new ArrayList<>();
+			double averageFitness = 0.0;
+			int docEvalIterationsCounter = 0;
+			List<List<Double>> series = new ArrayList<List<Double>>();
+			while(docEvalIterationsCounter < docEvalMaxIterations) { // each optimization is executed a specified number of times
+				
+				log.info("Iteration: " + (docEvalIterationsCounter+1) + "/" + docEvalMaxIterations);
+			
+				GeneticOptimization geneticOptimization = new GeneticOptimization(errorFunction, optSettings, fs);
+				List<Object> objs = new ArrayList<Object>();
+				
+				// run the genetic optimization
+				Chromosome bestSolution = this.runGeneticOptimization(geneticOptimization, objs);
+				fs.setCoefficients(bestSolution.getGenes());
+				
+				// run the final corpus evaluation
+				EvaluationResult finalEvaluation = evaluateCorpus(summarizer, fs, testTests, optSettings, "Final Corpus Evaluation");
+				averageFitness += finalEvaluation.getMetricValue("RECALL");  // TODO automate the metric name
+				
+				// Get optimization best fitness for each iteration. Save this series as a chart. 
+				List<Double> bestFitnessSerie = geneticOptimization.bestFitnessSerie;
+				series.add(bestFitnessSerie);
+				
+				// Save pre-processing and feature computation results
+				trainingTexts.forEach(text -> {
+					ExportHTML.exportSentecesAndFeatures(text, summarizer.summarizationSettings.OUTPUT_EXPORT_VARIABLES, textsResultsPath, "full-text");
+				});
+				
+				objs.add(Arrays.asList(bestFitnessSerie, geneticOptimization.worstFitnessSerie, 
+						globalSettings, optSettings, "training files: " + getFileNames(trainingTexts), 
+						"evaluation files: " + getFileNames(testTests), finalEvaluation));
+				FileUtils.saveListOfObjects(objs, globalSettings.OUTPUT_PATH + "/result_" + docEvalIterationsCounter + "_" + optSettings.OPTIMIZATION_NAME + ".txt");
+				// save optimized result
+				fs.saveFuzzySystem(globalSettings.OUTPUT_PATH + "/opt_"+ docEvalIterationsCounter +"_" + optSettings.OPTIMIZATION_NAME + ".fcl");
+				
+				docEvalIterationsCounter++;
+			}
+			
+			Charts charts = new Charts(series, optSettings.MAX_ITERATIONS, "genetic-optimization_" + optFileName);
 			charts.saveChart(globalSettings.OUTPUT_PATH + "/chart.png");
-			
-			// Save pre-processing and feature computation results
-			texts.forEach(text -> {
-				ExportHTML.exportSentecesAndFeatures(text, summarizer.summarizationSettings.OUTPUT_EXPORT_VARIABLES, textsResultsPath, "full-text");
-			});
-			
-			objs.add(Arrays.asList(bestFitnessSerie, geneticOptimization.worstFitnessSerie,  geneticOptimization.averageFitnessSerie, 
-					globalSettings, optSettings, getFileNames(texts), initialCorpusEvaluation, finalCorpusEvaluation));
-			FileUtils.saveListOfObjects(objs, globalSettings.OUTPUT_PATH + "/result_" + optSettings.OPTIMIZATION_NAME + ".txt");
-		
-			// save optimized result
-			fs.saveFuzzySystem(globalSettings.OUTPUT_PATH + "/opt_" + optSettings.OPTIMIZATION_NAME + ".fcl");
-			
+			double averageScore = averageFitness / docEvalMaxIterations;
+			optimizationResults.add(averageScore); // 
+			FileUtils.saveListOfObjects(Arrays.asList("Average score: " + averageScore), 
+					globalSettings.OUTPUT_PATH + "/result_" + optSettings.OPTIMIZATION_NAME + ".txt");
 		}
-		
+		return optimizationResults;
 	}
 	
 	

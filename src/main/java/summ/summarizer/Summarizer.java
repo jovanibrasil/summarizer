@@ -1,11 +1,5 @@
 package summ.summarizer;
 
-import static org.hamcrest.CoreMatchers.sameInstance;
-
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStreamReader;
 import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -53,7 +47,7 @@ public class Summarizer {
 					fs.setInputVariable(variableName, (double) s.getFeature(variableName));
 				}
 				fs.setOutputVariable(variables.get(variables.size() - 1));
-
+				//System.out.println(s.getInitialValue());
 				double score = fs.evaluate().getValue();
 				s.setScore(score);
 				outList.add(new Tuple<>(s.getId(), score));
@@ -262,8 +256,8 @@ public class Summarizer {
 
 		// int summarySize = this.getSummarySize(text.getTotalSentence());
 		int summarySize = (int) (text.wordCounter * 0.3);
-		ArrayList<Tuple<Integer>> sentencesInformativity = computeSentencesInformativity(text, fs, varNames);
-		Text generatedSummary = generateSummary(text, summarySize, sentencesInformativity);
+		ArrayList<Tuple<Integer>> sentencesInformativity = this.computeSentencesInformativity(text, fs, varNames);
+		Text generatedSummary = this.generateSummary(text, summarySize, sentencesInformativity);
 		
 		// save result
 		ExportHTML.exportSummaryRougeFormat(generatedSummary, this.globalSettings.OUTPUT_PATH);

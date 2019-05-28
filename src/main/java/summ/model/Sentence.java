@@ -184,5 +184,13 @@ public class Sentence implements Comparable<Sentence> {
 				this.features.toString() + "\n\t" +
 				"Score: " + this.getScore() + "\n";
 	}
+
+	public String getWordsToStringWithFeatures() {
+		StringBuilder sb = new StringBuilder();
+		for (Word w : this.getWords()) {
+			sb.append(w.toString() + " (tf-isf=" + w.getFeature("tf_isf") + ") " );
+		}
+		return sb.toString();
+	}
 	
 }
