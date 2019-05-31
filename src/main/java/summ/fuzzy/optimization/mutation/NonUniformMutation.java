@@ -55,5 +55,10 @@ public class NonUniformMutation extends MutationOperator {
 	public String toString() {
 		return "Non-uniform mutation";
 	}
+
+	@Override
+	public double getAleatoryFeasibleCoefficient(double min, double max) {
+		return 0;
+	}
 	
 }

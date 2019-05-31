@@ -124,15 +124,26 @@ public class GeneticOptimization {
 //		chromosome.setGenes(fuzzySystem.getCoefficients());
 //		log.debug("Seeding: " + chromosome);
 //		this.currentPopulation.add(chromosome);
-//		
+		
 		MutationOperator fpMutator = new UniformMutation(new BellFunction());
 		
 		for (int i = 0; i < this.populationSize; i++) {
 			chromosome = new Chromosome();
+			int cIndex = 1;
 			for (int j = 0; j < fuzzySystem.getCoefficients().getDimension(); j+=3) {
 				chromosome.setGene(j, fpMutator.getAleatoryFeasibleCoefficient(0));
 				chromosome.setGene(j+1, fpMutator.getAleatoryFeasibleCoefficient(1));
-				chromosome.setGene(j+2, fpMutator.getAleatoryFeasibleCoefficient(2));
+				double min, max;
+				if(cIndex == 1) {
+					min = 0.0; max = 0.3333;
+				}else if(cIndex == 2) {
+					min = 0.3334; max = 0.6666;
+				}else {
+					min = 0.6667; max = 1.0;
+					cIndex = 0;
+				}
+				cIndex++;
+				chromosome.setGene(j+2, fpMutator.getAleatoryFeasibleCoefficient(min, max));
 			}
 			this.currentPopulation.add(chromosome);
 		}	
@@ -165,15 +176,19 @@ public class GeneticOptimization {
 		log.debug("Ranking population " + this.iteration);
 		Collections.sort(this.currentPopulation);
 		
+//		for (int i = 0; i < this.currentPopulation.size(); i++) {
+//			System.out.println("[" + i + "] fitness: " +  this.currentPopulation.get(i).fitness);
+//		}
+		
 		double averageFitness = this.currentPopulation.stream()
 				.mapToDouble(x -> x.fitness).sum() / this.currentPopulation.size();
 		this.bestFitnessSerie.add(this.getBestIndividual().fitness);
-		this.worstFitnessSerie.add(this.getWorstIndividual().fitness);
+		//this.worstFitnessSerie.add(this.getWorstIndividual().fitness);
 		this.averageFitnessSerie.add(averageFitness);
-		log.info("Average fitness: " + averageFitness);
 		log.info("Best fitness: " + this.getBestIndividual().fitness);
-		log.info("Worst fitness: " + this.getWorstIndividual().fitness);
 		
+		log.debug("Average fitness: " + averageFitness);
+		log.debug("Worst fitness: " + this.getWorstIndividual().fitness);
 		log.debug("Best individual: " + this.getBestIndividual());
 		log.trace("Crossover execution counter: " + GeneticOptimization.CROSSOVER_COUNTER);
 		GeneticOptimization.CROSSOVER_COUNTER = 0;

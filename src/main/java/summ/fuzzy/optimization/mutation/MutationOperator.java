@@ -29,6 +29,7 @@ public abstract class MutationOperator {
 	}
 	
 	public abstract double getAleatoryFeasibleCoefficient(int index);
+	public abstract double getAleatoryFeasibleCoefficient(double min, double max);
 	
 	public Chromosome mutateGenes(Chromosome chromosome, double genesMutationPercentual) {
 		
@@ -39,15 +40,26 @@ public abstract class MutationOperator {
 		int geneMutationCounter = 0;
 		
 		while (geneMutationCounter < maxGeneMutatedValues) {	
-			int geneIndex = getAleatoryIntegerValue(0, chromosome.getLength()-1);
+			int geneChromosomeIndex = getAleatoryIntegerValue(0, chromosome.getLength()-1);
 			
-			if(this.alreadyMutated.contains(geneIndex)) continue;
+			if(this.alreadyMutated.contains(geneChromosomeIndex)) continue;
 			
-			double newGeneValue = this.getAleatoryFeasibleCoefficient(geneIndex % 3);
-			log.debug("Gene mutation - Index: " + geneIndex % 3 + " value: " + newGeneValue);
-			chromosome.setGene(geneIndex, newGeneValue);
+			int geneIndex = geneChromosomeIndex % 3;
+			
+			double newGeneValue = this.getAleatoryFeasibleCoefficient(geneIndex);
+			
+//			while(true) {
+//				if(geneIndex != 2) break;
+//				if(geneChromosomeIndex == 1 || geneChromosomeIndex == 10 || 
+//						geneChromosomeIndex == 19 || geneChromosomeIndex == 28) break;
+//				if(newGeneValue > chromosome.getGene(geneChromosomeIndex)-3) break;
+//				newGeneValue = this.getAleatoryFeasibleCoefficient(geneIndex);
+//			}
+			
+			log.debug("Gene mutation - Index: " + geneIndex + " value: " + newGeneValue);
+			chromosome.setGene(geneChromosomeIndex, newGeneValue);
 			geneMutationCounter++;
-			alreadyMutated.add(geneIndex);
+			alreadyMutated.add(geneChromosomeIndex);
 			MutationOperator.VALUE_GEN_HIT++;
 		}
 		return chromosome;

@@ -71249,3 +71249,4165 @@ Loading config.properties: ./settings/summarization/fb01.properties
 Evaluation type: ROUGE1_R
 Training tests: 16
 Test texts: 4
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 16
+Test texts: 4
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb01.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Tue_May_28_14_49_47_BRT_2019/iteration0/opt_fb01_Tue_May_28_14_49_52_BRT_2019
+Creating directory results/opt__Tue_May_28_14_49_47_BRT_2019/iteration0/opt_fb01_Tue_May_28_14_49_52_BRT_2019/texts-results
+Iteration: 1/2
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 16
+Test texts: 4
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb01.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Tue_May_28_14_54_02_BRT_2019/iteration0/opt_fb01_Tue_May_28_14_54_07_BRT_2019
+Creating directory results/opt__Tue_May_28_14_54_02_BRT_2019/iteration0/opt_fb01_Tue_May_28_14_54_07_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.46827317652554895
+Best fitness: 0.5219514311989273
+Worst fitness: 0.4191452571071629
+Optimization Start time: Tue May 28 14:59:18 BRT 2019
+Generation:	1/100
+Average fitness: 0.4915740568831651
+Best fitness: 0.562435784875732
+Worst fitness: 0.4486541685335565
+Generation:	2/100
+Average fitness: 0.5057134613100208
+Best fitness: 0.562435784875732
+Worst fitness: 0.44102193707577986
+Generation:	3/100
+Average fitness: 0.5282959157941972
+Best fitness: 0.562435784875732
+Worst fitness: 0.47169185831768234
+Generation:	4/100
+Average fitness: 0.5479100644506653
+Best fitness: 0.5807751151358052
+Worst fitness: 0.4887900908197778
+Generation:	5/100
+Average fitness: 0.5480760359370982
+Best fitness: 0.5995782300403025
+Worst fitness: 0.46547055304301865
+Generation:	6/100
+Average fitness: 0.5628244716430513
+Best fitness: 0.6153883798975925
+Worst fitness: 0.5038151635045355
+Generation:	7/100
+Average fitness: 0.5672153226217591
+Best fitness: 0.6153883798975925
+Worst fitness: 0.5336912450077872
+Generation:	8/100
+Average fitness: 0.576070938532434
+Best fitness: 0.6153883798975925
+Worst fitness: 0.5276883996688037
+Generation:	9/100
+Average fitness: 0.5873564052119016
+Best fitness: 0.6153883798975925
+Worst fitness: 0.5503202392585551
+The optimization was stopped by convergence.
+End time: Tue May 28 15:48:23 BRT 2019
+Execution time in milliseconds : 2945195
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.43774499999999994
+	RECALL: 0.39995250000000004
+	PRECISION: 0.503285
+
+Iteration: 2/4
+Average fitness: 0.4692474396594949
+Best fitness: 0.5659881221084199
+Worst fitness: 0.41292952545819733
+Optimization Start time: Tue May 28 15:53:54 BRT 2019
+Generation:	1/100
+Average fitness: 0.4885084739183265
+Best fitness: 0.5659881221084199
+Worst fitness: 0.4293159263217241
+Generation:	2/100
+Average fitness: 0.5000783619271286
+Best fitness: 0.5659881221084199
+Worst fitness: 0.46041778679286455
+Generation:	3/100
+Average fitness: 0.5210482540353643
+Best fitness: 0.6585921650602253
+Worst fitness: 0.4290369575039884
+Generation:	4/100
+Average fitness: 0.5423078981157091
+Best fitness: 0.6630572724555643
+Worst fitness: 0.4360867935353486
+Generation:	5/100
+Average fitness: 0.5795691931815729
+Best fitness: 0.6828329859981945
+Worst fitness: 0.4863166323083553
+Generation:	6/100
+Average fitness: 0.6251421896064782
+Best fitness: 0.6890971781040827
+Worst fitness: 0.5036796856572086
+Generation:	7/100
+Average fitness: 0.6473205429116368
+Best fitness: 0.6900959110220839
+Worst fitness: 0.503490912917203
+Generation:	8/100
+Average fitness: 0.6764472943842381
+Best fitness: 0.6938224059273217
+Worst fitness: 0.6063980726544622
+Generation:	9/100
+Average fitness: 0.6668253991276911
+Best fitness: 0.7019567704951534
+Worst fitness: 0.44126271407434126
+Generation:	10/100
+Average fitness: 0.677194897849415
+Best fitness: 0.7043917544089294
+Worst fitness: 0.5130952999125157
+Generation:	11/100
+Average fitness: 0.6777047034725908
+Best fitness: 0.7045226915600584
+Worst fitness: 0.4694134575845281
+Generation:	12/100
+Average fitness: 0.6899555771926488
+Best fitness: 0.7203473571950438
+Worst fitness: 0.5096097155198795
+Generation:	13/100
+Average fitness: 0.7002985071322507
+Best fitness: 0.7203473571950438
+Worst fitness: 0.6892581634324682
+Generation:	14/100
+Average fitness: 0.6832336951162774
+Best fitness: 0.7203473571950438
+Worst fitness: 0.44556074481380253
+Generation:	15/100
+Average fitness: 0.6840061851803005
+Best fitness: 0.7203473571950438
+Worst fitness: 0.4688083799782972
+The optimization was stopped by convergence.
+End time: Tue May 28 17:22:21 BRT 2019
+Execution time in milliseconds : 5306634
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.46051499999999995
+	RECALL: 0.44111500000000003
+	PRECISION: 0.48690999999999995
+
+Iteration: 3/4
+Average fitness: 0.4861310793590943
+Best fitness: 0.5882518771392669
+Worst fitness: 0.4305461804038505
+Optimization Start time: Tue May 28 17:27:58 BRT 2019
+Generation:	1/100
+Average fitness: 0.5123376369464985
+Best fitness: 0.6530347523456941
+Worst fitness: 0.4447532165579375
+Generation:	2/100
+Average fitness: 0.5628104455824509
+Best fitness: 0.6899884592873864
+Worst fitness: 0.45606267539020856
+Generation:	3/100
+Average fitness: 0.5820820663615035
+Best fitness: 0.6899884592873864
+Worst fitness: 0.46394574284025053
+Generation:	4/100
+Average fitness: 0.6228193617874588
+Best fitness: 0.6899884592873864
+Worst fitness: 0.4822440135036388
+Generation:	5/100
+Average fitness: 0.6619845830524812
+Best fitness: 0.6899884592873864
+Worst fitness: 0.5296333731028904
+The optimization was stopped by convergence.
+End time: Tue May 28 17:56:34 BRT 2019
+Execution time in milliseconds : 1716584
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4467175
+	RECALL: 0.43530500000000005
+	PRECISION: 0.46706000000000003
+
+Iteration: 4/4
+Average fitness: 0.4564498074541616
+Best fitness: 0.4961002597144302
+Worst fitness: 0.4182415395470184
+Optimization Start time: Tue May 28 18:02:12 BRT 2019
+Generation:	1/100
+Average fitness: 0.4684448999906998
+Best fitness: 0.4980654929459541
+Worst fitness: 0.43256091394600693
+Generation:	2/100
+Average fitness: 0.48289610806741073
+Best fitness: 0.5187668641663947
+Worst fitness: 0.45957043151466836
+Generation:	3/100
+Average fitness: 0.48964593457780664
+Best fitness: 0.5192366965903027
+Worst fitness: 0.4674850120207674
+Generation:	4/100
+Average fitness: 0.49579883401045804
+Best fitness: 0.5192366965903027
+Worst fitness: 0.4697174480325621
+Generation:	5/100
+Average fitness: 0.5034888385058327
+Best fitness: 0.6127447271447692
+Worst fitness: 0.4596904466234665
+Generation:	6/100
+Average fitness: 0.5176125215958828
+Best fitness: 0.6127447271447692
+Worst fitness: 0.49072204462661145
+Generation:	7/100
+Average fitness: 0.5179564011824336
+Best fitness: 0.6127447271447692
+Worst fitness: 0.4867399778291612
+Generation:	8/100
+Average fitness: 0.5508203915556333
+Best fitness: 0.6311708094435127
+Worst fitness: 0.5125856541518928
+Generation:	9/100
+Average fitness: 0.5980371427134272
+Best fitness: 0.643953819408653
+Worst fitness: 0.5074236972749283
+Generation:	10/100
+Average fitness: 0.6315664203312287
+Best fitness: 0.643953819408653
+Worst fitness: 0.6091600596666105
+Generation:	11/100
+Average fitness: 0.6342984636289836
+Best fitness: 0.6527848458936879
+Worst fitness: 0.6131179078810363
+Generation:	12/100
+Average fitness: 0.6295776054737309
+Best fitness: 0.6527848458936879
+Worst fitness: 0.4982402035427101
+Generation:	13/100
+Average fitness: 0.6199531891624449
+Best fitness: 0.6642612595350278
+Worst fitness: 0.42353626648271164
+Generation:	14/100
+Average fitness: 0.6173145793828919
+Best fitness: 0.6642612595350278
+Worst fitness: 0.42124378413794944
+Generation:	15/100
+Average fitness: 0.63102042373551
+Best fitness: 0.6642612595350278
+Worst fitness: 0.4998598135478464
+Generation:	16/100
+Average fitness: 0.6403347388712839
+Best fitness: 0.6776801400006376
+Worst fitness: 0.4650783627825991
+Generation:	17/100
+Average fitness: 0.6526615128975312
+Best fitness: 0.6776801400006376
+Worst fitness: 0.6024284313295144
+Generation:	18/100
+Average fitness: 0.645853236320098
+Best fitness: 0.6776801400006376
+Worst fitness: 0.45513272280998596
+Generation:	19/100
+Average fitness: 0.6238112795018398
+Best fitness: 0.6776801400006376
+Worst fitness: 0.4390718692943467
+The optimization was stopped by convergence.
+End time: Tue May 28 19:45:19 BRT 2019
+Execution time in milliseconds : 6187171
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4167425
+	RECALL: 0.38961250000000003
+	PRECISION: 0.4548375
+
+Finished!
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 16
+Test texts: 4
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb01.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Tue_May_28_23_23_46_BRT_2019/iteration0/opt_fb01_Tue_May_28_23_23_50_BRT_2019
+Creating directory results/opt__Tue_May_28_23_23_46_BRT_2019/iteration0/opt_fb01_Tue_May_28_23_23_50_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.48556463361991364
+Best fitness: 0.5765604412899213
+Worst fitness: 0.4324768165834109
+Optimization Start time: Tue May 28 23:28:47 BRT 2019
+Generation:	1/30
+Average fitness: 0.5123218601737722
+Best fitness: 0.5847500708122048
+Worst fitness: 0.4437263361636097
+Generation:	2/30
+Average fitness: 0.5523927548541336
+Best fitness: 0.6024965981991901
+Worst fitness: 0.4657685742326576
+Generation:	3/30
+Average fitness: 0.5863054103094593
+Best fitness: 0.7157057286058948
+Worst fitness: 0.47982213968016313
+Generation:	4/30
+Average fitness: 0.6050029617482736
+Best fitness: 0.7157057286058948
+Worst fitness: 0.49046984743872013
+Generation:	5/30
+Average fitness: 0.6158470086453139
+Best fitness: 0.7157057286058948
+Worst fitness: 0.4805371968917311
+Generation:	6/30
+Average fitness: 0.6344405701246925
+Best fitness: 0.7157057286058948
+Worst fitness: 0.4566376943388611
+The optimization was stopped by convergence.
+End time: Tue May 28 23:57:40 BRT 2019
+Execution time in milliseconds : 1733401
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4366525
+	RECALL: 0.41402000000000005
+	PRECISION: 0.4639375
+
+Iteration: 2/4
+Average fitness: 0.5052712902428076
+Best fitness: 0.6537950625067754
+Worst fitness: 0.4450109941208616
+Optimization Start time: Wed May 29 00:02:32 BRT 2019
+Generation:	1/30
+Average fitness: 0.5291196931948448
+Best fitness: 0.6537950625067754
+Worst fitness: 0.45384930337155277
+Generation:	2/30
+Average fitness: 0.5654607074208171
+Best fitness: 0.66060593498988
+Worst fitness: 0.45250945273513443
+Generation:	3/30
+Average fitness: 0.593127185615807
+Best fitness: 0.7130104267489216
+Worst fitness: 0.5173368516836695
+Generation:	4/30
+Average fitness: 0.6359713304081843
+Best fitness: 0.7130104267489216
+Worst fitness: 0.5398579291410996
+Generation:	5/30
+Average fitness: 0.6674730527024865
+Best fitness: 0.7130104267489216
+Worst fitness: 0.4667867628435351
+Generation:	6/30
+Average fitness: 0.6998998730448084
+Best fitness: 0.7170442597390109
+Worst fitness: 0.6358894757963348
+Generation:	7/30
+Average fitness: 0.7012414204409165
+Best fitness: 0.7488186205706856
+Worst fitness: 0.5215075124608255
+Generation:	8/30
+Average fitness: 0.697702449149305
+Best fitness: 0.7488186205706856
+Worst fitness: 0.5227882665136987
+Generation:	9/30
+Average fitness: 0.6998452765780984
+Best fitness: 0.7488186205706856
+Worst fitness: 0.4820105638560469
+Generation:	10/30
+Average fitness: 0.7205400147812719
+Best fitness: 0.7488186205706856
+Worst fitness: 0.6741333819295985
+The optimization was stopped by convergence.
+End time: Wed May 29 00:50:24 BRT 2019
+Execution time in milliseconds : 2871523
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4211425
+	RECALL: 0.405775
+	PRECISION: 0.43962
+
+Iteration: 3/4
+Average fitness: 0.4937218983149945
+Best fitness: 0.5809091927062816
+Worst fitness: 0.4410190921359791
+Optimization Start time: Wed May 29 00:55:16 BRT 2019
+Generation:	1/30
+Average fitness: 0.5186080246488433
+Best fitness: 0.5946262084593622
+Worst fitness: 0.4684013703905575
+Generation:	2/30
+Average fitness: 0.539165850375933
+Best fitness: 0.5946262084593622
+Worst fitness: 0.4711557306723588
+Generation:	3/30
+Average fitness: 0.5594584547714818
+Best fitness: 0.6003122841649197
+Worst fitness: 0.4954487393331304
+Generation:	4/30
+Average fitness: 0.5723791895975032
+Best fitness: 0.6246214906882527
+Worst fitness: 0.5005475683913954
+Generation:	5/30
+Average fitness: 0.5980209184839518
+Best fitness: 0.6306013517248846
+Worst fitness: 0.5672370605933348
+Generation:	6/30
+Average fitness: 0.6059415655898038
+Best fitness: 0.6366308239279815
+Worst fitness: 0.48756763782903706
+Generation:	7/30
+Average fitness: 0.6134951440696974
+Best fitness: 0.6366308239279815
+Worst fitness: 0.49305407035361987
+Generation:	8/30
+Average fitness: 0.6254564849293883
+Best fitness: 0.6366308239279815
+Worst fitness: 0.6016740879265076
+Generation:	9/30
+Average fitness: 0.6240935259630348
+Best fitness: 0.6366308239279815
+Worst fitness: 0.5253759572449537
+The optimization was stopped by convergence.
+End time: Wed May 29 01:38:26 BRT 2019
+Execution time in milliseconds : 2590616
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.422575
+	RECALL: 0.406965
+	PRECISION: 0.442155
+
+Iteration: 4/4
+Average fitness: 0.4967904141006298
+Best fitness: 0.5472329292888376
+Worst fitness: 0.4520537140895982
+Optimization Start time: Wed May 29 01:43:19 BRT 2019
+Generation:	1/30
+Average fitness: 0.5207397579424223
+Best fitness: 0.664351330161717
+Worst fitness: 0.4593906411044245
+Generation:	2/30
+Average fitness: 0.5829971821504472
+Best fitness: 0.6709142286836938
+Worst fitness: 0.47779387226794046
+Generation:	3/30
+Average fitness: 0.6282698952913403
+Best fitness: 0.6728175777762042
+Worst fitness: 0.49931295881965176
+Generation:	4/30
+Average fitness: 0.6572432075461337
+Best fitness: 0.7407666874318071
+Worst fitness: 0.4898578584949589
+Generation:	5/30
+Average fitness: 0.6613285858481717
+Best fitness: 0.7407666874318071
+Worst fitness: 0.5021346086143774
+Generation:	6/30
+Average fitness: 0.6790189700681821
+Best fitness: 0.7407666874318071
+Worst fitness: 0.6007607470520555
+Generation:	7/30
+Average fitness: 0.6675974679206071
+Best fitness: 0.7407666874318071
+Worst fitness: 0.46779342543209934
+The optimization was stopped by convergence.
+End time: Wed May 29 02:16:56 BRT 2019
+Execution time in milliseconds : 2017570
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.482925
+	RECALL: 0.474535
+	PRECISION: 0.493065
+
+Loading config.properties: ./settings/optimization/fb02.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Tue_May_28_23_23_46_BRT_2019/iteration0/opt_fb02_Wed_May_29_02_17_00_BRT_2019
+Creating directory results/opt__Tue_May_28_23_23_46_BRT_2019/iteration0/opt_fb02_Wed_May_29_02_17_00_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.4823763957646125
+Best fitness: 0.5434459593996437
+Worst fitness: 0.4410658212741943
+Optimization Start time: Wed May 29 02:21:49 BRT 2019
+Generation:	1/30
+Average fitness: 0.4964162313833685
+Best fitness: 0.5575012507424291
+Worst fitness: 0.44968624901380744
+Generation:	2/30
+Average fitness: 0.5146757912812486
+Best fitness: 0.5883818935898357
+Worst fitness: 0.4719215272195108
+Generation:	3/30
+Average fitness: 0.5404560499499473
+Best fitness: 0.5883818935898357
+Worst fitness: 0.4698651597933213
+Generation:	4/30
+Average fitness: 0.56261731774618
+Best fitness: 0.5883818935898357
+Worst fitness: 0.471729243623484
+Generation:	5/30
+Average fitness: 0.5776137813986699
+Best fitness: 0.6317730722549818
+Worst fitness: 0.4719709621914186
+Generation:	6/30
+Average fitness: 0.5848126848714801
+Best fitness: 0.6317730722549818
+Worst fitness: 0.475169635512704
+Generation:	7/30
+Average fitness: 0.6168276104229584
+Best fitness: 0.7175390688757423
+Worst fitness: 0.5311830637740024
+Generation:	8/30
+Average fitness: 0.6278749457524844
+Best fitness: 0.7175390688757423
+Worst fitness: 0.440962138736743
+Generation:	9/30
+Average fitness: 0.6552111345995004
+Best fitness: 0.746842214935982
+Worst fitness: 0.5128989971123902
+Generation:	10/30
+Average fitness: 0.6776600202830301
+Best fitness: 0.746842214935982
+Worst fitness: 0.5356216321315586
+Generation:	11/30
+Average fitness: 0.700580905027323
+Best fitness: 0.746842214935982
+Worst fitness: 0.6075648137616352
+Generation:	12/30
+Average fitness: 0.6850490143758011
+Best fitness: 0.7511751591230962
+Worst fitness: 0.46797854738250494
+Generation:	13/30
+Average fitness: 0.7200723574519519
+Best fitness: 0.75493240424959
+Worst fitness: 0.511054585453085
+Generation:	14/30
+Average fitness: 0.7126992061468943
+Best fitness: 0.75493240424959
+Worst fitness: 0.4696435923629447
+Generation:	15/30
+Average fitness: 0.7261609690960762
+Best fitness: 0.7947545631979982
+Worst fitness: 0.5339812439292723
+Generation:	16/30
+Average fitness: 0.7521765309709489
+Best fitness: 0.7947545631979982
+Worst fitness: 0.7163777892555013
+Generation:	17/30
+Average fitness: 0.7489487411262487
+Best fitness: 0.7947545631979982
+Worst fitness: 0.6379795533889592
+Generation:	18/30
+Average fitness: 0.7554483383026259
+Best fitness: 0.7947545631979982
+Worst fitness: 0.6979425275626908
+The optimization was stopped by convergence.
+End time: Wed May 29 03:48:13 BRT 2019
+Execution time in milliseconds : 5184403
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4276650000000001
+	RECALL: 0.410545
+	PRECISION: 0.4503125
+
+Iteration: 2/4
+Average fitness: 0.4892517046498505
+Best fitness: 0.5778653992758349
+Worst fitness: 0.42420220577416756
+Optimization Start time: Wed May 29 03:53:05 BRT 2019
+Generation:	1/30
+Average fitness: 0.5027205440598195
+Best fitness: 0.5778653992758349
+Worst fitness: 0.4449861541593456
+Generation:	2/30
+Average fitness: 0.514163262919091
+Best fitness: 0.5778653992758349
+Worst fitness: 0.4528686407463471
+Generation:	3/30
+Average fitness: 0.5287940000911395
+Best fitness: 0.5778653992758349
+Worst fitness: 0.44576988005805124
+Generation:	4/30
+Average fitness: 0.5400008894491919
+Best fitness: 0.63953803498871
+Worst fitness: 0.4707575199742085
+Generation:	5/30
+Average fitness: 0.5590092659063074
+Best fitness: 0.63953803498871
+Worst fitness: 0.45398313931936624
+Generation:	6/30
+Average fitness: 0.5679291833557045
+Best fitness: 0.63953803498871
+Worst fitness: 0.4776470789100398
+Generation:	7/30
+Average fitness: 0.581893065737901
+Best fitness: 0.63953803498871
+Worst fitness: 0.4776470789100398
+The optimization was stopped by convergence.
+End time: Wed May 29 04:26:40 BRT 2019
+Execution time in milliseconds : 2015182
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.406515
+	RECALL: 0.37671999999999994
+	PRECISION: 0.4433325
+
+Iteration: 3/4
+Average fitness: 0.5116054963731785
+Best fitness: 0.6541586788583591
+Worst fitness: 0.45055106412281687
+Optimization Start time: Wed May 29 04:31:32 BRT 2019
+Generation:	1/30
+Average fitness: 0.540014007903918
+Best fitness: 0.6541586788583591
+Worst fitness: 0.45275476990133734
+Generation:	2/30
+Average fitness: 0.5759879157563017
+Best fitness: 0.668608330436322
+Worst fitness: 0.4390314221036468
+Generation:	3/30
+Average fitness: 0.5980869521993049
+Best fitness: 0.6983466490148246
+Worst fitness: 0.4634310276167028
+Generation:	4/30
+Average fitness: 0.6411860841649903
+Best fitness: 0.7565560274497086
+Worst fitness: 0.48083585221830577
+Generation:	5/30
+Average fitness: 0.6551825580069373
+Best fitness: 0.7565560274497086
+Worst fitness: 0.48188975709584037
+Generation:	6/30
+Average fitness: 0.669690732780267
+Best fitness: 0.7565560274497086
+Worst fitness: 0.5519099092672883
+Generation:	7/30
+Average fitness: 0.6497693541849958
+Best fitness: 0.7565560274497086
+Worst fitness: 0.4753946521358486
+The optimization was stopped by convergence.
+End time: Wed May 29 05:05:08 BRT 2019
+Execution time in milliseconds : 2015371
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4542975
+	RECALL: 0.43523
+	PRECISION: 0.4791525
+
+Iteration: 4/4
+Average fitness: 0.4888784453903729
+Best fitness: 0.5586035405058211
+Worst fitness: 0.4377472129163584
+Optimization Start time: Wed May 29 05:10:00 BRT 2019
+Generation:	1/30
+Average fitness: 0.512093223135476
+Best fitness: 0.6106266796215329
+Worst fitness: 0.46149055039238307
+Generation:	2/30
+Average fitness: 0.5400011576528676
+Best fitness: 0.6125190688705543
+Worst fitness: 0.46759940914320186
+Generation:	3/30
+Average fitness: 0.5675607108162385
+Best fitness: 0.6225854424645063
+Worst fitness: 0.5000990445848572
+Generation:	4/30
+Average fitness: 0.5730633278960361
+Best fitness: 0.6225854424645063
+Worst fitness: 0.45497600945533423
+Generation:	5/30
+Average fitness: 0.5861750368330886
+Best fitness: 0.6225854424645063
+Worst fitness: 0.47678848482788444
+Generation:	6/30
+Average fitness: 0.5945948938051173
+Best fitness: 0.7284648402175711
+Worst fitness: 0.44553955614052887
+Generation:	7/30
+Average fitness: 0.6212654644348096
+Best fitness: 0.7284648402175711
+Worst fitness: 0.47773349717294766
+Generation:	8/30
+Average fitness: 0.6298232838523369
+Best fitness: 0.7284648402175711
+Worst fitness: 0.4917821464365338
+Generation:	9/30
+Average fitness: 0.6596874814934427
+Best fitness: 0.7284648402175711
+Worst fitness: 0.5030162529986631
+The optimization was stopped by convergence.
+End time: Wed May 29 05:53:10 BRT 2019
+Execution time in milliseconds : 2589250
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.40912999999999994
+	RECALL: 0.3955725
+	PRECISION: 0.4244525
+
+Loading config.properties: ./settings/optimization/fb03.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Tue_May_28_23_23_46_BRT_2019/iteration0/opt_fb03_Wed_May_29_05_53_13_BRT_2019
+Creating directory results/opt__Tue_May_28_23_23_46_BRT_2019/iteration0/opt_fb03_Wed_May_29_05_53_13_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.479602429757257
+Best fitness: 0.5435513773774262
+Worst fitness: 0.4452050616659039
+Optimization Start time: Wed May 29 05:58:01 BRT 2019
+Generation:	1/30
+Average fitness: 0.5034329889429209
+Best fitness: 0.5617091463697409
+Worst fitness: 0.4575987381613797
+Generation:	2/30
+Average fitness: 0.516417521995842
+Best fitness: 0.5617091463697409
+Worst fitness: 0.47243310679093903
+Generation:	3/30
+Average fitness: 0.533664647780163
+Best fitness: 0.5967355848090199
+Worst fitness: 0.4953562490457354
+Generation:	4/30
+Average fitness: 0.5483495413070896
+Best fitness: 0.6097756894949076
+Worst fitness: 0.5052076401039319
+Generation:	5/30
+Average fitness: 0.5637533552531807
+Best fitness: 0.6188472206466842
+Worst fitness: 0.49485640225716343
+Generation:	6/30
+Average fitness: 0.572006038451675
+Best fitness: 0.6188472206466842
+Worst fitness: 0.5076818674884978
+Generation:	7/30
+Average fitness: 0.5878556133117192
+Best fitness: 0.6188472206466842
+Worst fitness: 0.5354347869792636
+Generation:	8/30
+Average fitness: 0.5954778293367923
+Best fitness: 0.6188472206466842
+Worst fitness: 0.5739280441067645
+The optimization was stopped by convergence.
+End time: Wed May 29 06:36:28 BRT 2019
+Execution time in milliseconds : 2306312
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.42722499999999997
+	RECALL: 0.416155
+	PRECISION: 0.440285
+
+Iteration: 2/4
+Average fitness: 0.484181362535947
+Best fitness: 0.5528453039359567
+Worst fitness: 0.4418518787743424
+Optimization Start time: Wed May 29 06:41:20 BRT 2019
+Generation:	1/30
+Average fitness: 0.5075823968035557
+Best fitness: 0.5553266800921094
+Worst fitness: 0.44201625287862734
+Generation:	2/30
+Average fitness: 0.5290446057764581
+Best fitness: 0.6017908883696266
+Worst fitness: 0.43930316591329105
+Generation:	3/30
+Average fitness: 0.5550345851422998
+Best fitness: 0.6243560406009033
+Worst fitness: 0.45925927158705737
+Generation:	4/30
+Average fitness: 0.5830284429574948
+Best fitness: 0.6278303356433442
+Worst fitness: 0.4798204491121961
+Generation:	5/30
+Average fitness: 0.6092374197553292
+Best fitness: 0.6462890689411054
+Worst fitness: 0.5695596087894412
+Generation:	6/30
+Average fitness: 0.6224156096742075
+Best fitness: 0.6462890689411054
+Worst fitness: 0.5936955712653322
+Generation:	7/30
+Average fitness: 0.6295228343994375
+Best fitness: 0.6484955791494545
+Worst fitness: 0.5284413013695899
+Generation:	8/30
+Average fitness: 0.6361073335369066
+Best fitness: 0.6484955791494545
+Worst fitness: 0.5314768466415484
+Generation:	9/30
+Average fitness: 0.6450221196129511
+Best fitness: 0.6484955791494545
+Worst fitness: 0.6332727184971959
+Generation:	10/30
+Average fitness: 0.642216232000441
+Best fitness: 0.651570359759354
+Worst fitness: 0.5423000859781939
+Generation:	11/30
+Average fitness: 0.6235835228055306
+Best fitness: 0.651570359759354
+Worst fitness: 0.48092453148574804
+Generation:	12/30
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 16
+Test texts: 4
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/simple-test.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_07_40_18_BRT_2019/iteration0/opt_simple-test_Wed_May_29_07_40_23_BRT_2019
+Creating directory results/opt__Wed_May_29_07_40_18_BRT_2019/iteration0/opt_simple-test_Wed_May_29_07_40_23_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.49914654766723227
+Best fitness: 0.5734161044519395
+Worst fitness: 0.45001708459801415
+Optimization Start time: Wed May 29 07:41:35 BRT 2019
+Generation:	1/3
+Average fitness: 0.6347607973265942
+Best fitness: 0.654266329657703
+Worst fitness: 0.4634715820955351
+Generation:	13/30
+Average fitness: 0.5229630024848568
+Best fitness: 0.5734161044519395
+Worst fitness: 0.47112262789298787
+Generation:	2/3
+Average fitness: 0.5552801222039315
+Best fitness: 0.6275869624712216
+Worst fitness: 0.47112262789298787
+Generation:	3/3
+Average fitness: 0.5824082917281403
+Best fitness: 0.6275869624712216
+Worst fitness: 0.5059477934386887
+End time: Wed May 29 07:45:02 BRT 2019
+Execution time in milliseconds : 207423
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.3992075
+	RECALL: 0.3817375
+	PRECISION: 0.42403
+
+Iteration: 2/4
+Average fitness: 0.5317328625703462
+Best fitness: 0.5969079221761407
+Worst fitness: 0.46320771444873304
+Optimization Start time: Wed May 29 07:46:18 BRT 2019
+Generation:	1/3
+Average fitness: 0.633168489466381
+Best fitness: 0.6560499535955732
+Worst fitness: 0.4902196913307592
+Generation:	14/30
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 4
+Test texts: 1
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/simple-test.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_07_50_36_BRT_2019/iteration0/opt_simple-test_Wed_May_29_07_50_37_BRT_2019
+Creating directory results/opt__Wed_May_29_07_50_36_BRT_2019/iteration0/opt_simple-test_Wed_May_29_07_50_37_BRT_2019/texts-results
+Loading gbell fuzzy membership (a, b, c) = (0.244, 2.41, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.159, 2.675, 0.411)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 3.465, 0.889)
+Loading gbell fuzzy membership (a, b, c) = (0.253, 4.16, 0.029)
+Loading gbell fuzzy membership (a, b, c) = (0.195, 3.117, 0.47)
+Loading gbell fuzzy membership (a, b, c) = (0.305, 4.56, 0.975)
+Loading gbell fuzzy membership (a, b, c) = (0.241, 2.04, 0.046)
+Loading gbell fuzzy membership (a, b, c) = (0.173, 2.81, 0.462)
+Loading gbell fuzzy membership (a, b, c) = (0.387, 3.118, 1.03)
+Loading gbell fuzzy membership (a, b, c) = (0.258, 2.409, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.186, 1.983, 0.456)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 2.814, 0.952)
+Iteration: 1/1
+Average fitness: 0.48143526449237906
+Best fitness: 0.5745191402601815
+Worst fitness: 0.44153877375251616
+Optimization Start time: Wed May 29 07:50:52 BRT 2019
+Generation:	1/3
+Average fitness: 0.4699859773275964
+Best fitness: 0.5745191402601815
+Worst fitness: 0.3790531967398666
+Generation:	2/3
+Average fitness: 0.5056532837456333
+Best fitness: 0.5745191402601815
+Worst fitness: 0.4513067726782547
+Generation:	3/3
+Average fitness: 0.5408707643970749
+Best fitness: 0.5745191402601815
+Worst fitness: 0.5075682275207981
+End time: Wed May 29 07:51:36 BRT 2019
+Execution time in milliseconds : 43899
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.41752
+	RECALL: 0.35371
+	PRECISION: 0.50943
+
+Finished!
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 4
+Test texts: 1
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/simple-test.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_07_55_43_BRT_2019/iteration0/opt_simple-test_Wed_May_29_07_55_44_BRT_2019
+Creating directory results/opt__Wed_May_29_07_55_43_BRT_2019/iteration0/opt_simple-test_Wed_May_29_07_55_44_BRT_2019/texts-results
+Loading gbell fuzzy membership (a, b, c) = (0.244, 2.41, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.159, 2.675, 0.411)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 3.465, 0.889)
+Loading gbell fuzzy membership (a, b, c) = (0.253, 4.16, 0.029)
+Loading gbell fuzzy membership (a, b, c) = (0.195, 3.117, 0.47)
+Loading gbell fuzzy membership (a, b, c) = (0.305, 4.56, 0.975)
+Loading gbell fuzzy membership (a, b, c) = (0.241, 2.04, 0.046)
+Loading gbell fuzzy membership (a, b, c) = (0.173, 2.81, 0.462)
+Loading gbell fuzzy membership (a, b, c) = (0.387, 3.118, 1.03)
+Loading gbell fuzzy membership (a, b, c) = (0.258, 2.409, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.186, 1.983, 0.456)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 2.814, 0.952)
+Iteration: 1/1
+f=0.06101832079630463
+f=0.06101832079630463
+f=0.06101832079630463
+f=0.06101832079630463
+f=0.0333538305766709
+f=0.0333538305766709
+f=0.0333538305766709
+f=0.0333538305766709
+f=0.0927587045342493
+f=0.0927587045342493
+f=0.0927587045342493
+f=0.0927587045342493
+f=0.06471794210326975
+f=0.06471794210326975
+f=0.06471794210326975
+f=0.06471794210326975
+f=0.08395387686232722
+f=0.08395387686232722
+f=0.08395387686232722
+f=0.08395387686232722
+Average fitness: 0.5104215349745644
+Best fitness: 0.5470388768623272
+Worst fitness: 0.4565333207963047
+Optimization Start time: Wed May 29 07:56:00 BRT 2019
+Generation:	1/3
+f=0.08395387686232722
+f=0.08395387686232722
+f=0.08395387686232722
+f=0.08395387686232722
+f=0.10816256830219428
+f=0.10816256830219428
+f=0.10816256830219428
+f=0.10816256830219428
+f=0.06471794210326975
+f=0.06471794210326975
+f=0.06471794210326975
+f=0.06471794210326975
+f=0.08395387686232722
+f=0.08395387686232722
+f=0.08395387686232722
+f=0.08395387686232722
+f=0.05555635754501132
+f=0.05555635754501132
+f=0.05555635754501132
+f=0.05555635754501132
+Average fitness: 0.534716924335026
+Best fitness: 0.5737300683021943
+Worst fitness: 0.49261385754501136
+Generation:	2/3
+f=0.10816256830219428
+f=0.10816256830219428
+f=0.10816256830219428
+f=0.10816256830219428
+f=0.07721987839506747
+f=0.07721987839506747
+f=0.07721987839506747
+f=0.07721987839506747
+f=0.12970727080368685
+f=0.12970727080368685
+f=0.12970727080368685
+f=0.12970727080368685
+f=0.10348909672052338
+f=0.10348909672052338
+f=0.10348909672052338
+f=0.10348909672052338
+f=0.1023505823811446
+f=0.1023505823811446
+f=0.1023505823811446
+f=0.1023505823811446
+Average fitness: 0.5750993793205234
+Best fitness: 0.5942065967205235
+Worst fitness: 0.5534855823811446
+Generation:	3/3
+f=0.10348909672052338
+f=0.10348909672052338
+f=0.10348909672052338
+f=0.10348909672052338
+f=0.08309327310727534
+f=0.08309327310727534
+f=0.08309327310727534
+f=0.08309327310727534
+f=0.05295620813615025
+f=0.05295620813615025
+f=0.05295620813615025
+f=0.05295620813615025
+f=0.0922638221338702
+f=0.0922638221338702
+f=0.0922638221338702
+f=0.0922638221338702
+f=0.10348909672052338
+f=0.10348909672052338
+f=0.10348909672052338
+f=0.10348909672052338
+Average fitness: 0.5598532993636686
+Best fitness: 0.5942065967205235
+Worst fitness: 0.4913912081361502
+End time: Wed May 29 07:56:46 BRT 2019
+Execution time in milliseconds : 46238
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.49395
+	RECALL: 0.45946
+	PRECISION: 0.53403
+
+Finished!
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 4
+Test texts: 1
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/simple-test.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_09_44_20_BRT_2019/iteration0/opt_simple-test_Wed_May_29_09_44_22_BRT_2019
+Creating directory results/opt__Wed_May_29_09_44_20_BRT_2019/iteration0/opt_simple-test_Wed_May_29_09_44_22_BRT_2019/texts-results
+Loading gbell fuzzy membership (a, b, c) = (0.244, 2.41, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.159, 2.675, 0.411)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 3.465, 0.889)
+Loading gbell fuzzy membership (a, b, c) = (0.253, 4.16, 0.029)
+Loading gbell fuzzy membership (a, b, c) = (0.195, 3.117, 0.47)
+Loading gbell fuzzy membership (a, b, c) = (0.305, 4.56, 0.975)
+Loading gbell fuzzy membership (a, b, c) = (0.241, 2.04, 0.046)
+Loading gbell fuzzy membership (a, b, c) = (0.173, 2.81, 0.462)
+Loading gbell fuzzy membership (a, b, c) = (0.387, 3.118, 1.03)
+Loading gbell fuzzy membership (a, b, c) = (0.258, 2.409, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.186, 1.983, 0.456)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 2.814, 0.952)
+Iteration: 1/1
+Average fitness: 0.5389164928209286
+Best fitness: 0.674256541275515
+Worst fitness: 0.46401264409459153
+Optimization Start time: Wed May 29 09:44:41 BRT 2019
+Generation:	1/3
+Average fitness: 0.5695706097245241
+Best fitness: 0.674256541275515
+Worst fitness: 0.5264246795070454
+Generation:	2/3
+Average fitness: 0.5845583956447628
+Best fitness: 0.674256541275515
+Worst fitness: 0.4383189435386061
+Generation:	3/3
+Average fitness: 0.6085389039791079
+Best fitness: 0.674256541275515
+Worst fitness: 0.48091558756440334
+End time: Wed May 29 09:45:36 BRT 2019
+Execution time in milliseconds : 55447
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.46404
+	RECALL: 0.44843
+	PRECISION: 0.48077
+
+Finished!
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 4
+Test texts: 1
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/simple-test.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_10_39_33_BRT_2019/iteration0/opt_simple-test_Wed_May_29_10_39_34_BRT_2019
+Creating directory results/opt__Wed_May_29_10_39_33_BRT_2019/iteration0/opt_simple-test_Wed_May_29_10_39_34_BRT_2019/texts-results
+Loading gbell fuzzy membership (a, b, c) = (0.244, 2.41, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.159, 2.675, 0.411)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 3.465, 0.889)
+Loading gbell fuzzy membership (a, b, c) = (0.253, 4.16, 0.029)
+Loading gbell fuzzy membership (a, b, c) = (0.195, 3.117, 0.47)
+Loading gbell fuzzy membership (a, b, c) = (0.305, 4.56, 0.975)
+Loading gbell fuzzy membership (a, b, c) = (0.241, 2.04, 0.046)
+Loading gbell fuzzy membership (a, b, c) = (0.173, 2.81, 0.462)
+Loading gbell fuzzy membership (a, b, c) = (0.387, 3.118, 1.03)
+Loading gbell fuzzy membership (a, b, c) = (0.258, 2.409, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.186, 1.983, 0.456)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 2.814, 0.952)
+Iteration: 1/1
+Average fitness: 0.6238440763993406
+Best fitness: 0.6599479652857944
+Worst fitness: 0.5523644779138291
+Optimization Start time: Wed May 29 10:39:50 BRT 2019
+Generation:	1/3
+Average fitness: 0.6429312964973825
+Best fitness: 0.6599479652857944
+Worst fitness: 0.606820520490877
+Generation:	2/3
+Average fitness: 0.6560679668757985
+Best fitness: 0.6599479652857944
+Worst fitness: 0.6408137037652989
+Generation:	3/3
+Average fitness: 0.6245339036818901
+Best fitness: 0.6599479652857944
+Worst fitness: 0.49839840050270123
+End time: Wed May 29 10:40:43 BRT 2019
+Execution time in milliseconds : 52671
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.36217
+	RECALL: 0.34184
+	PRECISION: 0.38506
+
+Finished!
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 4
+Test texts: 1
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/simple-test.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_10_44_03_BRT_2019/iteration0/opt_simple-test_Wed_May_29_10_44_04_BRT_2019
+Creating directory results/opt__Wed_May_29_10_44_03_BRT_2019/iteration0/opt_simple-test_Wed_May_29_10_44_04_BRT_2019/texts-results
+Loading gbell fuzzy membership (a, b, c) = (0.244, 2.41, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.159, 2.675, 0.411)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 3.465, 0.889)
+Loading gbell fuzzy membership (a, b, c) = (0.253, 4.16, 0.029)
+Loading gbell fuzzy membership (a, b, c) = (0.195, 3.117, 0.47)
+Loading gbell fuzzy membership (a, b, c) = (0.305, 4.56, 0.975)
+Loading gbell fuzzy membership (a, b, c) = (0.241, 2.04, 0.046)
+Loading gbell fuzzy membership (a, b, c) = (0.173, 2.81, 0.462)
+Loading gbell fuzzy membership (a, b, c) = (0.387, 3.118, 1.03)
+Loading gbell fuzzy membership (a, b, c) = (0.258, 2.409, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.186, 1.983, 0.456)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 2.814, 0.952)
+Iteration: 1/1
+Average fitness: 0.6992211924750505
+Best fitness: 0.7354844522223684
+Worst fitness: 0.6751099480977778
+Optimization Start time: Wed May 29 10:44:21 BRT 2019
+Generation:	1/3
+Average fitness: 0.7161662249388299
+Best fitness: 0.7354844522223684
+Worst fitness: 0.6751099480977778
+Generation:	2/3
+Average fitness: 0.7282411257637479
+Best fitness: 0.7354844522223684
+Worst fitness: 0.7216636717158962
+Generation:	3/3
+Average fitness: 0.7317327485971258
+Best fitness: 0.7354844522223684
+Worst fitness: 0.7242865263290534
+End time: Wed May 29 10:45:10 BRT 2019
+Execution time in milliseconds : 49413
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.44389
+	RECALL: 0.38528
+	PRECISION: 0.52353
+
+Finished!
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 4
+Test texts: 1
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/simple-test.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_10_46_27_BRT_2019/iteration0/opt_simple-test_Wed_May_29_10_46_28_BRT_2019
+Creating directory results/opt__Wed_May_29_10_46_27_BRT_2019/iteration0/opt_simple-test_Wed_May_29_10_46_28_BRT_2019/texts-results
+Loading gbell fuzzy membership (a, b, c) = (0.244, 2.41, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.159, 2.675, 0.411)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 3.465, 0.889)
+Loading gbell fuzzy membership (a, b, c) = (0.253, 4.16, 0.029)
+Loading gbell fuzzy membership (a, b, c) = (0.195, 3.117, 0.47)
+Loading gbell fuzzy membership (a, b, c) = (0.305, 4.56, 0.975)
+Loading gbell fuzzy membership (a, b, c) = (0.241, 2.04, 0.046)
+Loading gbell fuzzy membership (a, b, c) = (0.173, 2.81, 0.462)
+Loading gbell fuzzy membership (a, b, c) = (0.387, 3.118, 1.03)
+Loading gbell fuzzy membership (a, b, c) = (0.258, 2.409, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.186, 1.983, 0.456)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 2.814, 0.952)
+Iteration: 1/1
+f=0.2713709886337721
+f=0.2713709886337721
+f=0.2713709886337721
+f=0.2713709886337721
+f=0.241452394167059
+f=0.241452394167059
+f=0.241452394167059
+f=0.241452394167059
+f=0.21648654873583711
+f=0.21648654873583711
+f=0.21648654873583711
+f=0.21648654873583711
+f=0.2450465763950519
+f=0.2450465763950519
+f=0.2450465763950519
+f=0.2450465763950519
+f=0.12522502692451218
+f=0.12522502692451218
+f=0.12522502692451218
+f=0.12522502692451218
+Average fitness: 0.6940603069712464
+Best fitness: 0.7809009886337721
+Worst fitness: 0.5991525269245122
+Optimization Start time: Wed May 29 10:46:45 BRT 2019
+Generation:	1/3
+f=0.2713709886337721
+f=0.2713709886337721
+f=0.2713709886337721
+f=0.2713709886337721
+f=0.24287639996418153
+f=0.24287639996418153
+f=0.24287639996418153
+f=0.24287639996418153
+f=0.21648654873583711
+f=0.21648654873583711
+f=0.21648654873583711
+f=0.21648654873583711
+f=0.2713709886337721
+f=0.2713709886337721
+f=0.2713709886337721
+f=0.2713709886337721
+f=0.25845568636547117
+f=0.25845568636547117
+f=0.25845568636547117
+f=0.25845568636547117
+Average fitness: 0.7371241224666069
+Best fitness: 0.7809009886337721
+Worst fitness: 0.6765140487358372
+Generation:	2/3
+f=0.2713709886337721
+f=0.2713709886337721
+f=0.2713709886337721
+f=0.2713709886337721
+f=0.2573847689570462
+f=0.2573847689570462
+f=0.2573847689570462
+f=0.2573847689570462
+f=0.2573847689570462
+f=0.2573847689570462
+f=0.2573847689570462
+f=0.2573847689570462
+f=0.2573847689570462
+f=0.2573847689570462
+f=0.2573847689570462
+f=0.2573847689570462
+f=0.2525255991136102
+f=0.2525255991136102
+f=0.2525255991136102
+f=0.2525255991136102
+Average fitness: 0.7445071789237041
+Best fitness: 0.7809009886337721
+Worst fitness: 0.7329597689570462
+Generation:	3/3
+f=0.2713709886337721
+f=0.2713709886337721
+f=0.2713709886337721
+f=0.2713709886337721
+f=0.2618771606351923
+f=0.2618771606351923
+f=0.2618771606351923
+f=0.2618771606351923
+f=0.25950843443164523
+f=0.25950843443164523
+f=0.25950843443164523
+f=0.25950843443164523
+f=0.26067052562338194
+f=0.26067052562338194
+f=0.26067052562338194
+f=0.26067052562338194
+f=0.2618771606351923
+f=0.2618771606351923
+f=0.2618771606351923
+f=0.2618771606351923
+Average fitness: 0.7398423539918368
+Best fitness: 0.7809009886337721
+Worst fitness: 0.6875359344316452
+End time: Wed May 29 10:47:33 BRT 2019
+Execution time in milliseconds : 48080
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.46602
+	RECALL: 0.45283
+	PRECISION: 0.48
+
+Finished!
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 4
+Test texts: 1
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/simple-test.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_10_52_14_BRT_2019/iteration0/opt_simple-test_Wed_May_29_10_52_15_BRT_2019
+Creating directory results/opt__Wed_May_29_10_52_14_BRT_2019/iteration0/opt_simple-test_Wed_May_29_10_52_15_BRT_2019/texts-results
+Loading gbell fuzzy membership (a, b, c) = (0.244, 2.41, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.159, 2.675, 0.411)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 3.465, 0.889)
+Loading gbell fuzzy membership (a, b, c) = (0.253, 4.16, 0.029)
+Loading gbell fuzzy membership (a, b, c) = (0.195, 3.117, 0.47)
+Loading gbell fuzzy membership (a, b, c) = (0.305, 4.56, 0.975)
+Loading gbell fuzzy membership (a, b, c) = (0.241, 2.04, 0.046)
+Loading gbell fuzzy membership (a, b, c) = (0.173, 2.81, 0.462)
+Loading gbell fuzzy membership (a, b, c) = (0.387, 3.118, 1.03)
+Loading gbell fuzzy membership (a, b, c) = (0.258, 2.409, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.186, 1.983, 0.456)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 2.814, 0.952)
+Iteration: 1/1
+Average fitness: 0.6354180241321161
+Best fitness: 0.7099779823983587
+Worst fitness: 0.5639747724641824
+Optimization Start time: Wed May 29 10:52:32 BRT 2019
+Generation:	1/3
+Average fitness: 0.6966090844363461
+Best fitness: 0.7099779823983587
+Worst fitness: 0.6765557374933269
+Generation:	2/3
+Average fitness: 0.6663114852010656
+Best fitness: 0.7260223395510477
+Worst fitness: 0.5090233841642358
+Generation:	3/3
+Average fitness: 0.7129572462096476
+Best fitness: 0.7389501648462661
+Worst fitness: 0.6758627540540432
+End time: Wed May 29 10:53:24 BRT 2019
+Execution time in milliseconds : 52513
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.45116
+	RECALL: 0.39271
+	PRECISION: 0.53005
+
+Finished!
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 4
+Test texts: 1
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/simple-test.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_11_47_22_BRT_2019/iteration0/opt_simple-test_Wed_May_29_11_47_24_BRT_2019
+Creating directory results/opt__Wed_May_29_11_47_22_BRT_2019/iteration0/opt_simple-test_Wed_May_29_11_47_24_BRT_2019/texts-results
+Loading gbell fuzzy membership (a, b, c) = (0.244, 2.41, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.159, 2.675, 0.411)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 3.465, 0.889)
+Loading gbell fuzzy membership (a, b, c) = (0.253, 4.16, 0.029)
+Loading gbell fuzzy membership (a, b, c) = (0.195, 3.117, 0.47)
+Loading gbell fuzzy membership (a, b, c) = (0.305, 4.56, 0.975)
+Loading gbell fuzzy membership (a, b, c) = (0.241, 2.04, 0.046)
+Loading gbell fuzzy membership (a, b, c) = (0.173, 2.81, 0.462)
+Loading gbell fuzzy membership (a, b, c) = (0.387, 3.118, 1.03)
+Loading gbell fuzzy membership (a, b, c) = (0.258, 2.409, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.186, 1.983, 0.456)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 2.814, 0.952)
+Iteration: 1/1
+Average fitness: 0.6665228641130483
+Best fitness: 0.7377981749674647
+Worst fitness: 0.5648495724786531
+Optimization Start time: Wed May 29 11:47:43 BRT 2019
+Generation:	1/3
+Average fitness: 0.7071049993262444
+Best fitness: 0.7377981749674647
+Worst fitness: 0.6814584495518137
+Generation:	2/3
+Average fitness: 0.6793245941618861
+Best fitness: 0.7377981749674647
+Worst fitness: 0.5333759805488711
+Generation:	3/3
+Average fitness: 0.6975427678203546
+Best fitness: 0.7552430922208211
+Worst fitness: 0.5251850919942287
+End time: Wed May 29 11:48:37 BRT 2019
+Execution time in milliseconds : 53823
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.40356
+	RECALL: 0.38636
+	PRECISION: 0.42236
+
+Finished!
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 4
+Test texts: 1
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/simple-test.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_11_50_41_BRT_2019/iteration0/opt_simple-test_Wed_May_29_11_50_42_BRT_2019
+Creating directory results/opt__Wed_May_29_11_50_41_BRT_2019/iteration0/opt_simple-test_Wed_May_29_11_50_42_BRT_2019/texts-results
+Loading gbell fuzzy membership (a, b, c) = (0.244, 2.41, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.159, 2.675, 0.411)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 3.465, 0.889)
+Loading gbell fuzzy membership (a, b, c) = (0.253, 4.16, 0.029)
+Loading gbell fuzzy membership (a, b, c) = (0.195, 3.117, 0.47)
+Loading gbell fuzzy membership (a, b, c) = (0.305, 4.56, 0.975)
+Loading gbell fuzzy membership (a, b, c) = (0.241, 2.04, 0.046)
+Loading gbell fuzzy membership (a, b, c) = (0.173, 2.81, 0.462)
+Loading gbell fuzzy membership (a, b, c) = (0.387, 3.118, 1.03)
+Loading gbell fuzzy membership (a, b, c) = (0.258, 2.409, 0.008)
+Loading gbell fuzzy membership (a, b, c) = (0.186, 1.983, 0.456)
+Loading gbell fuzzy membership (a, b, c) = (0.318, 2.814, 0.952)
+Iteration: 1/1
+Average fitness: 0.6732029060942974
+Best fitness: 0.7743003420716005
+Worst fitness: 0.5899031119550335
+Optimization Start time: Wed May 29 11:50:59 BRT 2019
+Generation:	1/3
+Average fitness: 0.6937499125735542
+Best fitness: 0.7743003420716005
+Worst fitness: 0.5415015083508563
+Generation:	2/3
+Average fitness: 0.7430014943725902
+Best fitness: 0.7743003420716005
+Worst fitness: 0.7164697695448502
+Generation:	3/3
+Average fitness: 0.712648483992463
+Best fitness: 0.7743003420716005
+Worst fitness: 0.5454722820153527
+End time: Wed May 29 11:51:49 BRT 2019
+Execution time in milliseconds : 49768
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.52174
+	RECALL: 0.47525
+	PRECISION: 0.57831
+
+Finished!
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 16
+Test texts: 4
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb01.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_12_24_49_BRT_2019/iteration0/opt_fb01_Wed_May_29_12_24_54_BRT_2019
+Creating directory results/opt__Wed_May_29_12_24_49_BRT_2019/iteration0/opt_fb01_Wed_May_29_12_24_54_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.6545121338482383
+Best fitness: 0.7460195877209823
+Worst fitness: 0.5366957434279146
+Optimization Start time: Wed May 29 12:30:15 BRT 2019
+Generation:	1/30
+Average fitness: 0.68513439999133
+Best fitness: 0.7460195877209823
+Worst fitness: 0.5978480795298248
+Generation:	2/30
+Average fitness: 0.6910673250541435
+Best fitness: 0.7460195877209823
+Worst fitness: 0.5047292437368737
+Generation:	3/30
+Average fitness: 0.7114670105471778
+Best fitness: 0.7460195877209823
+Worst fitness: 0.6738316623660657
+Generation:	4/30
+Average fitness: 0.7151718266993298
+Best fitness: 0.7460195877209823
+Worst fitness: 0.6979386516918454
+The optimization was stopped by convergence.
+End time: Wed May 29 12:50:27 BRT 2019
+Execution time in milliseconds : 1212285
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.440525
+	RECALL: 0.395875
+	PRECISION: 0.49974
+
+Iteration: 2/4
+Average fitness: 0.680716013301375
+Best fitness: 0.7542104325800616
+Worst fitness: 0.581012693266984
+Optimization Start time: Wed May 29 12:55:35 BRT 2019
+Generation:	1/30
+Average fitness: 0.7070291070975121
+Best fitness: 0.7542104325800616
+Worst fitness: 0.6526963058022053
+Generation:	2/30
+Average fitness: 0.71741634664845
+Best fitness: 0.7542104325800616
+Worst fitness: 0.6303929180338439
+Generation:	3/30
+Average fitness: 0.7331937994763149
+Best fitness: 0.7542104325800616
+Worst fitness: 0.692814387807032
+Generation:	4/30
+Average fitness: 0.7319916296310734
+Best fitness: 0.7542104325800616
+Worst fitness: 0.4912236297496561
+The optimization was stopped by convergence.
+End time: Wed May 29 13:16:25 BRT 2019
+Execution time in milliseconds : 1250097
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.44073
+	RECALL: 0.39485499999999996
+	PRECISION: 0.50078
+
+Iteration: 3/4
+Average fitness: 0.6647966112308002
+Best fitness: 0.7493422770184606
+Worst fitness: 0.5711178359388047
+Optimization Start time: Wed May 29 13:22:57 BRT 2019
+Generation:	1/30
+Average fitness: 0.6817459641383747
+Best fitness: 0.7493422770184606
+Worst fitness: 0.5052791438748248
+Generation:	2/30
+Average fitness: 0.7169134002229665
+Best fitness: 0.7509396256705344
+Worst fitness: 0.636187707264323
+Generation:	3/30
+Average fitness: 0.7268651577313732
+Best fitness: 0.7509396256705344
+Worst fitness: 0.6465995646392247
+Generation:	4/30
+Average fitness: 0.7296006159489901
+Best fitness: 0.7509396256705344
+Worst fitness: 0.5141258285638186
+Generation:	5/30
+Average fitness: 0.7229176673239405
+Best fitness: 0.7509396256705344
+Worst fitness: 0.4852839806329202
+The optimization was stopped by convergence.
+End time: Wed May 29 13:57:50 BRT 2019
+Execution time in milliseconds : 2093035
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4301
+	RECALL: 0.38244249999999996
+	PRECISION: 0.49166750000000004
+
+Iteration: 4/4
+Average fitness: 0.6690768354829286
+Best fitness: 0.8019785902577763
+Worst fitness: 0.5750938533529589
+Optimization Start time: Wed May 29 14:04:11 BRT 2019
+Generation:	1/30
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 16
+Test texts: 4
+Initializing genetic optimization configurations ...
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 16
+Test texts: 4
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb01.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_15_11_56_BRT_2019/iteration0/opt_fb01_Wed_May_29_15_12_05_BRT_2019
+Creating directory results/opt__Wed_May_29_15_11_56_BRT_2019/iteration0/opt_fb01_Wed_May_29_15_12_05_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.6127751109466595
+Best fitness: 0.692528718708851
+Worst fitness: 0.5154253129120687
+Optimization Start time: Wed May 29 15:18:02 BRT 2019
+Generation:	1/30
+Average fitness: 0.6224616266895387
+Best fitness: 0.692528718708851
+Worst fitness: 0.45582571107435166
+Generation:	2/30
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 2
+Test texts: 1
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb01.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_15_31_41_BRT_2019/iteration0/opt_fb01_Wed_May_29_15_31_43_BRT_2019
+Creating directory results/opt__Wed_May_29_15_31_41_BRT_2019/iteration0/opt_fb01_Wed_May_29_15_31_43_BRT_2019/texts-results
+Iteration: 1/1
+Average fitness: 0.12535011709724425
+Best fitness: 0.15393929392148303
+Worst fitness: 0.08544716410611204
+Optimization Start time: Wed May 29 15:32:29 BRT 2019
+Generation:	1/30
+Average fitness: 0.1392182462889926
+Best fitness: 0.15393929392148303
+Worst fitness: 0.12078533985029848
+Generation:	2/30
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 2
+Test texts: 1
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb01.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_15_33_43_BRT_2019/iteration0/opt_fb01_Wed_May_29_15_33_44_BRT_2019
+Creating directory results/opt__Wed_May_29_15_33_43_BRT_2019/iteration0/opt_fb01_Wed_May_29_15_33_44_BRT_2019/texts-results
+Iteration: 1/1
+Average fitness: 0.24356104882752536
+Best fitness: 0.31643856153322447
+Worst fitness: 0.14627749418534788
+Optimization Start time: Wed May 29 15:34:29 BRT 2019
+Generation:	1/30
+Average fitness: 0.2708898895570778
+Best fitness: 0.31643856153322447
+Worst fitness: 0.20482110717696425
+Generation:	2/30
+Average fitness: 0.2754985777426727
+Best fitness: 0.31643856153322447
+Worst fitness: 0.1504662561748364
+Generation:	3/30
+Average fitness: 0.2708349435980033
+Best fitness: 0.31643856153322447
+Worst fitness: 0.1040106527187815
+Generation:	4/30
+Average fitness: 0.26351427907879604
+Best fitness: 0.31643856153322447
+Worst fitness: 0.12498738104473119
+The optimization was stopped by convergence.
+End time: Wed May 29 15:38:04 BRT 2019
+Execution time in milliseconds : 214815
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.46475
+	RECALL: 0.41014
+	PRECISION: 0.53614
+
+Loading config.properties: ./settings/optimization/fb02.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_15_33_43_BRT_2019/iteration0/opt_fb02_Wed_May_29_15_38_07_BRT_2019
+Creating directory results/opt__Wed_May_29_15_33_43_BRT_2019/iteration0/opt_fb02_Wed_May_29_15_38_07_BRT_2019/texts-results
+Iteration: 1/1
+Average fitness: 0.2532116644172681
+Best fitness: 0.3223802477453661
+Worst fitness: 0.16839936337345637
+Optimization Start time: Wed May 29 15:38:55 BRT 2019
+Generation:	1/30
+Average fitness: 0.26191905069242105
+Best fitness: 0.35392924518437996
+Worst fitness: 0.135581341756718
+Generation:	2/30
+Average fitness: 0.28303869177581775
+Best fitness: 0.35392924518437996
+Worst fitness: 0.17058387873501393
+Generation:	3/30
+Average fitness: 0.29405879081788844
+Best fitness: 0.35392924518437996
+Worst fitness: 0.13910602928103113
+Generation:	4/30
+Average fitness: 0.28993480863011734
+Best fitness: 0.35392924518437996
+Worst fitness: 0.1460570098660101
+The optimization was stopped by convergence.
+End time: Wed May 29 15:41:39 BRT 2019
+Execution time in milliseconds : 164043
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.42631
+	RECALL: 0.37327
+	PRECISION: 0.49693
+
+Loading config.properties: ./settings/optimization/fb03.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_15_33_43_BRT_2019/iteration0/opt_fb03_Wed_May_29_15_41_40_BRT_2019
+Creating directory results/opt__Wed_May_29_15_33_43_BRT_2019/iteration0/opt_fb03_Wed_May_29_15_41_40_BRT_2019/texts-results
+Iteration: 1/1
+Average fitness: 0.2565200223432216
+Best fitness: 0.31322796594075797
+Worst fitness: 0.19233988003968128
+Optimization Start time: Wed May 29 15:42:23 BRT 2019
+Generation:	1/30
+Average fitness: 0.2905414822960744
+Best fitness: 0.31322796594075797
+Worst fitness: 0.23720171495757486
+Generation:	2/30
+Average fitness: 0.27803386595669577
+Best fitness: 0.31322796594075797
+Worst fitness: 0.12194017545546884
+Generation:	3/30
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 16
+Test texts: 4
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb01.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_16_04_44_BRT_2019/iteration0/opt_fb01_Wed_May_29_16_04_48_BRT_2019
+Creating directory results/opt__Wed_May_29_16_04_44_BRT_2019/iteration0/opt_fb01_Wed_May_29_16_04_48_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.24113904231571404
+Best fitness: 0.31738853487727386
+Optimization Start time: Wed May 29 16:10:31 BRT 2019
+Generation:	1/30
+Average fitness: 0.25254851641947357
+Best fitness: 0.31738853487727386
+Generation:	2/30
+Average fitness: 0.2664958148946046
+Best fitness: 0.31738853487727386
+Generation:	3/30
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 16
+Test texts: 4
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb03.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_16_39_51_BRT_2019/iteration0/opt_fb03_Wed_May_29_16_39_55_BRT_2019
+Creating directory results/opt__Wed_May_29_16_39_51_BRT_2019/iteration0/opt_fb03_Wed_May_29_16_39_55_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.2602377561996975
+Best fitness: 0.32861086663932954
+Optimization Start time: Wed May 29 16:45:03 BRT 2019
+Generation:	1/30
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 16
+Test texts: 4
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb03.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_16_49_30_BRT_2019/iteration0/opt_fb03_Wed_May_29_16_49_35_BRT_2019
+Creating directory results/opt__Wed_May_29_16_49_30_BRT_2019/iteration0/opt_fb03_Wed_May_29_16_49_35_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.25483775146908344
+Best fitness: 0.31856866233981596
+Optimization Start time: Wed May 29 16:54:59 BRT 2019
+Generation:	1/30
+Average fitness: 0.27578918338162606
+Best fitness: 0.31856866233981596
+Generation:	2/30
+Average fitness: 0.28204012527839106
+Best fitness: 0.31856866233981596
+Generation:	3/30
+Average fitness: 0.2921044315658984
+Best fitness: 0.31856866233981596
+Generation:	4/30
+Average fitness: 0.2981008345862872
+Best fitness: 0.31856866233981596
+The optimization was stopped by convergence.
+End time: Wed May 29 17:14:53 BRT 2019
+Execution time in milliseconds : 1194377
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4109025
+	RECALL: 0.3511925
+	PRECISION: 0.4974725
+
+Iteration: 2/4
+Average fitness: 0.25127039785475547
+Best fitness: 0.32117687485585533
+Optimization Start time: Wed May 29 17:19:55 BRT 2019
+Generation:	1/30
+Average fitness: 0.2820066738296735
+Best fitness: 0.32117687485585533
+Generation:	2/30
+Average fitness: 0.2800377997326035
+Best fitness: 0.3362341687366344
+Generation:	3/30
+Average fitness: 0.28985704005631996
+Best fitness: 0.3362341687366344
+Generation:	4/30
+Average fitness: 0.3102167653975289
+Best fitness: 0.3362341687366344
+Generation:	5/30
+Average fitness: 0.3085055463415183
+Best fitness: 0.3362341687366344
+The optimization was stopped by convergence.
+End time: Wed May 29 17:44:41 BRT 2019
+Execution time in milliseconds : 1486306
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.42571499999999995
+	RECALL: 0.366555
+	PRECISION: 0.5078525
+
+Iteration: 3/4
+Average fitness: 0.26068619860486086
+Best fitness: 0.3506098974676665
+Optimization Start time: Wed May 29 17:49:43 BRT 2019
+Generation:	1/30
+Average fitness: 0.2936843362278857
+Best fitness: 0.3506098974676665
+Generation:	2/30
+Average fitness: 0.2976493630023536
+Best fitness: 0.3506098974676665
+Generation:	3/30
+Average fitness: 0.31432267582967666
+Best fitness: 0.3506098974676665
+Generation:	4/30
+Average fitness: 0.3252795870257516
+Best fitness: 0.3506098974676665
+The optimization was stopped by convergence.
+End time: Wed May 29 18:09:30 BRT 2019
+Execution time in milliseconds : 1187337
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4257425
+	RECALL: 0.3783625
+	PRECISION: 0.4898875
+
+Iteration: 4/4
+Average fitness: 0.24934389272398533
+Best fitness: 0.31027723075971103
+Optimization Start time: Wed May 29 18:14:31 BRT 2019
+Generation:	1/30
+Average fitness: 0.27500762555534897
+Best fitness: 0.31027723075971103
+Generation:	2/30
+Average fitness: 0.28926043355040687
+Best fitness: 0.31432810948640677
+Generation:	3/30
+Average fitness: 0.2996105811570351
+Best fitness: 0.31432810948640677
+Generation:	4/30
+Average fitness: 0.30034263789406185
+Best fitness: 0.31432810948640677
+Generation:	5/30
+Average fitness: 0.2973848877480465
+Best fitness: 0.31432810948640677
+The optimization was stopped by convergence.
+End time: Wed May 29 18:39:14 BRT 2019
+Execution time in milliseconds : 1483129
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.43838
+	RECALL: 0.3868025
+	PRECISION: 0.5088225
+
+Loading config.properties: ./settings/optimization/fb04.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_16_49_30_BRT_2019/iteration0/opt_fb04_Wed_May_29_18_39_18_BRT_2019
+Creating directory results/opt__Wed_May_29_16_49_30_BRT_2019/iteration0/opt_fb04_Wed_May_29_18_39_18_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.25794005210174353
+Best fitness: 0.3185946591347421
+Optimization Start time: Wed May 29 18:44:14 BRT 2019
+Generation:	1/30
+Average fitness: 0.28405086243409594
+Best fitness: 0.3268414987180344
+Generation:	2/30
+Average fitness: 0.295097735895829
+Best fitness: 0.3268414987180344
+Generation:	3/30
+Average fitness: 0.26945889275827495
+Best fitness: 0.3291839422809925
+Generation:	4/30
+Average fitness: 0.3002391438563155
+Best fitness: 0.3291839422809925
+Generation:	5/30
+Average fitness: 0.3067162086717049
+Best fitness: 0.37255197920810756
+Generation:	6/30
+Average fitness: 0.3027765551035685
+Best fitness: 0.37255197920810756
+Generation:	7/30
+Average fitness: 0.3071995719907385
+Best fitness: 0.37255197920810756
+Generation:	8/30
+Average fitness: 0.3427833289322109
+Best fitness: 0.37255197920810756
+The optimization was stopped by convergence.
+End time: Wed May 29 19:23:38 BRT 2019
+Execution time in milliseconds : 2363798
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4272025
+	RECALL: 0.371825
+	PRECISION: 0.5022125
+
+Iteration: 2/4
+Average fitness: 0.25252576894677964
+Best fitness: 0.3082180985553787
+Optimization Start time: Wed May 29 19:28:43 BRT 2019
+Generation:	1/30
+Average fitness: 0.25881391644942014
+Best fitness: 0.3082180985553787
+Generation:	2/30
+Average fitness: 0.26108824349223886
+Best fitness: 0.3082180985553787
+Generation:	3/30
+Average fitness: 0.2592493368984251
+Best fitness: 0.3082180985553787
+Generation:	4/30
+Average fitness: 0.2782202017096409
+Best fitness: 0.3082180985553787
+The optimization was stopped by convergence.
+End time: Wed May 29 19:52:00 BRT 2019
+Execution time in milliseconds : 1397090
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.45195
+	RECALL: 0.40573499999999996
+	PRECISION: 0.5125025
+
+Iteration: 3/4
+Average fitness: 0.2562124193690214
+Best fitness: 0.32691027703753917
+Optimization Start time: Wed May 29 19:57:02 BRT 2019
+Generation:	1/30
+Average fitness: 0.27657563398155177
+Best fitness: 0.32691027703753917
+Generation:	2/30
+Average fitness: 0.2865676457052272
+Best fitness: 0.33895862558346634
+Generation:	3/30
+Average fitness: 0.2993402254685204
+Best fitness: 0.33895862558346634
+Generation:	4/30
+Average fitness: 0.2902593576214186
+Best fitness: 0.33895862558346634
+Generation:	5/30
+Average fitness: 0.2775601569309105
+Best fitness: 0.33895862558346634
+The optimization was stopped by convergence.
+End time: Wed May 29 20:23:24 BRT 2019
+Execution time in milliseconds : 1582035
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.45408499999999996
+	RECALL: 0.3960425
+	PRECISION: 0.532845
+
+Iteration: 4/4
+Average fitness: 0.25979674540660097
+Best fitness: 0.3274390980852391
+Optimization Start time: Wed May 29 20:29:01 BRT 2019
+Generation:	1/30
+Average fitness: 0.2650253144219702
+Best fitness: 0.3274390980852391
+Generation:	2/30
+Average fitness: 0.26855581459296335
+Best fitness: 0.3274390980852391
+Generation:	3/30
+Average fitness: 0.26714702617805597
+Best fitness: 0.3329614412777372
+Generation:	4/30
+Average fitness: 0.2975443074396336
+Best fitness: 0.3447583367867117
+Generation:	5/30
+Average fitness: 0.2998312326844576
+Best fitness: 0.3447583367867117
+Generation:	6/30
+Average fitness: 0.3064866876859165
+Best fitness: 0.3447583367867117
+Generation:	7/30
+Average fitness: 0.30951733198214393
+Best fitness: 0.3447583367867117
+The optimization was stopped by convergence.
+End time: Wed May 29 21:16:15 BRT 2019
+Execution time in milliseconds : 2834214
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.44975
+	RECALL: 0.3976725
+	PRECISION: 0.5193
+
+Loading config.properties: ./settings/optimization/fb01.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_16_49_30_BRT_2019/iteration0/opt_fb01_Wed_May_29_21_16_22_BRT_2019
+Creating directory results/opt__Wed_May_29_16_49_30_BRT_2019/iteration0/opt_fb01_Wed_May_29_21_16_22_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.2577697755558779
+Best fitness: 0.33422736905147066
+Optimization Start time: Wed May 29 21:21:51 BRT 2019
+Generation:	1/30
+Average fitness: 0.26434574728225824
+Best fitness: 0.33422736905147066
+Generation:	2/30
+Average fitness: 0.2796930029268541
+Best fitness: 0.33422736905147066
+Generation:	3/30
+Average fitness: 0.2968029579010028
+Best fitness: 0.33422736905147066
+Generation:	4/30
+Average fitness: 0.31230651402684834
+Best fitness: 0.33422736905147066
+The optimization was stopped by convergence.
+End time: Wed May 29 21:41:55 BRT 2019
+Execution time in milliseconds : 1204013
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.446885
+	RECALL: 0.39535
+	PRECISION: 0.5158175
+
+Iteration: 2/4
+Average fitness: 0.25868743008549305
+Best fitness: 0.3037042702123028
+Optimization Start time: Wed May 29 21:46:59 BRT 2019
+Generation:	1/30
+Average fitness: 0.2781635966172908
+Best fitness: 0.3037042702123028
+Generation:	2/30
+Average fitness: 0.2745351538247741
+Best fitness: 0.3037042702123028
+Generation:	3/30
+Average fitness: 0.29800752754362325
+Best fitness: 0.3037042702123028
+Generation:	4/30
+Average fitness: 0.29080904928684675
+Best fitness: 0.3037042702123028
+The optimization was stopped by convergence.
+End time: Wed May 29 22:06:59 BRT 2019
+Execution time in milliseconds : 1200129
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.45060500000000003
+	RECALL: 0.3964225
+	PRECISION: 0.5280374999999999
+
+Iteration: 3/4
+Average fitness: 0.26008962932394813
+Best fitness: 0.3458261558102575
+Optimization Start time: Wed May 29 22:12:03 BRT 2019
+Generation:	1/30
+Average fitness: 0.2742557435456228
+Best fitness: 0.3458261558102575
+Generation:	2/30
+Average fitness: 0.30362586796822916
+Best fitness: 0.3472249825389661
+Generation:	3/30
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 4
+Test texts: 1
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb11.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_22_28_43_BRT_2019/iteration0/opt_fb11_Wed_May_29_22_28_45_BRT_2019
+Creating directory results/opt__Wed_May_29_22_28_43_BRT_2019/iteration0/opt_fb11_Wed_May_29_22_28_45_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.2427487309952439
+Best fitness: 0.3232520849903173
+Optimization Start time: Wed May 29 22:33:40 BRT 2019
+Generation:	1/20
+Average fitness: 0.2524933926408071
+Best fitness: 0.32789230958160676
+Generation:	2/20
+Average fitness: 0.2597865395794992
+Best fitness: 0.32789230958160676
+Generation:	3/20
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 4
+Test texts: 1
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb11.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_22_47_38_BRT_2019/iteration0/opt_fb11_Wed_May_29_22_47_40_BRT_2019
+Creating directory results/opt__Wed_May_29_22_47_38_BRT_2019/iteration0/opt_fb11_Wed_May_29_22_47_40_BRT_2019/texts-results
+Iteration: 1/4
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 4
+Test texts: 1
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb11.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_22_48_31_BRT_2019/iteration0/opt_fb11_Wed_May_29_22_48_33_BRT_2019
+Creating directory results/opt__Wed_May_29_22_48_31_BRT_2019/iteration0/opt_fb11_Wed_May_29_22_48_33_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.6668895871034249
+Best fitness: 0.7537200481979804
+Optimization Start time: Wed May 29 22:50:56 BRT 2019
+Generation:	1/20
+Average fitness: 0.6738193821681386
+Best fitness: 0.7537200481979804
+Generation:	2/20
+Average fitness: 0.6790388787328677
+Best fitness: 0.7635429117089831
+Generation:	3/20
+Average fitness: 0.654497756337312
+Best fitness: 0.7646332223879613
+Generation:	4/20
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 4
+Test texts: 1
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb03.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_23_06_28_BRT_2019/iteration0/opt_fb03_Wed_May_29_23_06_29_BRT_2019
+Creating directory results/opt__Wed_May_29_23_06_28_BRT_2019/iteration0/opt_fb03_Wed_May_29_23_06_29_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.5895282131670039
+Best fitness: 0.6767287442150305
+Optimization Start time: Wed May 29 23:07:45 BRT 2019
+Generation:	1/30
+Average fitness: 0.6299622166120915
+Best fitness: 0.7150081291995445
+Generation:	2/30
+Average fitness: 0.6608562729037434
+Best fitness: 0.7150081291995445
+Generation:	3/30
+Average fitness: 0.6876534212868236
+Best fitness: 0.7150081291995445
+Generation:	4/30
+Average fitness: 0.6907496456372414
+Best fitness: 0.7168157849798982
+Generation:	5/30
+Average fitness: 0.7033530472827768
+Best fitness: 0.7168157849798982
+Generation:	6/30
+Average fitness: 0.6919204004863994
+Best fitness: 0.7168157849798982
+Generation:	7/30
+Average fitness: 0.6961206527022401
+Best fitness: 0.7193512327971323
+Generation:	8/30
+Average fitness: 0.6751530438740754
+Best fitness: 0.7193512327971323
+Generation:	9/30
+Average fitness: 0.7140520818811055
+Best fitness: 0.7193512327971323
+Generation:	10/30
+Average fitness: 0.7024763205410965
+Best fitness: 0.7214345620435769
+Generation:	11/30
+Average fitness: 0.6992170555624783
+Best fitness: 0.7221011526871662
+Generation:	12/30
+Average fitness: 0.6934541156674002
+Best fitness: 0.7221011526871662
+Generation:	13/30
+Average fitness: 0.7089466646944592
+Best fitness: 0.7221011526871662
+Generation:	14/30
+Average fitness: 0.6866420196461951
+Best fitness: 0.7221011526871662
+The optimization was stopped by convergence.
+End time: Wed May 29 23:26:48 BRT 2019
+Execution time in milliseconds : 1143681
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.43684
+	RECALL: 0.34728
+	PRECISION: 0.58865
+
+Iteration: 2/4
+Average fitness: 0.6182374888867109
+Best fitness: 0.7232163458568885
+Optimization Start time: Wed May 29 23:28:18 BRT 2019
+Generation:	1/30
+Average fitness: 0.6478983760877733
+Best fitness: 0.7232163458568885
+Generation:	2/30
+Average fitness: 0.6662784464601907
+Best fitness: 0.7232163458568885
+Generation:	3/30
+Average fitness: 0.6716513674731263
+Best fitness: 0.7232163458568885
+Generation:	4/30
+Average fitness: 0.6768709292084277
+Best fitness: 0.7238946815121861
+Generation:	5/30
+Average fitness: 0.6657684577386874
+Best fitness: 0.7238946815121861
+Generation:	6/30
+Average fitness: 0.6941213357734344
+Best fitness: 0.7238946815121861
+Generation:	7/30
+Average fitness: 0.6890373367052205
+Best fitness: 0.7256745624952721
+Generation:	8/30
+Average fitness: 0.6942519641150794
+Best fitness: 0.7256745624952721
+Generation:	9/30
+Average fitness: 0.7043720656785947
+Best fitness: 0.7256745624952721
+Generation:	10/30
+Average fitness: 0.7140738265694724
+Best fitness: 0.7256745624952721
+The optimization was stopped by convergence.
+End time: Wed May 29 23:44:49 BRT 2019
+Execution time in milliseconds : 991303
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.46798
+	RECALL: 0.39749
+	PRECISION: 0.56886
+
+Iteration: 3/4
+Average fitness: 0.617225416440156
+Best fitness: 0.7694993066178403
+Optimization Start time: Wed May 29 23:46:25 BRT 2019
+Generation:	1/30
+Average fitness: 0.6537582362232248
+Best fitness: 0.7694993066178403
+Generation:	2/30
+Average fitness: 0.6785979004064376
+Best fitness: 0.7694993066178403
+Generation:	3/30
+Average fitness: 0.6851023391713775
+Best fitness: 0.7694993066178403
+Generation:	4/30
+Average fitness: 0.7127109737107891
+Best fitness: 0.7694993066178403
+The optimization was stopped by convergence.
+End time: Wed May 29 23:52:50 BRT 2019
+Execution time in milliseconds : 385139
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4689
+	RECALL: 0.41004
+	PRECISION: 0.54749
+
+Iteration: 4/4
+Average fitness: 0.6080501972020433
+Best fitness: 0.6879710359058753
+Optimization Start time: Wed May 29 23:54:21 BRT 2019
+Generation:	1/30
+Average fitness: 0.653744885093966
+Best fitness: 0.716537325370717
+Generation:	2/30
+Average fitness: 0.648197452499405
+Best fitness: 0.7255144242066747
+Generation:	3/30
+Average fitness: 0.6614583203443216
+Best fitness: 0.7255144242066747
+Generation:	4/30
+Average fitness: 0.6686486825472114
+Best fitness: 0.7288922782830441
+Generation:	5/30
+Average fitness: 0.6601674852241746
+Best fitness: 0.7288922782830441
+Generation:	6/30
+Average fitness: 0.7000922585482668
+Best fitness: 0.7288922782830441
+Generation:	7/30
+Average fitness: 0.7192457026460437
+Best fitness: 0.7288922782830441
+The optimization was stopped by convergence.
+End time: Thu May 30 00:05:22 BRT 2019
+Execution time in milliseconds : 661221
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.45386
+	RECALL: 0.38075
+	PRECISION: 0.56173
+
+Loading config.properties: ./settings/optimization/fb04.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_23_06_28_BRT_2019/iteration0/opt_fb04_Thu_May_30_00_05_24_BRT_2019
+Creating directory results/opt__Wed_May_29_23_06_28_BRT_2019/iteration0/opt_fb04_Thu_May_30_00_05_24_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.6041272015257498
+Best fitness: 0.6964200689991343
+Optimization Start time: Thu May 30 00:06:40 BRT 2019
+Generation:	1/30
+Average fitness: 0.6386175967695197
+Best fitness: 0.6964200689991343
+Generation:	2/30
+Average fitness: 0.6363105788821377
+Best fitness: 0.6964200689991343
+Generation:	3/30
+Average fitness: 0.628733447589286
+Best fitness: 0.6964200689991343
+Generation:	4/30
+Average fitness: 0.6365754295042307
+Best fitness: 0.7076345769336941
+Generation:	5/30
+Average fitness: 0.626682363647862
+Best fitness: 0.7076345769336941
+Generation:	6/30
+Average fitness: 0.6161229873541774
+Best fitness: 0.7076345769336941
+Generation:	7/30
+Average fitness: 0.6432630225949322
+Best fitness: 0.7076345769336941
+The optimization was stopped by convergence.
+End time: Thu May 30 00:17:39 BRT 2019
+Execution time in milliseconds : 659212
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.45386
+	RECALL: 0.38075
+	PRECISION: 0.56173
+
+Iteration: 2/4
+Average fitness: 0.6149100754484262
+Best fitness: 0.7493601356271009
+Optimization Start time: Thu May 30 00:19:38 BRT 2019
+Generation:	1/30
+Average fitness: 0.652054206536878
+Best fitness: 0.7501697168805376
+Generation:	2/30
+Average fitness: 0.6721456663015482
+Best fitness: 0.7501697168805376
+Generation:	3/30
+Average fitness: 0.717566224318918
+Best fitness: 0.7624211224782942
+Generation:	4/30
+Average fitness: 0.7214871626030999
+Best fitness: 0.7624211224782942
+Generation:	5/30
+Average fitness: 0.7190282331394586
+Best fitness: 0.7624211224782942
+Generation:	6/30
+Average fitness: 0.7056745016340542
+Best fitness: 0.7624211224782942
+The optimization was stopped by convergence.
+End time: Thu May 30 00:29:59 BRT 2019
+Execution time in milliseconds : 621452
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.45714
+	RECALL: 0.3682
+	PRECISION: 0.60274
+
+Iteration: 3/4
+Average fitness: 0.613488733718651
+Best fitness: 0.7104477826500598
+Optimization Start time: Thu May 30 00:31:58 BRT 2019
+Generation:	1/30
+Average fitness: 0.6304800375226756
+Best fitness: 0.7104477826500598
+Generation:	2/30
+Average fitness: 0.6137978420867979
+Best fitness: 0.7104477826500598
+Generation:	3/30
+Average fitness: 0.6442032497566688
+Best fitness: 0.7104477826500598
+Generation:	4/30
+Average fitness: 0.6674195449232222
+Best fitness: 0.7104477826500598
+The optimization was stopped by convergence.
+End time: Thu May 30 00:39:06 BRT 2019
+Execution time in milliseconds : 428014
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.36118
+	RECALL: 0.28033
+	PRECISION: 0.50758
+
+Iteration: 4/4
+Average fitness: 0.5989310320115027
+Best fitness: 0.7018866708014622
+Optimization Start time: Thu May 30 00:40:58 BRT 2019
+Generation:	1/30
+Average fitness: 0.6276256343482537
+Best fitness: 0.7018866708014622
+Generation:	2/30
+Average fitness: 0.6367820479826285
+Best fitness: 0.7018866708014622
+Generation:	3/30
+Average fitness: 0.6349272009046961
+Best fitness: 0.7018866708014622
+Generation:	4/30
+Average fitness: 0.6697279847775934
+Best fitness: 0.7018866708014622
+The optimization was stopped by convergence.
+End time: Thu May 30 00:47:04 BRT 2019
+Execution time in milliseconds : 365664
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.46798
+	RECALL: 0.39749
+	PRECISION: 0.56886
+
+Loading config.properties: ./settings/optimization/fb01.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_23_06_28_BRT_2019/iteration0/opt_fb01_Thu_May_30_00_47_05_BRT_2019
+Creating directory results/opt__Wed_May_29_23_06_28_BRT_2019/iteration0/opt_fb01_Thu_May_30_00_47_05_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.611990143259931
+Best fitness: 0.7481883256285959
+Optimization Start time: Thu May 30 00:48:50 BRT 2019
+Generation:	1/30
+Average fitness: 0.6483870304918407
+Best fitness: 0.7481883256285959
+Generation:	2/30
+Average fitness: 0.6714251543656027
+Best fitness: 0.7481883256285959
+Generation:	3/30
+Average fitness: 0.666797098737877
+Best fitness: 0.7481883256285959
+Generation:	4/30
+Average fitness: 0.7003807791789438
+Best fitness: 0.7481883256285959
+The optimization was stopped by convergence.
+End time: Thu May 30 00:55:27 BRT 2019
+Execution time in milliseconds : 397335
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.46798
+	RECALL: 0.39749
+	PRECISION: 0.56886
+
+Iteration: 2/4
+Average fitness: 0.601596497093366
+Best fitness: 0.6937039836565564
+Optimization Start time: Thu May 30 00:57:03 BRT 2019
+Generation:	1/30
+Average fitness: 0.6319106181447444
+Best fitness: 0.7004870570284891
+Generation:	2/30
+Average fitness: 0.6479515405261622
+Best fitness: 0.7004870570284891
+Generation:	3/30
+Average fitness: 0.6617123583478235
+Best fitness: 0.701992809718162
+Generation:	4/30
+Average fitness: 0.6669266916886855
+Best fitness: 0.701992809718162
+Generation:	5/30
+Average fitness: 0.678222395285026
+Best fitness: 0.701992809718162
+Generation:	6/30
+Average fitness: 0.6867789771210568
+Best fitness: 0.701992809718162
+The optimization was stopped by convergence.
+End time: Thu May 30 01:07:22 BRT 2019
+Execution time in milliseconds : 619282
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.46798
+	RECALL: 0.39749
+	PRECISION: 0.56886
+
+Iteration: 3/4
+Average fitness: 0.6162342809643682
+Best fitness: 0.7420086032475455
+Optimization Start time: Thu May 30 01:08:54 BRT 2019
+Generation:	1/30
+Average fitness: 0.6565265388439431
+Best fitness: 0.74440292836466
+Generation:	2/30
+Average fitness: 0.6644685341244272
+Best fitness: 0.74440292836466
+Generation:	3/30
+Average fitness: 0.6982587529080158
+Best fitness: 0.7505995265864307
+Generation:	4/30
+Average fitness: 0.6967276073246461
+Best fitness: 0.7505995265864307
+Generation:	5/30
+Average fitness: 0.7058955918717257
+Best fitness: 0.7505995265864307
+Generation:	6/30
+Average fitness: 0.7344723505303304
+Best fitness: 0.7505995265864307
+The optimization was stopped by convergence.
+End time: Thu May 30 01:18:18 BRT 2019
+Execution time in milliseconds : 564065
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.45386
+	RECALL: 0.38075
+	PRECISION: 0.56173
+
+Iteration: 4/4
+Average fitness: 0.6092990749400784
+Best fitness: 0.6906096070058436
+Optimization Start time: Thu May 30 01:19:44 BRT 2019
+Generation:	1/30
+Average fitness: 0.6325938668343385
+Best fitness: 0.7125915699062229
+Generation:	2/30
+Average fitness: 0.6474071641776855
+Best fitness: 0.7125915699062229
+Generation:	3/30
+Average fitness: 0.6773540161306935
+Best fitness: 0.719833893372493
+Generation:	4/30
+Average fitness: 0.6906884639702149
+Best fitness: 0.719833893372493
+Generation:	5/30
+Average fitness: 0.6859700691779314
+Best fitness: 0.719833893372493
+Generation:	6/30
+Average fitness: 0.7104489119077936
+Best fitness: 0.7225670574185251
+Generation:	7/30
+Average fitness: 0.6946713324014125
+Best fitness: 0.7225670574185251
+Generation:	8/30
+Average fitness: 0.7041607670991271
+Best fitness: 0.7225670574185251
+Generation:	9/30
+Average fitness: 0.6956927231879072
+Best fitness: 0.7225670574185251
+The optimization was stopped by convergence.
+End time: Thu May 30 01:32:24 BRT 2019
+Execution time in milliseconds : 759999
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.46798
+	RECALL: 0.39749
+	PRECISION: 0.56886
+
+Loading config.properties: ./settings/optimization/fb02.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Wed_May_29_23_06_28_BRT_2019/iteration0/opt_fb02_Thu_May_30_01_32_25_BRT_2019
+Creating directory results/opt__Wed_May_29_23_06_28_BRT_2019/iteration0/opt_fb02_Thu_May_30_01_32_25_BRT_2019/texts-results
+Iteration: 1/4
+Average fitness: 0.6029224046218397
+Best fitness: 0.685653577012259
+Optimization Start time: Thu May 30 01:33:52 BRT 2019
+Generation:	1/30
+Average fitness: 0.6135280463901621
+Best fitness: 0.7004427143129286
+Generation:	2/30
+Average fitness: 0.6138600783261393
+Best fitness: 0.7098891785312623
+Generation:	3/30
+Average fitness: 0.6357419898980914
+Best fitness: 0.7098891785312623
+Generation:	4/30
+Average fitness: 0.6608205601029391
+Best fitness: 0.7167794467424755
+Generation:	5/30
+Average fitness: 0.6612045156453606
+Best fitness: 0.722310199135531
+Generation:	6/30
+Average fitness: 0.676495748056461
+Best fitness: 0.7348082621986667
+Generation:	7/30
+Average fitness: 0.6739555885164141
+Best fitness: 0.7424213654038582
+Generation:	8/30
+Average fitness: 0.6954572235160811
+Best fitness: 0.7424213654038582
+Generation:	9/30
+Average fitness: 0.716898479531863
+Best fitness: 0.7446088587458355
+Generation:	10/30
+Average fitness: 0.6948072996047847
+Best fitness: 0.7446088587458355
+Generation:	11/30
+Average fitness: 0.7341492628563242
+Best fitness: 0.7446088587458355
+Generation:	12/30
+Average fitness: 0.719221789135909
+Best fitness: 0.7446088587458355
+The optimization was stopped by convergence.
+End time: Thu May 30 01:50:44 BRT 2019
+Execution time in milliseconds : 1012115
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.46798
+	RECALL: 0.39749
+	PRECISION: 0.56886
+
+Iteration: 2/4
+Average fitness: 0.6060106376374208
+Best fitness: 0.7158899970560804
+Optimization Start time: Thu May 30 01:52:18 BRT 2019
+Generation:	1/30
+Average fitness: 0.6190627637210062
+Best fitness: 0.7158899970560804
+Generation:	2/30
+Average fitness: 0.6341914599979787
+Best fitness: 0.7158899970560804
+Generation:	3/30
+Average fitness: 0.6423053352317577
+Best fitness: 0.7158899970560804
+Generation:	4/30
+Average fitness: 0.6576488085805717
+Best fitness: 0.7158899970560804
+The optimization was stopped by convergence.
+End time: Thu May 30 01:58:00 BRT 2019
+Execution time in milliseconds : 341667
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.46798
+	RECALL: 0.39749
+	PRECISION: 0.56886
+
+Iteration: 3/4
+Average fitness: 0.6100472532227404
+Best fitness: 0.7239287616247625
+Optimization Start time: Thu May 30 01:59:24 BRT 2019
+Generation:	1/30
+Average fitness: 0.6263773476105967
+Best fitness: 0.7239287616247625
+Generation:	2/30
+Average fitness: 0.6578829706811342
+Best fitness: 0.7239287616247625
+Generation:	3/30
+Average fitness: 0.6598979524912756
+Best fitness: 0.7239287616247625
+Generation:	4/30
+Average fitness: 0.6706727768009343
+Best fitness: 0.7239287616247625
+The optimization was stopped by convergence.
+End time: Thu May 30 02:04:27 BRT 2019
+Execution time in milliseconds : 303442
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.44619
+	RECALL: 0.35565
+	PRECISION: 0.59859
+
+Iteration: 4/4
+Average fitness: 0.6073651450379667
+Best fitness: 0.6787624142244084
+Optimization Start time: Thu May 30 02:05:43 BRT 2019
+Generation:	1/30
+Average fitness: 0.6220453377500637
+Best fitness: 0.6787624142244084
+Generation:	2/30
+Average fitness: 0.6161905808667477
+Best fitness: 0.6979174560322234
+Generation:	3/30
+Average fitness: 0.6285316418523113
+Best fitness: 0.6979174560322234
+Generation:	4/30
+Average fitness: 0.6400869864896945
+Best fitness: 0.6979174560322234
+Generation:	5/30
+Average fitness: 0.6491635425701253
+Best fitness: 0.6979174560322234
+The optimization was stopped by convergence.
+End time: Thu May 30 02:11:59 BRT 2019
+Execution time in milliseconds : 376547
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.36118
+	RECALL: 0.28033
+	PRECISION: 0.50758
+
+Finished!
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 7
+Test texts: 3
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb03.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Thu_May_30_10_39_19_BRT_2019/iteration0/opt_fb03_Thu_May_30_10_39_24_BRT_2019
+Creating directory results/opt__Thu_May_30_10_39_19_BRT_2019/iteration0/opt_fb03_Thu_May_30_10_39_24_BRT_2019/texts-results
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 7
+Test texts: 3
+Iteration: 1/4
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb03.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Thu_May_30_10_39_24_BRT_2019/iteration0/opt_fb03_Thu_May_30_10_39_28_BRT_2019
+Creating directory results/opt__Thu_May_30_10_39_24_BRT_2019/iteration0/opt_fb03_Thu_May_30_10_39_28_BRT_2019/texts-results
+Iteration: 1/4
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 7
+Test texts: 3
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb03.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Thu_May_30_10_40_28_BRT_2019/iteration0/opt_fb03_Thu_May_30_10_40_31_BRT_2019
+Creating directory results/opt__Thu_May_30_10_40_28_BRT_2019/iteration0/opt_fb03_Thu_May_30_10_40_31_BRT_2019/texts-results
+Iteration: 1/4
+Best fitness: 0.6940623218176452
+Optimization Start time: Thu May 30 10:43:08 BRT 2019
+Generation:	1/30
+Best fitness: 0.6940623218176452
+Generation:	2/30
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 7
+Test texts: 3
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb03.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Thu_May_30_10_47_14_BRT_2019/iteration0/opt_fb03_Thu_May_30_10_47_18_BRT_2019
+Creating directory results/opt__Thu_May_30_10_47_14_BRT_2019/iteration0/opt_fb03_Thu_May_30_10_47_18_BRT_2019/texts-results
+Iteration: 1/4
+Best fitness: 0.6940623218176452
+Generation:	3/30
+Best fitness: 0.7271499997585261
+Optimization Start time: Thu May 30 10:50:29 BRT 2019
+Generation:	1/30
+Best fitness: 0.697545746450695
+Generation:	4/30
+Best fitness: 0.7332159569946095
+Generation:	2/30
+Best fitness: 0.697545746450695
+Generation:	5/30
+Best fitness: 0.7332159569946095
+Generation:	3/30
+Best fitness: 0.7017239388975962
+Generation:	6/30
+Best fitness: 0.7332159569946095
+Generation:	4/30
+Best fitness: 0.7017239388975962
+Generation:	7/30
+Best fitness: 0.7332159569946095
+The optimization was stopped by convergence.
+End time: Thu May 30 11:01:23 BRT 2019
+Execution time in milliseconds : 653722
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.40809999999999996
+	RECALL: 0.35396999999999995
+	PRECISION: 0.49327000000000004
+
+Iteration: 2/4
+Best fitness: 0.7017239388975962
+Generation:	8/30
+Best fitness: 0.7645689370603358
+Optimization Start time: Thu May 30 11:04:17 BRT 2019
+Generation:	1/30
+Best fitness: 0.7017239388975962
+The optimization was stopped by convergence.
+End time: Thu May 30 11:06:03 BRT 2019
+Execution time in milliseconds : 1374649
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.44075333333333333
+	RECALL: 0.3848066666666667
+	PRECISION: 0.51695
+
+Iteration: 2/4
+Best fitness: 0.7645689370603358
+Generation:	2/30
+Best fitness: 0.6515871491995797
+Optimization Start time: Thu May 30 11:08:54 BRT 2019
+Generation:	1/30
+Best fitness: 0.7645689370603358
+Generation:	3/30
+Best fitness: 0.6597912855432695
+Generation:	2/30
+Best fitness: 0.7645689370603358
+Generation:	4/30
+Best fitness: 0.6699395620710199
+Generation:	3/30
+Best fitness: 0.7645689370603358
+The optimization was stopped by convergence.
+End time: Thu May 30 11:15:59 BRT 2019
+Execution time in milliseconds : 701911
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.49676000000000003
+	RECALL: 0.43337
+	PRECISION: 0.5849099999999999
+
+Iteration: 3/4
+Best fitness: 0.6731891206683999
+Generation:	4/30
+Best fitness: 0.6935866460730401
+Optimization Start time: Thu May 30 11:19:06 BRT 2019
+Generation:	1/30
+Best fitness: 0.6731891206683999
+Generation:	5/30
+Best fitness: 0.7203325391559684
+Generation:	2/30
+Best fitness: 0.6731891206683999
+Generation:	6/30
+Best fitness: 0.7203325391559684
+Generation:	3/30
+Best fitness: 0.6731891206683999
+The optimization was stopped by convergence.
+End time: Thu May 30 11:27:58 BRT 2019
+Execution time in milliseconds : 1143796
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.44562666666666667
+	RECALL: 0.39115666666666665
+	PRECISION: 0.5182466666666666
+
+Iteration: 3/4
+Best fitness: 0.7354443736980405
+Generation:	4/30
+Best fitness: 0.6981534904931254
+Optimization Start time: Thu May 30 11:31:19 BRT 2019
+Generation:	1/30
+Best fitness: 0.7354443736980405
+Generation:	5/30
+Best fitness: 0.7234847846082145
+Generation:	2/30
+Best fitness: 0.7354443736980405
+Generation:	6/30
+Best fitness: 0.7234847846082145
+Generation:	3/30
+Best fitness: 0.7358349521835559
+Generation:	7/30
+Best fitness: 0.7234847846082145
+Generation:	4/30
+Best fitness: 0.7358349521835559
+Generation:	8/30
+Best fitness: 0.7234847846082145
+The optimization was stopped by convergence.
+End time: Thu May 30 11:43:11 BRT 2019
+Execution time in milliseconds : 712082
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.48957999999999996
+	RECALL: 0.4329233333333333
+	PRECISION: 0.56625
+
+Iteration: 4/4
+Best fitness: 0.7666116504054888
+Generation:	9/30
+Best fitness: 0.6590834640910445
+Optimization Start time: Thu May 30 11:45:56 BRT 2019
+Generation:	1/30
+Best fitness: 0.7666116504054888
+Generation:	10/30
+Best fitness: 0.7666116504054888
+Generation:	11/30
+Best fitness: 0.686232074118972
+Generation:	2/30
+Best fitness: 0.7666116504054888
+The optimization was stopped by convergence.
+End time: Thu May 30 11:52:17 BRT 2019
+Execution time in milliseconds : 1990615
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4898333333333333
+	RECALL: 0.44517333333333325
+	PRECISION: 0.5486300000000001
+
+Iteration: 4/4
+Best fitness: 0.686232074118972
+Generation:	3/30
+Best fitness: 0.7126835726773042
+Optimization Start time: Thu May 30 11:55:53 BRT 2019
+Generation:	1/30
+Best fitness: 0.7082972420207171
+Generation:	4/30
+Best fitness: 0.7126835726773042
+Generation:	2/30
+Best fitness: 0.7082972420207171
+Generation:	5/30
+Best fitness: 0.7126835726773042
+Generation:	3/30
+Best fitness: 0.7185248576499882
+Generation:	6/30
+Best fitness: 0.7449154909311536
+Generation:	4/30
+Best fitness: 0.7185248576499882
+Generation:	7/30
+Best fitness: 0.7449154909311536
+Generation:	5/30
+Best fitness: 0.7185248576499882
+Generation:	8/30
+Best fitness: 0.7449154909311536
+Generation:	6/30
+Best fitness: 0.7249643004251486
+Generation:	9/30
+Best fitness: 0.7478802722711396
+Generation:	7/30
+Best fitness: 0.7335795081260262
+Generation:	10/30
+Best fitness: 0.7519260919061942
+Generation:	8/30
+Best fitness: 0.7335795081260262
+Generation:	11/30
+Best fitness: 0.7519260919061942
+Generation:	9/30
+Best fitness: 0.7335795081260262
+Generation:	12/30
+Best fitness: 0.7548664846165963
+Generation:	10/30
+Best fitness: 0.7336402486731097
+Generation:	13/30
+Best fitness: 0.7548664846165963
+Generation:	11/30
+Best fitness: 0.7336402486731097
+Generation:	14/30
+Best fitness: 0.7548664846165963
+Generation:	12/30
+Best fitness: 0.7536792645029505
+Generation:	15/30
+Best fitness: 0.7923200786254666
+Generation:	13/30
+Best fitness: 0.7536792645029505
+Generation:	16/30
+Best fitness: 0.7923200786254666
+Generation:	14/30
+Best fitness: 0.7620152834769761
+Generation:	17/30
+Best fitness: 0.7923200786254666
+Generation:	15/30
+Best fitness: 0.7870237611391027
+Generation:	18/30
+Best fitness: 0.7933245012584861
+Generation:	16/30
+Best fitness: 0.7870237611391027
+Generation:	19/30
+Best fitness: 0.7933245012584861
+Generation:	17/30
+Best fitness: 0.7870237611391027
+Generation:	20/30
+Best fitness: 0.7933245012584861
+Generation:	18/30
+Best fitness: 0.7870237611391027
+The optimization was stopped by convergence.
+End time: Thu May 30 12:44:57 BRT 2019
+Execution time in milliseconds : 3540725
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4810666666666667
+	RECALL: 0.42666333333333334
+	PRECISION: 0.5526933333333334
+
+Loading config.properties: ./settings/optimization/fb04.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Thu_May_30_10_40_28_BRT_2019/iteration0/opt_fb04_Thu_May_30_12_45_00_BRT_2019
+Creating directory results/opt__Thu_May_30_10_40_28_BRT_2019/iteration0/opt_fb04_Thu_May_30_12_45_00_BRT_2019/texts-results
+Iteration: 1/4
+Best fitness: 0.7933245012584861
+The optimization was stopped by convergence.
+End time: Thu May 30 12:46:05 BRT 2019
+Execution time in milliseconds : 3012069
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.49611
+	RECALL: 0.45398000000000005
+	PRECISION: 0.5584466666666666
+
+Loading config.properties: ./settings/optimization/fb04.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Thu_May_30_10_47_14_BRT_2019/iteration0/opt_fb04_Thu_May_30_12_46_09_BRT_2019
+Creating directory results/opt__Thu_May_30_10_47_14_BRT_2019/iteration0/opt_fb04_Thu_May_30_12_46_09_BRT_2019/texts-results
+Iteration: 1/4
+Best fitness: 0.6679685322654054
+Optimization Start time: Thu May 30 12:47:45 BRT 2019
+Generation:	1/30
+Best fitness: 0.716752529928083
+Optimization Start time: Thu May 30 12:48:49 BRT 2019
+Generation:	1/30
+Best fitness: 0.6679685322654054
+Generation:	2/30
+Best fitness: 0.716752529928083
+Generation:	2/30
+Best fitness: 0.721564160071687
+Generation:	3/30
+Best fitness: 0.718744676920349
+Generation:	3/30
+Best fitness: 0.721564160071687
+Generation:	4/30
+Best fitness: 0.718744676920349
+Generation:	4/30
+Best fitness: 0.721564160071687
+Generation:	5/30
+Best fitness: 0.718744676920349
+Generation:	5/30
+Best fitness: 0.7466796997615831
+Generation:	6/30
+Best fitness: 0.718744676920349
+The optimization was stopped by convergence.
+End time: Thu May 30 13:02:13 BRT 2019
+Execution time in milliseconds : 803719
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.5220033333333333
+	RECALL: 0.48256666666666675
+	PRECISION: 0.5886933333333334
+
+Iteration: 2/4
+Best fitness: 0.7466796997615831
+Generation:	7/30
+Best fitness: 0.7176461260892718
+Optimization Start time: Thu May 30 13:04:58 BRT 2019
+Generation:	1/30
+Best fitness: 0.7466796997615831
+Generation:	8/30
+Best fitness: 0.7176461260892718
+Generation:	2/30
+Best fitness: 0.7466796997615831
+The optimization was stopped by convergence.
+End time: Thu May 30 13:09:43 BRT 2019
+Execution time in milliseconds : 1317680
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4813133333333333
+	RECALL: 0.42352000000000006
+	PRECISION: 0.5587566666666667
+
+Iteration: 2/4
+Best fitness: 0.7176461260892718
+Generation:	3/30
+Best fitness: 0.6598646418999603
+Optimization Start time: Thu May 30 13:12:55 BRT 2019
+Generation:	1/30
+Best fitness: 0.7176461260892718
+Generation:	4/30
+Best fitness: 0.6696832819230459
+Generation:	2/30
+Best fitness: 0.7490330788982238
+Generation:	5/30
+Best fitness: 0.6732267433534831
+Generation:	3/30
+Best fitness: 0.7490330788982238
+Generation:	6/30
+Best fitness: 0.6732267433534831
+Generation:	4/30
+Best fitness: 0.7490330788982238
+Generation:	7/30
+Best fitness: 0.6732267433534831
+Generation:	5/30
+Best fitness: 0.7490330788982238
+The optimization was stopped by convergence.
+End time: Thu May 30 13:26:17 BRT 2019
+Execution time in milliseconds : 1279260
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.42270666666666673
+	RECALL: 0.3918733333333333
+	PRECISION: 0.46504666666666666
+
+Iteration: 3/4
+Best fitness: 0.6810660396581592
+Generation:	6/30
+Best fitness: 0.7512836043235597
+Optimization Start time: Thu May 30 13:29:39 BRT 2019
+Generation:	1/30
+Best fitness: 0.6898359253187815
+Generation:	7/30
+Best fitness: 0.7512836043235597
+Generation:	2/30
+Best fitness: 0.6898359253187815
+Generation:	8/30
+Best fitness: 0.7512836043235597
+Generation:	3/30
+Best fitness: 0.6898359253187815
+Generation:	9/30
+Best fitness: 0.7512836043235597
+Generation:	4/30
+Best fitness: 0.7040255346167974
+Generation:	10/30
+Best fitness: 0.7512836043235597
+The optimization was stopped by convergence.
+End time: Thu May 30 13:42:10 BRT 2019
+Execution time in milliseconds : 750601
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4811933333333333
+	RECALL: 0.43493000000000004
+	PRECISION: 0.5504533333333334
+
+Iteration: 4/4
+Best fitness: 0.7040255346167974
+Generation:	11/30
+Best fitness: 0.7768770153019476
+Optimization Start time: Thu May 30 13:44:52 BRT 2019
+Generation:	1/30
+Best fitness: 0.7768770153019476
+Generation:	2/30
+Best fitness: 0.7040255346167974
+Generation:	12/30
+Best fitness: 0.7768770153019476
+Generation:	3/30
+Best fitness: 0.7182117486372316
+Generation:	13/30
+Best fitness: 0.7768770153019476
+Generation:	4/30
+Best fitness: 0.7182117486372316
+Generation:	14/30
+Best fitness: 0.7768770153019476
+The optimization was stopped by convergence.
+End time: Thu May 30 13:55:29 BRT 2019
+Execution time in milliseconds : 637449
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.5008033333333333
+	RECALL: 0.46405
+	PRECISION: 0.5652133333333333
+
+Loading config.properties: ./settings/optimization/fb01.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Thu_May_30_10_47_14_BRT_2019/iteration0/opt_fb01_Thu_May_30_13_55_32_BRT_2019
+Creating directory results/opt__Thu_May_30_10_47_14_BRT_2019/iteration0/opt_fb01_Thu_May_30_13_55_32_BRT_2019/texts-results
+Iteration: 1/4
+Best fitness: 0.7305691595727428
+Generation:	15/30
+Best fitness: 0.7174278933344315
+Optimization Start time: Thu May 30 13:58:09 BRT 2019
+Generation:	1/30
+Best fitness: 0.7305691595727428
+Generation:	16/30
+Best fitness: 0.7174278933344315
+Generation:	2/30
+Best fitness: 0.762249482866033
+Generation:	17/30
+Best fitness: 0.7174278933344315
+Generation:	3/30
+Best fitness: 0.762249482866033
+Generation:	18/30
+Best fitness: 0.7315973443579916
+Generation:	4/30
+Best fitness: 0.762249482866033
+Generation:	19/30
+Best fitness: 0.7315973443579916
+Generation:	5/30
+Best fitness: 0.762249482866033
+The optimization was stopped by convergence.
+End time: Thu May 30 14:09:28 BRT 2019
+Execution time in milliseconds : 3392632
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.45608000000000004
+	RECALL: 0.40548999999999996
+	PRECISION: 0.5225133333333334
+
+Iteration: 3/4
+Best fitness: 0.7330183607401942
+Generation:	6/30
+Best fitness: 0.6983074730184468
+Optimization Start time: Thu May 30 14:12:15 BRT 2019
+Generation:	1/30
+Best fitness: 0.7330183607401942
+Generation:	7/30
+Best fitness: 0.6983074730184468
+Generation:	2/30
+Best fitness: 0.7330183607401942
+Generation:	8/30
+Best fitness: 0.6983074730184468
+Generation:	3/30
+Best fitness: 0.7330183607401942
+The optimization was stopped by convergence.
+End time: Thu May 30 14:19:31 BRT 2019
+Execution time in milliseconds : 1282032
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4660033333333333
+	RECALL: 0.40928000000000003
+	PRECISION: 0.5517133333333333
+
+Iteration: 2/4
+Best fitness: 0.7001089440332058
+Generation:	4/30
+Best fitness: 0.7720589183248998
+Optimization Start time: Thu May 30 14:22:28 BRT 2019
+Generation:	1/30
+Best fitness: 0.7001089440332058
+Generation:	5/30
+Best fitness: 0.7720589183248998
+Generation:	2/30
+Best fitness: 0.7314498287924996
+Generation:	6/30
+Best fitness: 0.7720589183248998
+Generation:	3/30
+Best fitness: 0.7314498287924996
+Generation:	7/30
+Best fitness: 0.7720589183248998
+Generation:	4/30
+Best fitness: 0.7381815474419381
+Generation:	8/30
+Best fitness: 0.7720589183248998
+The optimization was stopped by convergence.
+End time: Thu May 30 14:37:03 BRT 2019
+Execution time in milliseconds : 875219
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4641
+	RECALL: 0.4336900000000001
+	PRECISION: 0.5092166666666667
+
+Iteration: 3/4
+Best fitness: 0.7381815474419381
+Generation:	9/30
+Best fitness: 0.6902508026368642
+Optimization Start time: Thu May 30 14:40:06 BRT 2019
+Generation:	1/30
+Best fitness: 0.7511267281528807
+Generation:	10/30
+Best fitness: 0.7123249515628576
+Generation:	2/30
+Best fitness: 0.7511267281528807
+Generation:	11/30
+Best fitness: 0.7123249515628576
+Generation:	3/30
+Best fitness: 0.7511267281528807
+Generation:	12/30
+Best fitness: 0.7142023634972586
+Generation:	4/30
+Best fitness: 0.7511267281528807
+The optimization was stopped by convergence.
+End time: Thu May 30 14:50:31 BRT 2019
+Execution time in milliseconds : 2295460
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4410433333333333
+	RECALL: 0.37708
+	PRECISION: 0.5327433333333333
+
+Iteration: 4/4
+Best fitness: 0.7265272545889955
+Generation:	5/30
+Best fitness: 0.6833146266536974
+Optimization Start time: Thu May 30 14:53:13 BRT 2019
+Generation:	1/30
+Best fitness: 0.7265272545889955
+Generation:	6/30
+Best fitness: 0.6917215902837154
+Generation:	2/30
+Best fitness: 0.7265272545889955
+Generation:	7/30
+Best fitness: 0.6917215902837154
+Generation:	3/30
+Best fitness: 0.7294610770207851
+Generation:	8/30
+Best fitness: 0.6917215902837154
+Generation:	4/30
+Best fitness: 0.7294610770207851
+Generation:	9/30
+Best fitness: 0.6917215902837154
+The optimization was stopped by convergence.
+End time: Thu May 30 15:04:00 BRT 2019
+Execution time in milliseconds : 647449
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.41929
+	RECALL: 0.3567666666666667
+	PRECISION: 0.5148633333333333
+
+Loading config.properties: ./settings/optimization/fb01.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Thu_May_30_10_40_28_BRT_2019/iteration0/opt_fb01_Thu_May_30_15_04_03_BRT_2019
+Creating directory results/opt__Thu_May_30_10_40_28_BRT_2019/iteration0/opt_fb01_Thu_May_30_15_04_03_BRT_2019/texts-results
+Iteration: 1/4
+Best fitness: 0.7724417311451324
+Generation:	10/30
+Best fitness: 0.7259011605304044
+Optimization Start time: Thu May 30 15:06:47 BRT 2019
+Generation:	1/30
+Best fitness: 0.7724417311451324
+Generation:	11/30
+Best fitness: 0.7259011605304044
+Generation:	2/30
+Best fitness: 0.7724417311451324
+Generation:	12/30
+Best fitness: 0.7259011605304044
+Generation:	3/30
+Best fitness: 0.7724417311451324
+The optimization was stopped by convergence.
+End time: Thu May 30 15:13:02 BRT 2019
+Execution time in milliseconds : 1976138
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.43927000000000005
+	RECALL: 0.4002766666666666
+	PRECISION: 0.48973
+
+Iteration: 4/4
+Best fitness: 0.7259011605304044
+Generation:	4/30
+Best fitness: 0.7389221037642297
+Optimization Start time: Thu May 30 15:15:50 BRT 2019
+Generation:	1/30
+Best fitness: 0.7259011605304044
+The optimization was stopped by convergence.
+End time: Thu May 30 15:17:53 BRT 2019
+Execution time in milliseconds : 666132
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.44426000000000004
+	RECALL: 0.38411
+	PRECISION: 0.5268566666666666
+
+Iteration: 2/4
+Best fitness: 0.7389221037642297
+Generation:	2/30
+Best fitness: 0.7024818150081463
+Optimization Start time: Thu May 30 15:21:03 BRT 2019
+Generation:	1/30
+Best fitness: 0.7389221037642297
+Generation:	3/30
+Best fitness: 0.7024818150081463
+Generation:	2/30
+Best fitness: 0.7389221037642297
+Generation:	4/30
+Best fitness: 0.7041835855827253
+Generation:	3/30
+Best fitness: 0.7389221037642297
+The optimization was stopped by convergence.
+End time: Thu May 30 15:27:16 BRT 2019
+Execution time in milliseconds : 685875
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4700333333333333
+	RECALL: 0.42285666666666666
+	PRECISION: 0.53218
+
+Loading config.properties: ./settings/optimization/fb02.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Thu_May_30_10_47_14_BRT_2019/iteration0/opt_fb02_Thu_May_30_15_27_19_BRT_2019
+Creating directory results/opt__Thu_May_30_10_47_14_BRT_2019/iteration0/opt_fb02_Thu_May_30_15_27_19_BRT_2019/texts-results
+Iteration: 1/4
+Best fitness: 0.7041835855827253
+Generation:	4/30
+Best fitness: 0.7470296734104087
+Optimization Start time: Thu May 30 15:30:06 BRT 2019
+Generation:	1/30
+Best fitness: 0.7278870197520316
+Generation:	5/30
+Best fitness: 0.7470296734104087
+Generation:	2/30
+Best fitness: 0.7278870197520316
+Generation:	6/30
+Best fitness: 0.7470296734104087
+Generation:	3/30
+Best fitness: 0.7278870197520316
+Generation:	7/30
+Best fitness: 0.7470296734104087
+Generation:	4/30
+Best fitness: 0.7278870197520316
+The optimization was stopped by convergence.
+End time: Thu May 30 15:44:16 BRT 2019
+Execution time in milliseconds : 1393844
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.43672
+	RECALL: 0.38382999999999995
+	PRECISION: 0.5089966666666667
+
+Iteration: 3/4
+Best fitness: 0.7470296734104087
+The optimization was stopped by convergence.
+End time: Thu May 30 15:44:35 BRT 2019
+Execution time in milliseconds : 869708
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.48146
+	RECALL: 0.44090000000000007
+	PRECISION: 0.5492199999999999
+
+Iteration: 2/4
+Best fitness: 0.7264329055617907
+Optimization Start time: Thu May 30 15:47:18 BRT 2019
+Generation:	1/30
+Best fitness: 0.7115603522921436
+Optimization Start time: Thu May 30 15:47:32 BRT 2019
+Generation:	1/30
+Best fitness: 0.7264329055617907
+Generation:	2/30
+Best fitness: 0.7115603522921436
+Generation:	2/30
+Best fitness: 0.7264329055617907
+Generation:	3/30
+Best fitness: 0.7115603522921436
+Generation:	3/30
+Best fitness: 0.7264329055617907
+Generation:	4/30
+Best fitness: 0.7115603522921436
+Generation:	4/30
+Best fitness: 0.7286164665485462
+Generation:	5/30
+Best fitness: 0.7264329055617907
+The optimization was stopped by convergence.
+End time: Thu May 30 15:59:08 BRT 2019
+Execution time in milliseconds : 709758
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.46620666666666666
+	RECALL: 0.4032466666666667
+	PRECISION: 0.55352
+
+Iteration: 4/4
+Best fitness: 0.7286164665485462
+Generation:	6/30
+Best fitness: 0.7127483198376663
+Optimization Start time: Thu May 30 16:01:54 BRT 2019
+Generation:	1/30
+Best fitness: 0.7286164665485462
+Generation:	7/30
+Best fitness: 0.7127483198376663
+Generation:	2/30
+Best fitness: 0.7476132519279098
+Generation:	8/30
+Best fitness: 0.7127483198376663
+Generation:	3/30
+Best fitness: 0.7476132519279098
+Generation:	9/30
+Best fitness: 0.7127483198376663
+Generation:	4/30
+Best fitness: 0.7476132519279098
+Generation:	10/30
+Best fitness: 0.7351070944487681
+Generation:	5/30
+Best fitness: 0.7476132519279098
+The optimization was stopped by convergence.
+End time: Thu May 30 16:16:05 BRT 2019
+Execution time in milliseconds : 1713781
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.45603666666666665
+	RECALL: 0.4187833333333333
+	PRECISION: 0.52151
+
+Iteration: 3/4
+Best fitness: 0.7351070944487681
+Generation:	6/30
+Best fitness: 0.7112464124699382
+Optimization Start time: Thu May 30 16:18:58 BRT 2019
+Generation:	1/30
+Best fitness: 0.7351070944487681
+Generation:	7/30
+Best fitness: 0.7112464124699382
+Generation:	2/30
+Best fitness: 0.7351070944487681
+The optimization was stopped by convergence.
+End time: Thu May 30 16:22:37 BRT 2019
+Execution time in milliseconds : 1243704
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.45927999999999997
+	RECALL: 0.40717333333333333
+	PRECISION: 0.5277433333333333
+
+Loading config.properties: ./settings/optimization/fb02.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Thu_May_30_10_40_28_BRT_2019/iteration0/opt_fb02_Thu_May_30_16_22_40_BRT_2019
+Creating directory results/opt__Thu_May_30_10_40_28_BRT_2019/iteration0/opt_fb02_Thu_May_30_16_22_40_BRT_2019/texts-results
+Iteration: 1/4
+Best fitness: 0.7558812509112721
+Generation:	3/30
+Best fitness: 0.6723901936835931
+Optimization Start time: Thu May 30 16:25:40 BRT 2019
+Generation:	1/30
+Best fitness: 0.7558812509112721
+Generation:	4/30
+Best fitness: 0.6890707383620068
+Generation:	2/30
+Best fitness: 0.7558812509112721
+Generation:	5/30
+Best fitness: 0.6930734763708174
+Generation:	3/30
+Best fitness: 0.7776911666038698
+Generation:	6/30
+Best fitness: 0.6930734763708174
+Generation:	4/30
+Best fitness: 0.7776911666038698
+Generation:	7/30
+Best fitness: 0.6930734763708174
+Generation:	5/30
+Best fitness: 0.7776911666038698
+Generation:	8/30
+Best fitness: 0.7099298937753186
+Generation:	6/30
+Best fitness: 0.7776911666038698
+The optimization was stopped by convergence.
+End time: Thu May 30 16:42:40 BRT 2019
+Execution time in milliseconds : 1422667
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.42541333333333337
+	RECALL: 0.4037933333333334
+	PRECISION: 0.45392666666666664
+
+Iteration: 4/4
+Best fitness: 0.7099298937753186
+Generation:	7/30
+Best fitness: 0.7333423179068751
+Optimization Start time: Thu May 30 16:45:41 BRT 2019
+Generation:	1/30
+Best fitness: 0.7099298937753186
+Generation:	8/30
+Best fitness: 0.7398608606978591
+Generation:	2/30
+Best fitness: 0.7099298937753186
+The optimization was stopped by convergence.
+End time: Thu May 30 16:49:58 BRT 2019
+Execution time in milliseconds : 1457593
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.48362
+	RECALL: 0.42555000000000004
+	PRECISION: 0.5628
+
+Iteration: 2/4
+Best fitness: 0.7398608606978591
+Generation:	3/30
+Best fitness: 0.7091384070377076
+Optimization Start time: Thu May 30 16:53:00 BRT 2019
+Generation:	1/30
+Best fitness: 0.7398608606978591
+Generation:	4/30
+Best fitness: 0.7091384070377076
+Generation:	2/30
+Best fitness: 0.7398608606978591
+The optimization was stopped by convergence.
+End time: Thu May 30 16:57:24 BRT 2019
+Execution time in milliseconds : 702913
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4962233333333333
+	RECALL: 0.4669266666666667
+	PRECISION: 0.5346333333333334
+
+Finished!
+Best fitness: 0.7091384070377076
+Generation:	3/30
+Best fitness: 0.7091384070377076
+Generation:	4/30
+Best fitness: 0.7091384070377076
+The optimization was stopped by convergence.
+End time: Thu May 30 17:03:20 BRT 2019
+Execution time in milliseconds : 620427
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.47409000000000007
+	RECALL: 0.4048133333333333
+	PRECISION: 0.5773633333333333
+
+Iteration: 3/4
+Best fitness: 0.6923220253574328
+Optimization Start time: Thu May 30 17:05:50 BRT 2019
+Generation:	1/30
+Best fitness: 0.6923220253574328
+Generation:	2/30
+Best fitness: 0.7223375971698403
+Generation:	3/30
+Best fitness: 0.7223375971698403
+Generation:	4/30
+Best fitness: 0.7223375971698403
+Generation:	5/30
+Best fitness: 0.7223375971698403
+The optimization was stopped by convergence.
+End time: Thu May 30 17:18:28 BRT 2019
+Execution time in milliseconds : 758800
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4860266666666666
+	RECALL: 0.4248133333333333
+	PRECISION: 0.5687366666666667
+
+Iteration: 4/4
+Best fitness: 0.6987804528856263
+Optimization Start time: Thu May 30 17:21:31 BRT 2019
+Generation:	1/30
+Best fitness: 0.6987804528856263
+Generation:	2/30
+Best fitness: 0.6987804528856263
+Generation:	3/30
+Best fitness: 0.7002604529656298
+Generation:	4/30
+Best fitness: 0.7002604529656298
+Generation:	5/30
+Best fitness: 0.7002604529656298
+Generation:	6/30
+Best fitness: 0.7200351286283928
+Generation:	7/30
+Best fitness: 0.7236631950878405
+Generation:	8/30
+Best fitness: 0.7236631950878405
+Generation:	9/30
+Best fitness: 0.7236631950878405
+Generation:	10/30
+Best fitness: 0.7236631950878405
+The optimization was stopped by convergence.
+End time: Thu May 30 17:48:07 BRT 2019
+Execution time in milliseconds : 1595830
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.45681
+	RECALL: 0.3983933333333334
+	PRECISION: 0.5359566666666666
+
+Finished!
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 7
+Test texts: 3
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb05.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Thu_May_30_22_27_29_BRT_2019/iteration0/opt_fb05_Thu_May_30_22_27_33_BRT_2019
+Creating directory results/opt__Thu_May_30_22_27_29_BRT_2019/iteration0/opt_fb05_Thu_May_30_22_27_33_BRT_2019/texts-results
+Iteration: 1/4
+Best fitness: 0.6996375400161848
+Optimization Start time: Thu May 30 22:30:06 BRT 2019
+Generation:	1/30
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Training tests: 7
+Test texts: 3
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb06.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Thu_May_30_22_30_45_BRT_2019/iteration0/opt_fb06_Thu_May_30_22_30_49_BRT_2019
+Creating directory results/opt__Thu_May_30_22_30_45_BRT_2019/iteration0/opt_fb06_Thu_May_30_22_30_49_BRT_2019/texts-results
+Iteration: 1/4
+Best fitness: 0.6996375400161848
+Generation:	2/30
+Best fitness: 0.6840129159943693
+Optimization Start time: Thu May 30 22:34:00 BRT 2019
+Generation:	1/30
+Best fitness: 0.6996375400161848
+Generation:	3/30
+Best fitness: 0.6840129159943693
+Generation:	2/30
+Best fitness: 0.6996375400161848
+Generation:	4/30
+Best fitness: 0.6840129159943693
+Generation:	3/30
+Best fitness: 0.6996375400161848
+The optimization was stopped by convergence.
+End time: Thu May 30 22:42:52 BRT 2019
+Execution time in milliseconds : 766315
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.46385999999999994
+	RECALL: 0.41239333333333333
+	PRECISION: 0.5322733333333334
+
+Iteration: 2/4
+Best fitness: 0.6840129159943693
+Generation:	4/30
+Best fitness: 0.7043627184635175
+Optimization Start time: Thu May 30 22:45:42 BRT 2019
+Generation:	1/30
+Best fitness: 0.6852677293258845
+Generation:	5/30
+Best fitness: 0.7187495791382672
+Generation:	2/30
+Best fitness: 0.6852677293258845
+Generation:	6/30
+Best fitness: 0.7187495791382672
+Generation:	3/30
+Best fitness: 0.6971176784145091
+Generation:	7/30
+Best fitness: 0.7187495791382672
+Generation:	4/30
+Best fitness: 0.6971176784145091
+Generation:	8/30
+Best fitness: 0.7211385825925924
+Generation:	5/30
+Best fitness: 0.725154164105089
+Generation:	9/30
+Best fitness: 0.7211385825925924
+Generation:	6/30
+Best fitness: 0.725154164105089
+Generation:	10/30
+Best fitness: 0.7335731282646714
+Generation:	7/30
+Best fitness: 0.725154164105089
+Generation:	11/30
+Best fitness: 0.7353831282646713
+Generation:	8/30
+Best fitness: 0.725154164105089
+The optimization was stopped by convergence.
+End time: Thu May 30 23:08:57 BRT 2019
+Execution time in milliseconds : 2096352
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.41136
+	RECALL: 0.3544766666666667
+	PRECISION: 0.4941866666666666
+
+Iteration: 2/4
+Best fitness: 0.7353831282646713
+Generation:	9/30
+Best fitness: 0.6849427718444681
+Optimization Start time: Thu May 30 23:12:02 BRT 2019
+Generation:	1/30
+Best fitness: 0.7455535863135179
+Generation:	10/30
+Best fitness: 0.6849427718444681
+Generation:	2/30
+Best fitness: 0.7455535863135179
+Generation:	11/30
+Best fitness: 0.7001138775664167
+Generation:	3/30
+Best fitness: 0.7455535863135179
+Generation:	12/30
+Best fitness: 0.7051598748812433
+Generation:	4/30
+Best fitness: 0.7455535863135179
+The optimization was stopped by convergence.
+End time: Thu May 30 23:23:57 BRT 2019
+Execution time in milliseconds : 2295588
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.47320333333333336
+	RECALL: 0.42142999999999997
+	PRECISION: 0.5396833333333334
+
+Iteration: 3/4
+Best fitness: 0.7051598748812433
+Generation:	5/30
+Best fitness: 0.7010262514504896
+Optimization Start time: Thu May 30 23:27:27 BRT 2019
+Generation:	1/30
+Best fitness: 0.7051598748812433
+Generation:	6/30
+Best fitness: 0.7169312237515296
+Generation:	2/30
+Best fitness: 0.7051598748812433
+The optimization was stopped by convergence.
+End time: Thu May 30 23:31:23 BRT 2019
+Execution time in milliseconds : 1161468
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.43546333333333337
+	RECALL: 0.3648666666666667
+	PRECISION: 0.5400533333333333
+
+Iteration: 3/4
+Best fitness: 0.7169312237515296
+Generation:	3/30
+Best fitness: 0.6566120723829139
+Optimization Start time: Thu May 30 23:34:29 BRT 2019
+Generation:	1/30
+Best fitness: 0.7169312237515296
+Generation:	4/30
+Best fitness: 0.6608292809065747
+Generation:	2/30
+Best fitness: 0.7169312237515296
+The optimization was stopped by convergence.
+End time: Thu May 30 23:39:16 BRT 2019
+Execution time in milliseconds : 708977
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4677933333333333
+	RECALL: 0.3937033333333333
+	PRECISION: 0.5795033333333334
+
+Iteration: 4/4
+Best fitness: 0.6850463187623361
+Generation:	3/30
+Best fitness: 0.7163578171721107
+Optimization Start time: Thu May 30 23:42:14 BRT 2019
+Generation:	1/30
+Best fitness: 0.6850463187623361
+Generation:	4/30
+Best fitness: 0.7163578171721107
+Generation:	2/30
+Best fitness: 0.6850463187623361
+Generation:	5/30
+Best fitness: 0.7163578171721107
+Generation:	3/30
+Best fitness: 0.7031265514249013
+Generation:	6/30
+Best fitness: 0.7163578171721107
+Generation:	4/30
+Best fitness: 0.7031265514249013
+Generation:	7/30
+Best fitness: 0.7163578171721107
+The optimization was stopped by convergence.
+End time: Thu May 30 23:53:52 BRT 2019
+Execution time in milliseconds : 697746
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4403833333333333
+	RECALL: 0.38168
+	PRECISION: 0.5208233333333333
+
+Finished!
+Best fitness: 0.7031265514249013
+Generation:	8/30
+Best fitness: 0.727696923619016
+Generation:	9/30
+Best fitness: 0.727696923619016
+Generation:	10/30
+Best fitness: 0.727696923619016
+Generation:	11/30
+Best fitness: 0.727696923619016
+The optimization was stopped by convergence.
+End time: Fri May 31 00:04:22 BRT 2019
+Execution time in milliseconds : 1793063
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.40112333333333333
+	RECALL: 0.3514333333333333
+	PRECISION: 0.4692800000000001
+
+Iteration: 4/4
+Best fitness: 0.7163920227877664
+Optimization Start time: Fri May 31 00:06:45 BRT 2019
+Generation:	1/30
+Best fitness: 0.7325765229764861
+Generation:	2/30
+Best fitness: 0.7325765229764861
+Generation:	3/30
+Best fitness: 0.7325765229764861
+Generation:	4/30
+Best fitness: 0.7325765229764861
+The optimization was stopped by convergence.
+End time: Fri May 31 00:15:52 BRT 2019
+Execution time in milliseconds : 547572
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.45271666666666666
+	RECALL: 0.40255
+	PRECISION: 0.51833
+
+Finished!
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb05.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Fri_May_31_00_24_10_BRT_2019/iteration0/opt_fb05_Fri_May_31_00_24_13_BRT_2019
+Creating directory results/opt__Fri_May_31_00_24_10_BRT_2019/iteration0/opt_fb05_Fri_May_31_00_24_13_BRT_2019/texts-results
+Iteration: 1/4
+Best fitness: 0.7285097329784616
+Optimization Start time: Fri May 31 00:26:32 BRT 2019
+Generation:	1/30
+Best fitness: 0.7374662515465501
+Generation:	2/30
+Best fitness: 0.7374662515465501
+Generation:	3/30
+Best fitness: 0.7374662515465501
+Generation:	4/30
+Best fitness: 0.7513989422364479
+Generation:	5/30
+Best fitness: 0.7513989422364479
+Generation:	6/30
+Best fitness: 0.7513989422364479
+Generation:	7/30
+Best fitness: 0.7513989422364479
+The optimization was stopped by convergence.
+End time: Fri May 31 00:46:05 BRT 2019
+Execution time in milliseconds : 1172469
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.49381666666666674
+	RECALL: 0.4394166666666666
+	PRECISION: 0.5872966666666666
+
+Iteration: 2/4
+Best fitness: 0.7551982941427106
+Optimization Start time: Fri May 31 00:48:51 BRT 2019
+Generation:	1/30
+Best fitness: 0.7551982941427106
+Generation:	2/30
+Best fitness: 0.7551982941427106
+Generation:	3/30
+Best fitness: 0.7551982941427106
+Generation:	4/30
+Best fitness: 0.7551982941427106
+The optimization was stopped by convergence.
+End time: Fri May 31 01:02:36 BRT 2019
+Execution time in milliseconds : 824595
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.46465666666666666
+	RECALL: 0.42495666666666665
+	PRECISION: 0.5253766666666666
+
+Iteration: 3/4
+Best fitness: 0.7233623185015526
+Optimization Start time: Fri May 31 01:05:46 BRT 2019
+Generation:	1/30
+Best fitness: 0.7233623185015526
+Generation:	2/30
+Best fitness: 0.7233623185015526
+Generation:	3/30
+Best fitness: 0.7233623185015526
+Generation:	4/30
+Best fitness: 0.7233623185015526
+The optimization was stopped by convergence.
+End time: Fri May 31 01:17:58 BRT 2019
+Execution time in milliseconds : 731806
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.44188
+	RECALL: 0.3846866666666667
+	PRECISION: 0.5425633333333333
+
+Iteration: 4/4
+Best fitness: 0.715831214552253
+Optimization Start time: Fri May 31 01:21:07 BRT 2019
+Generation:	1/30
+Best fitness: 0.715831214552253
+Generation:	2/30
+Best fitness: 0.715831214552253
+Generation:	3/30
+Best fitness: 0.7259771397121418
+Generation:	4/30
+Best fitness: 0.747969577647407
+Generation:	5/30
+Best fitness: 0.747969577647407
+Generation:	6/30
+Best fitness: 0.747969577647407
+Generation:	7/30
+Best fitness: 0.747969577647407
+The optimization was stopped by convergence.
+End time: Fri May 31 01:42:08 BRT 2019
+Execution time in milliseconds : 1261183
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.40935000000000005
+	RECALL: 0.35429333333333335
+	PRECISION: 0.48563666666666666
+
+Loading config.properties: ./settings/optimization/fb06.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Fri_May_31_00_24_10_BRT_2019/iteration0/opt_fb06_Fri_May_31_01_42_11_BRT_2019
+Creating directory results/opt__Fri_May_31_00_24_10_BRT_2019/iteration0/opt_fb06_Fri_May_31_01_42_11_BRT_2019/texts-results
+Iteration: 1/4
+Best fitness: 0.7341995897348473
+Optimization Start time: Fri May 31 01:44:49 BRT 2019
+Generation:	1/30
+Best fitness: 0.7341995897348473
+Generation:	2/30
+Best fitness: 0.7341995897348473
+Generation:	3/30
+Best fitness: 0.7341995897348473
+Generation:	4/30
+Best fitness: 0.7341995897348473
+The optimization was stopped by convergence.
+End time: Fri May 31 01:54:10 BRT 2019
+Execution time in milliseconds : 561092
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4648833333333333
+	RECALL: 0.40415
+	PRECISION: 0.5568066666666667
+
+Iteration: 2/4
+Best fitness: 0.7377978001109936
+Optimization Start time: Fri May 31 01:56:24 BRT 2019
+Generation:	1/30
+Best fitness: 0.7377978001109936
+Generation:	2/30
+Best fitness: 0.7523136069853342
+Generation:	3/30
+Best fitness: 0.7523136069853342
+Generation:	4/30
+Best fitness: 0.7589415918511504
+Generation:	5/30
+Best fitness: 0.7589415918511504
+Generation:	6/30
+Best fitness: 0.7858001062692462
+Generation:	7/30
+Best fitness: 0.7858001062692462
+Generation:	8/30
+Best fitness: 0.7858001062692462
+Generation:	9/30
+Best fitness: 0.7858001062692462
+The optimization was stopped by convergence.
+End time: Fri May 31 02:17:15 BRT 2019
+Execution time in milliseconds : 1250376
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.47214333333333336
+	RECALL: 0.4224666666666667
+	PRECISION: 0.5382600000000001
+
+Iteration: 3/4
+Best fitness: 0.7434572138000423
+Optimization Start time: Fri May 31 02:19:52 BRT 2019
+Generation:	1/30
+Best fitness: 0.7434572138000423
+Generation:	2/30
+Best fitness: 0.7434572138000423
+Generation:	3/30
+Best fitness: 0.7434572138000423
+Generation:	4/30
+Best fitness: 0.7434572138000423
+The optimization was stopped by convergence.
+End time: Fri May 31 02:30:15 BRT 2019
+Execution time in milliseconds : 623265
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.504
+	RECALL: 0.4696366666666667
+	PRECISION: 0.5526033333333333
+
+Iteration: 4/4
+Best fitness: 0.7260981379311107
+Optimization Start time: Fri May 31 02:32:53 BRT 2019
+Generation:	1/30
+Best fitness: 0.7260981379311107
+Generation:	2/30
+Best fitness: 0.7260981379311107
+Generation:	3/30
+Best fitness: 0.7260981379311107
+Generation:	4/30
+Best fitness: 0.7422928631680248
+Generation:	5/30
+Best fitness: 0.7422928631680248
+Generation:	6/30
+Best fitness: 0.7422928631680248
+Generation:	7/30
+Best fitness: 0.7632924640151412
+Generation:	8/30
+Best fitness: 0.7707180719062195
+Generation:	9/30
+Best fitness: 0.7707180719062195
+Generation:	10/30
+Best fitness: 0.7707180719062195
+Generation:	11/30
+Best fitness: 0.7707180719062195
+The optimization was stopped by convergence.
+End time: Fri May 31 03:02:38 BRT 2019
+Execution time in milliseconds : 1785156
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.4919633333333333
+	RECALL: 0.4501866666666667
+	PRECISION: 0.5550833333333333
+
+Finished!
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb05.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Fri_May_31_03_21_49_BRT_2019/iteration0/opt_fb05_Fri_May_31_03_21_52_BRT_2019
+Creating directory results/opt__Fri_May_31_03_21_49_BRT_2019/iteration0/opt_fb05_Fri_May_31_03_21_52_BRT_2019/texts-results
+Iteration: 1/4
+Best fitness: 0.761007788746328
+Optimization Start time: Fri May 31 03:24:22 BRT 2019
+Generation:	1/30
+Best fitness: 0.761007788746328
+Generation:	2/30
+Best fitness: 0.8268787103922718
+Generation:	3/30
+Best fitness: 0.8268787103922718
+Generation:	4/30
+Best fitness: 0.8268787103922718
+Generation:	5/30
+Best fitness: 0.8268787103922718
+The optimization was stopped by convergence.
+End time: Fri May 31 03:35:31 BRT 2019
+Execution time in milliseconds : 669626
+Evalution Result - File name: Final Corpus Evaluation
+	FMEASURE: 0.47024
+	RECALL: 0.43137333333333333
+	PRECISION: 0.5211766666666667
+
+Iteration: 2/4
+Best fitness: 0.7670617982356582
+Optimization Start time: Fri May 31 03:37:52 BRT 2019
+Generation:	1/30
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb08.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Fri_May_31_03_40_02_BRT_2019/iteration0/opt_fb08_Fri_May_31_03_40_05_BRT_2019
+Creating directory results/opt__Fri_May_31_03_40_02_BRT_2019/iteration0/opt_fb08_Fri_May_31_03_40_05_BRT_2019/texts-results
+Iteration: 1/4
+Best fitness: 0.8193225410743236
+Generation:	2/30
+Best fitness: 0.6980511051394969
+Optimization Start time: Fri May 31 03:42:43 BRT 2019
+Generation:	1/30
+Best fitness: 0.845102637664744
+Generation:	3/30
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Loading summarizer properties ...
+Loading config.properties: ./settings/summarizer.properties
+Initializing an summarization tool ...
+Loading summarization properties ...
+Loading config.properties: ./settings/summarization/fb01.properties
+Evaluation type: ROUGE1_R
+Initializing genetic optimization configurations ...
+Loading config.properties: ./settings/optimization/fb08.properties
+Evaluation type: ROUGE1_R
+Creating directory results/opt__Fri_May_31_03_43_24_BRT_2019/iteration0/opt_fb08_Fri_May_31_03_43_28_BRT_2019
+Creating directory results/opt__Fri_May_31_03_43_24_BRT_2019/iteration0/opt_fb08_Fri_May_31_03_43_28_BRT_2019/texts-results
+Iteration: 1/4
+Best fitness: 0.6980511051394969
+Generation:	2/30
+Best fitness: 0.845102637664744
+Generation:	4/30
+Best fitness: 0.6943836178429093
+Optimization Start time: Fri May 31 03:46:43 BRT 2019
+Generation:	1/30

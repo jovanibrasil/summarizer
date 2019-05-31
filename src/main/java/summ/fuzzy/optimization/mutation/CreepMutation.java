@@ -71,6 +71,12 @@ public class CreepMutation extends MutationOperator {
 	@Override
 	public String toString() {
 		return "Creep mutation";
+	}
+
+	@Override
+	public double getAleatoryFeasibleCoefficient(double min, double max) {
+		// TODO Auto-generated method stub
+		return 0;
 	}	
 	
 }

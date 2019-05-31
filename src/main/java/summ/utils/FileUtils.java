@@ -255,5 +255,18 @@ public class FileUtils {
 		}
 		return 0;
 	}
+
+	public static List<Text> loadTexts(String corpusPath, String manualSummariesPath, List<String> textsNames) {
+		List<Text> texts = new ArrayList<>();
+		
+		for (String fileName : textsNames) {
+			Text text = loadText(corpusPath + fileName + ".txt");
+			text.setReferenceSummary(loadText(manualSummariesPath + 
+					text.getName() + "/" + text.getName() + ".0.ref.html"));
+			texts.add(text);
+		}
+		
+		return texts;
+	}
 	
 }

@@ -36,5 +36,11 @@ public class LimitMutation extends MutationOperator {
 	public String toString() {
 		return "Limit mutation";
 	}
+
+	@Override
+	public double getAleatoryFeasibleCoefficient(double min, double max) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

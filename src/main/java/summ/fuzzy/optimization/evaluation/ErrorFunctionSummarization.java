@@ -106,6 +106,7 @@ public class ErrorFunctionSummarization implements ErrorFunction {
         	EvaluationResult result = this.summarizer.evaluateSummary(evaluationMethod, generatedSummary, text.getReferenceSummary());
         	log.debug(text.getName() + " - " + result.getEvaluationMetricValue());
             log.trace(result);
+            //log.info("f=" + f(fuzzySystem.getCoefficients()));
             acc += result.getEvaluationMetricValue() + f(fuzzySystem.getCoefficients());
 		}
         long timeElapsed = (System.nanoTime() - startTime) / 1000000;

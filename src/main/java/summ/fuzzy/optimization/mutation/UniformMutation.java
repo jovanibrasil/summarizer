@@ -21,12 +21,17 @@ public class UniformMutation extends MutationOperator {
 
 	@Override
 	public double getAleatoryFeasibleCoefficient(int index) {
-		return uniform(function.getRangeMin(index), function.getRangeMax(index));
+		return this.uniform(function.getRangeMin(index), function.getRangeMax(index));
 	}
 	
 	@Override
 	public String toString() {
 		return "Uniform mutation";
+	}
+
+	@Override
+	public double getAleatoryFeasibleCoefficient(double min, double max) {
+		return this.uniform(min, max);
 	}
 	
 }

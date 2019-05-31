@@ -36,8 +36,8 @@ public class Optimization {
 	private List<Text> testTests;
 	
 
-	private int docEvalMaxIterations = 2;
-	private int corpusSize = 20; //countFiles(textsDir); 
+	private int docEvalMaxIterations = 4;
+	private int corpusSize = 10; //countFiles(textsDir); 
 	
 	
 	public Optimization(GlobalSettings globalSettings) {
@@ -47,9 +47,24 @@ public class Optimization {
 		
 		// TODO load files using a list of file names
 		
-		List<List<Text>> data = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, corpusSize, globalSettings.TRAINING_TEXTS_PERCENTUAL);	
-		this.trainingTexts = data.get(0);
-		this.testTests = data.get(1);
+//		List<List<Text>> data = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, corpusSize, globalSettings.TRAINING_TEXTS_PERCENTUAL);	
+//		this.trainingTexts = data.get(0);
+//		this.testTests = data.get(1);
+		
+		// set 1
+		//List<String> trainingTextsNames = Arrays.asList("po96fe09-a", "mu94de05-a", "op94ag14-b", "po96jl01-b", "po96ab19-a", "ce94ja25-b", "in96ab26-b");
+		//List<String> testTextsNames = Arrays.asList("op94ag21-a", "po96fe13-a", "op94ab18-a");
+		
+		
+		// set 2 opt__Fri_May_31_03_40_02_BRT_2019
+		//List<String> trainingTextsNames = Arrays.asList("in96ju18-a", "in96ju10-a", "mu94ab03-a", "in96fe08-a", "op94ab21-a", "in96fe29-a", "po96fe14-c");
+		//List<String> testTextsNames = Arrays.asList("op94ab06-a", "ce94jl11-b", "mu94de04-b");
+		
+		// set 3
+		List<String> trainingTextsNames = Arrays.asList("po96fe09-b", "op94ab01-b", "op94ab10-a", "mu94ab03-a", "ce94ja21-d", "op94ab04-a", "po96fe26-a");
+		this.trainingTexts = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, trainingTextsNames);
+		List<String> testTextsNames = Arrays.asList("po96fe14-b", "op94ab26-a", "po96fe28-a");
+		this.testTests = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, testTextsNames);  
 		
 		this.summarizer.prepareTextList(trainingTexts); // Pre-process and compute sentence features
 		this.summarizer.prepareTextList(testTests); // pre-process and calculate features
@@ -60,6 +75,11 @@ public class Optimization {
 	
 	public EvaluationResult evaluateCorpus(Summarizer summarizer, FuzzySystem fuzzySystem,  
 			List<Text> texts, OptimizationSettings optimizationSettings, String evaluationName) {
+		
+		// set 0
+		//List<String> trainingTextsNames = Arrays.asList("ce94ja25-b", "op94ag21-a", "in96jl02-a", "op94ag07-c", "in96ab09-b", "ce94jl31-b", "mu94ag09-a")
+		//List<String> testTextsNames = Arrays.asList("ce94ja8-a", "in96ab19-a", "ce94jl11-b");
+		
 		
 		EvaluationResult eval = new EvaluationResult();
 		metrics.forEach(m -> {eval.setMetric(m, 0);});
@@ -153,6 +173,7 @@ public class Optimization {
 						"evaluation files: " + getFileNames(testTests), finalEvaluation));
 				FileUtils.saveListOfObjects(objs, globalSettings.OUTPUT_PATH + "/result_" + docEvalIterationsCounter + "_" + optSettings.OPTIMIZATION_NAME + ".txt");
 				// save optimized result
+				fs.showFuzzySystem();
 				fs.saveFuzzySystem(globalSettings.OUTPUT_PATH + "/opt_"+ docEvalIterationsCounter +"_" + optSettings.OPTIMIZATION_NAME + ".fcl");
 				
 				docEvalIterationsCounter++;
