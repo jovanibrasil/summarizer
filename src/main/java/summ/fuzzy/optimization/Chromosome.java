@@ -19,9 +19,11 @@ public class Chromosome implements Comparable<Chromosome>, Cloneable, Serializab
 	
 	double fitness;
 	private RealVector genes;
+	public boolean evaluate;
 	
 	public Chromosome() {
 		this.genes = new ArrayRealVector(36);
+		this.evaluate = true;
 	}
 	
 	@Override

@@ -41,6 +41,8 @@ public class SummarizationSettings {
 	public List<String> VAR_NAMES;
 	public String TEXT_NAME;
 	public int SAMPLE_SIZE;
+
+	public List<String[]> samples;
 	
 	public SummarizationSettings(String propertyFilePath) {
 		this.loadSummarizationProps(propertyFilePath);
@@ -85,6 +87,15 @@ public class SummarizationSettings {
 				this.VAR_NAMES = new ArrayList<>();
 			} else {
 				this.VAR_NAMES = Arrays.asList(strVal.split(","));
+			}
+			
+			this.samples = new ArrayList<String[]>();
+			String[] tempSamples = properties.getProperty("samples", null).split(";");
+			if(tempSamples != null) {
+				for (String string : tempSamples) {
+					string = string.replace(" ", "");
+					this.samples.add(string.split(","));
+				}
 			}
 			
 		} catch (IOException e) {

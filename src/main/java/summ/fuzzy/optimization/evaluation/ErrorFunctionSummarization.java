@@ -103,11 +103,11 @@ public class ErrorFunctionSummarization implements ErrorFunction {
         long startTime = System.nanoTime();
         for (Text text : textList) {
         	Text generatedSummary = this.summarizer.summarizeText(text, fuzzySystem, varNames);
-        	EvaluationResult result = this.summarizer.evaluateSummary(evaluationMethod, generatedSummary, text.getReferenceSummary());
-        	log.debug(text.getName() + " - " + result.getEvaluationMetricValue());
-            log.trace(result);
+        	//EvaluationResult result = this.summarizer.evaluateSummary(evaluationMethod, generatedSummary, text.getReferenceSummary());
+//        	log.debug(text.getName() + " - " + result.getEvaluationMetricValue());
+//            log.trace(result);
             //log.info("f=" + f(fuzzySystem.getCoefficients()));
-            acc += result.getEvaluationMetricValue() + f(fuzzySystem.getCoefficients());
+            acc += generatedSummary.getEvaluationResult().getEvaluationMetricValue() + f(fuzzySystem.getCoefficients());
 		}
         long timeElapsed = (System.nanoTime() - startTime) / 1000000;
 		log.debug("Chromosome evaluation time (s) : " + timeElapsed / 1000 + " Evaluation result: " + acc / this.textList.size());

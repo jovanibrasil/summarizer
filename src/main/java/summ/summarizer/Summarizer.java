@@ -24,6 +24,7 @@ import summ.utils.ExportHTML;
 import summ.utils.FileUtils;
 import summ.utils.Pipeline;
 import summ.utils.Tuple;
+import summ.utils.Utils;
 import summ.utils.XmlUtils;
 
 public class Summarizer {
@@ -215,10 +216,10 @@ public class Summarizer {
 		}
 	}
 
-	public Text summarizeText(String textPath, List<String> varNames) {
+	public Text summarizeText(Text text, List<String> varNames) {
 		// log.info("Summarizing " + textPath + " ...");
 		// Load, pre-process and compute the features of a complete text
-		Text text = FileUtils.loadText(textPath);
+		//Text text = FileUtils.loadText(textPath);
 		text = prepareText(summarizationSettings.TEXT_PREPROCESSING_PIPELINE, summarizationSettings.FEATURES_PIPELINE,
 				text);
 
@@ -250,10 +251,11 @@ public class Summarizer {
 
 	}
 
+	
 	public Text summarizeText(Text text, FuzzySystem fs, List<String> varNames) {
 		log.debug("Summarizing " + text.getFullTextPath() + " ...");
 		// Compute sentences informativity using fuzzy system
-
+		//long startTime = System.nanoTime();
 		// int summarySize = this.getSummarySize(text.getTotalSentence());
 		int summarySize = (int) (text.wordCounter * 0.3);
 		ArrayList<Tuple<Integer>> sentencesInformativity = this.computeSentencesInformativity(text, fs, varNames);
@@ -263,16 +265,36 @@ public class Summarizer {
 		ExportHTML.exportSummaryRougeFormat(generatedSummary, this.globalSettings.OUTPUT_PATH);
 		
 		EvaluationResult result = this.evaluateSummary(summarizationSettings.EVALUATION_METHOD, generatedSummary);
+		
+		
+		//long timeElapsed = (System.nanoTime() - startTime) / 1000000;
+		//log.debug("Summarization time (ms) : " + timeElapsed );
 		return generatedSummary;
 	}
 
-	public List<Text> summarizeTexts(List<Path> texts) {
+//	public List<Text> summarizeTexts(List<Path> texts) {
+//		List<Text> generatedSummaries = new ArrayList<>();
+//		List<EvaluationResult> evaluationResults = new ArrayList<>();
+//		for (Path entry : texts) {
+//			log.info("Processing " + entry.getFileName() + " ...");
+//			Text generatedSummary = this.summarizeText(this.summarizationSettings.FULL_TEXTS_PATH + entry.getFileName(),
+//					this.summarizationSettings.VAR_NAMES);
+//			generatedSummaries.add(generatedSummary);
+//			// evaluate
+//			EvaluationResult result = this.evaluateSummary(summarizationSettings.EVALUATION_METHOD, generatedSummary);
+//			evaluationResults.add(result);
+//		}
+//		// save evaluation results
+//		ExportCSV.saveEvaluationResult(evaluationResults, this.globalSettings.OUTPUT_PATH);
+//		return generatedSummaries;
+//	}
+
+	public List<Text> summarizeTexts(List<Text> texts) {
 		List<Text> generatedSummaries = new ArrayList<>();
 		List<EvaluationResult> evaluationResults = new ArrayList<>();
-		for (Path entry : texts) {
-			log.info("Processing " + entry.getFileName() + " ...");
-			Text generatedSummary = this.summarizeText(this.summarizationSettings.FULL_TEXTS_PATH + entry.getFileName(),
-					this.summarizationSettings.VAR_NAMES);
+		for (Text entry : texts) {
+			log.info("Processing " + entry.getName() + " ...");
+			Text generatedSummary = this.summarizeText(entry, summarizationSettings.VAR_NAMES);
 			generatedSummaries.add(generatedSummary);
 			// evaluate
 			EvaluationResult result = this.evaluateSummary(summarizationSettings.EVALUATION_METHOD, generatedSummary);
@@ -282,47 +304,69 @@ public class Summarizer {
 		ExportCSV.saveEvaluationResult(evaluationResults, this.globalSettings.OUTPUT_PATH);
 		return generatedSummaries;
 	}
-
+	
 	public void run() {
 
-		String fileName = "results/summ_"
-				+ (new Date().toString()).replace("-", "_").replace(" ", "_").replace(":", "_");
-		FileUtils.createDir(fileName);
-		globalSettings.OUTPUT_PATH = fileName;
 
 		if (summarizationSettings.SUMMARIZATION_TYPE.equals(SummarizationType.SINGLE)) {
-			// Run a single text summarization
-			Text generatedSummary = this.summarizeText(
-					this.summarizationSettings.FULL_TEXTS_PATH + this.summarizationSettings.TEXT_NAME,
-					summarizationSettings.VAR_NAMES);
 
-			this.saveResult(generatedSummary, "summ-text");
-
-			/*
-			 * Gera lista de sentenças numeradas.
-			**/
-
-			String numeredSentences = "";
-			int id = 0;
-			// save extra formats
-			for (Sentence s : generatedSummary.getSentences()) {
-				numeredSentences += " [" + id++ + "] " + s.getInitialValue();
-			}
-			numeredSentences += "\n";
-
-			FileUtils.saveListOfObjects(Arrays.asList(numeredSentences),
-					this.globalSettings.OUTPUT_PATH + "/sumariogerado_numerado.txt");
+//			globalSettings.OUTPUT_PATH = "results/summ_" + Utils.generateStringFormattedData();
+//			FileUtils.createDir(globalSettings.OUTPUT_PATH);
+//			
+//			// Run a single text summarization
+//			Text generatedSummary = this.summarizeText(
+//					this.summarizationSettings.FULL_TEXTS_PATH + this.summarizationSettings.TEXT_NAME,
+//					summarizationSettings.VAR_NAMES);
+//			
+//			this.saveResult(generatedSummary, "summ-text");
+//
+//			/*
+//			 * Gera lista de sentenças numeradas.
+//			**/
+//
+//			String numeredSentences = "";
+//			int id = 0;
+//			// save extra formats
+//			for (Sentence s : generatedSummary.getSentences()) {
+//				numeredSentences += " [" + id++ + "] " + s.getInitialValue();
+//			}
+//			numeredSentences += "\n";
+//
+//			FileUtils.saveListOfObjects(Arrays.asList(numeredSentences), this.globalSettings.OUTPUT_PATH + "/sumariogerado_numerado.txt");
 
 		} else {
 			// Run an specified list of summaries
 			List<Path> texts;
-			if(this.summarizationSettings.SAMPLE_SIZE == 0) {
-				texts = FileUtils.listTexts(this.summarizationSettings.FULL_TEXTS_PATH);
-			}else {
-				texts = FileUtils.listTexts(this.summarizationSettings.FULL_TEXTS_PATH, this.summarizationSettings.SAMPLE_SIZE);
-			}
+			
+			// if samples are pre-defined
+			if(this.summarizationSettings.samples.size() > 0) {
 				
-			this.summarizeTexts(texts);
+				for (int i = 0; i < this.summarizationSettings.samples.size(); i++) {
+						
+					globalSettings.OUTPUT_PATH = "results/summ_" + Utils.generateStringFormattedData() + "_set" + i;
+					FileUtils.createDir(globalSettings.OUTPUT_PATH);
+
+					List<Text> sample = FileUtils.loadTexts(this.summarizationSettings.FULL_TEXTS_PATH, 
+							this.globalSettings.MANUAL_SUMMARIES_PATH, this.summarizationSettings.samples.get(i));
+					
+					this.summarizeTexts(sample);
+					
+				}
+				
+			}else {
+
+				globalSettings.OUTPUT_PATH = "results/summ_" + Utils.generateStringFormattedData();
+				FileUtils.createDir(globalSettings.OUTPUT_PATH);
+				
+				// if no samples are pre-defined: randomly load files 
+//				if(this.summarizationSettings.SAMPLE_SIZE == 0) { // load all files
+//					texts = FileUtils.listTexts(this.summarizationSettings.FULL_TEXTS_PATH);
+//				}else {
+//					texts = FileUtils.listTexts(this.summarizationSettings.FULL_TEXTS_PATH, this.summarizationSettings.SAMPLE_SIZE);
+//				}
+//				this.summarizeTexts(texts);
+			}	
+			
 		}
 
 	}

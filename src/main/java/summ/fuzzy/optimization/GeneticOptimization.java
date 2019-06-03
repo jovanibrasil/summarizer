@@ -16,6 +16,7 @@ import summ.fuzzy.optimization.functions.BellFunction;
 import summ.fuzzy.optimization.mutation.MutationOperator;
 import summ.fuzzy.optimization.mutation.UniformMutation;
 import summ.fuzzy.optimization.settings.OptimizationSettings;
+import summ.summarizer.Summarizer;
 
 public class GeneticOptimization {
 	
@@ -238,8 +239,11 @@ public class GeneticOptimization {
 	
 	public void evaluatePopulation() {
 		for (Chromosome chromosome : currentPopulation) {
+			if(!chromosome.evaluate) continue;
+				
 			this.fuzzySystem.setCoefficients(chromosome.getGenes());
 			chromosome.fitness = errorFunction.evaluate(this.fuzzySystem);
+			chromosome.evaluate = false;
 		}
 	}
 	
@@ -273,6 +277,7 @@ public class GeneticOptimization {
 				for (int i = 0; i < children.size(); i++) {
 					GeneticOptimization.MUTATION_EXECUTION++;
 					children.set(i, this.mutationOperator.mutateGenes(children.get(i), this.geneMutationPercentual));
+					children.get(i).evaluate = true;
 				}
 			}
 		

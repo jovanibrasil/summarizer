@@ -6,12 +6,16 @@ import java.util.Random;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
 import org.apache.commons.math3.linear.RealVector;
+import org.apache.log4j.LogManager;
+import org.apache.log4j.Logger;
 
 import summ.fuzzy.optimization.Chromosome;
 import summ.fuzzy.optimization.functions.Function;
 
 public class BlxCrossover extends CrossoverOperator {
 
+	private static final Logger log = LogManager.getLogger(CrossoverOperator.class);
+	
 	public BlxCrossover(Function function) {
 		super(function);
 	}
@@ -22,7 +26,6 @@ public class BlxCrossover extends CrossoverOperator {
 		for (int index = 0; index < p1.getDimension(); index++) {
 
 			// TODO variáveis de tamanho diferente lançam erro
-			// = [varp1[idx] + beta * (varp2[idx] - varp1[idx])
 			double p1Coef = p1.getEntry(index);
 			double p2Coef = p2.getEntry(index);
 			
@@ -34,14 +37,13 @@ public class BlxCrossover extends CrossoverOperator {
 			double value = 0;
 			while (true) { // while the solution is not feasible
 
-				if (iterationControl == 100) {
-					// logger.error("Não foi possível gerar genes factíveis com o blx-alpha")
+				if (iterationControl == 1000) {
+					//log.error("Não foi possível gerar genes factíveis com o blx-alpha");
 					value = rand.nextBoolean() ? p1Coef : p2Coef;
 					break;
 				}
 
-				// nextDouble returns the next pseudorandom, uniformly distributed double value
-				// between 0.0 and 1.0
+				// nextDouble returns the next pseudorandom, uniformly distributed double value between 0.0 and 1.0
 				value = rangeMin + (rangeMax - rangeMin) * rand.nextDouble();
 
 				if (this.function.isFeasibleValue(index, value)) { // break the loop if the solution if feasible
@@ -63,12 +65,7 @@ public class BlxCrossover extends CrossoverOperator {
 	 * # TODO variáveis de tamanho diferente lançam erro
 	 */
 	public Chromosome blxAlpha(Chromosome c1, Chromosome c2) {
-
-		Random rand = new Random();
 		double alpha = 0.4;
-		double loc = 1;
-		double beta = (-alpha) + ((loc + alpha) - (-alpha)) * rand.nextDouble();
-
 		Chromosome child = new Chromosome();
 		RealVector coefficients = generateBlx(c1.getGenes(), c2.getGenes(), alpha);
 		child.setGenes(coefficients);
