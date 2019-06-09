@@ -2,6 +2,7 @@ package summ.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -22,11 +23,14 @@ public class Text {
 	
 	public int wordCounter;
 	
+	public HashSet<String> wordSet;
+	
 	public Text(String rawText) {
 		this.rawText = rawText;
 		this.paragraphs = new ArrayList<>();
 		this.features = new HashMap<>();
 		this.wordCounter = 0;
+		this.wordSet = new HashSet<String>();
 	}
 	
 	public ArrayList<Paragraph> getParagraphs() {

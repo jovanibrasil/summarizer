@@ -2,6 +2,8 @@ package summ.settings;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Properties;
 
 import org.apache.log4j.Logger;
@@ -27,6 +29,9 @@ public class GlobalSettings {
 	public double TRAINING_TEXTS_PERCENTUAL;
 	public String MANUAL_SUMMARIES_PATH;
 	
+	public List<String[]> optimizationFiles;
+	public List<String[]> optimizationEvaluationFiles;
+	
 	public GlobalSettings() {
 		loadSummarizerProps();
 	}
@@ -49,6 +54,22 @@ public class GlobalSettings {
 			this.MANUAL_SUMMARIES_PATH = properties.getProperty("manual_summaries_path", "");
 			this.TRAINING_TEXTS_PERCENTUAL = 0.8; //Double.parseDouble(properties.getProperty("evaluation_len", "0.0")); TODO
 			
+			String tempString = properties.getProperty("optimization_texts", null);
+			if(tempString != null) {
+				this.optimizationFiles = new ArrayList<String[]>();
+				String[] tempVector = tempString.split(";");
+				for (String string : tempVector) {
+					this.optimizationFiles.add(string.replace(" ", "").split(","));
+				}
+			}
+			tempString = properties.getProperty("evaluation_texts", null);
+			if(tempString != null) {
+				this.optimizationEvaluationFiles = new ArrayList<String[]>();
+				String[] tempVector = tempString.split(";");
+				for (String string : tempVector) {
+					this.optimizationEvaluationFiles.add(string.replace(" ", "").split(","));
+				}
+			}
 		} catch (IOException e) {
 			log.warn("Problem with settings model file." + e.getMessage());
 			log.warn("If you want to use the tool, please fix this issue first before proceeding.");

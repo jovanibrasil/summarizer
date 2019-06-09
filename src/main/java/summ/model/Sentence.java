@@ -2,6 +2,7 @@ package summ.model;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -22,6 +23,8 @@ public class Sentence implements Comparable<Sentence> {
 	
 	public int wordCounter;
 	
+	public HashSet<String> wordList;
+	
 	public Sentence(String initialValue) {
 		this.initialValue = initialValue;
 		this.currentValue = initialValue;
@@ -29,6 +32,10 @@ public class Sentence implements Comparable<Sentence> {
 		this.words = new ArrayList<>();
 		this.isTitle = false;
 		this.wordCounter = 0;
+		
+
+		this.wordList = new HashSet<String>();
+		
 	}
 	
 	public void addWord(Word word) {

@@ -2,6 +2,7 @@ package summ.nlp.preprocesing;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
+import java.text.Normalizer;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -41,6 +42,9 @@ public class Tokenization implements Pipe<Text> {
 				paragraph.getSentences().forEach(sentence -> {
 					String tokenizedWords[] = tk.tokenize(sentence.getCurrentValue());
 					for (String s : tokenizedWords) {
+						//String string = Normalizer.normalize(s.trim(), Normalizer.Form.NFD).replaceAll("[^\\p{ASCII}]", "");
+						text.wordSet.add(s.trim());
+						sentence.wordList.add(s.trim());
 						sentence.addWord(new Word(s.trim()));
 					}
 					sentence.wordCounter = tokenizedWords.length;

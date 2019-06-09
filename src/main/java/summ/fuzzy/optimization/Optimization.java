@@ -32,48 +32,57 @@ public class Optimization {
 	private Summarizer summarizer;
 	private GlobalSettings globalSettings;
 	
-	private List<Text> trainingTexts;
-	private List<Text> testTests;
+	private List<List<Text>> trainingTextsFiles = new ArrayList<List<Text>>();
+	private List<List<Text>> testTextsFiles = new ArrayList<List<Text>>();
 	
-	private int docEvalMaxIterations = 4;
-	private int corpusSize = 100; //countFiles(textsDir); 
+	private int docEvalMaxIterations = 2;
+	private int corpusSize = 80; //countFiles(textsDir); 
 	
 	public Optimization(GlobalSettings globalSettings) {
 				
 		log.info("Initializing an summarization tool ...");
 		this.summarizer = new Summarizer(globalSettings);	
 		
-		// TODO load files using a list of file names
-		
-		List<List<Text>> data = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, corpusSize, globalSettings.TRAINING_TEXTS_PERCENTUAL);	
-		this.trainingTexts = data.get(0);
-		this.testTests = data.get(1);
-		
-		// set x
-		//List<String> trainingTextsNames = Arrays.asList("in96ju18-a", "in96ju10-a");
-		//List<String> testTextsNames = Arrays.asList("op94ab06-a", "ce94jl11-b");
+		if(globalSettings.optimizationEvaluationFiles == null && globalSettings.optimizationFiles == null) {
+			// TODO a quantidade de conjuntos deve ser passada por parâmetro
+			Arrays.asList(0, 1, 3).forEach(x -> {
+				List<List<Text>> data = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, corpusSize, globalSettings.TRAINING_TEXTS_PERCENTUAL);	
 				
+				List<Text> trainingTexts = data.get(0);
+				List<Text> testTests = data.get(1);		
+				
+				this.summarizer.prepareTextList(trainingTexts);
+				this.summarizer.prepareTextList(testTests);
+				
+				this.trainingTextsFiles.add(trainingTexts);
+				this.testTextsFiles.add(testTests);
+				
+			});
+			
+			System.out.println("Training files");
+			trainingTextsFiles.forEach(x-> {
+				System.out.println(getFileNames(x));
+			});
+			System.out.println("Evaluation files");
+			testTextsFiles.forEach(x-> {
+				System.out.println(getFileNames(x));
+			});
 		
-		// set 0
-		//List<String> trainingTextsNames = Arrays.asList("ce94ja25-b", "op94ag21-a", "in96jl02-a", "op94ag07-c", "in96ab09-b", "ce94jl31-b", "mu94ag09-a");
-		//List<String> testTextsNames = Arrays.asList("ce94ja8-a", "in96ab19-a", "ce94jl11-b");
-		
-		// set 1
-		//List<String> trainingTextsNames = Arrays.asList("po96fe09-a", "mu94de05-a", "op94ag14-b", "po96jl01-b", "po96ab19-a", "ce94ja25-b", "in96ab26-b");
-		//List<String> testTextsNames = Arrays.asList("op94ag21-a", "po96fe13-a", "op94ab18-a");
-		
-		// set 2 opt__Fri_May_31_03_40_02_BRT_2019
-		//List<String> trainingTextsNames = Arrays.asList("in96ju18-a", "in96ju10-a", "mu94ab03-a", "in96fe08-a", "op94ab21-a", "in96fe29-a", "po96fe14-c");
-		//List<String> testTextsNames = Arrays.asList("op94ab06-a", "ce94jl11-b", "mu94de04-b");
-		
-		// set 3
-		//List<String> trainingTextsNames = Arrays.asList("po96fe09-b", "op94ab01-b", "op94ab10-a", "mu94ab03-a", "ce94ja21-d", "op94ab04-a", "po96fe26-a");
-		//this.trainingTexts = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, trainingTextsNames);
-		//List<String> testTextsNames = Arrays.asList("po96fe14-b", "op94ab26-a", "po96fe28-a");
-		//this.testTests = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, testTextsNames);  
-		
-		this.summarizer.prepareTextList(trainingTexts); // Pre-process and compute sentence features
-		this.summarizer.prepareTextList(testTests); // pre-process and calculate features
+		}else {
+			
+			for (String[] fileNames : globalSettings.optimizationFiles) {
+				List<Text> texts = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, fileNames);
+				this.summarizer.prepareTextList(texts);
+				this.trainingTextsFiles.add(texts);
+			}
+			
+			for (String[] fileNames : globalSettings.optimizationEvaluationFiles) {
+				List<Text> texts = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, fileNames);
+				this.summarizer.prepareTextList(texts);
+				this.testTextsFiles.add(texts);
+			}
+			
+		}
 		
 		this.globalSettings = globalSettings;
 		
@@ -85,7 +94,7 @@ public class Optimization {
 		EvaluationResult eval = new EvaluationResult();
 		metrics.forEach(m -> {eval.setMetric(m, 0);});
 		for (Text text : texts) {
-        	Text generatedSummary = summarizer.summarizeText(text, fuzzySystem, optimizationSettings.VAR_NAMES);
+        	Text generatedSummary = summarizer.summarizeText(text, fuzzySystem, optimizationSettings.VAR_NAMES, false);
         	EvaluationResult result = summarizer.evaluateSummary(optimizationSettings.EVALUATION_METHOD, generatedSummary, text.getReferenceSummary());
         	metrics.forEach(m -> {eval.setMetric(m, eval.getMetricValue(m) + result.getMetricValue(m));});
         }
@@ -113,6 +122,9 @@ public class Optimization {
 	}
 	
 	public List<Double> run(int iteration) {
+		
+		List<Text> trainingTexts = trainingTextsFiles.get(iteration);
+		List<Text> testTests = testTextsFiles.get(iteration);
 		
 		List<Double> optimizationResults = new ArrayList<Double>();
 		

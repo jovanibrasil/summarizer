@@ -19,6 +19,8 @@ public abstract class MutationOperator {
 	
 	public Random rand;
 	
+	public double value;
+	
 	public MutationOperator() {
 		this.rand = new Random();
 		this.alreadyMutated = new HashSet<Integer>();
@@ -45,7 +47,7 @@ public abstract class MutationOperator {
 			if(this.alreadyMutated.contains(geneChromosomeIndex)) continue;
 			
 			int geneIndex = geneChromosomeIndex % 3;
-			
+			this.value = chromosome.getGene(geneChromosomeIndex);
 			double newGeneValue = this.getAleatoryFeasibleCoefficient(geneIndex);
 			
 //			while(true) {

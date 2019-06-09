@@ -16,7 +16,6 @@ import summ.fuzzy.optimization.functions.BellFunction;
 import summ.fuzzy.optimization.mutation.MutationOperator;
 import summ.fuzzy.optimization.mutation.UniformMutation;
 import summ.fuzzy.optimization.settings.OptimizationSettings;
-import summ.summarizer.Summarizer;
 
 public class GeneticOptimization {
 	
@@ -212,7 +211,7 @@ public class GeneticOptimization {
 	 */
 	public Chromosome randomSelection() {
 		Random rand = new Random();
-		return this.currentPopulation.get(rand.nextInt(this.populationSize));		
+		return this.currentPopulation.get(rand.nextInt(this.currentPopulation.size()));		
 	}
 	
 	/**
@@ -224,7 +223,7 @@ public class GeneticOptimization {
 				
 		int i = 0;
 		while (i < tournnamentSize) {
-			int randIndex = rand.nextInt(this.populationSize);
+			int randIndex = rand.nextInt(this.currentPopulation.size());
 			if(!randControl[randIndex]) {
 				if (bestChromosomeIndex < 0 || this.currentPopulation.get(randIndex).fitness > 
 					this.currentPopulation.get(bestChromosomeIndex).fitness) {
@@ -238,13 +237,42 @@ public class GeneticOptimization {
 	}
 	
 	public void evaluatePopulation() {
+		
+		List<Chromosome> population = new ArrayList<>();
+		population.add(this.currentPopulation.remove(0).deepClone());
+		
+//		for (Chromosome chromosome : currentPopulation) {
+//			if(!chromosome.evaluate) continue;
+//				
+//			this.fuzzySystem.setCoefficients(chromosome.getGenes());
+//			chromosome.fitness = errorFunction.evaluate(this.fuzzySystem);
+//			chromosome.evaluate = false;
+//		}
+		
+		// avalia primeiro as funções em relação conformidade das funções
 		for (Chromosome chromosome : currentPopulation) {
-			if(!chromosome.evaluate) continue;
+			chromosome.fitness = errorFunction.f(chromosome.getGenes());
+		}
+		
+		// pega um percentual das melhores e avalia de acordo com a função de avaliação
+		Collections.sort(this.currentPopulation);
+		int maxChromossomes = (int)(currentPopulation.size() * 0.8);
+		
+		for (Chromosome chromosome : currentPopulation) {
+			//if(!chromosome.evaluate) continue;
 				
 			this.fuzzySystem.setCoefficients(chromosome.getGenes());
-			chromosome.fitness = errorFunction.evaluate(this.fuzzySystem);
-			chromosome.evaluate = false;
+			chromosome.fitness += errorFunction.evaluate(this.fuzzySystem);
+			//chromosome.evaluate = false;
+			population.add(chromosome.deepClone());
+			
+			if(population.size() == maxChromossomes) {
+				break;
+			}
+			
 		}
+		this.currentPopulation = new ArrayList<>(population);
+		Collections.sort(this.currentPopulation);
 	}
 	
 	public void generateIntermediatePopulation() {
@@ -294,7 +322,7 @@ public class GeneticOptimization {
 	public Chromosome run() {
 		int iterNum = 0;
 		for( ; iterNum < maxGenerations; iterNum++ ) {
-			if(this.convergenceCounter < 3) {
+			if(this.convergenceCounter < 5) {
 				optimizeIteration(iterNum);
 				Chromosome c = this.getBestIndividual();
 				if(this.lastEvaluationResult == c.fitness) {

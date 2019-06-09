@@ -58,25 +58,27 @@ public class CreepMutation extends MutationOperator {
 		return val;
 	}
 	
-	@Override
-	public double getAleatoryFeasibleCoefficient(int index) {
-//		if(this.type.equals(MutationOperatorType.NORMAL_CREEP)) {
-//			return this.creepNormal(term.getParameter(coefficientIndex), rangeMin, rangeMax);
-//		}else {
-//			return this.creepDisturb(term.getParameter(coefficientIndex), rangeMin, rangeMax);
-//		}
-		return 0.0;
-	}
+	
 	
 	@Override
 	public String toString() {
 		return "Creep mutation";
 	}
+	
+
+	@Override
+	public double getAleatoryFeasibleCoefficient(int index) {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 	@Override
 	public double getAleatoryFeasibleCoefficient(double min, double max) {
-		// TODO Auto-generated method stub
-		return 0;
+		if(this.type.equals(MutationOperatorType.NORMAL_CREEP)) {
+			return this.creepNormal(this.value, min, max);
+		}else {
+			return this.creepDisturb(this.value, min, max);
+		}
 	}	
 	
 }
