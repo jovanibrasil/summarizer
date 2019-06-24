@@ -35,7 +35,7 @@ public class Optimization {
 	private List<List<Text>> trainingTextsFiles = new ArrayList<List<Text>>();
 	private List<List<Text>> testTextsFiles = new ArrayList<List<Text>>();
 	
-	private int docEvalMaxIterations = 2;
+	private int docEvalMaxIterations = 16;
 	private int corpusSize = 80; //countFiles(textsDir); 
 	
 	public Optimization(GlobalSettings globalSettings) {
@@ -147,17 +147,19 @@ public class Optimization {
 			String textsResultsPath = globalSettings.OUTPUT_PATH + "/texts-results";
 			FileUtils.createDir(textsResultsPath);
 		    
-		    FuzzySystem fs = new FuzzySystem(optSettings.FUZZY_SYSTEM_PATH);
-		    fs.setOutputVariable("informativity");
-		    
-		    ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(summarizer, trainingTexts, 
-		    		optSettings.EVALUATION_METHOD, optSettings.VAR_NAMES); 
-		    
+		  
 			//List<Double> iterationResults = new ArrayList<>();
 			double averageFitness = 0.0;
 			int docEvalIterationsCounter = 0;
 			List<List<Double>> series = new ArrayList<List<Double>>();
 			while(docEvalIterationsCounter < docEvalMaxIterations) { // each optimization is executed a specified number of times
+				
+				FuzzySystem fs = new FuzzySystem(optSettings.FUZZY_SYSTEM_PATH);
+			    fs.setOutputVariable("informativity");
+			    
+			    ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(summarizer, trainingTexts, 
+			    		optSettings.EVALUATION_METHOD, optSettings.VAR_NAMES); 
+			    
 				
 				log.info("Iteration: " + (docEvalIterationsCounter+1) + "/" + docEvalMaxIterations);
 			

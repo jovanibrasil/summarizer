@@ -51,7 +51,7 @@ public class SimpleRouge implements EvaluationMethod {
 			 * 
 			 */
 			String command = "perl " + rougePath + "\\ROUGE-1.5.5.pl " + 
-					" -v -e " + dataPath +
+					" -e " + dataPath +
 					" -n " + " 1 " +
 					" -x " +
 					" -c " + " 95 " + 
@@ -70,7 +70,7 @@ public class SimpleRouge implements EvaluationMethod {
 			log.debug("Standard output of the command:\n");
 			String s = null;
 			while ((s = stdInput.readLine()) != null) {
-				log.info(s);
+				log.debug(s);
 				String[] values = s.toLowerCase().replace(")", "").replace(":", "")
 						.replace("-", "_").split(" ");
 				if(values.length == 8) {
@@ -136,30 +136,30 @@ public class SimpleRouge implements EvaluationMethod {
 //		double retrievedSentences = generatedText.getTotalSentence();
 //		double correctSentences = countOverlappedSentences(generatedText, referenceText); 
 //		long startTime = System.nanoTime();
-//		EvaluationResult eval = rougeEvaluation(outputPath);
+		EvaluationResult eval = rougeEvaluation(outputPath);
 		
-		EvaluationResult eval = new EvaluationResult();
-		eval.setMainEvaluationMetric(this.evaluationType);
-
-		double overlappCounter = 0;
-		double gSummWordCounter = 0;
-		for (Sentence s : generatedText.getSentences()) {
-			for (String word : s.wordList) {
-				if(referenceText.wordSet.contains(word)) overlappCounter +=1;
-				gSummWordCounter += 1;
-			}
-		}
-		
-		double recall = overlappCounter / referenceText.wordCounter;
-		double precision = overlappCounter / gSummWordCounter;
-		double fmeasure = (2 * precision * recall) / (precision+recall);
-		log.debug("1-gram hit: " + overlappCounter + " 1-gram model count: " + referenceText.wordCounter +
-				" 1-gram peer count: " + gSummWordCounter);
-		log.debug("ROUGE-1-R: " + recall + " ROUGE-1-P: " + precision + " ROUGE-1-F: " + fmeasure);
-		
-		eval.addMetric("RECALL", recall);
-		eval.addMetric("PRECISION", precision);
-		eval.addMetric("FMEASURE", fmeasure);
+//		EvaluationResult eval = new EvaluationResult();
+//		eval.setMainEvaluationMetric(this.evaluationType);
+//
+//		double overlappCounter = 0;
+//		double gSummWordCounter = 0;
+//		for (Sentence s : generatedText.getSentences()) {
+//			for (String word : s.wordList) {
+//				if(referenceText.wordSet.contains(word)) overlappCounter +=1;
+//				gSummWordCounter += 1;
+//			}
+//		}
+//		
+//		double recall = overlappCounter / referenceText.wordCounter;
+//		double precision = overlappCounter / gSummWordCounter;
+//		double fmeasure = (2 * precision * recall) / (precision+recall);
+//		log.debug("1-gram hit: " + overlappCounter + " 1-gram model count: " + referenceText.wordCounter +
+//				" 1-gram peer count: " + gSummWordCounter);
+//		log.debug("ROUGE-1-R: " + recall + " ROUGE-1-P: " + precision + " ROUGE-1-F: " + fmeasure);
+//		
+//		eval.addMetric("RECALL", recall);
+//		eval.addMetric("PRECISION", precision);
+//		eval.addMetric("FMEASURE", fmeasure);
 		
 //		long timeElapsed = (System.nanoTime() - startTime) / 1000000;
 //		log.info("ROUGE evaluation time (s) : " + timeElapsed);
