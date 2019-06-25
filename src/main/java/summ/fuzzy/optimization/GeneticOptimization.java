@@ -50,7 +50,7 @@ public class GeneticOptimization {
 	
 	public double lastEvaluationResult = 0.0;
 	public int convergenceCounter = 0;
-	
+	public boolean seeding = false;
 	private int maxGenerations;
     
     /**
@@ -73,7 +73,7 @@ public class GeneticOptimization {
 		this.elitism = optSettings.ELITISM;
         this.parameters = optSettings.VAR_NAMES;
         this.maxGenerations = optSettings.MAX_ITERATIONS;
-
+        this.seeding = optSettings.SEEDING;
         this.fuzzySystem = fuzzySystem;
         
         this.iteration = 0;
@@ -121,13 +121,16 @@ public class GeneticOptimization {
 		
 		// Create the first Solution. The first Solution is a copy of the initial solution.
 		Chromosome chromosome = new Chromosome();
-//		chromosome.setGenes(fuzzySystem.getCoefficients());
-//		log.debug("Seeding: " + chromosome);
-//		this.currentPopulation.add(chromosome);
+		
+		if(this.seeding) {
+			chromosome.setGenes(fuzzySystem.getCoefficients());
+			log.debug("Seeding: " + chromosome);
+			this.currentPopulation.add(chromosome);			
+		}
 		
 		MutationOperator fpMutator = new UniformMutation(new BellFunction());
 		
-		for (int i = 0; i < this.populationSize; i++) {
+		while (this.currentPopulation.size() < this.populationSize) {
 			chromosome = new Chromosome();
 			int cIndex = 1;
 			for (int j = 0; j < fuzzySystem.getCoefficients().getDimension(); j+=3) {
@@ -237,6 +240,7 @@ public class GeneticOptimization {
 	}
 	
 	public void evaluatePopulation() {
+		double FIRST_EVAL_PERCENTUAL = 1.0;
 		
 		List<Chromosome> population = new ArrayList<>();
 		population.add(this.currentPopulation.remove(0).deepClone());
@@ -256,7 +260,7 @@ public class GeneticOptimization {
 		
 		// pega um percentual das melhores e avalia de acordo com a função de avaliação
 		Collections.sort(this.currentPopulation);
-		int maxChromossomes = (int)(currentPopulation.size() * 0.8);
+		int maxChromossomes = (int)(currentPopulation.size() * FIRST_EVAL_PERCENTUAL);
 		
 		for (Chromosome chromosome : currentPopulation) {
 			//if(!chromosome.evaluate) continue;

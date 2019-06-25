@@ -31,7 +31,7 @@ public class OptimizationSettingsUtils {
 			properties.load(stream);
 
 			String stringList[] = propertyFilePath.split("/");
-			rs.OPTIMIZATION_NAME = stringList[stringList.length-1].replace(".properties", ""); 
+			rs.OPTIMIZATION_NAME = stringList[stringList.length-1].replace(".properties", "").trim(); 
 			
 			String val = properties.getProperty("max_iterations", "20");
 			rs.MAX_ITERATIONS = Integer.parseInt(val);
@@ -47,6 +47,9 @@ public class OptimizationSettingsUtils {
 			
 			val = properties.getProperty("elitism", "true");
 			rs.ELITISM = Boolean.parseBoolean(val);
+			
+			val = properties.getProperty("seeding", "false");
+			rs.SEEDING = Boolean.parseBoolean(val);
 			
 			val = properties.getProperty("var_names", "").replace(" ", "");
 			if(val.isEmpty()) {
@@ -74,9 +77,9 @@ public class OptimizationSettingsUtils {
 			rs.EVALUATION_METHOD = EvaluationMethodFactory
 					.getEvaluationMethod(EvaluationTypes.valueOf(val));
 			
-			rs.FULL_TEXTS_PATH = properties.getProperty("full_texts_path", "");
-			rs.AUTO_SUMMARIES_PATH = properties.getProperty("auto_summaries_path", "");
-			rs.FUZZY_SYSTEM_PATH  = properties.getProperty("fuzzy_system_path", "");
+			rs.FULL_TEXTS_PATH = properties.getProperty("full_texts_path", "").trim();
+			rs.AUTO_SUMMARIES_PATH = properties.getProperty("auto_summaries_path", "").trim();
+			rs.FUZZY_SYSTEM_PATH  = properties.getProperty("fuzzy_system_path", "").trim();
 			
 		} catch (IOException e) {
 			log.warn("Problem with settings model file." + e.getMessage());

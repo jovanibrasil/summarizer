@@ -43,6 +43,7 @@ public class Summarizer {
 		ArrayList<Tuple<Integer>> outList = new ArrayList<Tuple<Integer>>();
 		text.getParagraphs().forEach(p -> {
 			p.getSentences().forEach(s -> {
+				
 				for (int index = 0; index < variables.size() - 1; index++) {
 					String variableName = variables.get(index);
 					fs.setInputVariable(variableName, (double) s.getFeature(variableName));
@@ -221,7 +222,7 @@ public class Summarizer {
 		//Text text = FileUtils.loadText(textPath);
 		text = prepareText(summarizationSettings.TEXT_PREPROCESSING_PIPELINE, summarizationSettings.FEATURES_PIPELINE,
 				text);
-
+		
 		// Summary generation
 		FuzzySystem fs = new FuzzySystem(this.summarizationSettings.FUZZY_SYSTEM_PATH);
 

@@ -295,17 +295,17 @@ elsif(@ARGV==2) {
   $systemID=$ARGV[1];
 }
 if(defined($opt_e)) {
-  $stopwords="$opt_e\\smart_common_words.txt";
-  $wordnetDB="$opt_e\\WordNet-2.0.exc.db";
+  $stopwords="$opt_e/smart_common_words.txt";
+  $wordnetDB="$opt_e/WordNet-2.0.exc.db";
 }
 else {
   if(exists($ENV{"ROUGE_EVAL_HOME"})) {
-    $stopwords="$ENV{\"ROUGE_EVAL_HOME\"}\\smart_common_words.txt";
-    $wordnetDB="$ENV{\"ROUGE_EVAL_HOME\"}\\WordNet-2.0.exc.db";
+    $stopwords="$ENV{\"ROUGE_EVAL_HOME\"}/smart_common_words.txt";
+    $wordnetDB="$ENV{\"ROUGE_EVAL_HOME\"}/WordNet-2.0.exc.db";
   }
   elsif(exists($ENV{"RED_EVAL_HOME"})) {
-    $stopwords="$ENV{\"RED_EVAL_HOME\"}\\smart_common_words.txt";
-    $wordnetDB="$ENV{\"RED_EVAL_HOME\"}\\WordNet-2.0.exc.db";
+    $stopwords="$ENV{\"RED_EVAL_HOME\"}/smart_common_words.txt";
+    $wordnetDB="$ENV{\"RED_EVAL_HOME\"}/WordNet-2.0.exc.db";
   }
   else {
     # if no environment variable exists then assume data files are in the current directory

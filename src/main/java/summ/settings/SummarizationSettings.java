@@ -54,9 +54,9 @@ public class SummarizationSettings {
 		Properties properties = new Properties();
 		try {
 			properties.load(stream);
-			this.FULL_TEXTS_PATH = properties.getProperty("full_texts_path", "");
-			this.MANUAL_SUMMARIES_PATH = properties.getProperty("manual_summaries_path", "");
-			this.AUTO_SUMMARIES_PATH = properties.getProperty("auto_summaries_path", "");
+			this.FULL_TEXTS_PATH = properties.getProperty("full_texts_path", "").trim();
+			this.MANUAL_SUMMARIES_PATH = properties.getProperty("manual_summaries_path", "").trim();
+			this.AUTO_SUMMARIES_PATH = properties.getProperty("auto_summaries_path", "").trim();
 			String[] val = properties.getProperty("text_preprocessing_pipeline", "").replace(" ", "").split(",");
 			this.TEXT_PREPROCESSING_PIPELINE = PipelineFactory.getPreprocessingPipeline(val);
 			val = properties.getProperty("summary_preprocessing_pipeline", "").replace(" ", "").split(",");
@@ -80,7 +80,7 @@ public class SummarizationSettings {
 			}else {
 				this.SAMPLE_SIZE = Integer.parseInt(properties.getProperty("sample_size", "0"));
 			}
-			this.FUZZY_SYSTEM_PATH = properties.getProperty("fuzzy_system_path", "");
+			this.FUZZY_SYSTEM_PATH = properties.getProperty("fuzzy_system_path", "").trim();
 			
 			strVal = properties.getProperty("var_names", "").replace(" ", "");
 			if(strVal.isEmpty()) {

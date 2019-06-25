@@ -130,6 +130,8 @@ public class FuzzySystem {
 		this.fis.evaluate();
 		Variable outputValue = this.functionBlock.getVariable(outputVariableName); // read output variable
 		
+//		showFuzzySystem();
+//		
 //		for( Rule r : this.fis.getFunctionBlock(null).getFuzzyRuleBlock("No1").getRules() )
 //			System.out.println(r);
 		

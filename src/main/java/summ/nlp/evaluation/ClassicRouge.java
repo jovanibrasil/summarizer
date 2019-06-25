@@ -7,16 +7,11 @@ import java.io.InputStreamReader;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-//import com.rxnlp.tools.rouge.ROUGECalculator;
-//import com.rxnlp.tools.rouge.ROUGESettings;
-//import com.rxnlp.tools.rouge.SettingsUtil;
-
-import summ.model.Sentence;
 import summ.model.Text;
 
 public class ClassicRouge implements EvaluationMethod {
 
-	private static final Logger log = LogManager.getLogger(ClassicRouge.class);
+	private static final Logger log = LogManager.getLogger(SimpleRouge.class);
 	@SuppressWarnings("unused")
 	private EvaluationTypes rougeType; // ROUGE-1, ROUGE-2, ROUGE-L ...
 	private EvaluationTypes evaluationType;
@@ -32,10 +27,10 @@ public class ClassicRouge implements EvaluationMethod {
 		try {
 
 			// Command to create an external process
-			String projectDir = System.getProperty("user.dir");
-			String rougePath = projectDir + "\\ROUGE-1.5.5";
-			String dataPath = rougePath + "\\data";
-			String settingsPath = outputPath + "\\settings.xml";
+			//String projectDir = System.getProperty("user.dir");
+			String rougePath = "./ROUGE-1.5.5";
+			String dataPath = rougePath + "/data";
+			String settingsPath = outputPath + "/settings.xml";
 			
 			/*
 			 * -v	verbose mode
@@ -50,7 +45,7 @@ public class ClassicRouge implements EvaluationMethod {
 			 * -m 	specifies the usage of stemming
 			 * 
 			 */
-			String command = "perl " + rougePath + "\\ROUGE-1.5.5.pl " + 
+			String command = "perl " + rougePath + "/ROUGE-1.5.5.pl " + 
 					" -e " + dataPath +
 					" -n " + " 1 " +
 					" -x " +
@@ -106,24 +101,6 @@ public class ClassicRouge implements EvaluationMethod {
 		}
 	}
 	
-	/**
-	 * 
-	 * Calculates the number overlapped sentences between the texts. 
-	 * 
-	 * @param generatedText
-	 * @param referenceText
-	 * @return is a counter of overlaps.
-	 */
-	public int countOverlappedSentences(Text generatedText, Text referenceText) {
-		int overlap = 0;
-		for (Sentence s : generatedText.getSentences()) {			
-			if(referenceText.containsSentence(s)) {
-				overlap++;
-			}
-		}
-		return overlap;
-	}
-	
 	@Override
 	public String toString() {
 		return "Rouge";
@@ -132,22 +109,12 @@ public class ClassicRouge implements EvaluationMethod {
 	@Override
 	public EvaluationResult evaluate(Text generatedText, Text referenceText, String outputPath) {
 		log.debug("Rouge evaluation ...");
-		double relevantSentences = referenceText.getTotalSentence();
-		double retrievedSentences = generatedText.getTotalSentence();
-		double correctSentences = countOverlappedSentences(generatedText, referenceText); 
 		
-		long startTime = System.nanoTime();
+//		long startTime = System.nanoTime();
 		EvaluationResult eval = rougeEvaluation(outputPath);
-		
-		long timeElapsed = (System.nanoTime() - startTime) / 1000000;
-		log.debug("ROUGE evaluation time (s) : " + timeElapsed);
-		log.debug(eval);
-		
-		//eval.setMainEvaluationMetric(this.evaluationType);
-		eval.addMetric("retrievedSentences", (double)retrievedSentences);
-		eval.addMetric("relevantSentences", (double)relevantSentences);
-		eval.addMetric("correctSentences", (double)correctSentences);
+//		long timeElapsed = (System.nanoTime() - startTime) / 1000000;
+//		log.info("ROUGE evaluation time (s) : " + timeElapsed);
+//		log.info(eval);
 		return eval;
 	}
-	
 }

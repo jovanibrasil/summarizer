@@ -217,6 +217,7 @@ public class FileUtils {
 			return stream;
 
 		} catch (IOException exception) {
+			//./settings/summarizer.properties
 			System.err.println("Properties file not found. Please specify -Dopt.prop=<path_to_prop> in the command line.");
 			System.exit(-1);
 		}

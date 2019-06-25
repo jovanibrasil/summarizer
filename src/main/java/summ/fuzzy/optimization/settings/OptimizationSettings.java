@@ -19,7 +19,7 @@ public class OptimizationSettings {
 	public EvaluationMethod EVALUATION_METHOD;
 	public MutationOperator MUTATION_OPERATOR;
 	public CrossoverOperator CROSSOVER_OPERATOR;
-	
+	public boolean SEEDING;
 	public String FUZZY_SYSTEM_PATH;
 	public String FULL_TEXTS_PATH;
 	public String AUTO_SUMMARIES_PATH;
@@ -39,6 +39,7 @@ public class OptimizationSettings {
 			.append("\n\tCrossover probability: ").append(this.CROSSOVER_PROBABILITY)
 			.append("\n\tMutation probability: ").append(this.MUTATION_PROBABILITY)
 			.append("\n\tElitism: ").append(this.ELITISM)
+			.append("\n\tSeeding: ").append(this.SEEDING)
 			.append("\n\tPopulation size: ").append(this.POPULATION_SIZE)
 			.append("\n\tOptimization variables: ").append(this.VAR_NAMES)
 			.append("\n\tMax iterations: ").append(this.MAX_ITERATIONS)
