@@ -35,7 +35,7 @@ public class TextRankTest {
 	
 	@BeforeAll
     protected static void init(){
-		text = FileUtils.loadText("projects/temario-2014/full-texts/ce94ab10-a.txt");
+		text = FileUtils.loadText("./corpora/temario-2004/full-texts/ce94ab10-a.txt");
 		text = getTextPreProcessingPipeline().process(text);
 		text = getFeaturePipeline().process(text);
 		textRank = new TextRank(FeatureType.TFISF);

@@ -44,7 +44,7 @@ class FuzzySystemTest {
 	// test triangular and trapezoidal functions
 	@Test
 	void testConfortabilityWithCogDefuzz() {
-		FuzzySystem fs = new FuzzySystem("fcl/confortability.fcl");
+		FuzzySystem fs = new FuzzySystem("fcl/simple-examples/confortability.fcl");
 		fs.setInputVariable("temperature", 25.0);
 		fs.setInputVariable("humidity", 80.0);
 		fs.setOutputVariable("confortability");
@@ -57,7 +57,7 @@ class FuzzySystemTest {
 	@Test
 	void testConfortabilityWithMomDefuzz() {
 
-		FuzzySystem fs = new FuzzySystem("fcl/confortability.fcl");
+		FuzzySystem fs = new FuzzySystem("fcl/simple-examples/confortability.fcl");
 		fs.setInputVariable("temperature", 25.0);
 		fs.setInputVariable("humidity", 80.0);
 		fs.setOutputVariable("confortability");
@@ -102,7 +102,7 @@ class FuzzySystemTest {
 	
 	@Test
 	void tipperSystem() {
-		FuzzySystem fs = new FuzzySystem("fcl/tipper.fcl");
+		FuzzySystem fs = new FuzzySystem("./fcl/simple-examples/tipper.fcl");
 		fs.setInputVariable("service", 3.0);
 		fs.setInputVariable("food", 7.0);
 		fs.setOutputVariable("tip");

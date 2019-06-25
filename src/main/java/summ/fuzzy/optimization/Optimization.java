@@ -157,6 +157,8 @@ public class Optimization {
 				FuzzySystem fs = new FuzzySystem(optSettings.FUZZY_SYSTEM_PATH);
 			    fs.setOutputVariable("informativity");
 			    
+			    fs.generatetCoefficientsVectorFromVariables(Arrays.asList("baixo", "medio", "alto"));
+			    
 			    ErrorFunctionSummarization errorFunction = new ErrorFunctionSummarization(summarizer, trainingTexts, 
 			    		optSettings.EVALUATION_METHOD, optSettings.VAR_NAMES); 
 			    

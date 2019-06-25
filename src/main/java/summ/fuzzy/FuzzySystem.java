@@ -47,35 +47,43 @@ public class FuzzySystem {
 			System.err.println("Can't load file: '" + fileName + "'");
 	        return;
 		}
-		
-		this.coefficients = new ArrayRealVector();
 		this.varNames = new ArrayList<>();
-		this.termNames = Arrays.asList("baixo", "medio", "alto");
+		this.termNames = new ArrayList<String>();
 		this.functionBlock = this.fis.getFunctionBlock(null);
-		
-		this.functionBlock.getVariables().values().forEach(v -> {
-			varNames.add(v.getName());
-//			if(termNames.isEmpty()) {
-//				v.getLinguisticTerms().values().forEach(lt -> { termNames.add(lt.getTermName()); });	
-//			}
-			termNames.forEach(termName -> {
-				MembershipFunction mf = v.getMembershipFunction(termName);
-				log.debug("Loading gbell fuzzy membership (a, b, c) = (" + mf.getParameter(1) + ", " + mf.getParameter(2) + ", " + mf.getParameter(0) + ")");
-				coefficients = coefficients.append(mf.getParameter(1))
-					.append(mf.getParameter(2))
-					.append(mf.getParameter(0));
-			});
-			
-		});
 		
 		log.debug("Loaded Variables: " + this.varNames.toString());
 		log.debug("Loaded Terms: " + this.termNames.toString());
 		
 	}
-
-	public void getCoefficientsVectorFromVariables() {
-
+	
+	/**
+	 * Gera um vetor com todos os coeficientes dos termos das varíaveis do sistema 
+	 * fuzzy. A ordem dos termos é dada pela lista de nomes dos termos.
+	 * 
+	 * @param termNames é a lista com o nome dos termos que determina a ordenação dos
+	 * 					dos coeficientes dentro do vetor. 
+	 */
+	public RealVector generatetCoefficientsVectorFromVariables(List<String> termNames) {
+		this.termNames = termNames;
+		if(this.coefficients == null) {
+			this.coefficients = new ArrayRealVector();
+			this.functionBlock.getVariables().values().forEach(v -> {
+				varNames.add(v.getName());
+				termNames.forEach(termName -> {
+					MembershipFunction mf = v.getMembershipFunction(termName);
+					log.debug("Loading gbell fuzzy membership (a, b, c) = (" + mf.getParameter(1) + ", " + mf.getParameter(2) + ", " + mf.getParameter(0) + ")");
+					coefficients = coefficients.append(mf.getParameter(1))
+						.append(mf.getParameter(2))
+						.append(mf.getParameter(0));
+				});
+			});
+		}
+		return this.coefficients;
     }
+	
+	public RealVector getCoefficientsVector() {
+		return this.coefficients;
+	}
 	
 	public void showFuzzySystem(Variable outVariable) {
 		JFuzzyChart.get().chart(functionBlock); // show fuzzy system
@@ -183,8 +191,6 @@ public class FuzzySystem {
 		}	
 	}
 
-	public RealVector getCoefficients() {
-		return this.coefficients;
-	}
+	
 	
 }

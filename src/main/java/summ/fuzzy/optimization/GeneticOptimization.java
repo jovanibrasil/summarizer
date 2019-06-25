@@ -123,7 +123,7 @@ public class GeneticOptimization {
 		Chromosome chromosome = new Chromosome();
 		
 		if(this.seeding) {
-			chromosome.setGenes(fuzzySystem.getCoefficients());
+			chromosome.setGenes(fuzzySystem.getCoefficientsVector());
 			log.debug("Seeding: " + chromosome);
 			this.currentPopulation.add(chromosome);			
 		}
@@ -133,7 +133,7 @@ public class GeneticOptimization {
 		while (this.currentPopulation.size() < this.populationSize) {
 			chromosome = new Chromosome();
 			int cIndex = 1;
-			for (int j = 0; j < fuzzySystem.getCoefficients().getDimension(); j+=3) {
+			for (int j = 0; j < fuzzySystem.getCoefficientsVector().getDimension(); j+=3) {
 				chromosome.setGene(j, fpMutator.getAleatoryFeasibleCoefficient(0));
 				chromosome.setGene(j+1, fpMutator.getAleatoryFeasibleCoefficient(1));
 				double min, max;
