@@ -1,6 +1,5 @@
 package summ.nlp.preprocesing;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 
 import org.apache.log4j.LogManager;
@@ -28,7 +27,7 @@ public class NER implements Pipe<Text> {
 		InputStream model = null;
 		try {
 			log.debug("Executing NER (named entity recognition) for each sentence in " + text.getName());
-			model = new FileInputStream("src/main/resources/models/en-ner-person.bin");
+			model = ClassLoader.getSystemClassLoader().getResourceAsStream("models/en-ner-person.bin");
 			TokenNameFinderModel tokenFinderModel = new TokenNameFinderModel(model);
 			// uses maximum entropy model 
 			NameFinderME namefinder = new NameFinderME(tokenFinderModel);

@@ -15,7 +15,7 @@ import summ.nlp.evaluation.EvaluationMethodFactory;
 import summ.nlp.evaluation.EvaluationTypes;
 import summ.utils.Pipeline;
 import summ.utils.PipelineFactory;
-import summ.utils.FileUtils;
+import summ.utils.CustomFileUtils;
 
 public class SummarizationSettings {
 	
@@ -50,7 +50,7 @@ public class SummarizationSettings {
 	
 	public void loadSummarizationProps(String propertyFilePath) {
 		log.info("Loading summarization properties ...");
-		InputStream stream = FileUtils.loadProps(propertyFilePath);
+		InputStream stream = CustomFileUtils.loadProps(propertyFilePath);
 		Properties properties = new Properties();
 		try {
 			properties.load(stream);

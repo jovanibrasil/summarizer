@@ -11,7 +11,7 @@ import summ.model.Text;
 
 public class ClassicRouge implements EvaluationMethod {
 
-	private static final Logger log = LogManager.getLogger(SimpleRouge.class);
+	private static final Logger log = LogManager.getLogger(ClassicRouge.class);
 	@SuppressWarnings("unused")
 	private EvaluationTypes rougeType; // ROUGE-1, ROUGE-2, ROUGE-L ...
 	private EvaluationTypes evaluationType;
@@ -27,8 +27,8 @@ public class ClassicRouge implements EvaluationMethod {
 		try {
 
 			// Command to create an external process
-			//String projectDir = System.getProperty("user.dir");
-			String rougePath = "./ROUGE-1.5.5";
+			String projectDir = System.getProperty("user.dir");
+			String rougePath = projectDir + "/ROUGE-1.5.5";
 			String dataPath = rougePath + "/data";
 			String settingsPath = outputPath + "/settings.xml";
 			
@@ -46,7 +46,7 @@ public class ClassicRouge implements EvaluationMethod {
 			 * 
 			 */
 			String command = "perl " + rougePath + "/ROUGE-1.5.5.pl " + 
-					" -e " + dataPath +
+					" -v -e " + dataPath +
 					" -n " + " 1 " +
 					" -x " +
 					" -c " + " 95 " + 
@@ -54,6 +54,8 @@ public class ClassicRouge implements EvaluationMethod {
 					" -f " + " A " +
 					" -p " + " 0.5 " + 
 					" -a " + settingsPath;
+			
+			log.info(command);
 			
 			// Running the above command
 			Runtime run = Runtime.getRuntime();

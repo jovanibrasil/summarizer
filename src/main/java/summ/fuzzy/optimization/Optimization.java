@@ -19,7 +19,7 @@ import summ.settings.GlobalSettings;
 import summ.summarizer.Summarizer;
 import summ.utils.Charts;
 import summ.utils.ExportHTML;
-import summ.utils.FileUtils;
+import summ.utils.CustomFileUtils;
 import summ.utils.Utils;
 
 public class Optimization {
@@ -46,7 +46,7 @@ public class Optimization {
 		if(globalSettings.optimizationEvaluationFiles == null && globalSettings.optimizationFiles == null) {
 			// TODO a quantidade de conjuntos deve ser passada por parâmetro
 			Arrays.asList(0, 1, 3).forEach(x -> {
-				List<List<Text>> data = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, corpusSize, globalSettings.TRAINING_TEXTS_PERCENTUAL);	
+				List<List<Text>> data = CustomFileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, corpusSize, globalSettings.TRAINING_TEXTS_PERCENTUAL);	
 				
 				List<Text> trainingTexts = data.get(0);
 				List<Text> testTests = data.get(1);		
@@ -71,13 +71,13 @@ public class Optimization {
 		}else {
 			
 			for (String[] fileNames : globalSettings.optimizationFiles) {
-				List<Text> texts = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, fileNames);
+				List<Text> texts = CustomFileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, fileNames);
 				this.summarizer.prepareTextList(texts);
 				this.trainingTextsFiles.add(texts);
 			}
 			
 			for (String[] fileNames : globalSettings.optimizationEvaluationFiles) {
-				List<Text> texts = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, fileNames);
+				List<Text> texts = CustomFileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, fileNames);
 				this.summarizer.prepareTextList(texts);
 				this.testTextsFiles.add(texts);
 			}
@@ -141,11 +141,11 @@ public class Optimization {
 			
 			// create iteration results directory
 			globalSettings.OUTPUT_PATH = outputPath + "/opt_" + optSettings.OPTIMIZATION_NAME + Utils.generateStringFormattedData();
-		    FileUtils.createDir(globalSettings.OUTPUT_PATH);
+		    CustomFileUtils.createDir(globalSettings.OUTPUT_PATH);
 		    
 		    // Create texts results directory
 			String textsResultsPath = globalSettings.OUTPUT_PATH + "/texts-results";
-			FileUtils.createDir(textsResultsPath);
+			CustomFileUtils.createDir(textsResultsPath);
 		    
 		  
 			//List<Double> iterationResults = new ArrayList<>();
@@ -188,7 +188,7 @@ public class Optimization {
 				objs.add(Arrays.asList(bestFitnessSerie, geneticOptimization.worstFitnessSerie, 
 						globalSettings, optSettings, "training files: " + getFileNames(trainingTexts), 
 						"evaluation files: " + getFileNames(testTests), finalEvaluation));
-				FileUtils.saveListOfObjects(objs, globalSettings.OUTPUT_PATH + "/result_" + docEvalIterationsCounter + "_" + optSettings.OPTIMIZATION_NAME + ".txt");
+				CustomFileUtils.saveListOfObjects(objs, globalSettings.OUTPUT_PATH + "/result_" + docEvalIterationsCounter + "_" + optSettings.OPTIMIZATION_NAME + ".txt");
 				// save optimized result
 				fs.showFuzzySystem();
 				fs.saveFuzzySystem(globalSettings.OUTPUT_PATH + "/opt_"+ docEvalIterationsCounter +"_" + optSettings.OPTIMIZATION_NAME + ".fcl");
@@ -200,7 +200,7 @@ public class Optimization {
 			charts.saveChart(globalSettings.OUTPUT_PATH + "/chart.png");
 			double averageScore = averageFitness / docEvalMaxIterations;
 			optimizationResults.add(averageScore); // 
-			FileUtils.saveListOfObjects(Arrays.asList("Average score: " + averageScore), 
+			CustomFileUtils.saveListOfObjects(Arrays.asList("Average score: " + averageScore), 
 					globalSettings.OUTPUT_PATH + "/result_" + optSettings.OPTIMIZATION_NAME + ".txt");
 		}
 		log.info("Bye!");

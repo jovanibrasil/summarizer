@@ -21,7 +21,7 @@ import summ.settings.SummarizationSettings.SummarizationType;
 import summ.settings.GlobalSettings;
 import summ.utils.ExportCSV;
 import summ.utils.ExportHTML;
-import summ.utils.FileUtils;
+import summ.utils.CustomFileUtils;
 import summ.utils.Pipeline;
 import summ.utils.Tuple;
 import summ.utils.Utils;
@@ -49,8 +49,11 @@ public class Summarizer {
 					fs.setInputVariable(variableName, (double) s.getFeature(variableName));
 				}
 				fs.setOutputVariable(variables.get(variables.size() - 1));
-				//System.out.println(s.getInitialValue());
-				double score = fs.evaluate().getValue();
+				System.out.println("[" + s.getId() + "] " + s.getInitialValue());
+				
+				boolean showResult = s.getId() == 5 ? false : false;
+				
+				double score = fs.evaluate(showResult).getValue();
 				s.setScore(score);
 				outList.add(new Tuple<>(s.getId(), score));
 			});
@@ -104,7 +107,7 @@ public class Summarizer {
 	public EvaluationResult evaluateSummary(EvaluationMethod evaluationMethod, Text generatedSummary) {
 		if (evaluationMethod != null) {
 			log.debug("Evaluating the summary ...");
-			Text referenceSummary = FileUtils.loadText(this.summarizationSettings.AUTO_SUMMARIES_PATH
+			Text referenceSummary = CustomFileUtils.loadText(this.summarizationSettings.AUTO_SUMMARIES_PATH
 					+ generatedSummary.getName().replace(".txt", "") + "_areference1.txt");
 			referenceSummary = summarizationSettings.SUMMARY_PREPROCESSING_PIPELINE.process(referenceSummary);
 
@@ -132,7 +135,7 @@ public class Summarizer {
 			}
 			refSentences += "\n";
 
-			FileUtils.saveListOfObjects(Arrays.asList(refSentences),
+			CustomFileUtils.saveListOfObjects(Arrays.asList(refSentences),
 					this.globalSettings.OUTPUT_PATH + "/sumarioreferencia_marcado.txt");
 
 			log.debug(evaluationResult);
@@ -245,12 +248,10 @@ public class Summarizer {
 				}
 				originalText += "\\\\";
 			}
-			FileUtils.saveListOfObjects(Arrays.asList(originalText),
+			CustomFileUtils.saveListOfObjects(Arrays.asList(originalText),
 					this.globalSettings.OUTPUT_PATH + "/textooriginal_marcado.txt");
 		}
-		
 		return generatedSummary;
-
 	}
 
 	
@@ -312,12 +313,14 @@ public class Summarizer {
 		if (summarizationSettings.SUMMARIZATION_TYPE.equals(SummarizationType.SINGLE)) {
 
 			globalSettings.OUTPUT_PATH = "results/summ_" + Utils.generateStringFormattedData();
-			FileUtils.createDir(globalSettings.OUTPUT_PATH);
+			CustomFileUtils.createDir(globalSettings.OUTPUT_PATH);
 			
 			// Run a single text summarization
 			
-			Text text =  FileUtils.loadText(this.summarizationSettings.FULL_TEXTS_PATH + this.summarizationSettings.TEXT_NAME);
+			Text text =  CustomFileUtils.loadText(this.summarizationSettings.FULL_TEXTS_PATH + this.summarizationSettings.TEXT_NAME);
+			//System.out.println(text.getSentences().toString());
 			Text generatedSummary = this.summarizeText(text, summarizationSettings.VAR_NAMES, true);
+			//System.out.println(generatedSummary);
 			log.info(generatedSummary.getEvaluationResult());
 			
 			this.saveResult(generatedSummary, "summ-text");
@@ -334,7 +337,7 @@ public class Summarizer {
 			}
 			numeredSentences += "\n";
 
-			FileUtils.saveListOfObjects(Arrays.asList(numeredSentences), this.globalSettings.OUTPUT_PATH + "/sumariogerado_numerado.txt");
+			CustomFileUtils.saveListOfObjects(Arrays.asList(numeredSentences), this.globalSettings.OUTPUT_PATH + "/sumariogerado_numerado.txt");
 
 		} else {
 			
@@ -344,9 +347,9 @@ public class Summarizer {
 				for (int i = 0; i < this.summarizationSettings.samples.size(); i++) {
 						
 					globalSettings.OUTPUT_PATH = "results/summ_" + Utils.generateStringFormattedData() + "_set" + i;
-					FileUtils.createDir(globalSettings.OUTPUT_PATH);
+					CustomFileUtils.createDir(globalSettings.OUTPUT_PATH);
 
-					List<Text> sample = FileUtils.loadTexts(this.summarizationSettings.FULL_TEXTS_PATH, 
+					List<Text> sample = CustomFileUtils.loadTexts(this.summarizationSettings.FULL_TEXTS_PATH, 
 							this.globalSettings.MANUAL_SUMMARIES_PATH, this.summarizationSettings.samples.get(i));
 					
 					this.summarizeTexts(sample);
@@ -357,13 +360,13 @@ public class Summarizer {
 				// Run an specified list of summaries
 				List<Path> texts;
 				globalSettings.OUTPUT_PATH = "results/summ_" + Utils.generateStringFormattedData();
-				FileUtils.createDir(globalSettings.OUTPUT_PATH);
+				CustomFileUtils.createDir(globalSettings.OUTPUT_PATH);
 				int corpusSize = this.summarizationSettings.SAMPLE_SIZE;
 				// if no samples are pre-defined: randomly load files 
 				if(this.summarizationSettings.SAMPLE_SIZE == 0) { // load all files
-					corpusSize = FileUtils.countFiles(this.summarizationSettings.FULL_TEXTS_PATH);
+					corpusSize = CustomFileUtils.countFiles(this.summarizationSettings.FULL_TEXTS_PATH);
 				}	
-				List<List<Text>> data = FileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, corpusSize, 0);				
+				List<List<Text>> data = CustomFileUtils.loadTexts(globalSettings.CORPUS_PATH, globalSettings.MANUAL_SUMMARIES_PATH, corpusSize, 0);				
 				this.summarizeTexts(data.get(0));
 			}	
 			

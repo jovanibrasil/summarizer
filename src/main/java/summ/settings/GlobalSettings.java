@@ -8,7 +8,7 @@ import java.util.Properties;
 
 import org.apache.log4j.Logger;
 
-import summ.utils.FileUtils;
+import summ.utils.CustomFileUtils;
 
 public class GlobalSettings {
 	
@@ -38,7 +38,7 @@ public class GlobalSettings {
 	
 	public void loadSummarizerProps() {
 		log.info("Loading summarizer properties ...");
-		InputStream stream = FileUtils.loadProps("./settings/summarizer.properties");
+		InputStream stream = CustomFileUtils.loadProps("./settings/summarizer.properties");
 		Properties properties = new Properties();
 		try {
 			properties.load(stream);

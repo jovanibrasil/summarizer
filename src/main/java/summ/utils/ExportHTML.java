@@ -25,7 +25,7 @@ public class ExportHTML {
 	 */
 	public static void exportSentecesAndFeatures(Text text, List<String> selectedFeatures, String outputPath, String fileName) {
 		try {
-			File file = new File("src/main/resources/templates/result.html") ;
+			File file = CustomFileUtils.getResourceAsFile("templates/result.html");
 			String htmlString = FileUtils.readFileToString(file, Charset.forName("UTF-8"));
 			
 			String title = text.getName(), body = "<ol>";
@@ -63,7 +63,7 @@ public class ExportHTML {
 	 */
 	public static void exportHighlightText(Text text, Map<Integer, Sentence> selectedSentences, String outputPath) {
 		try {
-			File file = new File("src/main/resources/templates/result.html") ;
+			File file = CustomFileUtils.getResourceAsFile("templates/result.html");
 			String htmlString = FileUtils.readFileToString(file, Charset.forName("UTF-8"));
 			
 			String title = text.getName(), body = "<ol>";
@@ -79,7 +79,8 @@ public class ExportHTML {
 			htmlString = htmlString.replace("$title", title);
 			htmlString = htmlString.replace("$body", body);
 			
-			File newHtmlFile = new File(outputPath + "/highlighted-select-sentences-" + Utils.generateStringFormattedData() + ".html");
+			File newHtmlFile = new File(outputPath + "/highlighted-select-sentences-"
+							+ Utils.generateStringFormattedData() + ".html");
 			FileUtils.writeStringToFile(newHtmlFile, htmlString, Charset.forName("UTF-8"));
 			
 		} catch (Exception e) {
@@ -90,7 +91,7 @@ public class ExportHTML {
 	public static void exportOverlappedFeatures(Text text1, Text text2, String outputPath) {
 
 		try {
-			File file = new File("src/main/resources/templates/result.html") ;
+			File file = CustomFileUtils.getResourceAsFile("templates/result.html");
 			String htmlString = FileUtils.readFileToString(file, Charset.forName("UTF-8"));
 			
 			String title = text1.getName() + "_" + text2.getName(), body = "<ol>";
@@ -120,7 +121,7 @@ public class ExportHTML {
 		try {
 			String sentences = "";
 			
-			File file = new File("src/main/resources/templates/rouge_summary.html") ;
+			File file = CustomFileUtils.getResourceAsFile("templates/rouge_summary.html");
 			String htmlString = FileUtils.readFileToString(file, Charset.forName("UTF-8"));
 			
 			int id = 0;

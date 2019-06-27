@@ -39,7 +39,7 @@ o tipo de execução desejado (sumarização ou otimização).
 
 1. Frequencia dos termos - Term frequency (TF)
 2. Inverse Sentence Frequency (ISF)
-3.  Term Frequency Inverse Sentence Frequency (TF-ISF)
+3. Term Frequency Inverse Sentence Frequency (TF-ISF)
 4. Comprimento
 5. Local
 6. Correlação entre comprimento e local
@@ -55,22 +55,15 @@ o tipo de execução desejado (sumarização ou otimização).
 
 #### Algoritmo Genético
 
-##### Mutação
+Estão disponíveis os operadores de mutação Uniforme, Gaussiana (Normal), Creep e Limit. Os operadores de cruzamento 
+(crossover) disponíveis são Média Simples, Média Geométrica, BLX-ALPHA e N-point interleave.
 
-1. Uniform
-2. Gaussian (Normal)
-3. Creep
-4. Limit
+### Fazendo build
 
-##### Mutação (Crossover)
-
-1. Média Simples
-2. Média Geométrica
-3. BLX crossover
-4. N-point interleave
-
-### Compilando
-
+O primeiro passo é instalar o Maven (sudo apt install maven) e o MakeFile (sudo apt-get install make). 
+Então basta ir até a raiz do projeto e executar o comando make package. No diretório target você encontrará
+o diretório summarizer que contém o executável e as dependências necessárias. O executável pode ser executado
+com o comando java -jar summarizer.jar.
 
 
 

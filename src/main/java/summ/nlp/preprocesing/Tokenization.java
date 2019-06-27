@@ -2,7 +2,6 @@ package summ.nlp.preprocesing;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
-import java.text.Normalizer;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -33,7 +32,7 @@ public class Tokenization implements Pipe<Text> {
 		InputStream model = null;
 		try {
 			log.debug("Executing model based tokenization for each sentence in the text " + text.getName());
-			model = new FileInputStream("src/main/resources/models/pt-token.bin");
+			model = ClassLoader.getSystemClassLoader().getResourceAsStream("models/pt-token.bin");
 			// TokenizerModel encapsulates the model and provides basic methods
 			TokenizerModel sm = new TokenizerModel(model); // This model was trained on conllx bosque data.
 			// Uses maximum entropy with the defined model 
@@ -53,7 +52,7 @@ public class Tokenization implements Pipe<Text> {
 			});
 			
 		} catch (Exception e) {
-			log.warn("Problem with tokenization model file." + e.getMessage());
+			log.warn("Problem with tokenization model file. " + e.getMessage());
 			log.warn("If you want to use tokenization, please fix this issue first before proceeding.");
 		} finally {
 			if(model != null) {

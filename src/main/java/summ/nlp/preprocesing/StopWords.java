@@ -1,11 +1,11 @@
 package summ.nlp.preprocesing;
 
+import java.io.BufferedReader;
 import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.stream.Stream;
 
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
@@ -28,7 +28,7 @@ public class StopWords implements Pipe<Text> {
 	public Text removeStopWords(Text text) {
 		log.debug("Remove stopwords in the text " + text.getName());
 		if(stopWords == null) {
-			loadStopWords("src/main/resources/stopwords-pt-br.txt");
+			loadStopWords("/stopwords-pt-br.txt");
 		}
 		try {
 			text.getParagraphs().forEach( paragraph -> {
@@ -51,11 +51,14 @@ public class StopWords implements Pipe<Text> {
 	private void loadStopWords(String stopFile) {
 		log.debug("Loading stopwords file.");
 		stopWords = new HashSet<String>();
-		try (Stream<String> stream = Files.lines(Paths.get(stopFile))) {
-			stream.forEach(line -> {
-				String stopWord = line.trim().toLowerCase();
+		try (InputStream text = getClass().getResourceAsStream(stopFile)){
+			BufferedReader br = new BufferedReader(new InputStreamReader(text));
+			String line;
+		    while ((line = br.readLine()) != null) {
+		    	String stopWord = line.trim().toLowerCase();
 				stopWords.add(stopWord);
-			});
+		    }
+		    br.close();
 		} catch (IOException e) {
 			log.warn("Problem with stopwords file: " + e.getMessage());
 			log.warn("If you want to use stop words, please fix this issue first before proceeding.");

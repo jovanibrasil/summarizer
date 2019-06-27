@@ -1,6 +1,5 @@
 package summ.nlp.preprocesing;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 import java.util.ArrayList;
 
@@ -22,7 +21,7 @@ public class SentenceSegmentation implements Pipe<Text> {
 		InputStream model = null;
 		try {
 			log.debug("Segmenting text into sentences.");
-			model = new FileInputStream("src/main/resources/models/pt-sent.bin");
+			model = ClassLoader.getSystemClassLoader().getResourceAsStream("models/pt-sent.bin");
 			SentenceModel sm = new SentenceModel(model);
 			// uses maximum entropy model 
 			SentenceDetectorME sd = new SentenceDetectorME(sm);
@@ -42,7 +41,8 @@ public class SentenceSegmentation implements Pipe<Text> {
 				paragraph.setSentences(sentences);
 			}
 		} catch (Exception e) {
-			log.warn("problem with segmentation model file." + e.getMessage());
+			System.out.println("error");
+			log.warn("problem with segmentation model file. " + e.getMessage());
 			log.warn("If you want to use segmentation, please fix this issue first before proceeding.");
 		} finally {
 			if(model != null) {

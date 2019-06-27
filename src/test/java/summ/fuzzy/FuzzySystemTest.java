@@ -49,7 +49,7 @@ class FuzzySystemTest {
 		fs.setInputVariable("humidity", 80.0);
 		fs.setOutputVariable("confortability");
 		fs.setDefuzzificationType(DefuzzifierType.COG);
-		Variable outputValue = fs.evaluate(); // evaluate (run the system)
+		Variable outputValue = fs.evaluate(false); // evaluate (run the system)
 		assertEquals(5.0, outputValue.getValue(), DELTA); // centroid (center of gravity)
 	}
 
@@ -63,7 +63,7 @@ class FuzzySystemTest {
 		fs.setOutputVariable("confortability");
 
 		fs.setDefuzzificationType(DefuzzifierType.MOM);
-		Variable outputValue = fs.evaluate(); // evaluate (run the system)
+		Variable outputValue = fs.evaluate(false); // evaluate (run the system)
 		assertEquals(5.0, outputValue.getValue()); // mom
 
 	}
@@ -80,7 +80,7 @@ class FuzzySystemTest {
 
 		fs.setDefuzzificationType(DefuzzifierType.COG);
 
-		Variable outputValue = fs.evaluate(); // evaluate (run the system)
+		Variable outputValue = fs.evaluate(false); // evaluate (run the system)
 		assertEquals(0.7665974171965814, outputValue.getValue()); // using center of gravity (COG, centroid)
 		// 0.752
 	}
@@ -95,7 +95,7 @@ class FuzzySystemTest {
 		fs.setInputVariable("title_words_relative", 0.4);
 		fs.setOutputVariable("informativity");
 		fs.setDefuzzificationType(DefuzzifierType.MOM);
-		Variable outputValue = fs.evaluate(); // evaluate (run the system)
+		Variable outputValue = fs.evaluate(false); // evaluate (run the system)
 		assertEquals(0.8969999999999999, outputValue.getValue(), DELTA); // using mean of maximum (MOM)
 
 	}
@@ -106,7 +106,7 @@ class FuzzySystemTest {
 		fs.setInputVariable("service", 3.0);
 		fs.setInputVariable("food", 7.0);
 		fs.setOutputVariable("tip");
-		Variable outputValue = fs.evaluate();
+		Variable outputValue = fs.evaluate(false);
 		assertEquals(11.701603788, outputValue.getValue(), DELTA);
 	}
 

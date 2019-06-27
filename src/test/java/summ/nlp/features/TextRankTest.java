@@ -13,7 +13,7 @@ import summ.nlp.preprocesing.SentenceSegmentation;
 import summ.nlp.preprocesing.StopWords;
 import summ.nlp.preprocesing.Titles;
 import summ.nlp.preprocesing.Tokenization;
-import summ.utils.FileUtils;
+import summ.utils.CustomFileUtils;
 import summ.utils.Pipeline;
 
 public class TextRankTest {
@@ -35,7 +35,7 @@ public class TextRankTest {
 	
 	@BeforeAll
     protected static void init(){
-		text = FileUtils.loadText("./corpora/temario-2004/full-texts/ce94ab10-a.txt");
+		text = CustomFileUtils.loadText("./corpora/temario-2004/full-texts/ce94ab10-a.txt");
 		text = getTextPreProcessingPipeline().process(text);
 		text = getFeaturePipeline().process(text);
 		textRank = new TextRank(FeatureType.TFISF);

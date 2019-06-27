@@ -1,6 +1,5 @@
 package summ.nlp.preprocesing;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 
 import org.apache.log4j.LogManager;
@@ -37,7 +36,7 @@ public class POSTagger implements Pipe<Text> {
 		InputStream model = null;
 		try {
 			log.debug("Executing POSTagger for each word in the text " + text.getName());
-			model = new FileInputStream("src/main/resources/models/pt-pos-perceptron.bin");
+			model = ClassLoader.getSystemClassLoader().getResourceAsStream("models/pt-pos-perceptron.bin");
 			POSModel posModel = new POSModel(model);
 			// uses maximum entropy model 
 			POSTaggerME posTagger = new POSTaggerME(posModel);

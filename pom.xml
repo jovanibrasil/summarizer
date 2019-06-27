@@ -76,8 +76,6 @@
 			<groupId>net.sourceforge.jFuzzyLogic</groupId>
 			<artifactId>jFuzzyLogic</artifactId>
 			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${basedir}/libs/jFuzzyLogic.jar</systemPath>
 		</dependency>
 		<dependency>
 			<groupId>com.rxnlp.tools.rouge</groupId>
@@ -100,6 +98,11 @@
 
 	<build>
 		<finalName>summarizer</finalName>
+		<resources>
+			<resource>
+				<directory>src/main/resources</directory>
+			</resource>
+		</resources>
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -114,7 +117,6 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-dependency-plugin</artifactId>
-				<version>3.1.1</version>
 				<executions>
 					<execution>
 						<id>copy-dependencies</id>
@@ -123,7 +125,7 @@
 							<goal>copy-dependencies</goal>
 						</goals>
 						<configuration>
-							<outputDirectory>${project.build.directory}/libs</outputDirectory>
+							<outputDirectory>${project.build.directory}/summarizer/libs</outputDirectory>
 							<overWriteReleases>false</overWriteReleases>
 							<overWriteSnapshots>false</overWriteSnapshots>
 							<overWriteIfNewer>true</overWriteIfNewer>
@@ -134,15 +136,77 @@
 			<plugin>
 				<artifactId>maven-resources-plugin</artifactId>
 				<version>3.0.2</version>
-				<configuration>
-					<outputDirectory>${project.build.directory}/libs</outputDirectory>
-					<resources>
-						<resource>
-							<directory>libs</directory>
-							<filtering>true</filtering>
-						</resource>
-					</resources>
-				</configuration>
+				<executions>
+
+					<execution>
+						<id>copy-corpora</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/summarizer/corpora</outputDirectory>
+							<resources>
+								<resource>
+									<directory>./corpora</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>copy-rouge</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/summarizer/ROUGE-1.5.5</outputDirectory>
+							<resources>
+								<resource>
+									<directory>./ROUGE-1.5.5</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>copy-settings</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/summarizer/settings</outputDirectory>
+							<resources>
+								<resource>
+									<directory>./settings</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+
+					<execution>
+						<id>copy-fcl</id>
+						<phase>validate</phase>
+						<goals>
+							<goal>copy-resources</goal>
+						</goals>
+						<configuration>
+							<outputDirectory>${project.build.directory}/summarizer/fcl</outputDirectory>
+							<resources>
+								<resource>
+									<directory>./fcl</directory>
+									<filtering>true</filtering>
+								</resource>
+							</resources>
+						</configuration>
+					</execution>
+
+				</executions>
 			</plugin>
 			<!-- Build an executable JAR -->
 			<plugin>
@@ -150,6 +214,7 @@
 				<artifactId>maven-jar-plugin</artifactId>
 				<version>3.0.2</version>
 				<configuration>
+					<outputDirectory>${project.build.directory}/summarizer</outputDirectory>
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
@@ -205,6 +270,28 @@
 				<configuration>
 					<encoding>${project.build.sourceEncoding}</encoding>
 				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>exec-maven-plugin</artifactId>
+				<version>1.2.1</version>
+				<executions>
+					<execution>
+						<id>script-chmod</id>
+						<phase>install</phase>
+						<goals>
+							<goal>exec</goal>
+						</goals>
+						<configuration>
+							<executable>chmod</executable>
+							<arguments>
+								<argument>+x</argument>
+								<argument>${project.build.directory}/summarizer</argument>
+							</arguments>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 
 		</plugins>

@@ -1,7 +1,6 @@
 package summ.fuzzy;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import org.apache.commons.math3.linear.ArrayRealVector;
@@ -23,7 +22,6 @@ import net.sourceforge.jFuzzyLogic.membership.MembershipFunctionGenBell;
 import net.sourceforge.jFuzzyLogic.membership.Value;
 import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
 import net.sourceforge.jFuzzyLogic.rule.LinguisticTerm;
-import net.sourceforge.jFuzzyLogic.rule.Rule;
 import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
 import net.sourceforge.jFuzzyLogic.rule.Variable;
 
@@ -87,7 +85,7 @@ public class FuzzySystem {
 	
 	public void showFuzzySystem(Variable outVariable) {
 		JFuzzyChart.get().chart(functionBlock); // show fuzzy system
-		//JFuzzyChart.get().chart(outVariable, outVariable.getDefuzzifier(), true); // show output 
+		JFuzzyChart.get().chart(outVariable, outVariable.getDefuzzifier(), true); // show output 
 		//System.out.println(this.fis); // print fuzzy system configuration 
 	}
 	
@@ -134,7 +132,7 @@ public class FuzzySystem {
 		this.fis.setVariable(varName, value);
 	}
 
-	public Variable evaluate() {
+	public Variable evaluate(boolean showResult) {
 		this.fis.evaluate();
 		Variable outputValue = this.functionBlock.getVariable(outputVariableName); // read output variable
 		
@@ -142,7 +140,7 @@ public class FuzzySystem {
 //		
 //		for( Rule r : this.fis.getFunctionBlock(null).getFuzzyRuleBlock("No1").getRules() )
 //			System.out.println(r);
-		
+		if(showResult) showFuzzySystem(outputValue);
 		return outputValue;
 	}
 	

@@ -12,7 +12,7 @@ public class XmlUtils {
 		try {
 			refSummaryPath = refSummaryPath.substring(0, 2).equals("./") ? 
 					refSummaryPath.substring(2) : refSummaryPath;
-			File file = new File("src/main/resources/templates/rouge_configuration.xml") ;
+			File file = CustomFileUtils.getResourceAsFile("templates/rouge_configuration.xml");
 			String htmlStr = FileUtils.readFileToString(file, Charset.forName("UTF-8"));
 			String dir = System.getProperty("user.dir") + "/";
 			htmlStr = htmlStr.replace("reference_summary_path", dir + refSummaryPath + fileName)

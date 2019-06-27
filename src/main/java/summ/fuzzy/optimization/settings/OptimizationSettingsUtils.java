@@ -16,7 +16,7 @@ import summ.fuzzy.optimization.mutation.MutationOperatorFactory;
 import summ.fuzzy.optimization.mutation.MutationOperatorFactory.MutationOperatorType;
 import summ.nlp.evaluation.EvaluationMethodFactory;
 import summ.nlp.evaluation.EvaluationTypes;
-import summ.utils.FileUtils;
+import summ.utils.CustomFileUtils;
 
 public class OptimizationSettingsUtils {
 	
@@ -24,7 +24,7 @@ public class OptimizationSettingsUtils {
 
 	public static void loadOptimizationProps(String propertyFilePath, OptimizationSettings rs) {
 		
-		InputStream stream = FileUtils.loadProps(propertyFilePath);
+		InputStream stream = CustomFileUtils.loadProps(propertyFilePath);
 		Properties properties = new Properties();
 
 		try {
