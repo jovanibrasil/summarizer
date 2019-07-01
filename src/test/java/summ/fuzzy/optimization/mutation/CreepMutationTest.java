@@ -6,7 +6,7 @@ import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 import org.junit.jupiter.api.Test;
 
-import summ.fuzzy.optimization.functions.BellFunction;
+import summ.fuzzy.optimization.functions.GbellFunction;
 import summ.fuzzy.optimization.mutation.MutationOperatorFactory.MutationOperatorType;
 
 class CreepMutationTest {
@@ -23,7 +23,7 @@ class CreepMutationTest {
 	
 	@Test
 	void testNormalCreepMutation() {
-		this.m = new CreepMutation(MutationOperatorType.NORMAL_CREEP, new BellFunction());
+		this.m = new CreepMutation(MutationOperatorType.NORMAL_CREEP, new GbellFunction());
 		this.testCoeffientGeneration(0.5, 0.0, 1.0);
 		this.testCoeffientGeneration(2.0, 0.1, 3.0);
 		this.testCoeffientGeneration(0.7, 0.5, 0.9);
@@ -34,7 +34,7 @@ class CreepMutationTest {
 	
 	@Test
 	void testDisturbCreepMutation() {
-		this.m = new CreepMutation(MutationOperatorType.DISTURB_CREEP, new BellFunction());
+		this.m = new CreepMutation(MutationOperatorType.DISTURB_CREEP, new GbellFunction());
 		this.testCoeffientGeneration(0.5, 0.0, 1.0);
 		this.testCoeffientGeneration(2.0, 0.1, 3.0);
 		this.testCoeffientGeneration(0.7, 0.5, 0.9);

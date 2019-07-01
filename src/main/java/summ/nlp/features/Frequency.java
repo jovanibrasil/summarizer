@@ -2,7 +2,6 @@ package summ.nlp.features;
 
 import java.util.HashMap;
 import java.util.HashSet;
-import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Map.Entry;
 
@@ -14,8 +13,6 @@ import summ.model.Sentence;
 import summ.model.Text;
 import summ.model.Word;
 import summ.utils.Pipe;
-import static java.util.stream.Collectors.*;
-import static java.util.Map.Entry.*;
 
 public class Frequency implements Pipe<Text> {
 	
@@ -106,10 +103,6 @@ public class Frequency implements Pipe<Text> {
 			}
 		}
 		
-		// log (matemtica)  log 10 em java -  o inverso de 10^x
-		// ln (matemtica)  a funo log em java que  log_e x ou log x  
-		// 	-  o inverso de e^x e tabm chamado de logaritmo natural
-		
 		Map<String, Double> isf = new HashMap<>();
 		for (Entry<String, HashSet<Integer>> e : index.entrySet()) {
 			isf.put(e.getKey(), Math.log10((double)sentenceCounter / (double)e.getValue().size()));
@@ -121,10 +114,9 @@ public class Frequency implements Pipe<Text> {
 	}
 	
 	/**
-	 * Term frequency Inverse sentence frequency. Calcula o TF-ISF para cada palavra e sentença 
-	 * do texto. Esta implementação considera apenas a análise de texto mono-documento.
+	 * Term frequency Inverse sentence frequency. Calculates the TF-ISF for each word and sentence of the text. 
 	 * 
-	 * 		tf_isf = tf x isf
+	 * tf_isf = tf x isf
 	 * 
 	 */
 	@SuppressWarnings("unchecked")

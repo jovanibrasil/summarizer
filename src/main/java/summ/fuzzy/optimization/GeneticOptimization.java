@@ -12,7 +12,7 @@ import org.apache.log4j.Logger;
 import summ.fuzzy.FuzzySystem;
 import summ.fuzzy.optimization.crossover.CrossoverOperator;
 import summ.fuzzy.optimization.evaluation.ErrorFunctionSummarization;
-import summ.fuzzy.optimization.functions.BellFunction;
+import summ.fuzzy.optimization.functions.GbellFunction;
 import summ.fuzzy.optimization.mutation.MutationOperator;
 import summ.fuzzy.optimization.mutation.UniformMutation;
 import summ.fuzzy.optimization.settings.OptimizationSettings;
@@ -128,7 +128,7 @@ public class GeneticOptimization {
 			this.currentPopulation.add(chromosome);			
 		}
 		
-		MutationOperator fpMutator = new UniformMutation(new BellFunction());
+		MutationOperator fpMutator = new UniformMutation(new GbellFunction());
 		
 		while (this.currentPopulation.size() < this.populationSize) {
 			chromosome = new Chromosome();
@@ -255,7 +255,7 @@ public class GeneticOptimization {
 		
 		// avalia primeiro as funções em relação conformidade das funções
 		for (Chromosome chromosome : currentPopulation) {
-			chromosome.fitness = errorFunction.f(chromosome.getGenes());
+			chromosome.fitness = errorFunction.functionsEvaluation(chromosome.getGenes());
 		}
 		
 		// pega um percentual das melhores e avalia de acordo com a função de avaliação
@@ -266,7 +266,7 @@ public class GeneticOptimization {
 			//if(!chromosome.evaluate) continue;
 				
 			this.fuzzySystem.setCoefficients(chromosome.getGenes());
-			chromosome.fitness += errorFunction.evaluate(this.fuzzySystem);
+			chromosome.fitness += errorFunction.summariesEvaluation(this.fuzzySystem);
 			//chromosome.evaluate = false;
 			population.add(chromosome.deepClone());
 			

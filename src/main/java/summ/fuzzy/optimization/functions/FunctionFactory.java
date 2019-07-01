@@ -5,8 +5,8 @@ public class FunctionFactory {
 	
 	public static Function generateFunctionInfo(FunctionType functionType) {	
 		switch (functionType) {
-			case BELL:
-				return new BellFunction();
+			case GBELL:
+				return new GbellFunction();
 			default:
 				break;
 		}

@@ -1,5 +1,5 @@
 package summ.fuzzy.optimization.functions;
 
 public enum FunctionType {
-	BELL
+	GBELL // Generalized bell function
 }

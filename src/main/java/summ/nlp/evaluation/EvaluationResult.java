@@ -26,7 +26,7 @@ public class EvaluationResult {
 	}
 	
 	public Double getMetricValue(String metricName){
-		return metrics.get(metricName);
+		return this.metrics.containsKey(metricName) ? this.metrics.get(metricName) : 0.0;
 	}
 	
 	public String getEvalName() {

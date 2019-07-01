@@ -9,22 +9,25 @@ import summ.fuzzy.optimization.Chromosome;
 import summ.fuzzy.optimization.functions.Function;
 import summ.utils.MathUtils;
 
+/**
+ * @author Jovani Brasil
+ * 
+ * Geometric mean crossover: the child is formed by the geometric mean between the 
+ * selected parents (Davis 1991). 
+ *
+ */
 public class GeometricMeanCrossover extends CrossoverOperator {
 
 	public GeometricMeanCrossover(Function function) {
 		super(function);
 	}
 
-	/*
-	 * Média simples: Implementação do crossover média (Davis 1991). Dados dois
-	 * cromossomos c1 e c2, um cromossomo c é gerado como c=(c1+c2)/2. Média
-	 * geométrica: Dados dois cromossomos c1 e c2, um cromossomo c é gerado por uma
-	 * média geométrica da seguinte forma c=square_root(c1*c2). Segundo (Lacerda e
-	 * carrvalho), uma vez que o método leva os genes para o meio do intervalo [a,
-	 * b], é causada uma perda de diversidade. Lembrando que um gene que não
-	 * respeita o seu intervalo é dito infactível. TODO variáveis de tamanho
-	 * diferente lançam erro
-	 *
+	/**
+	 * Generated a new chromossome with the geometric mean between two parents.
+	 * 
+	 * @param parent1
+	 * @param parent2
+	 * @return
 	 */
 	public Chromosome mean(Chromosome parent1, Chromosome parent2) {
 		Chromosome child = new Chromosome();
@@ -34,15 +37,15 @@ public class GeometricMeanCrossover extends CrossoverOperator {
 		child.setGenes(result);
 		return child;
 	}
-
-	@Override
-	public List<Chromosome> executeCrossover(Chromosome parent1, Chromosome parent2) {
-		return Arrays.asList(mean(parent1, parent2));
-	}
 	
 	@Override
 	public String toString() {
 		return "Geometric mean crossover";
+	}
+
+	@Override
+	public List<Chromosome> executeCrossover(Chromosome parent1, Chromosome parent2) {
+		return Arrays.asList(mean(parent1, parent2));
 	}
 	
 }

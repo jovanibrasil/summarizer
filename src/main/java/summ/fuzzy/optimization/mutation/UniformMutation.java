@@ -2,6 +2,13 @@ package summ.fuzzy.optimization.mutation;
 
 import summ.fuzzy.optimization.functions.Function;
 
+/**
+ * @author Jovani Brasil.
+ *
+ * Uniform mutation: the new value of a gene is a random number from an uniform distribution 
+ * between the specified limits.
+ *
+ */
 public class UniformMutation extends MutationOperator {
 
 	private Function function;
@@ -12,8 +19,11 @@ public class UniformMutation extends MutationOperator {
 	}
 	
 	/**
-	 * Substitui um gene por um valor aleatorio de uma distribuicao uniforme, dentro os limites do 
-	 * interavalo permitido para cada gene.
+	 * Returns a random value from an uniform distribution between rangeMin and rangeMax.
+	 * 
+	 * @param rangeMin
+	 * @param rangeMax
+	 * @return
 	 */
 	public double uniform(double rangeMin, double rangeMax) {
 		return rangeMin + (rangeMax - rangeMin) * this.rand.nextDouble(); // uniformly distributed double

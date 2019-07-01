@@ -4,7 +4,6 @@ import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
-import java.util.Date;
 import java.util.List;
 
 import org.apache.log4j.LogManager;
@@ -49,7 +48,7 @@ public class Summarizer {
 					fs.setInputVariable(variableName, (double) s.getFeature(variableName));
 				}
 				fs.setOutputVariable(variables.get(variables.size() - 1));
-				System.out.println("[" + s.getId() + "] " + s.getInitialValue());
+				//System.out.println("[" + s.getId() + "] " + s.getInitialValue());
 				
 				boolean showResult = s.getId() == 5 ? false : false;
 				
@@ -74,8 +73,7 @@ public class Summarizer {
 		for (Tuple<Integer> t : outList) {
 
 			Sentence sentence = text.getSentenceById(t.x);
-			// Title sentences are ignored
-			if (sentence.isTitle())
+			if (sentence.isTitle())// Title sentences are ignored
 				continue;
 
 			// counting words
@@ -99,10 +97,10 @@ public class Summarizer {
 	}
 
 	/**
-	 * Evaluates the summary with the method define in the settings file.
+	 * Evaluates the summary with the method defined in the settings file.
 	 * 
 	 * @param generatedSummary
-	 * @return
+	 * @return the evaluation result (EvaluationResult type)
 	 */
 	public EvaluationResult evaluateSummary(EvaluationMethod evaluationMethod, Text generatedSummary) {
 		if (evaluationMethod != null) {
@@ -273,23 +271,6 @@ public class Summarizer {
 		//log.debug("Summarization time (ms) : " + timeElapsed );
 		return generatedSummary;
 	}
-
-//	public List<Text> summarizeTexts(List<Path> texts) {
-//		List<Text> generatedSummaries = new ArrayList<>();
-//		List<EvaluationResult> evaluationResults = new ArrayList<>();
-//		for (Path entry : texts) {
-//			log.info("Processing " + entry.getFileName() + " ...");
-//			Text generatedSummary = this.summarizeText(this.summarizationSettings.FULL_TEXTS_PATH + entry.getFileName(),
-//					this.summarizationSettings.VAR_NAMES);
-//			generatedSummaries.add(generatedSummary);
-//			// evaluate
-//			EvaluationResult result = this.evaluateSummary(summarizationSettings.EVALUATION_METHOD, generatedSummary);
-//			evaluationResults.add(result);
-//		}
-//		// save evaluation results
-//		ExportCSV.saveEvaluationResult(evaluationResults, this.globalSettings.OUTPUT_PATH);
-//		return generatedSummaries;
-//	}
 
 	public List<Text> summarizeTexts(List<Text> texts) {
 		List<Text> generatedSummaries = new ArrayList<>();

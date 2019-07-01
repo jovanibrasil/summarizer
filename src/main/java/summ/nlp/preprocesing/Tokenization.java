@@ -1,6 +1,5 @@
 package summ.nlp.preprocesing;
 
-import java.io.FileInputStream;
 import java.io.InputStream;
 
 import org.apache.log4j.LogManager;

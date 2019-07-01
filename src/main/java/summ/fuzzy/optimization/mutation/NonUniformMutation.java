@@ -4,6 +4,13 @@ import java.util.Random;
 
 import summ.fuzzy.optimization.functions.Function;
 
+/**
+ * @author Jovani Brasil.
+ * 
+ * Gaussian mutation: the new value of a gene is a random number from an non uniform
+ * distribution (Michalewicz, 1994).
+ * 
+ */
 public class NonUniformMutation extends MutationOperator {
 	
 	private Random rand;
@@ -15,10 +22,8 @@ public class NonUniformMutation extends MutationOperator {
 	}
 	
 	/**
-	 * Substitui um gene por um valor aleatorio de uma distribuicao nao uniforme.
+	 * Returns a random gene from a non-uniform distribution.
 	 *
-	 * Referencia: Michalewicz, 1994
-	 * 
 	 * @param g is the current generation
 	 * @param gmax is the max number of generations
 	 * @param e is a system parameter 
@@ -38,13 +43,6 @@ public class NonUniformMutation extends MutationOperator {
 		}
 	}
 	
-	/**
-	 * Aplicacao do operador de mutacao nao uniforme em todos os genes do cromossomo. 
-	 */
-	public void nonUniformMultiple() {
-		throw new UnsupportedOperationException("Operation not implemented yet");
-	}
-
 	@Override
 	public double getAleatoryFeasibleCoefficient(int index) {
 		return nonUniform(0, 5, 5, 0.5, this.function.getRangeMin(index), 

@@ -68,7 +68,6 @@ public class CreepMutation extends MutationOperator {
 
 	@Override
 	public double getAleatoryFeasibleCoefficient(int index) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 

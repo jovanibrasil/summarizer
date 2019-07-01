@@ -10,7 +10,7 @@ import org.apache.log4j.Logger;
 
 import summ.fuzzy.optimization.crossover.CrossoverOperatorFactory;
 import summ.fuzzy.optimization.crossover.CrossoverOperatorFactory.CrossoverOperatorType;
-import summ.fuzzy.optimization.functions.BellFunction;
+import summ.fuzzy.optimization.functions.GbellFunction;
 import summ.fuzzy.optimization.functions.Function;
 import summ.fuzzy.optimization.mutation.MutationOperatorFactory;
 import summ.fuzzy.optimization.mutation.MutationOperatorFactory.MutationOperatorType;
@@ -64,7 +64,7 @@ public class OptimizationSettingsUtils {
 			val = properties.getProperty("evaluation_len", "10");
 			rs.EVALUATION_LEN = Integer.parseInt(val);
 			
-			Function function = new BellFunction();
+			Function function = new GbellFunction();
 			val = properties.getProperty("mutation_operator", "");
 			rs.MUTATION_OPERATOR = MutationOperatorFactory
 					.getMutationOperator(MutationOperatorType.valueOf(val), function);

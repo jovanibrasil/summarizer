@@ -46,13 +46,13 @@ public class NpointInterleaveCrossover extends CrossoverOperator {
 	}
 
 	@Override
-	public List<Chromosome> executeCrossover(Chromosome parent1, Chromosome parent2) {
-		return nPointInterleave(parent1, parent2);
-	}
-
-	@Override
 	public String toString() {
 		return "Npoint Interleave crossover";
+	}
+	
+	@Override
+	public List<Chromosome> executeCrossover(Chromosome parent1, Chromosome parent2) {
+		return nPointInterleave(parent1, parent2);
 	}
 	
 }

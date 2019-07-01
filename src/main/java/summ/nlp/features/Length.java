@@ -15,12 +15,10 @@ public class Length implements Pipe<Text> {
 	private static final Logger log = LogManager.getLogger(Length.class);
 
 	/**
-	 * Sentence length
+	 * Calculated the sentence length.
 	 * 
 	 * Simple length is the sentence length divided by the length of the longest
 	 * sentence of the text.
-	 * 
-	 * Calcula a feature comprimento da sentença.
 	 *
 	 * len = ln(tla - | (tla - tl) / tal |)
 	 *

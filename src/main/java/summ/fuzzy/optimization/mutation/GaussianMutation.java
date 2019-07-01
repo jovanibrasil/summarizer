@@ -2,6 +2,12 @@ package summ.fuzzy.optimization.mutation;
 
 import summ.fuzzy.optimization.functions.Function;
 
+/**
+ * @author Jovani Brasil.
+ * 
+ * Gaussian mutation: the new value of a gene is a random number from an normal distribution.
+ * 
+ */
 public class GaussianMutation extends MutationOperator {
 
 	private Function function;
@@ -12,9 +18,11 @@ public class GaussianMutation extends MutationOperator {
 	}
 	
 	/**
-	 * Substitui um gene por um valor aleatorio de uma distribuicao normal, dentro dos limites do 
-	 * intervalo permitido para cada gene.
+	 * Returns a random value from a normal distribution between rangeMin and rangeMax.
 	 * 
+	 * @param mean
+	 * @param standardDeviation
+	 * @return
 	 */
 	public double gaussian(double mean, double standardDeviation) {
 		return this.rand.nextGaussian() * standardDeviation + mean; 
@@ -47,7 +55,6 @@ public class GaussianMutation extends MutationOperator {
 
 	@Override
 	public double getAleatoryFeasibleCoefficient(double min, double max) {
-		// TODO Auto-generated method stub
 		return 0;
 	}
 	

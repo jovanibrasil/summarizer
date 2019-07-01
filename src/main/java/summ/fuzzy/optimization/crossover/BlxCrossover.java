@@ -12,9 +12,16 @@ import org.apache.log4j.Logger;
 import summ.fuzzy.optimization.Chromosome;
 import summ.fuzzy.optimization.functions.Function;
 
+/**
+ * @author Jovani Brasil.
+ * 
+ * BLX-ALPHA Crossover (Blend Crossover)
+ *
+ */
 public class BlxCrossover extends CrossoverOperator {
 
-	private static final Logger log = LogManager.getLogger(CrossoverOperator.class);
+	private static final Logger log = LogManager.getLogger(BlxCrossover.class);
+	private double alpha = 0.4;
 	
 	public BlxCrossover(Function function) {
 		super(function);
@@ -25,7 +32,6 @@ public class BlxCrossover extends CrossoverOperator {
 		Random rand = new Random();
 		for (int index = 0; index < p1.getDimension(); index++) {
 
-			// TODO variáveis de tamanho diferente lançam erro
 			double p1Coef = p1.getEntry(index);
 			double p2Coef = p2.getEntry(index);
 			
@@ -38,17 +44,14 @@ public class BlxCrossover extends CrossoverOperator {
 			while (true) { // while the solution is not feasible
 
 				if (iterationControl == 1000) {
-					//log.error("Não foi possível gerar genes factíveis com o blx-alpha");
+					log.trace("Não foi possível gerar genes factíveis com o blx-alpha");
 					value = rand.nextBoolean() ? p1Coef : p2Coef;
 					break;
 				}
 
-				// nextDouble returns the next pseudorandom, uniformly distributed double value between 0.0 and 1.0
+				// nextDouble returns the next pseudo random, uniformly distributed double value between 0.0 and 1.0
 				value = rangeMin + (rangeMax - rangeMin) * rand.nextDouble();
-
-				if (this.function.isFeasibleValue(index, value)) { // break the loop if the solution if feasible
-					break;
-				}
+				if (this.function.isFeasibleValue(index, value)) break; // break the loop if the solution if feasible
 				
 				iterationControl += 1;
 			}
@@ -57,15 +60,15 @@ public class BlxCrossover extends CrossoverOperator {
 		return child;
 	}
 
-	/*
-	 * O crossover blx-alpha ou crossover mistura (blend crossover) beta pertence a
-	 * uma distribuição uniforme entre -alpha e 1+alpha o alpha extende o intervalo
-	 * para ambos os lados
+	/**
+	 * Generated a new chromossome where each gene is a uniformly distributed double 
+	 * between an extended interval controlled by alpha.
 	 * 
-	 * # TODO variáveis de tamanho diferente lançam erro
+	 * @param c1
+	 * @param c2
+	 * @return
 	 */
 	public Chromosome blxAlpha(Chromosome c1, Chromosome c2) {
-		double alpha = 0.4;
 		Chromosome child = new Chromosome();
 		RealVector coefficients = generateBlx(c1.getGenes(), c2.getGenes(), alpha);
 		child.setGenes(coefficients);
