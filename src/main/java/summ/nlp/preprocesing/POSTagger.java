@@ -32,14 +32,20 @@ public class POSTagger implements Pipe<Text> {
 	
 	private static final Logger log = LogManager.getLogger(POSTagger.class);
 	
+	/**
+	 * Identify the type of each word of the text (Part-of-speech (POS) analysis).
+	 * 
+	 * @param text
+	 * @return
+	 */
 	public Text pos(Text text) {
 		InputStream model = null;
 		try {
 			log.debug("Executing POSTagger for each word in the text " + text.getName());
 			model = ClassLoader.getSystemClassLoader().getResourceAsStream("models/pt-pos-perceptron.bin");
 			POSModel posModel = new POSModel(model);
-			// uses maximum entropy model 
-			POSTaggerME posTagger = new POSTaggerME(posModel);
+			 
+			POSTaggerME posTagger = new POSTaggerME(posModel); // uses maximum entropy model
 			
 			for (Sentence sentence : text.getSentences()) {
 				String tags[] = posTagger.tag(sentence.getRawWords());

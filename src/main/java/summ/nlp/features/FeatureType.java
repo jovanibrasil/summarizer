@@ -1,6 +1,14 @@
 package summ.nlp.features;
 
 public enum FeatureType {
-	TFIDF, TFISF, TF, LOCATION, LENGTH, LOC_LEN,
-	ISF, TITLE_WORDS, FREQUENCY, TEXTRANK
+	TFIDF, // Term frequency inverse document frequency 
+	TFISF, // Term frequency inverse sentence frequency 
+	TF, // Term frequency
+	LOCATION, 
+	LENGTH, 
+	LOC_LEN, // Location and length correlation
+	ISF,// Inverse sentence frequency
+	TITLE_WORDS, 
+	FREQUENCY, 
+	TEXTRANK
 }

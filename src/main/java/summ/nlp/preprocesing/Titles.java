@@ -12,9 +12,11 @@ public class Titles implements Pipe<Text> {
 
 	private static final Logger log = LogManager.getLogger(Titles.class);
 	
-	/*
+	/**
 	 * Verify if a sentence is a title. A sentence is a title if it begins with number OR if sentence length is less 
 	 * than the average sentence length and the paragraph has only one sentence.
+	 * 
+	 * @param text
 	 * 
 	 */
 	public static Text identifyTitles(Text text) {

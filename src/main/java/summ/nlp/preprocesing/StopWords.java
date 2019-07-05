@@ -19,12 +19,12 @@ public class StopWords implements Pipe<Text> {
 	private static final Logger log = LogManager.getLogger(StopWords.class);
 	private static HashSet<String> stopWords = null;
 	
-	public boolean isStopWord(String str) {
-		if (stopWords.contains(str))
-			return true;
-		return false;
-	}
-	
+	/**
+	 * Remove all stop words from text.
+	 * 
+	 * @param text
+	 * @return
+	 */
 	public Text removeStopWords(Text text) {
 		log.debug("Remove stopwords in the text " + text.getName());
 		if(stopWords == null) {
@@ -47,11 +47,28 @@ public class StopWords implements Pipe<Text> {
 		} 
 		return text;
 	}
+	
+	/**
+	 * Verifies if a word is a stop word. 
+	 * 
+	 * @param word
+	 * @return
+	 */
+	public boolean isStopWord(String word) {
+		if (stopWords.contains(word))
+			return true;
+		return false;
+	}
 
-	private void loadStopWords(String stopFile) {
+	/**
+	 * Load stop words file from the specified directory.
+	 * 
+	 * @param stopFilePath
+	 */
+	private void loadStopWords(String stopFilePath) {
 		log.debug("Loading stopwords file.");
 		stopWords = new HashSet<String>();
-		try (InputStream text = getClass().getResourceAsStream(stopFile)){
+		try (InputStream text = getClass().getResourceAsStream(stopFilePath)){
 			BufferedReader br = new BufferedReader(new InputStreamReader(text));
 			String line;
 		    while ((line = br.readLine()) != null) {

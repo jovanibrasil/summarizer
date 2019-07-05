@@ -14,6 +14,13 @@ public class Stemmer implements Pipe<Text> {
 
 	private static final Logger log = LogManager.getLogger(Stemmer.class);
 	
+	/**
+	 * Reduces a words to its word root. This method uses the Tartarus snowball 
+	 * portuguese stemmer.
+	 * 
+	 * @param token
+	 * @return stemmed token
+	 */
 	public String stemToken(String token) {
 		PortugueseStemmer ps = new PortugueseStemmer();
 		ps.setCurrent(token);

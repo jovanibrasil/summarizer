@@ -17,15 +17,22 @@ public class Length implements Pipe<Text> {
 	/**
 	 * Calculated the sentence length.
 	 * 
-	 * Simple length is the sentence length divided by the length of the longest
+	 * Simple length: is the sentence length divided by the length of the longest
 	 * sentence of the text.
 	 *
-	 * len = ln(tla - | (tla - tl) / tal |)
+	 * Relative length: break the text in two blocks and calculates the average length and
+	 * the standard deviation for each bloc. Then the relative length calculus for each 
+	 * sentence of the text is:
 	 *
-	 * Cada parágrafo é quebrado em dois e analisado individualmente.
+	 * 	len = ln(tla - | (tla - tl) / tal |) where
 	 *
-	 * tla - média da quantidade de termos das sentenças tl - quantidade de termos
-	 * de uma sentença tal - desvio padrão
+	 * 	tla -average length 
+	 * 	tl - sentence length
+	 * 	tal - standard deviation
+	 * 
+	 * The relative length is bigger as they approaches to the average sentence length.
+	 * 
+	 * @param text
 	 * 
 	 */
 	private Text length(Text text) {

@@ -17,7 +17,6 @@ import summ.utils.Pipe;
  * The goal of named entity recognition is to find named entities like people, locations, organizations and 
  * other named things in a given text.
  * 
- * 
  */
 public class NER implements Pipe<Text> {
 	

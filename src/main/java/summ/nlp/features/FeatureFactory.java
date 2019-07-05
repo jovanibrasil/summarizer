@@ -9,7 +9,7 @@ public class FeatureFactory {
 		switch (featureType) {
 			case FREQUENCY:
 				return new Frequency();
-			case ISF:
+			case ISF: 
 				return new Frequency();
 			case LENGTH:
 				return new Length();

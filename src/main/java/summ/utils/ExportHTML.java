@@ -17,8 +17,7 @@ public class ExportHTML {
 	private static final Logger log = LogManager.getLogger(ExportHTML.class);
 	
 	/**
-	 * 
-	 * Exporta uma lista de sentencas com os respectivos valores de suas features.
+	 * Exports the sentences with their respective features values 
 	 * 
 	 * @param text
 	 * @param selectedFeatures
@@ -55,8 +54,7 @@ public class ExportHTML {
 	}
 	
 	/**
-	 *
-	 * Exporta o texto reescrito e marcado com as sentencas escolhidas.
+	 * Exports the text with highlighted selected sentences. 
 	 * 
 	 * @param text
 	 * @param selectedSentences

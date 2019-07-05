@@ -23,7 +23,7 @@ public class GeometricMeanCrossover extends CrossoverOperator {
 	}
 
 	/**
-	 * Generated a new chromossome with the geometric mean between two parents.
+	 * Generates a new chromossome with the geometric mean between two parents.
 	 * 
 	 * @param parent1
 	 * @param parent2

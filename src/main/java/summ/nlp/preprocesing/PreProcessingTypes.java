@@ -12,8 +12,8 @@ public enum PreProcessingTypes {
 	WHITE_SPACE_TOKENIZATION,
 	ME_TOKENIZATION, // Maximum entropy tokenization
 	REMOVE_STOPWORDS,
-	NER,
-	POS,
+	NER, // Named EntityRecognition
+	POS, // Part-Of-Speech
 	IDENTIFY_TITLES,
 	LEMMATIZATION
 }

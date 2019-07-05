@@ -16,6 +16,11 @@ public class Lemmatizer implements Pipe<Text> {
 	
 	private LemmaDictionary dict;
 
+	/**
+	 * 
+	 * 
+	 * @param token
+	 */
 	public void analyzeToken(Word token) {
 		String tag = token.getPosTag();
 		String word = token.getInitialValue();

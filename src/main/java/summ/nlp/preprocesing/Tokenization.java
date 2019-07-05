@@ -26,6 +26,8 @@ public class Tokenization implements Pipe<Text> {
 	/**
 	 * Maximum entropy based sentence tokenization. 
 	 * 
+	 * @param text
+	 * 
 	 */
 	public Text tokenization(Text text) {
 		InputStream model = null;
@@ -67,6 +69,9 @@ public class Tokenization implements Pipe<Text> {
 	
 	/**
 	 * Sentence tokenization based only on whitespace characters as delimiters. 
+	 * 
+	 * @param text
+	 * 
 	 */
 	public Text whiteSpaceTokenization(Text text) {
 		log.debug("Executing whitespace based tokenization for each sentence in the text " + text.getName());
@@ -86,6 +91,9 @@ public class Tokenization implements Pipe<Text> {
 	
 	/**
 	 * Sentence tokenization that splits sentence into numbers, words and punctuation.
+	 * 
+	 * @param text
+	 * 
 	 */
 	public  Text simpleTokenization(Text text) {
 		log.debug("Executing simple tokenization for each sentence in the text " + text.getName());

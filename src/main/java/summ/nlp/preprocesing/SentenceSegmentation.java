@@ -17,6 +17,12 @@ public class SentenceSegmentation implements Pipe<Text> {
 	
 	private static final Logger log = LogManager.getLogger(SentenceSegmentation.class);
 	
+	/**
+	 * Segment each text paragraph into sentences.
+	 * 
+	 * @param text
+	 * @return
+	 */
 	public Text segmentSentences(Text text) {
 		InputStream model = null;
 		try {
