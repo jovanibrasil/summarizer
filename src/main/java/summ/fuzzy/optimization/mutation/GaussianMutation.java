@@ -18,7 +18,8 @@ public class GaussianMutation extends MutationOperator {
 	}
 	
 	/**
-	 * Returns a random value from a normal distribution between rangeMin and rangeMax.
+	 * Returns a random value from a normal distribution with specified mean
+	 * and standard deviation.
 	 * 
 	 * @param mean
 	 * @param standardDeviation
@@ -42,7 +43,7 @@ public class GaussianMutation extends MutationOperator {
 			val = gaussian(mean, standardDeviation);
 			counter++;
 			if(counter == 40) {
-				return rangeMin + (rangeMax - rangeMin) / 2;
+				return rangeMin + (rangeMax - rangeMin) / 2; // mean between the range
 			}
 		}
 		return val; 

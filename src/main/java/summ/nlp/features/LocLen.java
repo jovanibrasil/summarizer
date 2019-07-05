@@ -12,7 +12,7 @@ public class LocLen implements Pipe<Text> {
 	private static final Logger log = LogManager.getLogger(LocLen.class);
 	
 	/**
-	 * Correlation between location and length. 
+	 * Calculates the correlation between location and length. 
 	 * 
 	 */
 	public Text locLen(Text text) {

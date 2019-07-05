@@ -15,9 +15,10 @@ public class Title implements Pipe<Text> {
 	private static final Logger log = LogManager.getLogger(Title.class);
 	
 	/**
-	 * Title words
+	 * Compute the feature title similarity for each sentence. The value of this
+	 * feature is the sum of all words tf-isf that occurs in the title and in the sentence.   
 	 * 
-	 * This method ignores any title.
+	 * @param text
 	 * 
 	 */
 	@SuppressWarnings("unchecked")

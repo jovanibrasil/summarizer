@@ -23,7 +23,8 @@ public class Location implements Pipe<Text> {
 	/**
 	 * Simple sentence location and the relative sentence location.
 	 *
-	 * Razão entre posição no parágrafo e tamanho da sentença
+	 * The first and last sentences relative location are bigger than middle 
+	 * sentences relative location. 
 	 *
 	 */
 	public Text location(Text text) {

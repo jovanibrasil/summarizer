@@ -1,6 +1,5 @@
 package summ.summarizer;
 
-import java.nio.file.Path;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
@@ -15,12 +14,12 @@ import summ.model.Sentence;
 import summ.model.Text;
 import summ.nlp.evaluation.EvaluationMethod;
 import summ.nlp.evaluation.EvaluationResult;
+import summ.settings.GlobalSettings;
 import summ.settings.SummarizationSettings;
 import summ.settings.SummarizationSettings.SummarizationType;
-import summ.settings.GlobalSettings;
+import summ.utils.CustomFileUtils;
 import summ.utils.ExportCSV;
 import summ.utils.ExportHTML;
-import summ.utils.CustomFileUtils;
 import summ.utils.Pipeline;
 import summ.utils.Tuple;
 import summ.utils.Utils;
@@ -118,18 +117,13 @@ public class Summarizer {
 			generatedSummary.setEvaluationResult(evaluationResult);
 			
 			/*
-			 * 
-			 * Gera sumário referência commarcações das sentenças selecionadas no sumário
-			 * gerado.
-			 * 
+			 * Exports the reference summary with selected sentences marked with underline.
 			 */
 			String refSentences = "";
-			int id = 0;
 			// save extra formats
 			for (Sentence s : referenceSummary.getSentences()) {
 				refSentences += generatedSummary.containsSentence(s) ? " \\uline{" + s.getInitialValue() + "} "
 						: s.getInitialValue();
-				id++;
 			}
 			refSentences += "\n";
 
@@ -264,8 +258,7 @@ public class Summarizer {
 		
 		// save result
 		if(saveResults) ExportHTML.exportSummaryRougeFormat(generatedSummary, this.globalSettings.OUTPUT_PATH);
-		
-		EvaluationResult result = this.evaluateSummary(summarizationSettings.EVALUATION_METHOD, generatedSummary);
+		this.evaluateSummary(summarizationSettings.EVALUATION_METHOD, generatedSummary);
 		
 		//long timeElapsed = (System.nanoTime() - startTime) / 1000000;
 		//log.debug("Summarization time (ms) : " + timeElapsed );
@@ -299,20 +292,17 @@ public class Summarizer {
 			// Run a single text summarization
 			
 			Text text =  CustomFileUtils.loadText(this.summarizationSettings.FULL_TEXTS_PATH + this.summarizationSettings.TEXT_NAME);
-			//System.out.println(text.getSentences().toString());
 			Text generatedSummary = this.summarizeText(text, summarizationSettings.VAR_NAMES, true);
-			//System.out.println(generatedSummary);
 			log.info(generatedSummary.getEvaluationResult());
 			
 			this.saveResult(generatedSummary, "summ-text");
 
 			/*
-			 * Gera lista de sentenças numeradas.
+			 * Generated a file with summary sentences (numbered).
 			**/
 
 			String numeredSentences = "";
 			int id = 0;
-			// save extra formats
 			for (Sentence s : generatedSummary.getSentences()) {
 				numeredSentences += " [" + id++ + "] " + s.getInitialValue();
 			}
@@ -339,7 +329,6 @@ public class Summarizer {
 				
 			}else {
 				// Run an specified list of summaries
-				List<Path> texts;
 				globalSettings.OUTPUT_PATH = "results/summ_" + Utils.generateStringFormattedData();
 				CustomFileUtils.createDir(globalSettings.OUTPUT_PATH);
 				int corpusSize = this.summarizationSettings.SAMPLE_SIZE;

@@ -5,11 +5,9 @@ import java.util.ArrayList;
 public class Summary {
 
 	private ArrayList<Paragraph> paragraphs;
-	private String rawSummary;
 	
 	public Summary(String rawSummary) {
 		this.paragraphs = new ArrayList<>();
-		this.rawSummary = rawSummary;
 	}
 	
 	public Summary() {

@@ -7,6 +7,14 @@ import org.apache.commons.io.FileUtils;
 
 public class XmlUtils {
 
+	/**
+	 * Generates a ROUGE configuration file with the specified paths.
+	 * 
+	 * @param refSummaryPath
+	 * @param genSummaryPath
+	 * @param fileName
+	 * @param outputPath
+	 */
 	public static void createConfigurationFile(String refSummaryPath, String genSummaryPath,
 			String fileName, String outputPath) {
 		try {

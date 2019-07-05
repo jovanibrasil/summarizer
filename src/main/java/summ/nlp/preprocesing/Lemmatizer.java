@@ -17,7 +17,7 @@ public class Lemmatizer implements Pipe<Text> {
 	private LemmaDictionary dict;
 
 	/**
-	 * 
+	 * Lemmatizes a specified token.
 	 * 
 	 * @param token
 	 */

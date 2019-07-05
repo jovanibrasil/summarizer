@@ -72,11 +72,11 @@ public class Frequency implements Pipe<Text> {
 	}
 	
 	/**
-	 * Inverse sentence Frequency
+	 * Calculates the Inverse sentence Frequency (isf) for each word.
 	 * 		
-	 * 		isf = log(N/n)
-	 * 		N número de sentenças do documento
-	 *		n número de sentenças que contém o termo
+	 * 	isf = log(N/n)
+	 * 	N total number of sentences in the text
+	 *	n number of sentences that contains the term
 	 *  
 	 */
 	public void isf(Text text) {

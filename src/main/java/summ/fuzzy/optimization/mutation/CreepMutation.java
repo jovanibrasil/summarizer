@@ -8,25 +8,21 @@ public class CreepMutation extends MutationOperator {
 	private MutationOperatorType type;
 	private double max;
 	private double min; 
-	private Function function;
 	
 	public CreepMutation(MutationOperatorType creepType, Function function) {
 		super();
 		this.type = creepType;
-		this.function = function;
 		
 		if(this.type.equals(MutationOperatorType.NORMAL_CREEP)) {
 			this.max = +0.05; this.min = -0.05;
 		}else {
 			this.max = 1.2; this.min = 0.98; 
 		}
-		
 	}
 
 	/**
-	 * Adiciona um pequeno numero aleatorio ao gene. Este numero aleatorio pode ser obtido atraves
-	 * de uma distribuicao normal (media zero e desvio padrao pequeno) ou uma distribuicao uniforme.
-	 * 
+	 * Add a random number to the gene current value. This random number can be obtained
+	 * from a normal (mean zero and low standard deviation) or a uniform distribution.  
 	 */
 	public double creepNormal(double val, double rangeMin, double rangeMax) {
 		double result, disturb;
@@ -41,15 +37,13 @@ public class CreepMutation extends MutationOperator {
 	}
 	
 	/**
-	 * Tambem e possivel obter a mutacao creep atraves da multiplicacao do valor do gene com um valor
-	 * muito proximo de um, para apenas gerar uma pequena perturbacao no cromossomo e leva-lo mais 
-	 * rapidamente ao topo.
-	 * 
+	 * Multiply the gene value by a value close to one. This will cause a disturb in
+	 * the chromossome value that can lead to a converge point. 
 	 **/
 	public double creepDisturb(double val, double rangeMin, double rangeMax) {
 		double result, disturb;
 		int counter = 0;
-		while(counter < 100) {
+		while(counter < 100) { // try to find a feasible value 100 times 
 			disturb = this.min + (this.max - this.min) * this.rand.nextDouble(); 
 			result = val * disturb;
 			if(result >= rangeMin && result <= rangeMax) return result;
@@ -58,13 +52,10 @@ public class CreepMutation extends MutationOperator {
 		return val;
 	}
 	
-	
-	
 	@Override
 	public String toString() {
 		return "Creep mutation";
 	}
-	
 
 	@Override
 	public double getAleatoryFeasibleCoefficient(int index) {

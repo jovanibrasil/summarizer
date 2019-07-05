@@ -22,6 +22,12 @@ public class NER implements Pipe<Text> {
 	
 	private static final Logger log = LogManager.getLogger(NER.class);
 
+	/**
+	 * Applies NER (Named entity recognition) for each word of the text. 
+	 * 
+	 * @param text
+	 * @return
+	 */
 	public Text ner(Text text) {
 		InputStream model = null;
 		try {
