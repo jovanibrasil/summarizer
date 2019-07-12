@@ -4,11 +4,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import org.junit.jupiter.api.Test;
 
-import net.sourceforge.jFuzzyLogic.membership.MembershipFunction;
-import net.sourceforge.jFuzzyLogic.membership.MembershipFunctionGenBell;
-import net.sourceforge.jFuzzyLogic.membership.Value;
-import net.sourceforge.jFuzzyLogic.rule.LinguisticTerm;
-import net.sourceforge.jFuzzyLogic.rule.Variable;
+import jFuzzyLogic.membership.MembershipFunction;
+import jFuzzyLogic.membership.MembershipFunctionGenBell;
+import jFuzzyLogic.membership.Value;
+import jFuzzyLogic.rule.LinguisticTerm;
+import jFuzzyLogic.rule.Variable;
 
 class FuzzySystemTest {
 

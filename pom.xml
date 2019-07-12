@@ -15,6 +15,13 @@
 		<maven.compiler.target>${java.version}</maven.compiler.target>
 	</properties>
 
+	<repositories>
+		<repository>
+			<id>jitpack.io</id>
+			<url>https://jitpack.io</url>
+		</repository>
+	</repositories>
+
 	<dependencies>
 		<dependency>
 			<groupId>log4j</groupId>
@@ -53,11 +60,6 @@
 			<scope>test</scope>
 		</dependency>
 		<dependency>
-			<groupId>net.sourceforge.jFuzzyLogic</groupId>
-			<artifactId>jFuzzyLogic</artifactId>
-			<version>1.0</version>
-		</dependency>
-		<dependency>
 			<groupId>org.jfree</groupId>
 			<artifactId>jfreechart</artifactId>
 			<version>1.0.19</version>
@@ -66,6 +68,11 @@
 			<groupId>org.apache.lucene</groupId>
 			<artifactId>lucene-snowball</artifactId>
 			<version>3.0.3</version>
+		</dependency>
+		<dependency>
+			<groupId>com.github.jovanibrasil</groupId>
+			<artifactId>jFuzzyLogic</artifactId>
+			<version>1.1</version>
 		</dependency>
 	</dependencies>
 

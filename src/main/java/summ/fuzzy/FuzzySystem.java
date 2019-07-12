@@ -8,22 +8,22 @@ import org.apache.commons.math3.linear.RealVector;
 import org.apache.log4j.LogManager;
 import org.apache.log4j.Logger;
 
-import net.sourceforge.jFuzzyLogic.FIS;
-import net.sourceforge.jFuzzyLogic.FunctionBlock;
-import net.sourceforge.jFuzzyLogic.Gpr;
-import net.sourceforge.jFuzzyLogic.defuzzifier.Defuzzifier;
-import net.sourceforge.jFuzzyLogic.defuzzifier.DefuzzifierCenterOfArea;
-import net.sourceforge.jFuzzyLogic.defuzzifier.DefuzzifierCenterOfGravity;
-import net.sourceforge.jFuzzyLogic.defuzzifier.DefuzzifierLeftMostMax;
-import net.sourceforge.jFuzzyLogic.defuzzifier.DefuzzifierMeanMax;
-import net.sourceforge.jFuzzyLogic.defuzzifier.DefuzzifierRightMostMax;
-import net.sourceforge.jFuzzyLogic.membership.MembershipFunction;
-import net.sourceforge.jFuzzyLogic.membership.MembershipFunctionGenBell;
-import net.sourceforge.jFuzzyLogic.membership.Value;
-import net.sourceforge.jFuzzyLogic.plot.JFuzzyChart;
-import net.sourceforge.jFuzzyLogic.rule.LinguisticTerm;
-import net.sourceforge.jFuzzyLogic.rule.RuleBlock;
-import net.sourceforge.jFuzzyLogic.rule.Variable;
+import jFuzzyLogic.FIS;
+import jFuzzyLogic.FunctionBlock;
+import jFuzzyLogic.Gpr;
+import jFuzzyLogic.defuzzifier.Defuzzifier;
+import jFuzzyLogic.defuzzifier.DefuzzifierCenterOfArea;
+import jFuzzyLogic.defuzzifier.DefuzzifierCenterOfGravity;
+import jFuzzyLogic.defuzzifier.DefuzzifierLeftMostMax;
+import jFuzzyLogic.defuzzifier.DefuzzifierMeanMax;
+import jFuzzyLogic.defuzzifier.DefuzzifierRightMostMax;
+import jFuzzyLogic.membership.MembershipFunction;
+import jFuzzyLogic.membership.MembershipFunctionGenBell;
+import jFuzzyLogic.membership.Value;
+import jFuzzyLogic.plot.JFuzzyChart;
+import jFuzzyLogic.rule.LinguisticTerm;
+import jFuzzyLogic.rule.RuleBlock;
+import jFuzzyLogic.rule.Variable;
 
 public class FuzzySystem {
 	
