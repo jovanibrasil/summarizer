@@ -37,9 +37,10 @@ coeficientes otimizados.
 Os parâmetros de entrada para a solução são um corpus, um conjunto de regras, as configurações de compressão
  a serem aplicadas e as configurações do processo de otimização. 
 
+<p align="center">
 <img src="/imgs/arquitetura-geral.jpg" width="400" height="200"/>
-
-Figura 1.0 - Arquitetura geral para otimização do sumarizador
+</p>
+<p align="center">Figura 1.0 - Arquitetura geral para otimização do sumarizador</p>
 
 O corpus é composto por pares (texto, sumário). Nas configurações de compressão temos informações de quanto 
 devemos reduzir de um texto para chegar ao sumário e nas configurações de otimização temos informações como 
@@ -50,9 +51,10 @@ A arquitetura do sumarizador fuzzy pode ser conferida na Figura 1.1. O sumarizad
 como entrada um documento a ser sumarizado, as configurações de compressão e uma base de conhecimento. 
 A saída do sumarizador é um sumário gerado a partir das configurações de entrada.
 
+<p align="center">
 <img src="/imgs/arquitetura-sumarizador.jpg" width="400" height="200"/>
-
-Figura 1.1 Arquitetura detalhada do sumarizador
+</p>
+<p align="center">Figura 1.1 Arquitetura detalhada do sumarizador</p>
 
 A arquitetura do sumarizador é composta de quatro módulos responsáveis por etapas distintas no processo de 
 sumarização. Tais módulos são: pré-processamento, computação de features das sentenças, sistema fuzzy e seleção 
