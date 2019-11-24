@@ -38,7 +38,7 @@ Os parâmetros de entrada para a solução são um corpus, um conjunto de regras
  a serem aplicadas e as configurações do processo de otimização. 
 
 <p align="center">
-<img src="/imgs/arquitetura-geral.jpg" width="400" height="200"/>
+<img src="/imgs/arquitetura-geral.jpg" width="40%" height="40%"/>
 </p>
 <p align="center">Figura 1.0 - Arquitetura geral para otimização do sumarizador</p>
 
@@ -52,7 +52,7 @@ como entrada um documento a ser sumarizado, as configurações de compressão e 
 A saída do sumarizador é um sumário gerado a partir das configurações de entrada.
 
 <p align="center">
-<img src="/imgs/arquitetura-sumarizador.jpg" width="400" height="200"/>
+<img src="/imgs/arquitetura-sumarizador.jpg" width="40%" height="40%"/>
 </p>
 <p align="center">Figura 1.1 Arquitetura detalhada do sumarizador</p>
 
